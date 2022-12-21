@@ -1,0 +1,39 @@
+
+header{
+    width: 100%;
+    display: flex;
+    position: fixed;
+    flex-wrap: nowrap;
+    height: 100px;
+    /* padding-top: 10px; */
+    padding-bottom: 10px;
+    color: #000;
+    /* background-color: rgba(161, 161, 161, 0.412); */
+}
+header > div {
+    width: 100%;
+    margin: 10px;
+    text-align: center;
+    line-height: 75px;
+  }
+
+
+.leftSide{
+    text-align: left;
+}
+.leftSide>img{
+    width: 100px;
+}
+
+.rightSide{
+    text-align: right;
+    color: var(--white);
+}
+.rightSide>ul{
+    list-style: none;
+    padding-right: 50px;
+}
+.rightSide > ul > li{
+    display: inline;
+    padding: 20px;
+}

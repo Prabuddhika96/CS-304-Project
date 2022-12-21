@@ -1,0 +1,36 @@
+
+.parallax {
+    /* The image used */
+    background-image: url("../Img/landing.jpg");
+
+    /* Set a specific height */
+    min-height: 640px; 
+
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    color: white;
+    padding: 50px;
+}
+
+.parallax-middle{
+    position: absolute;
+    width: 60%;
+
+    right: 0;
+    left: 0;
+    top: 300px;
+    margin: auto;
+
+    background-color: rgba(0, 0, 0, 0.523);
+    padding: 10px;
+}
+
+.abc{
+    height:1000px;
+    background-color:var(--backgroundColor);
+    /* font-size:36px */
+}

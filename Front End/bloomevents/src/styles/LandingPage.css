@@ -1,0 +1,18 @@
+.explore-btn{
+    border: 3px solid #D3A265;
+    margin-right: 0;
+}
+
+.parallax {
+    /* The image used */
+    background-image: url("../Img/landing.jpg");
+  
+    /* Set a specific height */
+    min-height: 600px; 
+  
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }

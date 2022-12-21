@@ -1,0 +1,9 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components{
+    .header-btn{
+        @apply border-[#ffa537] border-2 border-solid px-3 py-1 hover:bg-[#d48019] hover:duration-150 text-[#000] rounded-md;
+    }
+}
