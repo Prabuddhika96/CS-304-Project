@@ -12,6 +12,11 @@
     .success-card-image{
         @apply text-[#FF4C0A] mx-auto text-center border-[#FF4C0A] p-8 rounded-3xl border-solid border-2 text-[150px];
     }
+    .service-card{
+        @apply flex overflow-hidden h-56 bg-[#1E1E1E] border-[#FF4C0A] w-8/12 mx-auto my-5 
+        text-center border rounded-xl drop-shadow-lg hover:scale-[1.01] 
+        hover:duration-300;
+    }
 }
 
 .parallax {
