@@ -16,7 +16,7 @@ function Header() {
   return (
     <div>
             <header className={`px-50 text-center text-[90] flex z-50 top-0 w-full ease-in-out duration-200 fixed ${
-            small ? "bg-[#0000007d] py-2" : "py-1"
+            small ? "bg-[#000000a8] py-2" : "py-1"
             }`}>
                 <div className='w-2/12 pl-20 text-left'>
                     <Link to='/'><img src={logo} alt="" className='w-28 hover:shadow-lg hover:shadow-[#FF4C0A] hover:duration-300'/></Link>

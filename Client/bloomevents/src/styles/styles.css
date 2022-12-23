@@ -3,7 +3,24 @@
 @tailwind utilities;
 
 @layer components{
-    .neon-light{
-        @apply 
+    .footer-social-media{
+        @apply inline px-2 mt-2 text-2xl text-[#FF4C0A] hover:scale-[1.2] hover:duration-300;
     }
+    .footer-links{
+        @apply text-base hover:text-[#FF4C0A] hover:duration-200;
+    }
+}
+
+.parallax {
+    /* The image used */
+    background-image: url("img/parallax.jpg");
+  
+    /* Set a specific height */
+    min-height: 400px;
+  
+    /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
