@@ -17,6 +17,14 @@
         text-center border rounded-xl drop-shadow-lg hover:scale-[1.01] 
         hover:duration-300;
     }
+
+    .service-drop-down{
+        @apply w-6/12 border border-[#FF4C0A] border-solid mx-1 focus:border-2;
+    }
+
+    .service-card-area{
+        @apply my-10
+    }
 }
 
 .parallax {
