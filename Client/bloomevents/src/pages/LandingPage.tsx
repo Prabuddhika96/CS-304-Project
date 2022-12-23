@@ -68,11 +68,11 @@ function LandingPage() {
 
       {/* Section 3 */}
       <div className='text-center'>
-        <h2 className='text-2xl'>We bring dedicated</h2>
+        <h2 className='text-4xl uppercase'>We bring dedicated</h2>
 
         <div className="my-14 parallax"></div>
 
-        <p className='w-8/12 mx-auto text-base text-center'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam deserunt maxime, voluptatibus dignissimos minima laudantium blanditiis? Fugit, deleniti. Iusto in, odio non neque error fugit dolore! Quam eligendi exercitationem impedit?</p>
+        <p className='w-8/12 mx-auto text-lg text-center'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsam deserunt maxime, voluptatibus dignissimos minima laudantium blanditiis? Fugit, deleniti. Iusto in, odio non neque error fugit dolore! Quam eligendi exercitationem impedit?</p>
       </div>
     </div>
   )
