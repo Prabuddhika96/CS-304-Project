@@ -9,6 +9,9 @@
     .footer-links{
         @apply text-base hover:text-[#FF4C0A] hover:duration-200;
     }
+    .success-card-image{
+        @apply text-[#FF4C0A] mx-auto text-center border-[#FF4C0A] p-8 rounded-3xl border-solid border-2 text-[150px];
+    }
 }
 
 .parallax {

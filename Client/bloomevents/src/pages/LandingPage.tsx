@@ -1,11 +1,42 @@
 import Carousel from 'components/Carousel';
 import SuccessCard from 'components/SuccessCard';
 import 'styles/btns.css';
-import man from 'img/man.jpg';
+// import man from 'img/man.jpg';
 import { Link } from 'react-router-dom';
+// import { GrUserWorker } from 'react-icons/gr';
+import { AiOutlineCamera, AiOutlineCalendar } from 'react-icons/ai';
+import { FiUsers, FiPackage } from 'react-icons/fi';
 
 
 function LandingPage() {
+  const cardDetails=[
+    {
+      id:0,
+      url:FiUsers,
+      title:'Customers',
+      count:'100+'
+    },
+    {
+      id:1,
+      url:AiOutlineCamera,
+      title:'Service Providers',
+      count:'100+'
+    },
+    {
+      id:2,
+      url:FiPackage,
+      title:'Packages',
+      count:'100+'
+    },
+    {
+      id:3,
+      url:AiOutlineCalendar,
+      title:'Events',
+      count:'100+'
+    }
+  ]
+
+  
   return (
     <div> 
       {/* Hero */}
@@ -20,14 +51,18 @@ function LandingPage() {
       </div>  
 
       {/* Section 2 */}
-      <div className='text-[#fff] my-16'>
-        <p className="w-3/12 mx-auto mb-8 text-lg text-center">We bring dedicated design teams to entrepreneurs seeking talents to grow their brands.</p>
+      <div className='text-[#fff] my-24'>
+        <p className="w-4/12 mx-auto mb-24 text-xl text-center">We bring dedicated design teams to entrepreneurs seeking talents to grow their brands.</p>
         
-        <div className="flex w-11/12 mx-auto">
-          <SuccessCard url={man} title='Customers' count='100+' key='0'/>
-          <SuccessCard url={man} title='Customers' count='100+' key='0'/>
-          <SuccessCard url={man} title='Customers' count='100+' key='0'/>
-          <SuccessCard url={man} title='Customers' count='100+' key='0'/>
+        <div className="flex justify-around w-9/12 mx-auto">          
+          {cardDetails.map((c)=>
+            <SuccessCard 
+              key={c.id} 
+              url={<c.url className='mx-auto' />} 
+              title={c.title} 
+              count={c.count} 
+            />
+          )}
         </div>
       </div>
 
