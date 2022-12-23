@@ -1,6 +1,5 @@
 import ServiceCard from 'components/ServiceCard'
-import React from 'react';
-import image from 'img/dj.jpg';
+import image from 'img/parallax.jpg';
 
 function Services() {
   return (
@@ -35,7 +34,6 @@ function Services() {
 
       {/* service cards */}
       <div className='service-card-area'>
-        <ServiceCard image={image} providerName='Provider Name' district='District' category='Category' packageCount='3'/>
         <ServiceCard image={image} providerName='Provider Name' district='District' category='Category' packageCount='3'/>
         <ServiceCard image={image} providerName='Provider Name' district='District' category='Category' packageCount='3'/>
         <ServiceCard image={image} providerName='Provider Name' district='District' category='Category' packageCount='3'/>
