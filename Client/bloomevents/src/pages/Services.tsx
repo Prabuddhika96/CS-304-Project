@@ -1,7 +1,86 @@
-import ServiceCard from 'components/ServiceCard'
+import ServiceCard from 'components/ServiceCard';
 import image from 'img/parallax.jpg';
 
+const des='Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore perferendis corrupti sapiente maiores. Amet reprehenderit natus deserunt labore iste laborum, quam numquam possimus, obcaecati voluptatibus ut dolore tempore est ducimus.';
+
+
+
 function Services() {
+  const cards=[
+    {
+      providerName : 'Provider Name 1', 
+      district : 'District',
+      category : 'Category', 
+      packageCount : '3', 
+      description : {des},
+      ratings : '2.5'
+    },
+    {
+      providerName : 'Provider Name 2', 
+      district : 'District',
+      category : 'Category', 
+      packageCount : '3', 
+      description : {des},
+      ratings : '2.5'
+    },
+    {
+      providerName : 'Provider Name 3', 
+      district : 'District',
+      category : 'Category', 
+      packageCount : '3', 
+      description : {des},
+      ratings : '2.5'
+    },
+    {
+      providerName : 'Provider Name 4', 
+      district : 'District',
+      category : 'Category', 
+      packageCount : '3', 
+      description : {des},
+      ratings : '2.5'
+    },
+    {
+      providerName : 'Provider Name 5', 
+      district : 'District',
+      category : 'Category', 
+      packageCount : '3', 
+      description : {des},
+      ratings : '2.5'
+    },
+    {
+      providerName : 'Provider Name 6', 
+      district : 'District',
+      category : 'Category', 
+      packageCount : '3',  
+      description : {des},
+      ratings : '2.5'
+    },
+    {
+      providerName : 'Provider Name 7', 
+      district : 'District',
+      category : 'Category', 
+      packageCount : '3', 
+      description : {des},
+      ratings : '2.5'
+    },
+    {
+      providerName : 'Provider Name 8', 
+      district : 'District',
+      category : 'Category', 
+      packageCount : '3', 
+      description : {des},
+      ratings : '2.5'
+    },
+    {
+      providerName : 'Provider Name 9', 
+      district : 'District',
+      category : 'Category', 
+      packageCount : '3', 
+      description : {des},
+      ratings : '2.5'
+    }
+  ];
+
   return (
     <div className='pt-24'>
       {/* search section */}
@@ -34,16 +113,20 @@ function Services() {
 
       {/* service cards */}
       <div className='service-card-area'>
-        <ServiceCard image={image} providerName='Provider Name' district='District' category='Category' packageCount='3'/>
-        <ServiceCard image={image} providerName='Provider Name' district='District' category='Category' packageCount='3'/>
-        <ServiceCard image={image} providerName='Provider Name' district='District' category='Category' packageCount='3'/>
-        <ServiceCard image={image} providerName='Provider Name' district='District' category='Category' packageCount='3'/>
-        <ServiceCard image={image} providerName='Provider Name' district='District' category='Category' packageCount='3'/>
-        <ServiceCard image={image} providerName='Provider Name' district='District' category='Category' packageCount='3'/>
-        <ServiceCard image={image} providerName='Provider Name' district='District' category='Category' packageCount='3'/>
-        <ServiceCard image={image} providerName='Provider Name' district='District' category='Category' packageCount='3'/>
-        <ServiceCard image={image} providerName='Provider Name' district='District' category='Category' packageCount='3'/>
+        {cards.map((c)=>
+          <ServiceCard 
+            image={image} 
+            providerName={c.providerName}
+            district={c.district}
+            category={c.category} 
+            packageCount={c.packageCount}
+            description={des}
+            ratings={c.ratings}
+          />
+        )}
       </div>
+
+      
     </div>
   )
 }
