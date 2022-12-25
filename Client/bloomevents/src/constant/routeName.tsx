@@ -7,6 +7,6 @@ export enum RouteName {
     Services= "/services",
     Aboutus= "/aboutus",
     Contactus= "/contactus",
-    ProviderDetails= "/providerdetails"
+    ProviderDetails= "/providerdetails/:providerId"
     
   }

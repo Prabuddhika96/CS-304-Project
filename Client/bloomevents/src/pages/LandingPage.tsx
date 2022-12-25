@@ -7,6 +7,10 @@ import { Link } from 'react-router-dom';
 import { AiOutlineCamera, AiOutlineCalendar } from 'react-icons/ai';
 import { FiUsers, FiPackage } from 'react-icons/fi';
 
+// import dance from 'img/dance.jpg';
+// import man from 'img/man.jpg';
+// import landing from 'img/landing.jpg';
+
 
 function LandingPage() {
   const cardDetails=[
@@ -34,7 +38,9 @@ function LandingPage() {
       title:'Events',
       count:'100+'
     }
-  ]
+  ];
+
+  // const imageArray=[{dance},{man},{landing}];
 
   
   return (
@@ -47,7 +53,7 @@ function LandingPage() {
           
           <Link to='/services'><button className="mt-8 rounded-full custom-btn btn-1">Get Started</button></Link>
         </div>
-        <Carousel/>    
+        <Carousel />    
       </div>  
 
       {/* Section 2 */}

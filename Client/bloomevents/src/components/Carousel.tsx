@@ -8,7 +8,7 @@ import landing from 'img/landing.jpg';
 
 
 
-function Carousel() {
+function Carousel({imagerray}:any) {
     
 
     return (
@@ -35,6 +35,7 @@ function Carousel() {
             <Slide index={2}>
                 <img src={landing} alt="" />
             </Slide>
+            
           </Slider>
           {/* <ButtonBack>Back</ButtonBack>
           <ButtonNext>Next</ButtonNext> */}
