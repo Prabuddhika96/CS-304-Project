@@ -4,8 +4,6 @@ import { Link } from 'react-router-dom';
 
 const des='Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore perferendis corrupti sapiente maiores. Amet reprehenderit natus deserunt labore iste laborum, quam numquam possimus, obcaecati voluptatibus ut dolore tempore est ducimus.';
 
-
-
 function Services() {
   const cards=[
     {
