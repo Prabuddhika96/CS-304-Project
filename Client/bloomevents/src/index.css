@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap');
+
 @font-face {
   font-family: DMsnans;
   src: url('fonts/DMSans-Regular.ttf');
@@ -15,9 +17,11 @@
 
 body {
   margin: 0;
-  font-family: DMsans;
+  /* font-family: DMsans; */
   /* -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
   /* padding-top: 100px; */
-  background-color: #000;
+  background-color: rgb(4, 4, 4);
+  font-family: 'Poppins', sans-serif;
+
 }

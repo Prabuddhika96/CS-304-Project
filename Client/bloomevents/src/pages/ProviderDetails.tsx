@@ -1,3 +1,5 @@
+import CalenderElement from 'components/CalenderElement';
+import SwiperElemet from 'components/SwiperElemet';
 import { useParams } from 'react-router-dom';
 
 function ProviderDetails() {
@@ -13,15 +15,28 @@ function ProviderDetails() {
     packageCount : '3', 
     description : {des},
     ratings : '2.5'
-  }
+  };
   
   return (
-    <div className=''>
-      {/* <h1 className='text-blue-800'>{provider.providerName}</h1> */}
+    <div className='flex justify-around w-full pt-28'>
+      <div className='w-8/12 px-16'>
+        <div>
+          <div className='mb-5'>
+            <h1 className='text-4xl text-[#FF4C0A]'>{provider.providerName}</h1>
+            <h1 className='text-lg'>{provider.category}</h1>
+          </div>
 
-     
+          <SwiperElemet/>
+        </div>
+      </div>
+
+      <div className='w-4/12 px-8 mt-28'>
+        <CalenderElement/>
+      </div>
+
+
     </div>
-  )
+  );
 }
 
 export default ProviderDetails
