@@ -1,8 +1,8 @@
 import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
 // import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
-import dance from 'img/dance.jpg';
-import man from 'img/man.jpg';
+// import dance from 'img/dance.jpg';
+// import man from 'img/man.jpg';
 import landing from 'img/landing.jpg';
 
 

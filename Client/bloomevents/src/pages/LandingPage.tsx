@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 // import { GrUserWorker } from 'react-icons/gr';
 import { AiOutlineCamera, AiOutlineCalendar } from 'react-icons/ai';
 import { FiUsers, FiPackage } from 'react-icons/fi';
-import logo from 'img/logo.png';
+// import logo from 'img/logo.png';
 
 // import dance from 'img/dance.jpg';
 // import man from 'img/man.jpg';

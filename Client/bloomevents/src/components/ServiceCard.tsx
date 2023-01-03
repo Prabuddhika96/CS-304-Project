@@ -22,7 +22,6 @@ function ServiceCard({image, providerName, district, category, packageCount, des
 
             }}
         >
-
         </div>
 
 

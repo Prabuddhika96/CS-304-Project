@@ -11,19 +11,11 @@ import { cards } from 'docs/cards';
 
 function Services() {
 
-  const [isClearable, setIsClearable] = useState(true);
-  const [isSearchable, setIsSearchable] = useState(true);
-  const [isDisabled, setIsDisabled] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isRtl, setIsRtl] = useState(false);
-
-  
-
-  const [first, setfirst] = useState()
-
-  const handleInput=()=>{
-    // console.log(name);
-  }
+  const [isClearable /*, setIsClearable*/ ] = useState(true);
+  // const [isSearchable, setIsSearchable] = useState(true);
+  // const [isDisabled, setIsDisabled] = useState(false);
+  // const [isLoading, setIsLoading] = useState(false);
+  // const [isRtl, setIsRtl] = useState(false);
 
 
   return (
