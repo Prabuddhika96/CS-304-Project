@@ -12,18 +12,26 @@
     .success-card-image{
         @apply text-[#ffc277] mx-auto text-center border-[#ffc277] p-8 rounded-3xl border-solid border-2 text-[100px];
     }
-    .service-card{
-        @apply flex overflow-hidden min-h-[224px] bg-[#1E1E1E] border-[#ffc277] w-8/12 mx-auto my-5 
-        text-center border rounded-md drop-shadow-lg hover:bg-[#131313] 
-        hover:duration-300;
-    }
-
+    
     .service-drop-down{
         @apply w-6/12 border border-[#ffc277] border-solid mx-1 focus:border-2;
     }
 
+    .service-card{
+        @apply flex overflow-hidden min-h-[224px]  border-[#ffc277] w-8/12 mx-auto my-5 
+        text-center border rounded-md drop-shadow-lg hover:bg-[#fff6eb];
+    }
+
     .service-card-area{
         @apply my-10
+    }
+
+    .service-card-icon{
+        @apply mr-2 text-[#c26d06];
+    }
+
+    .service-card-icon-details{
+        @apply flex items-center mr-6;
     }
 }
 

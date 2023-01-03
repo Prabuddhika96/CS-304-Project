@@ -27,7 +27,7 @@ function ServiceCard({image, providerName, district, category, packageCount, des
 
 
         <div className='w-9/12 px-6 pt-2 text-left'>
-            <h2 className='mb-2 text-xl'>{providerName}</h2>
+            <h2 className='mb-2 text-xl text-[#c26d06]'>{providerName}</h2>
 
             <div className="rating rating-sm rating-half">
               <input type="radio" name="rating-10" className="rating-hidden" />
@@ -44,12 +44,12 @@ function ServiceCard({image, providerName, district, category, packageCount, des
             </div>
 
             <div className="flex justify-start mb-1">
-              <p className='flex items-center mr-6'><GoLocation className='mr-2 text-[#FF4C0A]'/> {district}</p>
-              <h3 className='flex items-center mr-6'><BiCategory className='mr-2 text-[#FF4C0A]'/> {category}</h3>
-              <h3 className='flex items-center mr-6'><FiPackage className='mr-2 text-[#FF4C0A]'/> {packageCount} Packages</h3>
+              <p className='flex items-center mr-6 text-[#464646]'><GoLocation className='service-card-icon'/> {district}</p>
+              <h3 className='flex items-center mr-6 text-[#464646]'><BiCategory className='service-card-icon'/> {category}</h3>
+              <h3 className='flex items-center mr-6 text-[#464646]'><FiPackage className='service-card-icon'/> {packageCount} Packages</h3>
             </div>
 
-            <div className='mt-5'>
+            <div className='mt-5 text-[#000]'>
               <p>{description}</p>
             </div>
         </div>

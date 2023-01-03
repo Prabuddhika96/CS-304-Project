@@ -22,7 +22,7 @@ function ProviderDetails() {
       <div className='w-8/12 px-16'>
         <div>
           <div className='mb-5'>
-            <h1 className='text-4xl text-[#FF4C0A]'>{provider.providerName}</h1>
+            <h1 className='text-4xl text-[#c26d06]'>{provider.providerName}</h1>
             <h1 className='text-lg'>{provider.category}</h1>
           </div>
 

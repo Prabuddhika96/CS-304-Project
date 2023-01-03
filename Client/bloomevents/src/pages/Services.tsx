@@ -6,8 +6,8 @@ import { useState } from 'react';
 
 import Select from 'react-select';
 import { colourOptions } from 'docs/data';
+import { cards } from 'docs/cards';
 
-const des='Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore perferendis corrupti sapiente maiores. Amet reprehenderit natus deserunt labore iste laborum, quam numquam possimus, obcaecati voluptatibus ut dolore tempore est ducimus.';
 
 function Services() {
 
@@ -17,89 +17,7 @@ function Services() {
   const [isLoading, setIsLoading] = useState(false);
   const [isRtl, setIsRtl] = useState(false);
 
-  const cards=[
-    {
-      provider_id : 1,
-      providerName : 'Provider Name 1', 
-      district : 'District',
-      category : 'Category', 
-      packageCount : '3', 
-      description : {des},
-      ratings : '2.5'
-    },
-    {
-      provider_id : 2,
-      providerName : 'Provider Name 2', 
-      district : 'District',
-      category : 'Category', 
-      packageCount : '3', 
-      description : {des},
-      ratings : '2.5'
-    },
-    {
-      provider_id : 3,
-      providerName : 'Provider Name 3', 
-      district : 'District',
-      category : 'Category', 
-      packageCount : '3', 
-      description : {des},
-      ratings : '2.5'
-    },
-    {
-      provider_id : 4,
-      providerName : 'Provider Name 4', 
-      district : 'District',
-      category : 'Category', 
-      packageCount : '3', 
-      description : {des},
-      ratings : '2.5'
-    },
-    {
-      provider_id : 5,
-      providerName : 'Provider Name 5', 
-      district : 'District',
-      category : 'Category', 
-      packageCount : '3', 
-      description : {des},
-      ratings : '2.5'
-    },
-    {
-      provider_id : 6,
-      providerName : 'Provider Name 6', 
-      district : 'District',
-      category : 'Category', 
-      packageCount : '3',  
-      description : {des},
-      ratings : '2.5'
-    },
-    {
-      provider_id : 7,
-      providerName : 'Provider Name 7', 
-      district : 'District',
-      category : 'Category', 
-      packageCount : '3', 
-      description : {des},
-      ratings : '2.5'
-    },
-    {
-      provider_id : 8,
-      providerName : 'Provider Name 8', 
-      district : 'District',
-      category : 'Category', 
-      packageCount : '3', 
-      description : {des},
-      ratings : '2.5'
-    },
-    {
-      provider_id : 9,
-      providerName : 'Provider Name 9', 
-      district : 'District',
-      category : 'Category', 
-      packageCount : '3', 
-      description : {des},
-      ratings : '2.5'
-    }
-  ];
+  
 
   const [first, setfirst] = useState()
 
@@ -112,7 +30,7 @@ function Services() {
     <div className='pt-24'>
       {/* search section */}
       <div className='flex justify-around w-full mx-auto'>     
-          <div className="w-4/12">
+          <div className="w-3/12">
             <Select
               className=" basic-single"
               classNamePrefix="Category"
@@ -128,7 +46,7 @@ function Services() {
             />
           </div>
 
-          <div className="w-4/12">
+          <div className="w-3/12">
             <Select
               className="w-full basic-single"
               classNamePrefix="Category"
@@ -144,7 +62,7 @@ function Services() {
             />
           </div>
 
-          <div className="w-4/12">
+          <div className="w-5/12">
             <Select
               className="w-full basic-single"
               classNamePrefix="Category"
@@ -177,7 +95,7 @@ function Services() {
               district={c.district}
               category={c.category} 
               packageCount={c.packageCount}
-              description={des}
+              description={c.description}
               ratings={c.ratings}
             />
           </Link>
