@@ -13,6 +13,7 @@
   --blue: #1e90ff;
   --white: #ffffff;
   --orange: #FF4C0A;
+  --bg-pink: #ffe09c;
 }
 
 body {
@@ -21,7 +22,7 @@ body {
   /* -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
   /* padding-top: 100px; */
-  background-color: rgb(4, 4, 4);
+  background-color: var(--white);
   font-family: 'Poppins', sans-serif;
 
 }

@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 // import { GrUserWorker } from 'react-icons/gr';
 import { AiOutlineCamera, AiOutlineCalendar } from 'react-icons/ai';
 import { FiUsers, FiPackage } from 'react-icons/fi';
+import logo from 'img/logo.png';
 
 // import dance from 'img/dance.jpg';
 // import man from 'img/man.jpg';
@@ -47,17 +48,25 @@ function LandingPage() {
     <div> 
       {/* Hero */}
       <div>
-        <div className='absolute text-[#fff] z-20 ml-10 mt-[250px] bg-[#00000084] p-12'>
-          <h1 className='text-5xl'>Get ready for a <span className='text-[#FF4C0A]'>Event</span></h1>
-          <p className='my-1 text-lg'>We bring dedicated design teams to entrepreneurs seeking talents to grow their brands.</p>
+        <div className='absolute left-16 flex text-[#fff] w-7/12 z-20 ml-10 mt-[200px]  p-12'>
+          <div>
+            <h1 className='text-5xl'>Get ready for a <span className='text-[#ffc277]'>Event</span></h1>
+            <p className='mt-5 text-base text-left'>We bring dedicated design teams to entrepreneurs seeking talents to grow their brands.
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Sunt ratione, doloribus voluptatibus quo, quibusdam officiis numquam ut ipsa voluptatum vero repellat accusamus<br/> tenetur eum sed, aliquid quae?</p>
+            
+            <Link to='/services'><button className="mt-8 rounded-full custom-btn btn-1">Get Started</button></Link>
+          </div>
+
+          <div className='w-full m-auto'>
+            {/* <Link to='/'><img src={logo} alt="" className=''/></Link> */}
+          </div>
           
-          <Link to='/services'><button className="mt-8 rounded-full custom-btn btn-1">Get Started</button></Link>
         </div>
         <Carousel />    
       </div>  
 
       {/* Section 2 */}
-      <div className='text-[#fff] my-24'>
+      <div className='text-[#000] my-24'>
         <p className="w-4/12 mx-auto mb-24 text-xl text-center">We bring dedicated design teams to entrepreneurs seeking talents to grow their brands.</p>
         
         <div className="flex justify-around w-9/12 mx-auto">          

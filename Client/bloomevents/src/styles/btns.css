@@ -2,10 +2,10 @@ button {
     /* margin: 20px; */
   }
   .custom-btn {
-    color: #fff;
+    color: #000;
     /* width: 130px; */
     /* height: 40px; */
-    padding: 10px 25px;
+    padding: 5px 25px;
     font-family: 'Lato', sans-serif;
     /* font-weight: 500; */
     background: transparent;
@@ -18,11 +18,11 @@ button {
   /* 1 */
   .btn-1 {
     border: none;
-    background-color: #FF4C0A;
-    box-shadow: 0 0 5px #ff723f;
+    background-color: #ffc277;
+    box-shadow: 0 0 5px #ffd096;
   }
   .btn-1:hover {
-     box-shadow: 0 0 10px #FF4C0A, 0 0 20px #FF4C0A, 0 0 20px #ff936c inset;
+     box-shadow: 0 0 10px #ffd096, 0 0 20px #ffd096, 0 0 20px #ff936c inset;
   }
   
   /* 2 */

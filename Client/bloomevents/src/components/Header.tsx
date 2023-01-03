@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import logo from 'img/logo.png';
 import { Link } from 'react-router-dom';
+import logo from 'img/logo.png';
 
 function Header() {
     const [small, setSmall] = useState(false);
@@ -15,26 +15,26 @@ function Header() {
 
   return (
     <div>
-            <header className={`px-50 text-center text-[90] flex z-50 top-0 w-full ease-in-out duration-200 fixed ${
-            small ? "bg-[#000000a8] py-2" : "py-1"
+            <header className={`px-50 py-[10px] text-center text-[90] bg-[#000000a8] flex justify-between z-50 top-0 w-full ease-in-out duration-200 fixed ${
+            small ? "bg-[#000000a8] py-0" : "py-0"
             }`}>
                 <div className='w-2/12 pl-20 text-left'>
-                    <Link to='/'><img src={logo} alt="" className='w-28 hover:shadow-lg hover:shadow-[#FF4C0A] hover:duration-300'/></Link>
+                    <Link to='/'><img src={logo} alt="" className='w-20 hover:shadow-lg'/></Link>
                 </div>
                 
-                <div className='w-7/12 pl-20 text-left'>                   
-                    <ul className='pt-4 ml-10 text-center text-xl text-[#fff]'>
-                        <li className='inline p-5 hover:text-[#FF4C0A] hover:duration-300'><Link to='/'>Home</Link></li>
-                        <li className='inline p-5 hover:text-[#FF4C0A] hover:duration-300'><Link to='/services'>Services</Link></li>
-                        <li className='inline p-5 hover:text-[#FF4C0A] hover:duration-300'><Link to='/aboutus'>About Us</Link></li>
-                        <li className='inline p-5 hover:text-[#FF4C0A] hover:duration-300'><Link to='/contactus'>Contact Us</Link></li>
+                <div className='pl-20 text-left'>                   
+                    <ul className='pt-4 ml-10 text-center text-base text-[#fff]'>
+                        <li className='inline p-5 hover:text-[#ffc277] hover:duration-300'><Link to='/'>Home</Link></li>
+                        <li className='inline p-5 hover:text-[#ffc277] hover:duration-300'><Link to='/services'>Services</Link></li>
+                        <li className='inline p-5 hover:text-[#ffc277] hover:duration-300'><Link to='/aboutus'>About Us</Link></li>
+                        <li className='inline p-5 hover:text-[#ffc277] hover:duration-300'><Link to='/contactus'>Contact Us</Link></li>
                     </ul>
                 </div>
     
-                <div className='right-0 w-3/12 text-right text-[#000]'>
+                <div className='right-0 text-right text-[#000]'>
                     <ul className='pt-4 pr-12 list-none'>
-                        <li className='inline py-2 px-6 font-medium rounded-full text-[#FF4C0A] border-2 border-[#FF4C0A] border-solid text-lg hover:bg-[#FF4C0A] hover:text-black hover:duration-200 mx-2'><Link to='/login' className='header-btn'>Login</Link></li>
-                        <li className='inline py-2 px-6 font-medium rounded-full text-[#FF4C0A] border-2 border-[#FF4C0A] border-solid text-lg hover:bg-[#FF4C0A] hover:text-black hover:duration-200 mx-2'><Link to='/signup' className='header-btn'>Sign Up</Link></li>
+                        <li className='inline py-1 px-5 font-medium rounded-full text-[#ffc277] border-2 border-[#ffc277] border-solid text-base hover:bg-[#ffc277] hover:text-black hover:duration-200 mx-2'><Link to='/login' className='header-btn'>Login</Link></li>
+                        <li className='inline py-1 px-5 font-medium rounded-full text-[#ffc277] border-2 border-[#ffc277] border-solid text-base hover:bg-[#ffc277] hover:text-black hover:duration-200 mx-2'><Link to='/signup' className='header-btn'>Sign Up</Link></li>
                     </ul>
                 </div>
             </header>

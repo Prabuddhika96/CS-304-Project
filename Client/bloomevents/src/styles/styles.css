@@ -4,22 +4,22 @@
 
 @layer components{
     .footer-social-media{
-        @apply inline px-2 mt-2 text-2xl text-[#FF4C0A] hover:scale-[1.2] hover:duration-300;
+        @apply inline px-2 mt-2 text-2xl text-[#ffc277] hover:scale-[1.2] hover:duration-300;
     }
     .footer-links{
-        @apply text-base hover:text-[#FF4C0A] hover:duration-200;
+        @apply text-base hover:text-[#ffc277] hover:duration-200;
     }
     .success-card-image{
-        @apply text-[#FF4C0A] mx-auto text-center border-[#FF4C0A] p-8 rounded-3xl border-solid border-2 text-[100px];
+        @apply text-[#ffc277] mx-auto text-center border-[#ffc277] p-8 rounded-3xl border-solid border-2 text-[100px];
     }
     .service-card{
-        @apply flex overflow-hidden min-h-[224px] bg-[#1E1E1E] border-[#FF4C0A] w-8/12 mx-auto my-5 
+        @apply flex overflow-hidden min-h-[224px] bg-[#1E1E1E] border-[#ffc277] w-8/12 mx-auto my-5 
         text-center border rounded-md drop-shadow-lg hover:bg-[#131313] 
         hover:duration-300;
     }
 
     .service-drop-down{
-        @apply w-6/12 border border-[#FF4C0A] border-solid mx-1 focus:border-2;
+        @apply w-6/12 border border-[#ffc277] border-solid mx-1 focus:border-2;
     }
 
     .service-card-area{

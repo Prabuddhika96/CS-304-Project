@@ -27,10 +27,10 @@ function Carousel() {
       
       <Slider>            
         <Slide index={0}>
-            <img src={dance} alt="" />
+            <img src={landing} alt="" />
         </Slide>
         <Slide index={1}>
-            <img src={man} alt="" />
+            <img src={landing} alt="" />
         </Slide>
         <Slide index={2}>
             <img src={landing} alt="" />

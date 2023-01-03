@@ -1,3 +1,4 @@
+import { Autocomplete, TextField } from '@mui/material';
 import ServiceCard from 'components/ServiceCard';
 import image from 'img/parallax.jpg';
 import { Link } from 'react-router-dom';
@@ -89,6 +90,24 @@ function Services() {
     }
   ];
 
+
+  const top100Films = [
+    { label: 'The Shawshank Redemption', year: 1994 },
+    { label: 'The Godfather', year: 1972 },
+    { label: 'The Godfather: Part II', year: 1974 },
+    { label: 'The Dark Knight', year: 2008 },
+    { label: '12 Angry Men', year: 1957 },
+    { label: "Schindler's List", year: 1993 },
+    { label: 'Pulp Fiction', year: 1994 },
+    {
+      label: 'The Lord of the Rings: The Return of the King',
+      year: 2003,
+    },
+    { label: 'The Good, the Bad and the Ugly', year: 1966 },
+    { label: 'Fight Club', year: 1999 }
+  ];
+
+
   return (
     <div className='pt-24'>
       {/* search section */}
@@ -101,12 +120,21 @@ function Services() {
         </div>
 
         <div className="flex justify-center my-3">
-          <select className="service-drop-down select select-ghost">
+          <Autocomplete
+            disablePortal
+            className='service-drop-down text-[#FF4C0A]'
+            id="combo-box-demo"
+            options={top100Films}
+            sx={{ width: 300 }}
+            renderInput={(params) => <TextField {...params} label="Movie" />}
+          />
+
+          {/* <select className="service-drop-down select select-ghost">
             <option disabled selected>District</option>
             <option>Svelte</option>
             <option>Vue</option>
             <option>React</option>
-          </select>
+          </select> */}
 
           <select className="service-drop-down select select-ghost">
             <option disabled selected>Category</option>

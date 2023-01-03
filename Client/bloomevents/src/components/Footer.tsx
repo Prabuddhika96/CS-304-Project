@@ -4,7 +4,7 @@ import { AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineFacebook } from 'react-
 
 function Footer() {
   return (
-    <div className='flex p-5 py-8 mt-20 relative h-[250px] bg-[#000] border-t border-solid border-[#3d1000] pt-7'>
+    <div className='flex p-5 py-8 mt-20 relative h-[250px] bg-[#464646] border-t border-solid border-[#3d1000] pt-7'>
         <div className='w-1/3 text-left'>
             <div className='z-10 absolute inset-x-0 bottom-0 h-[105px] px-5'>
                 <p><Link className='footer-links' to='/'>Privacy Policies</Link></p>          
@@ -14,7 +14,7 @@ function Footer() {
         </div> 
 
         <div className='w-1/3 text-center'>
-           <h1 className='text-3xl'>Bloom <span className='text-[#FF4C0A]'>Events</span></h1>
+           <h1 className='text-3xl'>Bloom <span className='text-[#ffc277]'>Events</span></h1>
 
            <ul className='flex justify-center w-full '>
                 <li className='footer-social-media'><Link to=''><AiOutlineInstagram/></Link></li>
@@ -23,7 +23,7 @@ function Footer() {
             </ul>
 
             <div className='absolute inset-x-0 bottom-0 h-[50px] px-5'>
-                <p>Powerd by <span className='text-[#FF4C0A]'>Bloom Events</span></p>
+                <p>Powerd by <span className='text-[#ffc277]'>Bloom Events</span></p>
             </div>     
         </div>
         
