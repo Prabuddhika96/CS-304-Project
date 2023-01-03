@@ -1,11 +1,22 @@
-import { Autocomplete, TextField } from '@mui/material';
 import ServiceCard from 'components/ServiceCard';
 import image from 'img/parallax.jpg';
 import { Link } from 'react-router-dom';
 
+import { useState } from 'react';
+
+import Select from 'react-select';
+import { colourOptions } from 'docs/data';
+
 const des='Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore perferendis corrupti sapiente maiores. Amet reprehenderit natus deserunt labore iste laborum, quam numquam possimus, obcaecati voluptatibus ut dolore tempore est ducimus.';
 
 function Services() {
+
+  const [isClearable, setIsClearable] = useState(true);
+  const [isSearchable, setIsSearchable] = useState(true);
+  const [isDisabled, setIsDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isRtl, setIsRtl] = useState(false);
+
   const cards=[
     {
       provider_id : 1,
@@ -90,66 +101,73 @@ function Services() {
     }
   ];
 
+  const [first, setfirst] = useState()
 
-  const top100Films = [
-    { label: 'The Shawshank Redemption', year: 1994 },
-    { label: 'The Godfather', year: 1972 },
-    { label: 'The Godfather: Part II', year: 1974 },
-    { label: 'The Dark Knight', year: 2008 },
-    { label: '12 Angry Men', year: 1957 },
-    { label: "Schindler's List", year: 1993 },
-    { label: 'Pulp Fiction', year: 1994 },
-    {
-      label: 'The Lord of the Rings: The Return of the King',
-      year: 2003,
-    },
-    { label: 'The Good, the Bad and the Ugly', year: 1966 },
-    { label: 'Fight Club', year: 1999 }
-  ];
+  const handleInput=()=>{
+    // console.log(name);
+  }
 
 
   return (
     <div className='pt-24'>
       {/* search section */}
-      <div className='w-8/12 mx-auto'>
-        <div className='text-center'>
-          <input 
-            type="text" 
-            placeholder="Type here" 
-            className="w-full bg-[#000] input focus:border-2 border-[#FF4C0A]" />
-        </div>
+      <div className='flex justify-around w-full mx-auto'>     
+          <div className="w-4/12">
+            <Select
+              className=" basic-single"
+              classNamePrefix="Category"
+              defaultValue={colourOptions[0]}
+              // isDisabled={isDisabled}
+              // isLoading={isLoading}
+              isClearable={isClearable}
+              // isRtl={isRtl}
+              // isSearchable={isSearchable}
+              name="color"
+              onChange={e=>{console.log(e?.value)}}
+              options={colourOptions}
+            />
+          </div>
 
-        <div className="flex justify-center my-3">
-          <Autocomplete
-            disablePortal
-            className='service-drop-down text-[#FF4C0A]'
-            id="combo-box-demo"
-            options={top100Films}
-            sx={{ width: 300 }}
-            renderInput={(params) => <TextField {...params} label="Movie" />}
-          />
+          <div className="w-4/12">
+            <Select
+              className="w-full basic-single"
+              classNamePrefix="Category"
+              defaultValue={colourOptions[0]}
+              // isDisabled={isDisabled}
+              // isLoading={isLoading}
+              isClearable={isClearable}
+              // isRtl={isRtl}
+              // isSearchable={isSearchable}
+              name="color"
+              onChange={e=>{console.log(e?.value)}}
+              options={colourOptions}
+            />
+          </div>
 
-          {/* <select className="service-drop-down select select-ghost">
-            <option disabled selected>District</option>
-            <option>Svelte</option>
-            <option>Vue</option>
-            <option>React</option>
-          </select> */}
-
-          <select className="service-drop-down select select-ghost">
-            <option disabled selected>Category</option>
-            <option>Svelte</option>
-            <option>Vue</option>
-            <option>React</option>
-          </select>
-        </div>
-
-        <button className="w-full mx-auto rounded-3 custom-btn btn-1">Search</button>
+          <div className="w-4/12">
+            <Select
+              className="w-full basic-single"
+              classNamePrefix="Category"
+              defaultValue={colourOptions[0]}
+              // isDisabled={isDisabled}
+              // isLoading={isLoading}
+              isClearable={isClearable}
+              // isRtl={isRtl}
+              // isSearchable={isSearchable}
+              name="color"
+              onChange={e=>{console.log(e?.value)}}
+              options={colourOptions}
+            />
+          </div>      
+          
       </div>
+
+
+      
 
       {/* service cards */}
       <div className='service-card-area'>
-        {cards.map((c)=>
+        {cards.map((c:any , i:number)=>
           <Link to={{
             pathname: `/providerdetails/${c.provider_id}`
           }}>

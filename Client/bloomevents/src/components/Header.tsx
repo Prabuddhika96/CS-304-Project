@@ -15,16 +15,16 @@ function Header() {
 
   return (
     <div>
-            <header className={`px-50 py-[10px] text-center text-[90] bg-[#000000a8] flex justify-between z-50 top-0 w-full ease-in-out duration-200 fixed ${
-            small ? "bg-[#000000a8] py-0" : "py-0"
+            <header className={`px-50 py-[11px] text-center text-[#fff] bg-[#000000a8]  flex justify-between z-50 top-0 w-full ease-in-out duration-200 fixed ${
+            small ? "py-0" : "py-0"
             }`}>
                 <div className='w-2/12 pl-20 text-left'>
                     <Link to='/'><img src={logo} alt="" className='w-20 hover:shadow-lg'/></Link>
                 </div>
                 
                 <div className='pl-20 text-left'>                   
-                    <ul className='pt-4 ml-10 text-center text-base text-[#fff]'>
-                        <li className='inline p-5 hover:text-[#ffc277] hover:duration-300'><Link to='/'>Home</Link></li>
+                    <ul className={`pt-4 ml-10 text-center text-base`}>
+                        <li className='inline p-5 hover:text-[#ffc277] hover:duration-300 '><Link to='/'>Home</Link></li>
                         <li className='inline p-5 hover:text-[#ffc277] hover:duration-300'><Link to='/services'>Services</Link></li>
                         <li className='inline p-5 hover:text-[#ffc277] hover:duration-300'><Link to='/aboutus'>About Us</Link></li>
                         <li className='inline p-5 hover:text-[#ffc277] hover:duration-300'><Link to='/contactus'>Contact Us</Link></li>
