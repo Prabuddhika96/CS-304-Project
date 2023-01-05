@@ -33,6 +33,18 @@
     .service-card-icon-details{
         @apply flex items-center mr-6;
     }
+
+    .provider-detail-dialog-box-icon{
+        @apply text-3xl hover:scale-[1.1] rounded-full p-2 hover:duration-300 hover:text-[#c26d06] hover:bg-[#ffd09b];
+    }
+
+    .pro-dialog-h3{
+        @apply flex items-center mr-6 my-1 text-[#000]
+    }
+
+    .pro-dialog-span{
+        @apply mx-1 text-[#c26d06]
+    }
 }
 
 .parallax {
