@@ -25,9 +25,9 @@ function SwiperElemet() {
             modules={[Navigation, Pagination, Mousewheel, Keyboard]}
             className="mySwiper"
           >
+            <SwiperSlide><img src={landing} alt="" /></SwiperSlide>
             <SwiperSlide><img src={dance} alt="" /></SwiperSlide>
             <SwiperSlide><img src={man} alt="" /></SwiperSlide>
-            <SwiperSlide><img src={landing} alt="" /></SwiperSlide>
           </Swiper>
         </div>
     );

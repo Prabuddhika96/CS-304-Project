@@ -3,13 +3,14 @@ import CalenderElement from 'components/CalenderElement';
 import PackageTabs from 'components/PackageTabs';
 import SwiperElemet from 'components/SwiperElemet';
 import { useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import TextField from '@mui/material/TextField';
 
 import logo from 'img/logo.png';
 
@@ -17,10 +18,13 @@ import { AiOutlineClose, AiOutlineFacebook, AiOutlineInstagram, AiOutlinePhone, 
 import { BsBriefcase } from 'react-icons/bs';
 import { FiPackage } from 'react-icons/fi';
 import { GoLocation } from 'react-icons/go';
-import { BiCategory } from 'react-icons/bi';
+import { BiCategory, BiWorld } from 'react-icons/bi';
+import { RouteName } from 'constant/routeName';
 
 function ProviderDetails() {
   let { providerId } = useParams();
+
+  const user=true;
 
   const des='Lorem ipsum dolor sit amet consectetur adipisicing elit. Inventore perferendis corrupti sapiente maiores. Amet reprehenderit natus deserunt labore iste laborum, quam numquam possimus, obcaecati voluptatibus ut dolore tempore est ducimus.';
 
@@ -33,9 +37,13 @@ function ProviderDetails() {
     packageCount : '3', 
     description : {des},
     ratings : '2.5',
-    mobile : '0719246621'
+    mobile : '0719246621',
+    fb : 'www.facebook.com',
+    insta : 'www.instagram.com',
+    web : 'www.google.com',
   };
 
+  // more Info
   const [open, setOpen] = useState(false);
 
   const handleClickOpen = () => {
@@ -44,6 +52,23 @@ function ProviderDetails() {
 
   const handleClose = () => {
     setOpen(false);
+  };
+
+  //book Now
+  const navigate = useNavigate(); 
+  const [openbook, setOpenbook] = useState(false);
+
+  const handleClickOpenBook = () => {
+    if(user){
+      setOpenbook(true);
+    }
+    else{
+      navigate(RouteName.Login);
+    }
+  };
+
+  const handleCloseBook = () => {
+    setOpenbook(false);
   };
 
 
@@ -109,9 +134,9 @@ function ProviderDetails() {
                     </div>
 
                     <div className='flex justify-around w-6/12 mx-auto my-3 text-lg'>
-                      <a href="" className='provider-detail-dialog-box-icon'><AiOutlineInstagram/></a>
-                      <a href="" className='provider-detail-dialog-box-icon'><AiOutlineFacebook/></a>
-                      <a href="" className='provider-detail-dialog-box-icon'><AiOutlineInstagram/></a>
+                      <a href={provider.insta} target="_blank" className='provider-detail-dialog-box-icon'><AiOutlineInstagram/></a>
+                      <a href={provider.fb} target="_blank" className='provider-detail-dialog-box-icon'><AiOutlineFacebook/></a>
+                      <a href={provider.web} target="_blank" className='provider-detail-dialog-box-icon'><BiWorld/></a>
                     </div>
                 </DialogContentText>
               </DialogContent>
@@ -120,9 +145,40 @@ function ProviderDetails() {
         </div> 
       </div>
 
-      <div className='w-8/12 px-16 mt-16'>
-        <PackageTabs url={""}/>
+      <div className='flex justify-around w-full'>
+        <div className='w-8/12 px-16 mt-16'>
+          <PackageTabs/>
+        </div>
+
+        <div className='flex items-center justify-center w-4/12 px-16 mt-16'>
+          <Button variant="outlined" onClick={handleClickOpenBook}>
+            Open form dialog
+          </Button>
+          <Dialog open={openbook} onClose={handleCloseBook}>
+            <DialogTitle>Subscribe</DialogTitle>
+            <DialogContent>
+              <DialogContentText>
+                To subscribe to this website, please enter your email address here. We
+                will send updates occasionally.
+              </DialogContentText>
+              <TextField
+                autoFocus
+                margin="dense"
+                id="name"
+                label="Email Address"
+                type="email"
+                fullWidth
+                variant="standard"
+              />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={handleCloseBook}>Cancel</Button>
+              <Button onClick={handleCloseBook}>Subscribe</Button>
+            </DialogActions>
+          </Dialog>
+        </div>
       </div>
+      
       
     </div>
   );

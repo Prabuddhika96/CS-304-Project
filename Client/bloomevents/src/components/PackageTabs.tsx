@@ -7,7 +7,7 @@ import TabPanel from '@mui/lab/TabPanel';
 
 import {packages} from 'docs/packages';
 
-function PackageTabs({url}:any) {
+function PackageTabs() {
     const [value, setValue] = React.useState('1');  
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
