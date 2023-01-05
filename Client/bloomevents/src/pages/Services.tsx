@@ -80,7 +80,8 @@ function Services() {
         {cards.map((c:any , i:number)=>
           <Link to={{
             pathname: `/providerdetails/${c.provider_id}`
-          }}>
+          }}
+          key={i}>
             <ServiceCard 
               image={image} 
               providerName={c.providerName}

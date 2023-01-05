@@ -7,8 +7,8 @@ import TabPanel from '@mui/lab/TabPanel';
 
 import {packages} from 'docs/packages';
 
-function PackageTabs() {
-    const [value, setValue] = React.useState('1');
+function PackageTabs({url}:any) {
+    const [value, setValue] = React.useState('1');  
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
       setValue(newValue);
@@ -22,21 +22,16 @@ function PackageTabs() {
               <TabList onChange={handleChange} aria-label="lab API tabs example">
                 
                 {packages.map((p:any,i:number)=>(
-                  <Tab label={p.name} value={(i+1).toString()} />
+                  <Tab label={p.name} className={`w-[${Math.floor(100/packages.length)}%] overflow-auto whitespace-nowrap`} value={(i+1).toString()} key={i} />
                 ))}
 
-                {/* <Tab label="Item One" value="1" />
-                <Tab label="Item Two" value="2" />
-                <Tab label="Item Three" value="3" /> */}
               </TabList>
             </Box>
+
               {packages.map((p:any,i:number)=>(
-                <TabPanel value={(i+1).toString()}>{p.des}</TabPanel>
+                <TabPanel value={(i+1).toString()} key={i}>{p.des}</TabPanel>
               ))}
 
-            {/* <TabPanel value="1">Item One</TabPanel>
-            <TabPanel value="2">Item Two</TabPanel>
-            <TabPanel value="3">Item Three</TabPanel> */}
           </TabContext>
         </Box>
       </div>
