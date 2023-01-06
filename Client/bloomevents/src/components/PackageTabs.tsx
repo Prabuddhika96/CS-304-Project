@@ -5,9 +5,9 @@ import TabContext from '@mui/lab/TabContext';
 import TabList from '@mui/lab/TabList';
 import TabPanel from '@mui/lab/TabPanel';
 
-import {packages} from 'docs/packages';
+// import {packages} from 'docs/packages';
 
-function PackageTabs() {
+function PackageTabs( {packages}:any ) {
     const [value, setValue] = React.useState('1');  
 
     const handleChange = (event: React.SyntheticEvent, newValue: string) => {
