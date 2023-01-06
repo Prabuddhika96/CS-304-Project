@@ -1,45 +1,37 @@
-import { CarouselProvider, Slider, Slide } from 'pure-react-carousel';
-// import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
-import 'pure-react-carousel/dist/react-carousel.es.css';
-// import dance from 'img/dance.jpg';
-// import man from 'img/man.jpg';
-import landing from 'img/landing.jpg';
+import image1 from "img/bg_img.jpg";
+import image2 from 'img/man.jpg';
+import image3 from "img/parallax.jpg";
+import image4 from "img/login.jpg";
+import image5 from "img/dance.jpg";
 
+import "styles/Slider.css";
 
+const Carousel = () => {
 
-function Carousel() {
-
-  // const images:any=[{dance},{man},{landing}];
-    
-
+const SliderImages=[image1, image2, image3, image4, image5]
   return (
-    <CarouselProvider
-      naturalSlideWidth={100}
-      naturalSlideHeight={50}
-      totalSlides={3}
-      interval={3000}
-      isPlaying={true}
-      infinite={true}
-    //   isIntrinsicHeight={true}
-    //   hasMasterSpinner={true}
-    playDirection={'forward'}
-    >
-      
-      <Slider>            
-        <Slide index={0}>
-            <img src={landing} alt="" />
-        </Slide>
-        <Slide index={1}>
-            <img src={landing} alt="" />
-        </Slide>
-        <Slide index={2}>
-            <img src={landing} alt="" />
-        </Slide>
-      </Slider>
-      {/* <ButtonBack>Back</ButtonBack>
-      <ButtonNext>Next</ButtonNext> */}
-    </CarouselProvider>
-  );
-}
+    <div>       
+        <div id="slider">
+        <input type="radio" name="slider" id="s1" />
+        <input type="radio" name="slider" id="s2" />
+        <input type="radio" name="slider" id="s3" />
+        <input type="radio" name="slider" id="s4" />
+        <input type="radio" name="slider" id="s5" />
 
-export default Carousel
+        {SliderImages.map((p:any,i:number)=>(
+            <label htmlFor={"s"+(i+1)} id={"slide"+(i+1)}>
+                <img
+                src={p}
+                alt="artwork"
+                height="100%"
+                width="100%"
+                className="sliderImg"
+                />
+          </label>
+        ))}
+        </div>        
+    </div>
+  );
+};
+
+export default Carousel;

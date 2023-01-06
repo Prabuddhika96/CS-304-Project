@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import {packages} from 'docs/packages';
+import {reviews} from 'docs/reviews';
 
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
@@ -20,8 +21,8 @@ import BookRequest from 'types/BookRequest';
 import BookNowDropdown from 'components/BookNowDropdown';
 import ProviderDetailsCard from 'components/ProviderDetailsCard';
 import SuccessSnakBar from 'components/SuccessSnakBar';
-import Rating from 'components/Rating';
-import SwiperElemet from 'components/SwiperElemet';
+import Reviews from 'components/Reviews';
+import Carousel from 'components/Carousel';
 
 function ProviderDetails() {
   let { providerId } = useParams();
@@ -116,9 +117,8 @@ function ProviderDetails() {
   
   return (
     <div>
-      <div className='flex justify-around w-full min-h-[450px] pt-20'>
+      <div className='flex justify-around w-full pt-24'>
         <div className='w-8/12 px-16'>
-          <div>
             <div className='flex mb-5'>
               <div className=''>
                 <img src={logo} alt="" className='w-28'/>
@@ -130,8 +130,8 @@ function ProviderDetails() {
               
             </div>
 
-            <SwiperElemet width={"850px"} height={"500px"} thumbnails={true} time={4000} b_radius={"10px"}/>
-          </div>
+            {/* <SwiperElemet width={"850px"} height={"500px"} thumbnails={true} time={4000} b_radius={"10px"}/> */}
+            <Carousel/>
         </div>
 
         <div className='w-4/12 px-8 mt-[80px]'>
@@ -146,6 +146,7 @@ function ProviderDetails() {
               <Button variant="contained" color="secondary" onClick={handleClickOpenBook}>Add to Event</Button>
             </div>
 
+            {/* // more information */}
             <Dialog
               open={open}
               onClose={handleClose}
@@ -167,46 +168,53 @@ function ProviderDetails() {
                 <ProviderDetailsCard providerDetails={provider}/>
               </DialogContent>
             </Dialog>
+
+            {/* //add to Event */}
+            <div className='flex items-center justify-start w-4/12 px-16 mt-16'>
+              <Dialog open={openbook} onClose={handleCloseBook}>
+                <DialogActions>
+                  <h1 onClick={handleCloseBook}><AiOutlineClose className='p-1 text-2xl text-red-700 hover:bg-red-300'/></h1>
+                </DialogActions>
+
+                <DialogTitle>Make your day with {provider.providerName}</DialogTitle>
+                
+                <DialogContent>
+                  <div className='w-[11/12]'>           
+                    <BookNowDropdown array={events} title="Event" func={setEventId} val={values.eventId}/>
+                    <BookNowDropdown array={packages} title="Package" func={setPackageId} val={values.packageId}/>
+                  </div>
+                </DialogContent>
+
+                <DialogActions>
+                  <Button onClick={handleAddToEvent} variant="contained" color="success">Add to Event</Button>
+                </DialogActions>
+                
+              </Dialog>
+            </div>
+
           </div>
         </div> 
       </div>
 
-      <div className='flex justify-around w-full'>
-        <div className='w-8/12 px-16 mt-16'>
+      {/* package Details */}
+      <div className='flex justify-center w-full mt-5 '>
+        <div className='w-8/12 px-8'>
           <PackageTabs packages={packages}/>
         </div>
 
-        <div className='flex items-center justify-start w-4/12 px-16 mt-16'>
-          {/* <Button variant="outlined" onClick={handleClickOpenBook}>Add to Event</Button> */}
-
-          <Dialog open={openbook} onClose={handleCloseBook}>
-            <DialogActions>
-              <h1 onClick={handleCloseBook}><AiOutlineClose className='p-1 text-2xl text-red-700 hover:bg-red-300'/></h1>
-            </DialogActions>
-
-            <DialogTitle>Make your day with {provider.providerName}</DialogTitle>
-            
-            <DialogContent>
-              <div className='w-[11/12]'>           
-                <BookNowDropdown array={events} title="Event" func={setEventId} val={values.eventId}/>
-                <BookNowDropdown array={packages} title="Package" func={setPackageId} val={values.packageId}/>
-              </div>
-            </DialogContent>
-
-            <DialogActions>
-              <Button onClick={handleAddToEvent} variant="contained" color="success">Add to Event</Button>
-            </DialogActions>
-            
-          </Dialog>
+        <div className='w-4/12 px-8'>
+          <Reviews reviews={reviews}/>
         </div>
       </div>
+
+      
       
       <div className='absolute bottom-0 left-0'>
         {successAddEvent && <SuccessSnakBar func={setSuccessAddEvent} type="success" val={successAddEvent} msg={"Successfully Added !"}/> }
         {emptyField && <SuccessSnakBar func={setEmptyFeild} type="error" val={emptyField} msg={"You can not have empty fields !"}/> }
       </div>
 
-      {/* <Rating/> */}
+      
       
     </div>
   );

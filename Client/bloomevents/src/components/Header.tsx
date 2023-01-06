@@ -15,7 +15,7 @@ function Header() {
 
   return (
     <div>
-            <header className={`px-50 py-[12px] text-center text-[#fff] bg-[#000000a8]  flex justify-between z-50 top-0 w-full ease-in-out duration-200 fixed ${
+            <header className={`px-50 py-[12.2px] text-center text-[#fff] bg-[#00000086]  flex justify-between z-50 top-0 w-full ease-in-out duration-200 fixed ${
             small ? "py-0" : "py-0"
             }`}>
                 <div className='w-2/12 pl-20 text-left'>

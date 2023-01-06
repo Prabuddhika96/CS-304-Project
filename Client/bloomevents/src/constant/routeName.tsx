@@ -8,6 +8,5 @@ export enum RouteName {
     Aboutus= "/aboutus",
     Contactus= "/contactus",
     ProviderDetails= "/providerdetails/:providerId",
-    booknow= "/booknow"
     
   }
