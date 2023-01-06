@@ -1,7 +1,6 @@
 import { Button } from '@mui/material';
 import CalenderElement from 'components/CalenderElement';
 import PackageTabs from 'components/PackageTabs';
-import SwiperElemet from 'components/SwiperElemet';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -21,6 +20,8 @@ import BookRequest from 'types/BookRequest';
 import BookNowDropdown from 'components/BookNowDropdown';
 import ProviderDetailsCard from 'components/ProviderDetailsCard';
 import SuccessSnakBar from 'components/SuccessSnakBar';
+import Rating from 'components/Rating';
+import SwiperElemet from 'components/SwiperElemet';
 
 function ProviderDetails() {
   let { providerId } = useParams();
@@ -115,7 +116,7 @@ function ProviderDetails() {
   
   return (
     <div>
-      <div className='flex justify-around w-full min-h-[450px] pt-28'>
+      <div className='flex justify-around w-full min-h-[450px] pt-20'>
         <div className='w-8/12 px-16'>
           <div>
             <div className='flex mb-5'>
@@ -129,7 +130,7 @@ function ProviderDetails() {
               
             </div>
 
-            <SwiperElemet/>
+            <SwiperElemet width={"850px"} height={"500px"} thumbnails={true} time={4000} b_radius={"10px"}/>
           </div>
         </div>
 
@@ -204,6 +205,8 @@ function ProviderDetails() {
         {successAddEvent && <SuccessSnakBar func={setSuccessAddEvent} type="success" val={successAddEvent} msg={"Successfully Added !"}/> }
         {emptyField && <SuccessSnakBar func={setEmptyFeild} type="error" val={emptyField} msg={"You can not have empty fields !"}/> }
       </div>
+
+      {/* <Rating/> */}
       
     </div>
   );

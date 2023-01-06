@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 // import { GrUserWorker } from 'react-icons/gr';
 import { AiOutlineCamera, AiOutlineCalendar } from 'react-icons/ai';
 import { FiUsers, FiPackage } from 'react-icons/fi';
+import SwiperElemet from 'components/SwiperElemet';
 // import logo from 'img/logo.png';
 
 // import dance from 'img/dance.jpg';
@@ -47,8 +48,8 @@ function LandingPage() {
   return (
     <div> 
       {/* Hero */}
-      <div>
-        <div className='absolute left-16 flex text-[#fff] w-7/12 z-20 ml-10 mt-[200px]  p-12'>
+      <div className='w-full h-[700px]'>
+        <div className='absolute left-16 flex text-[#fff] w-7/12 z-20 ml-10 mt-[150px]  p-12'>
           <div>
             <h1 className='text-5xl'>Get ready for a <span className='text-[#ffc277]'>Event</span></h1>
             <p className='mt-5 text-base text-left'>We bring dedicated design teams to entrepreneurs seeking talents to grow their brands.
@@ -62,7 +63,10 @@ function LandingPage() {
           </div>
           
         </div>
-        <Carousel />    
+
+        <div className="w-full">
+          <SwiperElemet width={"100%"} height={"720px"} thumbnails={false} time={3000} b_radius={"0px"}/>  
+        </div>  
       </div>  
 
       {/* Section 2 */}

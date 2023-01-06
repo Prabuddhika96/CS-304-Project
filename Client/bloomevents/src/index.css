@@ -22,7 +22,8 @@ body {
   /* -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; */
   /* padding-top: 100px; */
-  background-color: var(--white);
+  /* background-color: var(--white); */
   font-family: 'Poppins', sans-serif;
-
+  background-image: url('img/bg_img.jpg');
+  background-size: cover;
 }
