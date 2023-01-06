@@ -1,20 +1,18 @@
-import * as React from 'react';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
-import { ButtonProps } from 'types/ButtonProps';
+import Select from '@mui/material/Select';
 
-function BookNowDropdown({val,array, func}:any) {
+function BookNowDropdown({val,array, func, title}:any) {
   return (
     <FormControl variant="standard" fullWidth sx={{ m: 1, minWidth: 120 }}>
-        <InputLabel id="demo-simple-select-standard-label">Event</InputLabel>
+        <InputLabel id="demo-simple-select-standard-label">{title}</InputLabel>
         <Select
         labelId="demo-simple-select-standard-label"
         id="demo-simple-select-standard"
         value={val}
         onChange={(e) => func(e.target.value)}
-        label="Event"
+        label={title}
         >
         <MenuItem value="" disabled>
             <em>None</em>

@@ -10,27 +10,17 @@ import {packages} from 'docs/packages';
 import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
-import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-import TextField from '@mui/material/TextField';
-
-import * as React from 'react';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import FormControl from '@mui/material/FormControl';
-import Select, { SelectChangeEvent } from '@mui/material/Select';
 
 import logo from 'img/logo.png';
 
-import { AiOutlineClose, AiOutlineFacebook, AiOutlineInstagram, AiOutlinePhone, AiOutlineStar } from 'react-icons/ai';
-import { BsBriefcase } from 'react-icons/bs';
-import { FiPackage } from 'react-icons/fi';
-import { GoLocation } from 'react-icons/go';
-import { BiCategory, BiWorld } from 'react-icons/bi';
+import { AiOutlineClose } from 'react-icons/ai';
 import { RouteName } from 'constant/routeName';
 import { events } from 'docs/events';
 import BookRequest from 'types/BookRequest';
 import BookNowDropdown from 'components/BookNowDropdown';
+import ProviderDetailsCard from 'components/ProviderDetailsCard';
+import SuccessSnakBar from 'components/SuccessSnakBar';
 
 function ProviderDetails() {
   let { providerId } = useParams();
@@ -56,7 +46,6 @@ function ProviderDetails() {
 
   // more Info
   const [open, setOpen] = useState(false);
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -77,24 +66,25 @@ function ProviderDetails() {
       navigate(RouteName.Login);
     }
   };
-
+  
   const handleCloseBook = () => {
     setOpenbook(false);
-    console.log(values);
   };
 
+  
   // choose event
+  const [successAddEvent,setSuccessAddEvent]=useState<boolean>(false);
+  const [emptyField,setEmptyFeild]=useState<boolean>(false);
+
   const [eventId, setEventId] = useState<any | 0>(0);
-  const [packageId, setPackageId] = useState<number | 0>(0);
-  const [userId, setUserId] = useState<number | 0>(0);
-  const [paymentId, setPaymentId] = useState<number | 0>(0);
-  const [timestamp, setTimestamp] = useState<string | null>(null);
+  const [packageId, setPackageId] = useState<any | 0>(0);
+  const [userId, setUserId] = useState<any | 0>(0);
+  const [timestamp, setTimestamp] = useState<any | null>(null);
   
   const [values, setValues] = useState<BookRequest>({
     eventId: 0,
     packageId : 0,
-    userId : 0,
-    paymentId : 0,
+    userId : userId,
     timestamp : ''
   })
 
@@ -103,23 +93,26 @@ function ProviderDetails() {
       eventId: eventId,
       packageId : packageId,
       userId : userId,
-      paymentId : paymentId,
       timestamp : timestamp ? timestamp : ''
     });
-}, [eventId, packageId, userId, paymentId])
+    setSuccessAddEvent(successAddEvent);
+  }, [eventId, packageId, userId, successAddEvent])
 
-const onChange = (e: any) => {
-  setValues((preState) => ({
-      ...preState,
-      [e.target.name]: e.target.value
-  }))
-}
+  const handleAddToEvent = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
 
-  // const handleChangeEvent = (event: SelectChangeEvent) => {
-  //   console.log(values);
-  // };
+    if(values.eventId===0 || values.packageId===0){
+      setEmptyFeild(true);
+    }
+    else{
+      setOpenbook(false);  
+      setSuccessAddEvent(true);
+    }    
+  };
 
 
+
+  
   return (
     <div>
       <div className='flex justify-around w-full min-h-[450px] pt-28'>
@@ -147,10 +140,9 @@ const onChange = (e: any) => {
           </div>
 
           <div>
-            <div className='w-full mt-5'>
-              <Button variant="contained" color="success" className='' onClick={handleClickOpen}>
-                More Infomation
-              </Button>
+            <div className='flex justify-around w-10/12 mt-5'>
+              <Button variant="contained" color="success" className='' onClick={handleClickOpen}>More Infomation</Button>
+              <Button variant="contained" color="secondary" onClick={handleClickOpenBook}>Add to Event</Button>
             </div>
 
             <Dialog
@@ -171,22 +163,7 @@ const onChange = (e: any) => {
               </DialogTitle>
 
               <DialogContent>
-                <DialogContentText id="alert-dialog-description">
-                    <div className='text-xl'>
-                      <h3 className='pro-dialog-h3'><BsBriefcase className='service-card-icon !text-[#c26d06]'/><span className='pro-dialog-span'>Provider Name : </span> {provider.providerName}</h3>
-                      <h3 className='pro-dialog-h3'><GoLocation className='service-card-icon !text-[#c26d06]'/><span className='pro-dialog-span'>District : </span> {provider.district}</h3>
-                      <h3 className='pro-dialog-h3'><BiCategory className='service-card-icon !text-[#c26d06]'/><span className='pro-dialog-span'>Category : </span> {provider.category}</h3>
-                      <h3 className='pro-dialog-h3'><FiPackage className='service-card-icon !text-[#c26d06]'/><span className='pro-dialog-span'>No of Packages : </span> {provider.packageCount}</h3>
-                      <h3 className='pro-dialog-h3'><AiOutlineStar className='service-card-icon !text-[#c26d06]'/><span className='pro-dialog-span'>Ratings : </span> {provider.ratings}</h3>
-                      <h3 className='pro-dialog-h3'><AiOutlinePhone className='service-card-icon !text-[#c26d06]'/><span className='pro-dialog-span'>Mobile : </span> {provider.mobile}</h3>
-                    </div>
-
-                    <div className='flex justify-around w-6/12 mx-auto my-3 text-lg'>
-                      <a href={provider.insta} target="_blank" className='provider-detail-dialog-box-icon'><AiOutlineInstagram/></a>
-                      <a href={provider.fb} target="_blank" className='provider-detail-dialog-box-icon'><AiOutlineFacebook/></a>
-                      <a href={provider.web} target="_blank" className='provider-detail-dialog-box-icon'><BiWorld/></a>
-                    </div>
-                </DialogContentText>
+                <ProviderDetailsCard providerDetails={provider}/>
               </DialogContent>
             </Dialog>
           </div>
@@ -199,9 +176,7 @@ const onChange = (e: any) => {
         </div>
 
         <div className='flex items-center justify-start w-4/12 px-16 mt-16'>
-          <Button variant="outlined" onClick={handleClickOpenBook}>
-            Book Now
-          </Button>
+          {/* <Button variant="outlined" onClick={handleClickOpenBook}>Add to Event</Button> */}
 
           <Dialog open={openbook} onClose={handleCloseBook}>
             <DialogActions>
@@ -209,47 +184,26 @@ const onChange = (e: any) => {
             </DialogActions>
 
             <DialogTitle>Make your day with {provider.providerName}</DialogTitle>
+            
             <DialogContent>
-              {/* <DialogContentText>
-                To subscribe to this website, please enter your email address here. We
-                will send updates occasionally.
-              </DialogContentText> */}
-              {/* <TextField autoFocus margin="dense" id="name" label="Email Address" type="email" fullWidth variant="standard"/> */}
-              <div className='w-[11/12]'>
-                {/* <FormControl variant="standard" fullWidth sx={{ m: 1, minWidth: 120 }}>
-                  <InputLabel id="demo-simple-select-standard-label">Event</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-standard-label"
-                    id="demo-simple-select-standard"
-                    value={eventId}
-                    onChange={(e) => setEventId(e.target.value)}
-                    label="Event"
-                  >
-                    <MenuItem value="" disabled>
-                      <em>None</em>
-                    </MenuItem>
-
-                    {events.map((e:any,i:number)=>(
-                      <MenuItem value={e.id.toString()} key={i+1}>{e.name}</MenuItem>
-                    ))}
-
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-                </FormControl> */}
-
-                <BookNowDropdown array={events} func={setEventId} val={values.eventId}/>
+              <div className='w-[11/12]'>           
+                <BookNowDropdown array={events} title="Event" func={setEventId} val={values.eventId}/>
+                <BookNowDropdown array={packages} title="Package" func={setPackageId} val={values.packageId}/>
               </div>
             </DialogContent>
+
             <DialogActions>
-              {/* <Button onClick={handleCloseBook}>Cancel</Button> */}
-              <Button onClick={handleCloseBook} variant="contained" color="success">Book Now</Button>
+              <Button onClick={handleAddToEvent} variant="contained" color="success">Add to Event</Button>
             </DialogActions>
+            
           </Dialog>
         </div>
       </div>
       
+      <div className='absolute bottom-0 left-0'>
+        {successAddEvent && <SuccessSnakBar func={setSuccessAddEvent} type="success" val={successAddEvent} msg={"Successfully Added !"}/> }
+        {emptyField && <SuccessSnakBar func={setEmptyFeild} type="error" val={emptyField} msg={"You can not have empty fields !"}/> }
+      </div>
       
     </div>
   );
