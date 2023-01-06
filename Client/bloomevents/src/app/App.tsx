@@ -11,7 +11,7 @@ import Services from 'pages/Services';
 import Aboutus from 'pages/Aboutus';
 import { RouteName } from 'constant/routeName';
 import 'styles/styles.css';
-import BookNow from 'components/BookNow';
+// import BookNow from 'components/BookNow';
 
 
 function App() {
@@ -30,7 +30,7 @@ function App() {
 
             <Route path={RouteName.ProviderDetails} caseSensitive={false} element={<ProviderDetails/>} />
 
-            <Route path={RouteName.booknow} caseSensitive={false} element={<BookNow/>} />
+            {/* <Route path={RouteName.booknow} caseSensitive={false} element={<BookNow/>} /> */}
             
           </Routes>
         <Footer/>
