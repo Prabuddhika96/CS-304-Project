@@ -135,15 +135,15 @@ function ProviderDetails() {
         </div>
 
         <div className='w-4/12 px-8 mt-[80px]'>
-          <h1 className='text-lg'>Avalble Slots</h1>
-          <div className='bottom-0'>
+          <h1 className='text-lg text-[#000] uppercase'>Avalble Slots</h1>
+          <div className='bottom-0 mt-5'>
             <CalenderElement/>
           </div>
 
           <div>
             <div className='flex justify-around w-10/12 mt-5'>
-              <Button variant="contained" color="success" className='' onClick={handleClickOpen}>More Infomation</Button>
-              <Button variant="contained" color="secondary" onClick={handleClickOpenBook}>Add to Event</Button>
+              <Button variant="contained" color="success" className='!bg-[#bd6800] hover:!bg-[#965200]' onClick={handleClickOpen}>More Infomation</Button>
+              <Button variant="contained" color="secondary" className='!bg-[#bd6800] hover:!bg-[#965200]' onClick={handleClickOpenBook}>Add to Event</Button>
             </div>
 
             {/* // more information */}
@@ -186,7 +186,7 @@ function ProviderDetails() {
                 </DialogContent>
 
                 <DialogActions>
-                  <Button onClick={handleAddToEvent} variant="contained" color="success">Add to Event</Button>
+                  <Button onClick={handleAddToEvent} variant="contained" className='!bg-[#bd6800] hover:!bg-[#965200]' >Add to Event</Button>
                 </DialogActions>
                 
               </Dialog>

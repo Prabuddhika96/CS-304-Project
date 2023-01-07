@@ -15,8 +15,8 @@ function Header() {
 
   return (
     <div>
-            <header className={`px-50 py-[12.2px] text-center text-[#fff] bg-[#00000086]  flex justify-between z-50 top-0 w-full ease-in-out duration-200 fixed ${
-            small ? "py-0" : "py-0"
+            <header className={`px-50 py-[13px] text-center text-[#fff] bg-[#00000086]  flex justify-between z-50 top-0 w-full ease-in-out duration-200 fixed ${
+            small ? "py-[13px]" : "py-[13px]"
             }`}>
                 <div className='w-2/12 pl-20 text-left'>
                     <Link to='/'><img src={logo} alt="" className='w-20 hover:shadow-lg'/></Link>
@@ -33,8 +33,8 @@ function Header() {
     
                 <div className='right-0 text-right text-[#000]'>
                     <ul className='pt-4 pr-12 list-none'>
-                        <li className='inline py-1 px-5 font-medium rounded-full text-[#ffc277] border-2 border-[#ffc277] border-solid text-base hover:bg-[#ffc277] hover:text-black hover:duration-200 mx-2'><Link to='/login' className='header-btn'>Login</Link></li>
-                        <li className='inline py-1 px-5 font-medium rounded-full text-[#ffc277] border-2 border-[#ffc277] border-solid text-base hover:bg-[#ffc277] hover:text-black hover:duration-200 mx-2'><Link to='/signup' className='header-btn'>Sign Up</Link></li>
+                        <Link to='/login' className='header-btn'><li className='inline py-1 px-5 font-medium rounded-full text-[#ffc277] border-2 border-[#ffc277] border-solid text-base hover:bg-[#ffc277] hover:text-black hover:duration-200 mx-2'>Login</li></Link>
+                        <Link to='/signup' className='header-btn'><li className='inline py-1 px-5 font-medium rounded-full text-[#ffc277] border-2 border-[#ffc277] border-solid text-base hover:bg-[#ffc277] hover:text-black hover:duration-200 mx-2'>Sign Up</li></Link>
                     </ul>
                 </div>
             </header>

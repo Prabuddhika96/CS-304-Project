@@ -4,7 +4,7 @@ import { AiOutlineInstagram, AiOutlineWhatsApp, AiOutlineFacebook } from 'react-
 
 function Footer() {
   return (
-    <div className='flex p-5 py-8 mt-20 relative h-[250px] bg-[#464646] border-t border-solid border-[#3d1000] pt-7'>
+    <div className='flex p-5 py-8 bottom-0 mb-0 mt-20 relative h-[250px] bg-[#464646] border-t border-solid border-[#3d1000] pt-7'>
         <div className='w-1/3 text-left'>
             <div className='z-10 absolute inset-x-0 bottom-0 h-[105px] px-5'>
                 <p><Link className='footer-links' to='/'>Privacy Policies</Link></p>          
