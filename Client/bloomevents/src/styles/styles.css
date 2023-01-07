@@ -45,6 +45,26 @@
     .pro-dialog-span{
         @apply mx-1 text-[#c26d06]
     }
+
+    .buttonIn{
+        @apply  relative;
+    }
+
+    .showPw{
+        @apply flex items-center px-3 ml-1 /*border-2 border-[#c26d06] border-solid*/ text-[#c26d06] text-xl font-bold cursor-pointer;
+    }
+
+    .form-input-main-div{
+        @apply flex justify-between w-full;
+    }
+
+    .form-input-sub-div{
+        @apply w-[49%] col-span-5 my-3 buttonIn sm:col-span-4;
+    }
+
+    .form-textfield-double{
+        @apply w-full;
+    }
 }
 
 .parallax {

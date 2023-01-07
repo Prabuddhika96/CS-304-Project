@@ -26,4 +26,5 @@ body {
   font-family: 'Poppins', sans-serif;
   background-image: url('img/bg_img.jpg');
   background-size: cover;
+  /* min-height: 500px; */
 }
