@@ -66,7 +66,7 @@ function Login() {
                 {/* password */}
                 <div className="flex w-full col-span-6 mt-5 buttonIn sm:col-span-4">
                   <TextField id="outlined" type={showPw ? "text" : "password"} label="Password" className='w-full rounded-[5px] outline-none p-0 ' onChange={(e)=>{setpassword(e.target.value)}} variant="outlined" />
-                  <h1 id="clear" className='showPw' onClick={handleClickShowPw}>
+                  <h1 id="clear" className='showPw' onClick={handleClickShowPw}> 
                     {showPw ? <AiOutlineEyeInvisible/> : <AiOutlineEye/>}
                   </h1>
                 </div>
