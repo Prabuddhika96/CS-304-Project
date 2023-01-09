@@ -1,13 +1,14 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import image from 'img/logo.png';
 import { Link } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
+import User from 'types/User';
 
 function Login() {
+  // show password
   const [showPw, setShowPw]=useState<boolean>(false);
-
-  const handleClick=()=>{
+  const handleClickShowPw=()=>{
     if(showPw){
       setShowPw(false);
     }
@@ -15,6 +16,31 @@ function Login() {
       setShowPw(true);
     }
   }
+
+  //login details
+  const [email, setemail] = useState<string | ''>('');
+  const [password, setpassword] = useState<string | ''>('');
+
+  const [values, setValues] = useState<User>({
+    email : '',
+    password : '',
+  })
+
+  useEffect(() => {
+    setValues({
+      email : email ,
+      password : password ,
+    });
+    // console.log(values);
+  }, [email,password])
+
+
+  const handleClck=(e:any)=>{
+    e.preventDefault();
+
+    console.log(values);
+  }
+
 
   return (
     <div className='flex items-center w-11/12 pt-24 mb-20'>
@@ -32,16 +58,17 @@ function Login() {
 
                 <h1 className='mb-3 text-3xl text-left'>Log <span className='text-[#ffa537]'>In</span></h1>
 
-                <div className="col-span-6 buttonIn my-7 sm:col-span-4">
-                  <TextField id="outlined" label="Email address" className='w-full' variant="outlined" />
+                {/* email */}
+                <div className="col-span-6 my-3 buttonIn sm:col-span-4">
+                  <TextField id="outlined" label="Email address" className='w-full' onChange={(e)=>{setemail(e.target.value)}} variant="outlined" />
                 </div>
 
-                <div className="flex w-full col-span-6 buttonIn my-7 sm:col-span-4">
-                  <TextField id="outlined" type={showPw ? "text" : "password"} label="Password" className='w-full rounded-[5px] outline-none m-0 p-0 ' variant="outlined" />
-                  <h1 id="clear" className='showPw' onClick={handleClick}>
+                {/* password */}
+                <div className="flex w-full col-span-6 mt-5 buttonIn sm:col-span-4">
+                  <TextField id="outlined" type={showPw ? "text" : "password"} label="Password" className='w-full rounded-[5px] outline-none p-0 ' onChange={(e)=>{setpassword(e.target.value)}} variant="outlined" />
+                  <h1 id="clear" className='showPw' onClick={handleClickShowPw}>
                     {showPw ? <AiOutlineEyeInvisible/> : <AiOutlineEye/>}
                   </h1>
-                  {/* className='absolute rounded-[5px] right-0 z-[2] border-none top-[2px] translate-x-[2px]' */}
                 </div>
               </div>
 
@@ -52,6 +79,7 @@ function Login() {
                 <button
                   type="submit"
                   className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-[#ffa537] border border-transparent rounded-md shadow-sm hover:bg-[#d48019] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                  onClick={handleClck}
                 >
                   Login
                 </button>

@@ -4,6 +4,8 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
 function BookNowDropdown({val,array, func, title}:any) {
+
+  
   return (
     <FormControl variant="standard" fullWidth sx={{ m: 1, minWidth: 120 }}>
         <InputLabel id="demo-simple-select-standard-label">{title}</InputLabel>
