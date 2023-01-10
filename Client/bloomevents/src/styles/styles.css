@@ -65,6 +65,10 @@
     .form-textfield-double{
         @apply w-full;
     }
+
+    .login-form-btn{
+        @apply inline-flex items-center justify-center px-4 py-2 text-base font-medium text-white bg-[#ffa537] border border-transparent rounded-md shadow-sm hover:bg-[#d48019] focus:outline-none focus:ring-2 focus:ring-[#d48019] focus:ring-offset-2 w-full;
+    }
 }
 
 .parallax {

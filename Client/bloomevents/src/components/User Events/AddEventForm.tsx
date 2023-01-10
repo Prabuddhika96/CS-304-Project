@@ -3,6 +3,11 @@ import image from 'img/logo.png';
 import { TextField } from '@mui/material';
 
 import Event from 'types/Event';
+import dayjs, { Dayjs } from 'dayjs';
+import DatePicker from './DatePicker';
+
+import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import SuccessSnakBar from 'components/Snak Bars/SuccessSnakBar';
 
 function AddEventForm() {
     const [showPw, setShowPw]=useState<boolean>(false);
@@ -16,34 +21,57 @@ function AddEventForm() {
     }
   
     const [eventname, seteventname] = useState<string | ''>('');
-    const [date, setdate] = useState<string | ''>('');
+    const [date, setdate] = useState<Dayjs>(dayjs(null));
 
     const [values, setValues] = useState<Event>({
         event_id : 0,
-        event_date : '',
+        event_date : dayjs(null),
         event_name : '',
         user_id : 0,
     })
   
     useEffect(() => {
-    setValues({
-        event_id : 0,
-        event_date : '',
-        event_name : '',
-        user_id : 0,
-    });
-    // console.log(values);
+        setValues({
+            event_id : 0,
+            event_date : date,
+            event_name : eventname,
+            user_id : 0,
+        });
+        console.log(values);
     }, [eventname, date])
 
 
 
     const handleClck=(e:any)=>{
-    e.preventDefault();
+        e.preventDefault();
+        console.log(values);
 
-    console.log(values);
+        if(values.event_name==='' || values.event_date==null){
+            setEmptyFeild(true);
+            setSuccessAddEvent(false);
+        }
+        else{
+            setEmptyFeild(false);
+            setSuccessAddEvent(true);
+        }  
     }
   
-  
+     // choose event
+    const [successAddEvent,setSuccessAddEvent]=useState<boolean>(false);
+    const [emptyField,setEmptyFeild]=useState<boolean>(false);
+
+    // const handleAddToEvent = (e: { preventDefault: () => void; }) => {
+    //     e.preventDefault();
+
+    //     if(values.event_name==='' || values.event_date==null){
+    //         setEmptyFeild(true);
+    //         setSuccessAddEvent(false);
+    //     }
+    //     else{
+    //         setEmptyFeild(false);
+    //         setSuccessAddEvent(true);
+    //     }    
+    // };
   
   
     return (
@@ -69,7 +97,7 @@ function AddEventForm() {
                     </div>
                     
                     <div className="w-full col-span-5 my-3 buttonIn sm:col-span-4">
-                      <TextField id="outlined" label="Date" type={'date'} className='form-textfield-double' onChange={(e)=>{setdate(e.target.value)}} variant="outlined" />
+                      <DatePicker func={setdate} val={values.event_date} />
                     </div>
                   </div>
   
@@ -78,16 +106,21 @@ function AddEventForm() {
                 <div className="px-4 py-3 text-right bg-gray-50 sm:px-6">
                   <button
                     type="submit"
-                    className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-[#ffa537] border border-transparent rounded-md shadow-sm hover:bg-[#d48019] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
+                    className="login-form-btn"
                     onClick={handleClck}
                   >
-                    Login
+                    <span className='mr-2 text-white'><AddCircleOutlineIcon/></span> Add Event
                   </button>
                 </div>
                 
               </div>
             </form>
           </div>
+        </div>
+
+        <div className='absolute bottom-0 left-0'>
+            {successAddEvent && <SuccessSnakBar func={setSuccessAddEvent} type="success" val={successAddEvent} msg={"Successfully Added !"}/> }
+            {emptyField && <SuccessSnakBar func={setEmptyFeild} type="error" val={emptyField} msg={"You can not have empty fields !"}/> }
         </div>
       </div>
     )
