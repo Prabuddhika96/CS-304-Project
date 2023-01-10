@@ -1,24 +1,8 @@
 import { useEffect, useState } from 'react';
 import image from 'img/logo.png';
-import { Link } from 'react-router-dom';
 import { TextField } from '@mui/material';
-import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
-import { districts } from 'docs/districts';
-import NewUser from 'types/NewUser';
-import SignupDropDown from 'components/Drop Downs/SignupDropdown';
-import { RouteName } from 'constant/routeName';
-
-import * as React from 'react';
-import dayjs, { Dayjs } from 'dayjs';
-import Stack from '@mui/material/Stack';
-import TextField from '@mui/material/TextField';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { TimePicker } from '@mui/x-date-pickers/TimePicker';
-import { DateTimePicker } from '@mui/x-date-pickers/DateTimePicker';
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import { MobileDatePicker } from '@mui/x-date-pickers/MobileDatePicker';
+import Event from 'types/Event';
 
 function AddEventForm() {
     const [showPw, setShowPw]=useState<boolean>(false);
@@ -31,38 +15,44 @@ function AddEventForm() {
       }
     }
   
-    const [eventname, seteventname] = useState<any | ''>('');
-    const [date, setdate] = useState<any | ''>('');
-  
+    const [eventname, seteventname] = useState<string | ''>('');
+    const [date, setdate] = useState<string | ''>('');
+
     const [values, setValues] = useState<Event>({
-        eventname : eventname,
-        date: date
+        event_id : 0,
+        event_date : '',
+        event_name : '',
+        user_id : 0,
     })
   
     useEffect(() => {
-      setValues({
-        eventname: eventname,
-        date : date ,
-      });
-      // console.log(values);
+    setValues({
+        event_id : 0,
+        event_date : '',
+        event_name : '',
+        user_id : 0,
+    });
+    // console.log(values);
     }, [eventname, date])
-  
+
+
+
     const handleClck=(e:any)=>{
-      e.preventDefault();
-  
-      console.log(values);
+    e.preventDefault();
+
+    console.log(values);
     }
   
   
   
   
     return (
-      <div className='flex items-center w-11/12 pt-24 mb-20'>
-        <div className='w-6/12'>
+      <div className='items-center w-full pt-24 mb-20 '>
+        <div className='items-center w-6/12 mx-auto my-3'>
           <img src={image} alt="" className='w-full'/>
         </div>
   
-        <div className='w-6/12 '>
+        <div className='w-full '>
           <div className="mt-10 sm:mt-0">
             
             <form action="#" method="POST">
