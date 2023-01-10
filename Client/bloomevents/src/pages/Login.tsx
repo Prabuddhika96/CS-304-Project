@@ -18,16 +18,19 @@ function Login() {
   }
 
   //login details
+  const [userid, seruserid] = useState<number | 0>(0);
   const [email, setemail] = useState<string | ''>('');
   const [password, setpassword] = useState<string | ''>('');
 
   const [values, setValues] = useState<User>({
+    userId: 0,
     email : '',
     password : '',
   })
 
   useEffect(() => {
     setValues({
+      userId: 0,
       email : email ,
       password : password ,
     });
