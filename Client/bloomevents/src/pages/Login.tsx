@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { TextField } from '@mui/material';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import User from 'types/User';
+import { RouteName } from 'constant/routeName';
 
 function Login() {
   // show password
@@ -78,7 +79,7 @@ function Login() {
               
 
               <div className="px-4 py-3 text-right bg-gray-50 sm:px-6">
-              <p className='text-left'>Didn't Have An Account? <Link to='/signup' className='text-[#e17c01]'>Sign Up</Link></p>
+              <p className='text-left'>Didn't Have An Account? <Link to={RouteName.Register} className='text-[#e17c01]'>Register Now</Link></p>
                 <button
                   type="submit"
                   className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-[#ffa537] border border-transparent rounded-md shadow-sm hover:bg-[#d48019] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"

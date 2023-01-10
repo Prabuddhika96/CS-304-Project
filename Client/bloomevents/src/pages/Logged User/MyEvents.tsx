@@ -1,8 +1,14 @@
-import React from 'react'
+import AddEventForm from "components/User Events/AddEventForm"
 
+ 
 function MyEvents() {
   return (
-    <div>MyEvents</div>
+    <div className='flex justify-around w-full'>
+      <div>jjfnnfaf</div>
+      <div>
+        <AddEventForm/>
+      </div>
+    </div>
   )
 }
 
