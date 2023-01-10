@@ -18,18 +18,20 @@ function App() {
     <div className="App">
       <Router>
         <Header/>
-          <Routes>
-            <Route path={RouteName.Home} caseSensitive={false} element={<LandingPage/>} />
-            <Route path={RouteName.Login} caseSensitive={false} element={<Login/>} />
-            <Route path={RouteName.Signup} caseSensitive={false} element={<Signup/>} />
+          <div className='flex items-center min-h-[650px]'>
+            <Routes>
+              <Route path={RouteName.Home} caseSensitive={false} element={<LandingPage/>} />
+              <Route path={RouteName.Login} caseSensitive={false} element={<Login/>} />
+              <Route path={RouteName.Signup} caseSensitive={false} element={<Signup/>} />
 
-            <Route path={RouteName.Services} caseSensitive={false} element={<Services/>} />
-            <Route path={RouteName.Aboutus} caseSensitive={false} element={<Aboutus/>} />
-            <Route path={RouteName.Contactus} caseSensitive={false} element={<Contactus/>} />
+              <Route path={RouteName.Services} caseSensitive={false} element={<Services/>} />
+              <Route path={RouteName.Aboutus} caseSensitive={false} element={<Aboutus/>} />
+              <Route path={RouteName.Contactus} caseSensitive={false} element={<Contactus/>} />
 
-            <Route path={RouteName.ProviderDetails} caseSensitive={false} element={<ProviderDetails/>} />
-            
-          </Routes>
+              <Route path={RouteName.ProviderDetails} caseSensitive={false} element={<ProviderDetails/>} />
+              
+            </Routes>
+          </div>
         <Footer/>
       </Router>
     </div>

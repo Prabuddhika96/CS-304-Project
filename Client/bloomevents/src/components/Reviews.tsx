@@ -51,7 +51,7 @@ const Review = ({reviews}:any) => {
   
 
   return (
-    <article className="review">
+    <article className="bg-[#ffe4c3] review">
       <div className="img-container">
         <img src={image} alt={name} className="person-img" />
         <span className="quote-icon">

@@ -15,23 +15,28 @@ function PackageTabs( {packages}:any ) {
     };
   
     return (
-      <div>
+      <div className=''>
         <Box sx={{ width: '100%', typography: 'body1' }}>
           <TabContext value={value}>
-            <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-              <TabList onChange={handleChange} aria-label="lab API tabs example">
-                
+            <div className="flex w-full">
+             
+              <div className='w-4/12'>
+                <Box sx={{ borderBottom: 1, borderColor: 'divider' ,display: 'flex'}}>
+                  <TabList onChange={handleChange} aria-label="lab API tabs example" orientation="vertical">                
+                    {packages.map((p:any,i:number)=>(
+                      <Tab label={p.name} value={(i+1).toString()} key={i} />
+                    ))}
+                  </TabList>
+                </Box>
+              </div>
+
+              <div className='w-8/12'>
                 {packages.map((p:any,i:number)=>(
-                  <Tab label={p.name} className={`w-[${Math.floor(100/packages.length)}%] overflow-auto whitespace-nowrap`} value={(i+1).toString()} key={i} />
+                  <TabPanel value={(i+1).toString()} key={i} >{p.des}</TabPanel>
                 ))}
-
-              </TabList>
-            </Box>
-
-              {packages.map((p:any,i:number)=>(
-                <TabPanel value={(i+1).toString()} key={i}>{p.des}</TabPanel>
-              ))}
-
+              </div>
+              
+            </div>
           </TabContext>
         </Box>
       </div>
