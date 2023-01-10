@@ -6,7 +6,7 @@ import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
 import { districts } from 'docs/districts';
 import NewUser from 'types/NewUser';
-import SignupDropDown from 'components/SignupDropdown';
+import SignupDropDown from 'components/Drop Downs/SignupDropdown';
 
 function Signup() {
   const [showPw, setShowPw]=useState<boolean>(false);

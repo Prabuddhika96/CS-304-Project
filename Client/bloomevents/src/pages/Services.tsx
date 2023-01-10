@@ -1,4 +1,4 @@
-import ServiceCard from 'components/ServiceCard';
+import ServiceCard from 'components/Cards/ServiceCard';
 import image from 'img/parallax.jpg';
 import { Link } from 'react-router-dom';
 

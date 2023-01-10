@@ -1,6 +1,6 @@
 import { Button } from '@mui/material';
-import CalenderElement from 'components/CalenderElement';
-import PackageTabs from 'components/PackageTabs';
+import CalenderElement from 'components/Elements/CalenderElement';
+import PackageTabs from 'components/Elements/PackageTabs';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
@@ -18,11 +18,11 @@ import { AiOutlineClose } from 'react-icons/ai';
 import { RouteName } from 'constant/routeName';
 import { events } from 'docs/events';
 import BookRequest from 'types/BookRequest';
-import BookNowDropdown from 'components/BookNowDropdown';
-import ProviderDetailsCard from 'components/ProviderDetailsCard';
-import SuccessSnakBar from 'components/SuccessSnakBar';
-import Reviews from 'components/Reviews';
-import Carousel from 'components/Carousel';
+import BookNowDropdown from 'components/Drop Downs/BookNowDropdown';
+import ProviderDetailsCard from 'components/Cards/ProviderDetailsCard';
+import SuccessSnakBar from 'components/Snak Bars/SuccessSnakBar';
+import Reviews from 'components/Cards/Reviews';
+import Carousel from 'components/Carousel/Carousel';
 
 function ProviderDetails() {
   let { providerId } = useParams();

@@ -1,10 +1,10 @@
 import 'styles/App.css';
 import {BrowserRouter as Router,Route,Routes} from 'react-router-dom';
-import Header from 'components/Header';
+import Header from 'components/Header/Header';
 import LandingPage from 'pages/LandingPage';
 import Login from 'pages/Login';
 import Signup from 'pages/Signup';
-import Footer from 'components/Footer';
+import Footer from 'components/Footer/Footer';
 import ProviderDetails from 'pages/ProviderDetails';
 import Contactus from 'pages/Contactus';
 import Services from 'pages/Services';

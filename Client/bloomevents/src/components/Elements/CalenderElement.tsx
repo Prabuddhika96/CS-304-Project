@@ -8,7 +8,7 @@ function CalenderElement() {
 
   return (
     <div>
-      <Calendar onChange={onChange} className='!bg-[#ffe6c7] rounded-lg' value={value} />      
+      <Calendar onChange={onChange} className='!bg-[#ffe6c7] rounded-lg' value={value} />
     </div>
   )
 }

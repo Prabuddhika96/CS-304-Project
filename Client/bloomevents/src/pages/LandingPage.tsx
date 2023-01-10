@@ -1,12 +1,12 @@
-import Carousel from 'components/Carousel';
-import SuccessCard from 'components/SuccessCard';
+import Carousel from 'components/Carousel/Carousel';
+import SuccessCard from 'components/Cards/SuccessCard';
 import 'styles/btns.css';
 // import man from 'img/man.jpg';
 import { Link } from 'react-router-dom';
 // import { GrUserWorker } from 'react-icons/gr';
 import { AiOutlineCamera, AiOutlineCalendar } from 'react-icons/ai';
 import { FiUsers, FiPackage } from 'react-icons/fi';
-import SwiperElemet from 'components/SwiperElemet';
+import SwiperElemet from 'components/Carousel/SwiperElemet';
 // import logo from 'img/logo.png';
 
 // import dance from 'img/dance.jpg';
