@@ -1,129 +1,165 @@
-import * as React from 'react';
-import Box from '@mui/material/Box';
-import Avatar from '@mui/material/Avatar';
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import ListItemIcon from '@mui/material/ListItemIcon';
-import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import EventIcon from '@mui/icons-material/Event';
-import Typography from '@mui/material/Typography';
-import Tooltip from '@mui/material/Tooltip';
-import Settings from '@mui/icons-material/Settings';
-import Logout from '@mui/icons-material/Logout';
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Avatar from "@mui/material/Avatar";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
+import EventIcon from "@mui/icons-material/Event";
+import Typography from "@mui/material/Typography";
+import Tooltip from "@mui/material/Tooltip";
+import Settings from "@mui/icons-material/Settings";
+import Logout from "@mui/icons-material/Logout";
 
-import Switch from '@mui/material/Switch';
-import { Link } from 'react-router-dom';
-import { RouteName } from 'constant/routeName';
+import Switch from "@mui/material/Switch";
+import { Link } from "react-router-dom";
+import { RouteName } from "constant/routeName";
 
-import {User } from 'docs/User'
+import { LoggedUser } from "docs/User";
 
-function LoggedUserNav() {
-    
+function LoggedUserNav({ func, promode }: any) {
+  const admin: boolean = LoggedUser.isAdmin;
 
-    const admin:boolean=false;
+  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
-    const handleClick = (event: React.MouseEvent<HTMLElement>) => {
-      setAnchorEl(event.currentTarget);
-    };
-    const handleClose = () => {
-      setAnchorEl(null);
-    };
+  // switch
+  const label = { inputProps: { "aria-label": "Switch demo" } };
 
+  return (
+    <React.Fragment>
+      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+        {/* {admin ? (
+          <div className="items-center mr-4">
+            <Typography sx={{ minWidth: 100 }}>Admin Dashboard</Typography>
+          </div>
+        ) : (
+          <></>
+        )} */}
 
-    // switch
-    const label = { inputProps: { 'aria-label': 'Switch demo' } };
+        <Typography sx={{ minWidth: 100 }} className="items-center">
+          Switch to Provider Mode
+          <Switch {...label} onChange={func} />
+        </Typography>
 
-    return (
-      <React.Fragment>
-        <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-            {admin ?
-                <Typography sx={{ minWidth: 100 }}>Admin Dashboard</Typography>
-            :
-                <Typography sx={{ minWidth: 100 }}>Switch to Provider Mode<Switch {...label} /></Typography>
-            }
-
-          
-
-          <Tooltip title="Account settings">
-            <IconButton
-              onClick={handleClick}
-              size="small"
-              sx={{ ml: 2 }}
-              aria-controls={open ? 'account-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={open ? 'true' : undefined}
-            >
-              <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
-            </IconButton>
-          </Tooltip>
-        </Box>
-        <Menu
-          anchorEl={anchorEl}
-          id="account-menu"
-          open={open}
-          onClose={handleClose}
-          onClick={handleClose}
-          PaperProps={{
-            elevation: 0,
-            sx: {
-              overflow: 'visible',
-              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-              mt: 1.5,
-              '& .MuiAvatar-root': {
-                width: 32,
-                height: 32,
-                ml: -0.5,
-                mr: 1,
-              },
-              '&:before': {
-                content: '""',
-                display: 'block',
-                position: 'absolute',
-                top: 0,
-                right: 14,
-                width: 10,
-                height: 10,
-                bgcolor: 'background.paper',
-                transform: 'translateY(-50%) rotate(45deg)',
-                zIndex: 0,
-              },
+        <Tooltip title="Account settings">
+          <IconButton
+            onClick={handleClick}
+            size="small"
+            sx={{ ml: 2 }}
+            aria-controls={open ? "account-menu" : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? "true" : undefined}>
+            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+          </IconButton>
+        </Tooltip>
+      </Box>
+      <Menu
+        anchorEl={anchorEl}
+        id="account-menu"
+        open={open}
+        onClose={handleClose}
+        onClick={handleClose}
+        PaperProps={{
+          elevation: 0,
+          sx: {
+            overflow: "visible",
+            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+            mt: 1.5,
+            "& .MuiAvatar-root": {
+              width: 32,
+              height: 32,
+              ml: -0.5,
+              mr: 1,
             },
-          }}
-          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-        >
+            "&:before": {
+              content: '""',
+              display: "block",
+              position: "absolute",
+              top: 0,
+              right: 14,
+              width: 10,
+              height: 10,
+              bgcolor: "background.paper",
+              transform: "translateY(-50%) rotate(45deg)",
+              zIndex: 0,
+            },
+          },
+        }}
+        transformOrigin={{ horizontal: "right", vertical: "top" }}
+        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}>
+        <Link
+          to={{
+            pathname: `${RouteName.Profile.replace(
+              ":id",
+              LoggedUser.userId.toString()
+            )}`,
+          }}>
           <MenuItem>
             <Avatar /> Profile
           </MenuItem>
+        </Link>
 
-          <Divider />
-          <MenuItem>
-            {/* <Link pathname: `/providerdetails/${c.provider_id}`><ListItemIcon><EventIcon fontSize="small" /></ListItemIcon>My Events</Link> */}
-            <Link to={{
-                pathname: `${RouteName.MyEvents.replace(":id",User.userId.toString())}`
+        {admin ? (
+          <Link
+            to={{
+              pathname: `${RouteName.Profile.replace(
+                ":id",
+                LoggedUser.userId.toString()
+              )}`,
             }}>
-                <ListItemIcon><EventIcon fontSize="small" /></ListItemIcon>My Events
+            <MenuItem>
+              <Avatar /> Admin Dashboard
+            </MenuItem>
+          </Link>
+        ) : (
+          <></>
+        )}
+
+        <Divider />
+
+        {/* check Pro mode to visible my events */}
+        {promode ? (
+          <></>
+        ) : (
+          <MenuItem>
+            <Link
+              to={{
+                pathname: `${RouteName.MyEvents.replace(
+                  ":id",
+                  LoggedUser.userId.toString()
+                )}`,
+              }}>
+              <ListItemIcon>
+                <EventIcon fontSize="small" />
+              </ListItemIcon>
+              My Events
             </Link>
           </MenuItem>
+        )}
 
-          <MenuItem>
-            <ListItemIcon>
-              <Settings fontSize="small" />
-            </ListItemIcon>
-            Settings
-          </MenuItem>
-          <MenuItem>
-            <ListItemIcon>
-              <Logout fontSize="small" />
-            </ListItemIcon>
-            Logout
-          </MenuItem>
-        </Menu>
-      </React.Fragment>
-    );
-  }
+        <MenuItem>
+          <ListItemIcon>
+            <Settings fontSize="small" />
+          </ListItemIcon>
+          Settings
+        </MenuItem>
+        <MenuItem>
+          <ListItemIcon>
+            <Logout fontSize="small" />
+          </ListItemIcon>
+          Logout
+        </MenuItem>
+      </Menu>
+    </React.Fragment>
+  );
+}
 
-export default LoggedUserNav
+export default LoggedUserNav;

@@ -12,6 +12,8 @@ import Aboutus from "pages/Aboutus";
 import { RouteName } from "constant/routeName";
 import "styles/styles.css";
 import MyEvents from "pages/Logged User/MyEvents";
+import UserProfile from "components/User Profile/UserProfile";
+import ProviderDashboard from "pages/Provider Pages/ProviderDashboard";
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
         <Header />
         <div className="flex items-center min-h-[650px]">
           <Routes>
+            {/* Nav bar */}
             <Route
               path={RouteName.Home}
               caseSensitive={false}
@@ -35,7 +38,6 @@ function App() {
               caseSensitive={false}
               element={<Signup />}
             />
-
             <Route
               path={RouteName.Services}
               caseSensitive={false}
@@ -52,16 +54,32 @@ function App() {
               element={<Contactus />}
             />
 
+            {/* Service */}
             <Route
               path={RouteName.ProviderDetails}
               caseSensitive={false}
               element={<ProviderDetails />}
             />
 
+            {/* Events */}
             <Route
               path={RouteName.MyEvents}
               caseSensitive={false}
               element={<MyEvents />}
+            />
+
+            {/* Profile */}
+            <Route
+              path={RouteName.Profile}
+              caseSensitive={false}
+              element={<UserProfile />}
+            />
+
+            {/* Provider */}
+            <Route
+              path={RouteName.ProviderDashboard}
+              caseSensitive={false}
+              element={<ProviderDashboard />}
             />
           </Routes>
         </div>
