@@ -13,8 +13,6 @@ function Header() {
 
     const [small, setSmall] = useState(false);
 
-
-
     useEffect(() => {
         if (typeof window !== "undefined") {
         window.addEventListener("scroll", () =>
@@ -26,8 +24,7 @@ function Header() {
   return (
     <div>
             <header className={`px-50 py-[13px] text-center text-[#fff] bg-[#00000086]  flex justify-between z-50 top-0 w-full ease-in-out duration-200 fixed ${
-            small ? "py-[13px]" : "py-[13px]"
-            }`}>
+            small ? "py-[13px]" : "py-[13px]" }`}>
                 <div className='w-2/12 pl-20 text-left'>
                     <Link to={RouteName.Home}><img src={logo} alt="" className='w-20 hover:shadow-lg'/></Link>
                 </div>

@@ -1,11 +1,16 @@
-import AddEventForm from "components/User Events/AddEventForm"
+import AddEventForm from "components/User Events/AddEventForm";
+import EventList from "components/User Events/EventList";
 
  
 function MyEvents() {
+  
   return (
-    <div className='flex justify-around w-full'>
-      <div>jjfnnfaf</div>
-      <div>
+    <div className='flex flex-wrap justify-around w-11/12'>
+      <div className="w-8/12">
+        <EventList/>
+      </div>
+
+      <div className={`fixed top-0 w-4/12 right-20 `}>
         <AddEventForm/>
       </div>
     </div>

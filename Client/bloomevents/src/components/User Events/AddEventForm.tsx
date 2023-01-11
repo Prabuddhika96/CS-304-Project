@@ -10,22 +10,17 @@ import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import SuccessSnakBar from 'components/Snak Bars/SuccessSnakBar';
 
 function AddEventForm() {
-    const [showPw, setShowPw]=useState<boolean>(false);
-    const showPassword=()=>{
-      if(showPw){
-        setShowPw(false);
-      }
-      else{
-        setShowPw(true);
-      }
-    }
   
     const [eventname, seteventname] = useState<string | ''>('');
-    const [date, setdate] = useState<Dayjs>(dayjs(null));
+    const [date, setdate] = useState<Dayjs>(dayjs('2014-08-18T21:11:54'));
+
+    // choose event
+    const [successAddEvent,setSuccessAddEvent]=useState<boolean>(false);
+    const [emptyField,setEmptyFeild]=useState<boolean>(false);
 
     const [values, setValues] = useState<Event>({
         event_id : 0,
-        event_date : dayjs(null),
+        event_date : dayjs('2014-08-18T21:11:54'),
         event_name : '',
         user_id : 0,
     })
@@ -37,18 +32,25 @@ function AddEventForm() {
             event_name : eventname,
             user_id : 0,
         });
-        console.log(values);
+        //console.log(values);
     }, [eventname, date])
 
-
+    const [msg,setmsg]=useState<string>();
 
     const handleClck=(e:any)=>{
         e.preventDefault();
         console.log(values);
+        console.log(dayjs(Date.now()));
 
-        if(values.event_name==='' || values.event_date==null){
-            setEmptyFeild(true);
-            setSuccessAddEvent(false);
+        if(values.event_name===''){
+          setEmptyFeild(true);
+          setSuccessAddEvent(false);
+          setmsg('Name is required !');
+        }
+        else if(values.event_date.isBefore(Date.now())){
+          setEmptyFeild(true);
+          setSuccessAddEvent(false);
+          setmsg('Event date is not valid !');
         }
         else{
             setEmptyFeild(false);
@@ -56,22 +58,6 @@ function AddEventForm() {
         }  
     }
   
-     // choose event
-    const [successAddEvent,setSuccessAddEvent]=useState<boolean>(false);
-    const [emptyField,setEmptyFeild]=useState<boolean>(false);
-
-    // const handleAddToEvent = (e: { preventDefault: () => void; }) => {
-    //     e.preventDefault();
-
-    //     if(values.event_name==='' || values.event_date==null){
-    //         setEmptyFeild(true);
-    //         setSuccessAddEvent(false);
-    //     }
-    //     else{
-    //         setEmptyFeild(false);
-    //         setSuccessAddEvent(true);
-    //     }    
-    // };
   
   
     return (
@@ -120,7 +106,7 @@ function AddEventForm() {
 
         <div className='absolute bottom-0 left-0'>
             {successAddEvent && <SuccessSnakBar func={setSuccessAddEvent} type="success" val={successAddEvent} msg={"Successfully Added !"}/> }
-            {emptyField && <SuccessSnakBar func={setEmptyFeild} type="error" val={emptyField} msg={"You can not have empty fields !"}/> }
+            {emptyField && <SuccessSnakBar func={setEmptyFeild} type="error" val={emptyField} msg={msg}/> }
         </div>
       </div>
     )
