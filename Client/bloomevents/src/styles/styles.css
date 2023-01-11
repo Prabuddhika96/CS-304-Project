@@ -84,3 +84,10 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+.MuiTabs-indicator{
+    background-color: #ffa537 !important;
+}
+.Mui-selected{
+    color: #ffa537 !important;
+}

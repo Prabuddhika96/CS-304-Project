@@ -80,6 +80,7 @@ function AddEventForm() {
                 <div className="justify-between w-full ">
                   <div className="w-full col-span-5 my-3 buttonIn sm:col-span-4">
                     <TextField
+                      color="warning"
                       id="outlined"
                       label="Event Name"
                       className="form-textfield-double"
