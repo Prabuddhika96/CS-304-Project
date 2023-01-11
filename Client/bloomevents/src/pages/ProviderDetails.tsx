@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { packages } from "docs/packages";
 import { reviews } from "docs/reviews";
+import { Events } from "docs/Event";
 
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
@@ -16,7 +17,6 @@ import logo from "img/logo.png";
 
 import { AiOutlineClose } from "react-icons/ai";
 import { RouteName } from "constant/routeName";
-import { events } from "docs/eventList";
 import BookRequest from "types/BookRequest";
 import BookNowDropdown from "components/Drop Downs/BookNowDropdown";
 import ProviderDetailsCard from "components/Cards/ProviderDetailsCard";
@@ -194,7 +194,7 @@ function ProviderDetails() {
                 <DialogContent>
                   <div className="w-[11/12]">
                     <BookNowDropdown
-                      array={events}
+                      array={Events}
                       title="Event"
                       func={setEventId}
                       val={values.eventId}
