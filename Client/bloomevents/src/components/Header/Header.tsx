@@ -32,6 +32,11 @@ function Header() {
     }
   }, [logged]);
 
+  // if()
+  // const ProviderMode = JSON.parse(localStorage.getItem("ProviderMode") || "");
+  // const ProviderMode1 = localStorage.getItem("ProviderMode");
+  // console.log(ProviderMode1);
+
   const [proMode, setproMode] = useState<boolean>(false);
   const handleClick = () => {
     if (proMode) {
@@ -44,6 +49,11 @@ function Header() {
       );
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem("ProviderMode1", JSON.stringify(proMode));
+    // console.log(localStorage.getItem("ProviderMode1"));
+  }, [proMode]);
 
   return (
     <div>

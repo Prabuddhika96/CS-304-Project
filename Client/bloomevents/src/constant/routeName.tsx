@@ -1,5 +1,3 @@
-let userId = 1;
-
 export enum RouteName {
   //  main pages
   Home = "/",
@@ -14,4 +12,6 @@ export enum RouteName {
   Profile = "/:id/profile",
 
   ProviderDashboard = "/:id/providerdashboard",
+
+  EventDetails = "/eventdetails/:id",
 }

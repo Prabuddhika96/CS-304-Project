@@ -14,6 +14,7 @@ import "styles/styles.css";
 import MyEvents from "pages/Logged User/MyEvents";
 import UserProfile from "components/User Profile/UserProfile";
 import ProviderDashboard from "pages/Provider Pages/ProviderDashboard";
+import EventDetails from "components/User Events/EventDetails";
 
 function App() {
   return (
@@ -66,6 +67,11 @@ function App() {
               path={RouteName.MyEvents}
               caseSensitive={false}
               element={<MyEvents />}
+            />
+            <Route
+              path={RouteName.EventDetails}
+              caseSensitive={false}
+              element={<EventDetails />}
             />
 
             {/* Profile */}
