@@ -1,7 +1,6 @@
 package com.project.bloomevents.Controller;
 
 import com.project.bloomevents.DTO.ReviewDTO;
-import com.project.bloomevents.Model.Review;
 import com.project.bloomevents.Service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -20,5 +19,13 @@ public class ReviewController {
         return reviewService.getAllReviews();
     }
 
-//    @PostMapping
+    @PostMapping("/addreview")
+    public ReviewDTO addReview(@RequestBody ReviewDTO review){
+        return reviewService.addReview(review);
+    }
+
+    @DeleteMapping("/deletereview/{reviewId}")
+    public String deleteReview(@PathVariable int reviewId){
+        return reviewService.deleteReview(reviewId);
+    }
 }
