@@ -69,6 +69,17 @@
     .login-form-btn{
         @apply inline-flex items-center justify-center px-4 py-2 text-base font-medium text-white bg-[#ffa537] border border-transparent rounded-md shadow-sm hover:bg-[#d48019] focus:outline-none focus:ring-2 focus:ring-[#d48019] focus:ring-offset-2 w-full;
     }
+
+    .upadate-propic{
+         @apply border-2 border-solid w-[500px] border-[#000] opacity-100 h-[500px] mx-auto hover:bg-[#000]; /* bg-gradient-to-r from-cyan-500 to-blue-500; */
+    }
+}
+
+.upadate-propic{
+    background-image: url('img/man.jpg');
+    background-size: cover;
+    border-radius: 100%;
+    color:transparent;
 }
 
 .parallax {

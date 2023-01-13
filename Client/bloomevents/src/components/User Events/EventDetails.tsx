@@ -1,9 +1,10 @@
 import { Box, Grid, Paper, styled } from "@mui/material";
 import EventDetailCard from "components/Cards/EventDetailCard";
+import { RouteName } from "constant/routeName";
 import { Events } from "docs/Event";
 import { packages } from "docs/packages";
 import { AiOutlineCalendar, AiOutlineClockCircle } from "react-icons/ai";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 function EventDetails() {
   let { id } = useParams();
@@ -11,9 +12,9 @@ function EventDetails() {
 
   const Event = Events[index - 1];
   return (
-    <div className="w-full ">
+    <div className="w-full pt-24">
       {/* title and date */}
-      <div>
+      <div className="mb-5">
         <div className="w-6/12 ml-8">
           <h2 className="card-title text-[#ffa537] text-3xl mb-3">
             {Event.name}
@@ -32,6 +33,24 @@ function EventDetails() {
       </div>
 
       {/* packages that add to event */}
+      <div className="grid w-11/12 grid-cols-3 gap-5 mx-auto">
+        {packages.map((p: any, i: number) => (
+          <Link
+            to={{
+              pathname: `${RouteName.ProviderDetails.replace(
+                ":providerId",
+                p.id.toString()
+              )}`,
+            }}
+            className="w-10/12">
+            <EventDetailCard
+              providername={`Provider ${p.id}`}
+              packagename={p.name}
+              key={i}
+            />
+          </Link>
+        ))}
+      </div>
     </div>
   );
 }

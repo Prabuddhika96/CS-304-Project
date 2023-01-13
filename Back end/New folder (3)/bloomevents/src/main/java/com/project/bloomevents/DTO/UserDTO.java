@@ -1,5 +1,6 @@
 package com.project.bloomevents.DTO;
 
+import com.project.bloomevents.Model.LoginDetails;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;

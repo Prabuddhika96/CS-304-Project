@@ -4,7 +4,7 @@ import { Button } from "@mui/material";
 
 function EventDetailCard({ providername, packagename }: any) {
   const handleDeleteEvent = () => {
-    alert(`Package deleted.`);
+    alert(`${providername} - ${packagename} deleted.`);
   };
   return (
     <div>
@@ -13,9 +13,9 @@ function EventDetailCard({ providername, packagename }: any) {
           <img src="https://placeimg.com/400/225/arch" alt="car!" />
         </figure>
         <div className="card-body">
-          <h2 className="card-title">{providername}</h2>
-          <p>{packagename}</p>
-          <div className="justify-end card-actions">
+          <h2 className="card-title text-[#ffa537]">{providername}</h2>
+          <p className="text-[#000]">{packagename}</p>
+          <div className="justify-end mt-3 card-actions">
             <Button
               variant="outlined"
               color="error"

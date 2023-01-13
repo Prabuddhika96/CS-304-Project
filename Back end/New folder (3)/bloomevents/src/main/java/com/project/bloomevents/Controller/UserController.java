@@ -6,6 +6,7 @@ import com.project.bloomevents.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-	public UserFullDTO addUser(@RequestBody UserFullDTO userdata) {
+	public UserDTO addUser(@RequestBody UserFullDTO userdata) throws NoSuchAlgorithmException {
 		return userService.addUser(userdata);
 	}
 }

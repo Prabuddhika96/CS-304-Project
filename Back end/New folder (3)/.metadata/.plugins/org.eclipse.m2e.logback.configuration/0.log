@@ -1,1 +1,24 @@
 2023-01-13 11:38:18,453 [Worker-6: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is up-to-date. Trying to read.
+2023-01-13 13:42:13,693 [Worker-15: Importing Maven projects] INFO  o.e.m.c.i.l.LifecycleMappingFactory - Using org.eclipse.m2e.jdt.JarLifecycleMapping lifecycle mapping for MavenProject: com.project:bloomevents:0.0.1-SNAPSHOT @ D:\300 Level\1st Sem\CS 304\Final Project\Back end\New folder (3)\bloomevents\pom.xml.
+2023-01-13 13:42:14,411 [Worker-15: Importing Maven projects] WARN  o.a.m.r.i.DefaultArtifactDescriptorReader - The artifact mysql:mysql-connector-java:jar:8.0.31 has been relocated to com.mysql:mysql-connector-j:jar:8.0.31: MySQL Connector/J artifacts moved to reverse-DNS compliant Maven 2+ coordinates.
+2023-01-13 13:42:16,818 [Worker-15: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /bloomevents/src/main/java
+2023-01-13 13:42:16,819 [Worker-15: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /bloomevents/src/main/resources
+2023-01-13 13:42:16,827 [Worker-15: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding resource folder /bloomevents/src/main/resources
+2023-01-13 13:42:16,836 [Worker-15: Importing Maven projects] INFO  o.e.m.j.i.AbstractJavaProjectConfigurator - Adding source folder /bloomevents/src/test/java
+2023-01-13 13:42:21,786 [Worker-15: Importing Maven projects] INFO  o.e.m.c.i.p.ProjectConfigurationManager - Imported and configured 1 project(s) in 15 sec
+2023-01-13 13:42:26,611 [Worker-16: Building] WARN  o.a.m.r.i.DefaultArtifactDescriptorReader - The artifact mysql:mysql-connector-java:jar:8.0.31 has been relocated to com.mysql:mysql-connector-j:jar:8.0.31: MySQL Connector/J artifacts moved to reverse-DNS compliant Maven 2+ coordinates.
+2023-01-13 13:42:26,865 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource
+2023-01-13 13:42:26,898 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource
+2023-01-13 13:42:26,903 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\300 Level\1st Sem\CS 304\Final Project\Back end\New folder (3)\bloomevents\src\test\resources
+2023-01-13 13:43:27,481 [Worker-14: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource
+2023-01-13 13:43:27,507 [Worker-14: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource
+2023-01-13 13:43:27,510 [Worker-14: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\300 Level\1st Sem\CS 304\Final Project\Back end\New folder (3)\bloomevents\src\test\resources
+2023-01-13 13:43:45,962 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource
+2023-01-13 13:43:45,977 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource
+2023-01-13 13:43:45,984 [Worker-15: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\300 Level\1st Sem\CS 304\Final Project\Back end\New folder (3)\bloomevents\src\test\resources
+2023-01-13 13:44:23,074 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource
+2023-01-13 13:44:23,089 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource
+2023-01-13 13:44:23,096 [Worker-16: Building] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\300 Level\1st Sem\CS 304\Final Project\Back end\New folder (3)\bloomevents\src\test\resources
+2023-01-13 13:44:39,240 [Worker-15: Launching bloomevents - BloomeventsApplication] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 1 resource
+2023-01-13 13:44:39,249 [Worker-15: Launching bloomevents - BloomeventsApplication] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - Copying 0 resource
+2023-01-13 13:44:39,253 [Worker-15: Launching bloomevents - BloomeventsApplication] INFO  o.a.m.s.f.DefaultMavenResourcesFiltering - skip non existing resourceDirectory D:\300 Level\1st Sem\CS 304\Final Project\Back end\New folder (3)\bloomevents\src\test\resources
