@@ -38,9 +38,7 @@ public class User {
     @Column(name="isAdmin")
     private int isAdmin;
 
-
-    //@OneToOne(mappedBy = "loginDetails")
-    @OneToOne(cascade = CascadeType.MERGE)
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "loginId", referencedColumnName = "loginId")
     private LoginDetails loginDetails;
 }

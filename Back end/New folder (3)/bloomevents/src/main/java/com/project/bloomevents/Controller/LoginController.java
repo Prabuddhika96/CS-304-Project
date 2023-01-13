@@ -8,16 +8,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping
+@RequestMapping("/logindetails")
 public class LoginController {
     @Autowired
     private LoginDetailsService loginservice;
 
-    @PostMapping("addlogindetails")
+    @GetMapping("/getAllLoginDetails")
+    public List<LoginDetailsDTO> getAllLoginDetails(){
+        return loginservice.getAllLoginDetails();
+    }
+
+    @PostMapping("/addlogindetails")
     public LoginDetailsDTO addLoginDetails(@RequestBody UserFullDTO userdata) throws NoSuchAlgorithmException {
         return loginservice.addLoginDetails(userdata);
+    }
+
+    @PutMapping("/updatepassword")
+    public boolean updatePassword(@RequestBody LoginDetailsDTO logindata) throws NoSuchAlgorithmException {
+        return loginservice.updatePassword(logindata);
     }
 }

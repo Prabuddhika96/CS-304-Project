@@ -40,6 +40,25 @@ public class UserServiceImpl implements UserService {
         u.setLoginDetails(l);
         User us=userRepo.save(u);
         return modelMapper.map(us, new TypeToken<UserDTO>(){}.getType());
-//        return null;
+    }
+
+    @Override
+    public UserDTO getUserById(int userid) {
+        User user=userRepo.getUserbyId(userid);
+        return modelMapper.map(user, new TypeToken<UserDTO>(){}.getType());
+    }
+
+    @Override
+    public UserDTO updateUser(UserFullDTO userdata) {
+        User user=modelMapper.map(userdata, User.class);
+        userRepo.updateUser(user.getFirstName(), user.getLastName(), user.getMobile(), user.getDistrict(),userdata.getUserId());
+        return getUserById(user.getUserId());
+    }
+
+    @Override
+    public String deleteUser(int userId) {
+        User user=modelMapper.map(getUserById(userId),User.class);
+        userRepo.deleteById(user.getUserId());
+        return "deleted";
     }
 }
