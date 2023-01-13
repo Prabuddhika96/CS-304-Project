@@ -1,13 +1,14 @@
 package com.project.bloomevents.DTO;
 
-import jakarta.persistence.Id;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.sql.Timestamp;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
 @Getter
 @Setter
 public class UserFullDTO {

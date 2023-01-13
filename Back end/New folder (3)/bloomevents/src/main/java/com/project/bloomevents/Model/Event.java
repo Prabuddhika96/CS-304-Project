@@ -1,36 +1,36 @@
 package com.project.bloomevents.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
+import java.sql.Date;
+import java.sql.Time;
 
 @Entity
-@Table(name="Review")
+@Table(name="event")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Review {
+public class Event {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "reviewId")
-    private int reviewId;
+    @Column(name = "eventId")
+    private int eventId;
 
-    @Column(name = "review")
-    private String review;
+    @Column(name = "eventName")
+    private String eventName;
 
-    @Column(name = "timestamp")
-    private Timestamp timestamp;
+    @Column(name = "eventDate")
+    private Date eventDate;
 
-    @Column(name = "rate")
-    private double rate;
+    @Column(name = "eventTime")
+    private Time eventTime;
 
-    @JsonIgnore
+//    @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;

@@ -1,6 +1,5 @@
 package com.project.bloomevents.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -45,6 +44,8 @@ public class User {
     private LoginDetails loginDetails;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
-//    @JsonIgnoreProperties("user")
     private List<Review> reviews;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Event> events;
 }

@@ -1,13 +1,14 @@
 package com.project.bloomevents.DTO;
 
-import jakarta.persistence.Column;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
-@Data
 public class LoginDetailsDTO {
     private int loginId;
     private String email;
