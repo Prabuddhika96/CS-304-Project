@@ -1,5 +1,6 @@
 package com.project.bloomevents.Model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name="User")
@@ -41,4 +43,8 @@ public class User {
     @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "loginId", referencedColumnName = "loginId")
     private LoginDetails loginDetails;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+//    @JsonIgnoreProperties("user")
+    private List<Review> reviews;
 }

@@ -20,4 +20,5 @@ public class UserDTO {
     private String district;
     private Timestamp lastLogin;
     private int isAdmin;
+    private int loginId;
 }
