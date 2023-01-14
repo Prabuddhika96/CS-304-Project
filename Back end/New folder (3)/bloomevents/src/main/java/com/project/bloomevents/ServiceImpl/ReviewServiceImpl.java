@@ -1,6 +1,5 @@
 package com.project.bloomevents.ServiceImpl;
 
-import com.project.bloomevents.Common.CommonResponse;
 import com.project.bloomevents.DTO.ProviderDTO;
 import com.project.bloomevents.DTO.ReviewDTO;
 import com.project.bloomevents.DTO.UserDTO;
@@ -77,19 +76,19 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public CommonResponse deleteReview(int reviewId) {
+    public boolean deleteReview(int reviewId) {
+        boolean deleted=false;
         try{
             ReviewDTO review = getReviewById(reviewId);
             if (review != null) {
                 reviewRepo.deleteById(reviewId);
-                return new CommonResponse(true, "Successfully deleted the review :" + reviewId);
-            } else {
-                return new CommonResponse(false, "Cannot find a review with id :" + reviewId);
+                deleted = true;
             }
+            return deleted;
         }
         catch(Exception e){
             System.out.println(e.toString());
-            return null;
+            return deleted;
         }
     }
 }

@@ -44,6 +44,11 @@ public class Provider {
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
 
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
+    private Category category;
+
     @OneToMany(mappedBy = "provider", cascade = CascadeType.REMOVE)
     private List<Review> reviews;
 }

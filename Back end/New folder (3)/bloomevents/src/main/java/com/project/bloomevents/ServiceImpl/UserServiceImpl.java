@@ -1,6 +1,5 @@
 package com.project.bloomevents.ServiceImpl;
 
-import com.project.bloomevents.Common.CommonResponse;
 import com.project.bloomevents.DTO.LoginDetailsDTO;
 import com.project.bloomevents.DTO.UserDTO;
 import com.project.bloomevents.DTO.UserFullDTO;
@@ -41,7 +40,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO addUser(UserFullDTO userdata) throws NoSuchAlgorithmException {
         try{
-            boolean valid=loginServiceImpl.validateEmail(userdata.getEmail()).isSuccess();
+            boolean valid=loginServiceImpl.validateEmail(userdata.getEmail());
 
             if(valid){
                 LoginDetailsDTO ld = loginServiceImpl.addLoginDetails(userdata);
@@ -81,16 +80,16 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public CommonResponse updateUser(UserFullDTO userdata) {
+    public UserDTO updateUser(UserFullDTO userdata) {
         try{
             UserDTO validUser = getUserById(userdata.getUserId());
 
             if(validUser != null){
-                userRepo.updateUser(userdata.getFirstName(), userdata.getLastName(), userdata.getMobile(), userdata.getDistrict(), userdata.getUserId());
-                return new CommonResponse(true, "Updated user id : "+validUser.getUserId());
+                User user=userRepo.updateUser(userdata.getFirstName(), userdata.getLastName(), userdata.getMobile(), userdata.getDistrict(), userdata.getUserId());
+                return modelMapper.map(user, new TypeToken<UserDTO>(){}.getType());
             }
             else{
-                return new CommonResponse(false, "Can not find user with user id : "+userdata.getUserId());
+                return null;
             }
 
         }
@@ -101,15 +100,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public String deleteUser(int userId) {
+    public boolean deleteUser(int userId) {
+        boolean deleted=false;
         try{
-            User user = modelMapper.map(getUserById(userId), User.class);
-            userRepo.deleteById(user.getUserId());
-            return "deleted";
+            UserDTO user=getUserById(userId);
+            if(user !=null){
+                userRepo.deleteById(user.getUserId());
+                deleted=true;
+            }
+            return deleted;
         }
         catch(Exception e){
             System.out.println(e.toString());
-            return null;
+            return deleted;
         }
     }
 }

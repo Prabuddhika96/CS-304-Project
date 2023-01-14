@@ -1,7 +1,6 @@
 package com.project.bloomevents.ServiceImpl;
 
 import com.project.bloomevents.Common.Common;
-import com.project.bloomevents.Common.CommonResponse;
 import com.project.bloomevents.DTO.LoginDetailsDTO;
 import com.project.bloomevents.DTO.UserFullDTO;
 import com.project.bloomevents.Model.LoginDetails;
@@ -23,19 +22,21 @@ public class LoginDetailsServiceImpl implements LoginDetailsService {
     private ModelMapper modelMapper;
     private Common common=new Common();
 
-    public CommonResponse validateEmail(String email){
+    public boolean validateEmail(String email){
+        boolean valid=false;
         try{
             LoginDetails logindetails = loginrepo.validateEmail(email);
             if(logindetails==null){
-                return new CommonResponse(true, "Email is avalible :" + email);
+                valid=true;
             }
             else{
-                return new CommonResponse(false, "Email is not avalible :" + email);
+                valid=false;
             }
+            return valid;
         }
         catch(Exception e){
             System.out.println(e.toString());
-            return null;
+            return valid;
         }
     }
 
@@ -72,21 +73,20 @@ public class LoginDetailsServiceImpl implements LoginDetailsService {
     }
 
     @Override
-    public boolean updatePassword(LoginDetailsDTO logindata) throws NoSuchAlgorithmException {
-        boolean success=false;
+    public LoginDetailsDTO updatePassword(LoginDetailsDTO logindata) throws NoSuchAlgorithmException {
         try{
             LoginDetailsDTO logindto = getLoginDetailById(logindata.getLoginId());
 
             if(logindto != null) {
                 String hashedPW = common.encryptPassword(logindata.getPassword());
-                int i = loginrepo.updatePassword(hashedPW, logindata.getLoginId());
-                success = true;
+                loginrepo.updatePassword(hashedPW, logindata.getLoginId());
+                return getLoginDetailById(logindata.getLoginId());
             }
         }
         catch(Exception e){
             System.out.println(e.toString());
         }
-        return success;
+        return null;
     }
 
     @Override

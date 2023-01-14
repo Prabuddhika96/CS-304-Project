@@ -3,9 +3,13 @@ package com.project.bloomevents.Controller;
 import com.project.bloomevents.DTO.EventDTO;
 import com.project.bloomevents.Service.EventService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @CrossOrigin
@@ -15,12 +19,34 @@ public class EventController {
     private EventService eventService;
 
     @GetMapping("/getallevents")
-    public List<EventDTO> getAllEvents(){
-        return eventService.getAllEvents();
+    public ResponseEntity<?> getAllEvents() {
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        List<EventDTO> eventList = eventService.getAllEvents();
+        if (!eventList.isEmpty()) {
+            map.put("status", 1);
+            map.put("data", eventList);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Data is not found");
+            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+        }
     }
 
     @PostMapping("/addevent")
-    public EventDTO addEvent(@RequestBody EventDTO eventdata){
-        return eventService.addEvent(eventdata);
+    public ResponseEntity<?> addEvent(@RequestBody EventDTO eventdata) {
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        EventDTO event = eventService.addEvent(eventdata);
+        if (event != null) {
+            map.put("status", 1);
+            map.put("data", event);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Event is not found");
+            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+        }
     }
 }
