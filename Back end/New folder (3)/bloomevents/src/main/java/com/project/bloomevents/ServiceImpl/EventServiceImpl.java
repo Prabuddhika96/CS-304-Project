@@ -44,4 +44,22 @@ public class EventServiceImpl implements EventService {
             return null;
         }
     }
+
+    @Override
+    public boolean deleteEvent(int eventId) {
+        try{
+            Event event = eventRepo.getReferenceById(eventId);
+            if(event==null){
+                return false;
+            }
+            else{
+                eventRepo.deleteById(eventId);
+                return true;
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return false;
+        }
+    }
 }

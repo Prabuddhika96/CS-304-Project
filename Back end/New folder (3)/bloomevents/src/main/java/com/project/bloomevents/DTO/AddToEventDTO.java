@@ -11,8 +11,6 @@ import lombok.Setter;
 @Setter
 public class AddToEventDTO {
     private int addToEventId;
-    private int packageId;
     private int eventId;
-
-
+    private int packageId;
 }

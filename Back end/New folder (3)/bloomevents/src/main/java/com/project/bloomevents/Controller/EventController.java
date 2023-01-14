@@ -49,4 +49,20 @@ public class EventController {
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
     }
+
+    @DeleteMapping("/deleteevent/{eventId}")
+    public ResponseEntity<?> deleteEvent(@PathVariable int eventId) {
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        boolean deleted = eventService.deleteEvent(eventId);
+        if (deleted) {
+            map.put("status", 1);
+            map.put("data", deleted);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Event is not found");
+            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+        }
+    }
 }

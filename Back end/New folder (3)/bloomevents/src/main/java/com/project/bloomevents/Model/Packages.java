@@ -35,6 +35,6 @@ public class Packages {
     @JoinColumn(name = "providerId", referencedColumnName = "providerId")
     private Provider provider;
 
-    @OneToMany(mappedBy = "packages", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "package1", cascade = CascadeType.REMOVE)
     private List<AddToEvent> addToEvents;
 }
