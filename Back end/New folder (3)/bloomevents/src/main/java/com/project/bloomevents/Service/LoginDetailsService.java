@@ -9,8 +9,6 @@ import java.util.List;
 public interface LoginDetailsService {
 
     LoginDetailsDTO addLoginDetails(UserFullDTO userdata) throws NoSuchAlgorithmException;
-
     boolean updatePassword(LoginDetailsDTO logindata) throws NoSuchAlgorithmException;
-
     List<LoginDetailsDTO> getAllLoginDetails();
 }
