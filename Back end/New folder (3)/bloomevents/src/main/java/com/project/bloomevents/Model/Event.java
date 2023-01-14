@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 
 @Entity
 @Table(name="event")
@@ -35,4 +36,7 @@ public class Event {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
+
+    @OneToMany(mappedBy = "event", cascade = CascadeType.REMOVE)
+    private List<AddToEvent> addToEvents;
 }

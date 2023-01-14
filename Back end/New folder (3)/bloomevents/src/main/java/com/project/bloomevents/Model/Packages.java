@@ -7,6 +7,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "packages")
 @Getter
@@ -32,4 +34,7 @@ public class Packages {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "providerId", referencedColumnName = "providerId")
     private Provider provider;
+
+    @OneToMany(mappedBy = "packages", cascade = CascadeType.REMOVE)
+    private List<AddToEvent> addToEvents;
 }

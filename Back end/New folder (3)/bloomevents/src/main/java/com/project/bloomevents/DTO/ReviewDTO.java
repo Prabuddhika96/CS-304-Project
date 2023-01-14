@@ -17,5 +17,6 @@ public class ReviewDTO {
     private Timestamp timestamp;
     private double rate;
     private int userId;
+
     private int providerId;
 }
