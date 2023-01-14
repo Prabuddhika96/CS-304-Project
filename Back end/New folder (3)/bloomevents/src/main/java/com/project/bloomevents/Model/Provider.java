@@ -51,4 +51,7 @@ public class Provider {
 
     @OneToMany(mappedBy = "provider", cascade = CascadeType.REMOVE)
     private List<Review> reviews;
+
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.REMOVE)
+    private List<Packages> packages;
 }
