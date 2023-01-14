@@ -30,32 +30,51 @@ public class LoginDetailsServiceImpl implements LoginDetailsService {
     }
 
     public LoginDetailsDTO addLoginDetails(UserFullDTO userdata) throws NoSuchAlgorithmException {
-        LoginDetailsDTO ldto=new LoginDetailsDTO(userdata.getEmail(), userdata.getPassword());
+        try{
+            LoginDetailsDTO ldto = new LoginDetailsDTO(userdata.getEmail(), userdata.getPassword());
+            String hashedPW = encryptPassword(ldto.getPassword());
 
-//        MessageDigest md = MessageDigest.getInstance("MD5");
-//        byte[] pwDigest = md.digest(ldto.getPassword().getBytes());
-//        BigInteger hashed = new BigInteger(1, pwDigest);
-        String hashedPW = encryptPassword(ldto.getPassword());
+            ldto.setPassword(hashedPW);
 
-        ldto.setPassword(hashedPW);
-
-        LoginDetails ld =loginrepo.save(modelMapper.map(ldto, LoginDetails.class));
-        return modelMapper.map(ld, new TypeToken<LoginDetailsDTO>(){}.getType());
+            LoginDetails ld = loginrepo.save(modelMapper.map(ldto, LoginDetails.class));
+            return modelMapper.map(ld, new TypeToken<LoginDetailsDTO>() {
+            }.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
     }
 
     @Override
     public boolean updatePassword(LoginDetailsDTO logindata) throws NoSuchAlgorithmException {
-        String hashedPW = encryptPassword(logindata.getPassword());
-        int i = loginrepo.updatePassword(hashedPW, logindata.getLoginId());
-        if(i==1){
-            return true;
+        boolean success=false;
+        try{
+            String hashedPW = encryptPassword(logindata.getPassword());
+            int i = loginrepo.updatePassword(hashedPW, logindata.getLoginId());
+            if (i == 1) {
+                success= true;
+            }
+            else{
+                success = false;
+            }
         }
-        return false;
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+        return success;
     }
 
     @Override
     public List<LoginDetailsDTO> getAllLoginDetails() {
-        List<LoginDetails> list=loginrepo.findAll();
-        return modelMapper.map(list, new TypeToken<List<LoginDetailsDTO>>(){}.getType());
+        try{
+            List<LoginDetails> list = loginrepo.findAll();
+            return modelMapper.map(list, new TypeToken<List<LoginDetailsDTO>>() {
+            }.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
     }
 }

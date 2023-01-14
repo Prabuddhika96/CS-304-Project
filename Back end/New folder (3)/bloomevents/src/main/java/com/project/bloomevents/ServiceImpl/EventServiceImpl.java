@@ -20,14 +20,28 @@ public class EventServiceImpl implements EventService {
 
     @Override
     public List<EventDTO> getAllEvents() {
-        List<Event> list = eventRepo.findAll();
-        return modelMapper.map(list, new TypeToken<List<EventDTO>>(){}.getType());
+        try{
+            List<Event> list = eventRepo.findAll();
+            return modelMapper.map(list, new TypeToken<List<EventDTO>>() {
+            }.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
     }
 
     @Override
     public EventDTO addEvent(EventDTO eventdata) {
-        Event evnt=modelMapper.map(eventdata,Event.class);
-        Event e=eventRepo.save(evnt);
-        return modelMapper.map(e,new TypeToken<EventDTO>(){}.getType());
+        try{
+            Event evnt = modelMapper.map(eventdata, Event.class);
+            Event e = eventRepo.save(evnt);
+            return modelMapper.map(e, new TypeToken<EventDTO>() {
+            }.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.project.bloomevents.Controller;
 
+import com.project.bloomevents.CommonResponse.CommonResponse;
 import com.project.bloomevents.DTO.ReviewDTO;
 import com.project.bloomevents.Service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class ReviewController {
     }
 
     @DeleteMapping("/deletereview/{reviewId}")
-    public String deleteReview(@PathVariable int reviewId){
+    public CommonResponse deleteReview(@PathVariable int reviewId){
         return reviewService.deleteReview(reviewId);
     }
 }

@@ -20,14 +20,41 @@ public class ProviderServiceImpl implements ProviderService {
 
     @Override
     public List<ProviderDTO> getAllProviders() {
-        List<Provider> list=providerRepo.findAll();
-        return modelMapper.map(list, new TypeToken<List<ProviderDTO>>(){}.getType());
+        try{
+            List<Provider> list = providerRepo.findAll();
+            return modelMapper.map(list, new TypeToken<List<ProviderDTO>>() {
+            }.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
     }
 
     @Override
     public ProviderDTO addProvider(ProviderDTO providerdata) {
-        Provider provider=modelMapper.map(providerdata,Provider.class);
-        provider=providerRepo.save(provider);
-        return modelMapper.map(provider, new TypeToken<ProviderDTO>(){}.getType());
+        try{
+            Provider provider = modelMapper.map(providerdata, Provider.class);
+            provider = providerRepo.save(provider);
+            return modelMapper.map(provider, new TypeToken<ProviderDTO>() {
+            }.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public ProviderDTO getProviderById(int providerId) {
+        try{
+            Provider provider = providerRepo.getReferenceById(providerId);
+            return modelMapper.map(provider, new TypeToken<ProviderDTO>() {
+            }.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
     }
 }

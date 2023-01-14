@@ -8,4 +8,6 @@ public interface ProviderService {
     List<ProviderDTO> getAllProviders();
 
     ProviderDTO addProvider(ProviderDTO providerdata);
+
+    ProviderDTO getProviderById(int providerId);
 }
