@@ -1,5 +1,6 @@
 package com.project.bloomevents.Service;
 
+import com.project.bloomevents.Common.CommonResponse;
 import com.project.bloomevents.DTO.UserDTO;
 import com.project.bloomevents.DTO.UserFullDTO;
 
@@ -11,6 +12,6 @@ public interface UserService {
     List<UserDTO> getAllUsers();
     UserDTO addUser(UserFullDTO userdata) throws NoSuchAlgorithmException;
     UserDTO getUserById(int userid);
-    UserDTO updateUser(UserFullDTO userdata);
+    CommonResponse updateUser(UserFullDTO userdata);
     String deleteUser(int userId);
 }

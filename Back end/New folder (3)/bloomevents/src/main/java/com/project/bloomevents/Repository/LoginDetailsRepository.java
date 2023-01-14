@@ -13,4 +13,10 @@ public interface LoginDetailsRepository extends JpaRepository<LoginDetails, Inte
     @Modifying
     @Query("update LoginDetails l set l.password = ?1 where l.loginId = ?2")
     int updatePassword(String password, int loginId);
+
+    @Query(value = "SELECT * FROM bloomeventsdb.login_details WHERE email = ?1", nativeQuery = true)
+    LoginDetails validateEmail(String email);
+
+    @Query(value = "SELECT * FROM bloomeventsdb.login_details WHERE login_id = ?1", nativeQuery = true)
+    LoginDetails getLoginDetailsById(int loginId);
 }

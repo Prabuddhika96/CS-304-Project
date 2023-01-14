@@ -1,6 +1,7 @@
 package com.project.bloomevents.Controller;
 
 
+import com.project.bloomevents.Common.CommonResponse;
 import com.project.bloomevents.DTO.LoginDetailsDTO;
 import com.project.bloomevents.DTO.UserFullDTO;
 import com.project.bloomevents.Service.LoginDetailsService;
@@ -30,5 +31,10 @@ public class LoginController {
     @PutMapping("/updatepassword")
     public boolean updatePassword(@RequestBody LoginDetailsDTO logindata) throws NoSuchAlgorithmException {
         return loginservice.updatePassword(logindata);
+    }
+
+    @PostMapping("/validateemail")
+    public CommonResponse validateEmail(@RequestBody String email){
+        return loginservice.validateEmail(email);
     }
 }

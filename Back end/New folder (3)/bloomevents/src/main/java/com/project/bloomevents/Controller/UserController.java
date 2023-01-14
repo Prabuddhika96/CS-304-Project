@@ -1,5 +1,6 @@
 package com.project.bloomevents.Controller;
 
+import com.project.bloomevents.Common.CommonResponse;
 import com.project.bloomevents.DTO.UserDTO;
 import com.project.bloomevents.DTO.UserFullDTO;
 import com.project.bloomevents.Service.UserService;
@@ -33,7 +34,7 @@ public class UserController {
     }
 
     @PutMapping("/updateuser")
-    public UserDTO updateUser(@RequestBody UserFullDTO userdata){
+    public CommonResponse updateUser(@RequestBody UserFullDTO userdata){
         return userService.updateUser(userdata);
     }
 

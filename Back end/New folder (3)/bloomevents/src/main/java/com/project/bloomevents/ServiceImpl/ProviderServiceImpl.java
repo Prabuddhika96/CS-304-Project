@@ -1,6 +1,7 @@
 package com.project.bloomevents.ServiceImpl;
 
 import com.project.bloomevents.DTO.ProviderDTO;
+import com.project.bloomevents.DTO.UserDTO;
 import com.project.bloomevents.Model.Provider;
 import com.project.bloomevents.Repository.ProviderRepository;
 import com.project.bloomevents.Service.ProviderService;
@@ -17,6 +18,8 @@ public class ProviderServiceImpl implements ProviderService {
     private ProviderRepository providerRepo;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private UserServiceImpl userServiceimpl;
 
     @Override
     public List<ProviderDTO> getAllProviders() {
@@ -34,10 +37,17 @@ public class ProviderServiceImpl implements ProviderService {
     @Override
     public ProviderDTO addProvider(ProviderDTO providerdata) {
         try{
-            Provider provider = modelMapper.map(providerdata, Provider.class);
-            provider = providerRepo.save(provider);
-            return modelMapper.map(provider, new TypeToken<ProviderDTO>() {
-            }.getType());
+            UserDTO validuser=userServiceimpl.getUserById(providerdata.getUserId());
+
+            if(validuser != null){
+                Provider provider = modelMapper.map(providerdata, Provider.class);
+                provider = providerRepo.save(provider);
+                return modelMapper.map(provider, new TypeToken<ProviderDTO>() {
+                }.getType());
+            }
+            else{
+                return null;
+            }
         }
         catch(Exception e){
             System.out.println(e.toString());
@@ -48,9 +58,13 @@ public class ProviderServiceImpl implements ProviderService {
     @Override
     public ProviderDTO getProviderById(int providerId) {
         try{
-            Provider provider = providerRepo.getReferenceById(providerId);
-            return modelMapper.map(provider, new TypeToken<ProviderDTO>() {
-            }.getType());
+            Provider provider = providerRepo.getProviderById(providerId);
+            if(provider != null){
+                return modelMapper.map(provider, new TypeToken<ProviderDTO>() {}.getType());
+            }
+            else{
+                return null;
+            }
         }
         catch(Exception e){
             System.out.println(e.toString());

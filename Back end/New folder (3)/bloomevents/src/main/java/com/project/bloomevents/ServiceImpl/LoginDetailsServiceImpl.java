@@ -1,5 +1,7 @@
 package com.project.bloomevents.ServiceImpl;
 
+import com.project.bloomevents.Common.Common;
+import com.project.bloomevents.Common.CommonResponse;
 import com.project.bloomevents.DTO.LoginDetailsDTO;
 import com.project.bloomevents.DTO.UserFullDTO;
 import com.project.bloomevents.Model.LoginDetails;
@@ -10,8 +12,6 @@ import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
@@ -21,18 +21,28 @@ public class LoginDetailsServiceImpl implements LoginDetailsService {
     private LoginDetailsRepository loginrepo;
     @Autowired
     private ModelMapper modelMapper;
+    private Common common=new Common();
 
-    public String encryptPassword(String password) throws NoSuchAlgorithmException{
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        byte[] pwDigest = md.digest(password.getBytes());
-        BigInteger hashed = new BigInteger(1, pwDigest);
-        return hashed.toString(16);
+    public CommonResponse validateEmail(String email){
+        try{
+            LoginDetails logindetails = loginrepo.validateEmail(email);
+            if(logindetails==null){
+                return new CommonResponse(true, "Email is avalible :" + email);
+            }
+            else{
+                return new CommonResponse(false, "Email is not avalible :" + email);
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
     }
 
     public LoginDetailsDTO addLoginDetails(UserFullDTO userdata) throws NoSuchAlgorithmException {
         try{
             LoginDetailsDTO ldto = new LoginDetailsDTO(userdata.getEmail(), userdata.getPassword());
-            String hashedPW = encryptPassword(ldto.getPassword());
+            String hashedPW = common.encryptPassword(ldto.getPassword());
 
             ldto.setPassword(hashedPW);
 
@@ -46,17 +56,31 @@ public class LoginDetailsServiceImpl implements LoginDetailsService {
         }
     }
 
+    public LoginDetailsDTO getLoginDetailById(int loginId){
+        try{
+            LoginDetails logindetails=loginrepo.getLoginDetailsById(loginId);
+
+            if(logindetails == null){
+                return null;
+            }
+            return modelMapper.map(logindetails, new TypeToken<LoginDetailsDTO>(){}.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+        return null;
+    }
+
     @Override
     public boolean updatePassword(LoginDetailsDTO logindata) throws NoSuchAlgorithmException {
         boolean success=false;
         try{
-            String hashedPW = encryptPassword(logindata.getPassword());
-            int i = loginrepo.updatePassword(hashedPW, logindata.getLoginId());
-            if (i == 1) {
-                success= true;
-            }
-            else{
-                success = false;
+            LoginDetailsDTO logindto = getLoginDetailById(logindata.getLoginId());
+
+            if(logindto != null) {
+                String hashedPW = common.encryptPassword(logindata.getPassword());
+                int i = loginrepo.updatePassword(hashedPW, logindata.getLoginId());
+                success = true;
             }
         }
         catch(Exception e){

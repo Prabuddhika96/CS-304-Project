@@ -1,6 +1,6 @@
 package com.project.bloomevents.Service;
 
-import com.project.bloomevents.CommonResponse.CommonResponse;
+import com.project.bloomevents.Common.CommonResponse;
 import com.project.bloomevents.DTO.ReviewDTO;
 
 import java.util.List;

@@ -1,5 +1,6 @@
 package com.project.bloomevents.ServiceImpl;
 
+import com.project.bloomevents.Common.CommonResponse;
 import com.project.bloomevents.DTO.LoginDetailsDTO;
 import com.project.bloomevents.DTO.UserDTO;
 import com.project.bloomevents.DTO.UserFullDTO;
@@ -40,14 +41,21 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDTO addUser(UserFullDTO userdata) throws NoSuchAlgorithmException {
         try{
-            LoginDetailsDTO ld = loginServiceImpl.addLoginDetails(userdata);
-            LoginDetails l = modelMapper.map(ld, LoginDetails.class);
+            boolean valid=loginServiceImpl.validateEmail(userdata.getEmail()).isSuccess();
 
-            User u = modelMapper.map(userdata, User.class);
-            u.setLoginDetails(l);
-            User us = userRepo.save(u);
-            return modelMapper.map(us, new TypeToken<UserDTO>() {
-            }.getType());
+            if(valid){
+                LoginDetailsDTO ld = loginServiceImpl.addLoginDetails(userdata);
+                LoginDetails l = modelMapper.map(ld, LoginDetails.class);
+
+                User u = modelMapper.map(userdata, User.class);
+                u.setLoginDetails(l);
+                User us = userRepo.save(u);
+                return modelMapper.map(us, new TypeToken<UserDTO>() {
+                }.getType());
+            }
+            else{
+                return null;
+            }
         }
         catch(Exception e){
             System.out.println(e.toString());
@@ -59,6 +67,10 @@ public class UserServiceImpl implements UserService {
     public UserDTO getUserById(int userid) {
         try{
             User user = userRepo.getUserbyId(userid);
+
+            if(user==null){
+                return null;
+            }
             return modelMapper.map(user, new TypeToken<UserDTO>() {
             }.getType());
         }
@@ -69,11 +81,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDTO updateUser(UserFullDTO userdata) {
+    public CommonResponse updateUser(UserFullDTO userdata) {
         try{
-            User user = modelMapper.map(userdata, User.class);
-            userRepo.updateUser(user.getFirstName(), user.getLastName(), user.getMobile(), user.getDistrict(), userdata.getUserId());
-            return getUserById(user.getUserId());
+            UserDTO validUser = getUserById(userdata.getUserId());
+
+            if(validUser != null){
+                userRepo.updateUser(userdata.getFirstName(), userdata.getLastName(), userdata.getMobile(), userdata.getDistrict(), userdata.getUserId());
+                return new CommonResponse(true, "Updated user id : "+validUser.getUserId());
+            }
+            else{
+                return new CommonResponse(false, "Can not find user with user id : "+userdata.getUserId());
+            }
+
         }
         catch(Exception e){
             System.out.println(e.toString());

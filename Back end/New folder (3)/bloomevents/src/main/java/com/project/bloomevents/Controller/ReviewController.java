@@ -1,6 +1,6 @@
 package com.project.bloomevents.Controller;
 
-import com.project.bloomevents.CommonResponse.CommonResponse;
+import com.project.bloomevents.Common.CommonResponse;
 import com.project.bloomevents.DTO.ReviewDTO;
 import com.project.bloomevents.Service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;

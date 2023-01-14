@@ -1,7 +1,9 @@
 package com.project.bloomevents.ServiceImpl;
 
-import com.project.bloomevents.CommonResponse.CommonResponse;
+import com.project.bloomevents.Common.CommonResponse;
+import com.project.bloomevents.DTO.ProviderDTO;
 import com.project.bloomevents.DTO.ReviewDTO;
+import com.project.bloomevents.DTO.UserDTO;
 import com.project.bloomevents.Model.Review;
 import com.project.bloomevents.Repository.ReviewRepository;
 import com.project.bloomevents.Service.ReviewService;
@@ -18,6 +20,10 @@ public class ReviewServiceImpl implements ReviewService {
     private ReviewRepository reviewRepo;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private UserServiceImpl userServiceImpl;
+    @Autowired
+    private ProviderServiceImpl providerServiceImpl;
 
     public ReviewDTO getReviewById(int reviewId){
         try{
@@ -50,11 +56,19 @@ public class ReviewServiceImpl implements ReviewService {
     @Override
     public ReviewDTO addReview(ReviewDTO review) {
         try{
-            Review r = modelMapper.map(review, Review.class);
-            Review r1 = reviewRepo.save(r);
+            UserDTO user=userServiceImpl.getUserById(review.getUserId());
+            ProviderDTO provider=providerServiceImpl.getProviderById(review.getProviderId());
 
-            return modelMapper.map(r1, new TypeToken<ReviewDTO>() {
-            }.getType());
+            if(user != null && provider !=null && user.getUserId() != provider.getUserId()){
+                Review r = modelMapper.map(review, Review.class);
+                Review r1 = reviewRepo.save(r);
+
+                return modelMapper.map(r1, new TypeToken<ReviewDTO>() {
+                }.getType());
+            }
+            else {
+                return null;
+            }
         }
         catch(Exception e){
             System.out.println(e.toString());

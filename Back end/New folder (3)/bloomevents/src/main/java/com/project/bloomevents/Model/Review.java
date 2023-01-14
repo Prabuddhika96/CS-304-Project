@@ -34,4 +34,9 @@ public class Review {
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "userId", referencedColumnName = "userId")
     private User user;
+
+    @JsonIgnore
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "providerId", referencedColumnName = "providerId")
+    private Provider provider;
 }

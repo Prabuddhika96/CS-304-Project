@@ -16,6 +16,6 @@ public class ReviewDTO {
     private String review;
     private Timestamp timestamp;
     private double rate;
-
     private int userId;
+    private int providerId;
 }
