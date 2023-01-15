@@ -19,7 +19,7 @@ public class UserFullDTO {
     private String district;
     private Timestamp lastLogin;
     private int isAdmin;
-    private int logiId;
+    private int loginId;
     private String email;
     private String password;
 

@@ -18,4 +18,5 @@ public class ProviderDTO {
     private String web;
     private double rating;
     private int userId;
+    private int categoryId;
 }
