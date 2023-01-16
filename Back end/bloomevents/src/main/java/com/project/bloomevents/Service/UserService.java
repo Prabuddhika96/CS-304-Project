@@ -7,7 +7,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 public interface UserService {
-
     List<UserDTO> getAllUsers();
     UserDTO addUser(UserFullDTO userdata) throws NoSuchAlgorithmException;
     UserDTO getUserById(int userid);

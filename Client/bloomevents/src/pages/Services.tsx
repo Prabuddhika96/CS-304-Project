@@ -1,5 +1,5 @@
 import ServiceCard from "components/Cards/ServiceCard";
-import image from "img/parallax.jpg";
+import image from "img/new/image8.jpg";
 import { Link } from "react-router-dom";
 
 import { useState } from "react";

@@ -8,7 +8,6 @@ import { RouteName } from "constant/routeName";
 import LoggedUserNav from "./Logged User/LoggedUserNav";
 import UserMode from "./Nav Options/UserMode";
 import ProviderMode from "./Nav Options/ProviderMode";
-import { LoggedUser } from "docs/User";
 import { Provider } from "docs/Provider";
 
 function Header() {
@@ -32,11 +31,6 @@ function Header() {
     }
   }, [logged]);
 
-  // if()
-  // const ProviderMode = JSON.parse(localStorage.getItem("ProviderMode") || "");
-  // const ProviderMode1 = localStorage.getItem("ProviderMode");
-  // console.log(ProviderMode1);
-
   const [proMode, setproMode] = useState<boolean>(false);
   const handleClick = () => {
     if (proMode) {
@@ -58,7 +52,7 @@ function Header() {
   return (
     <div>
       <header
-        className={`px-50 py-[13px] text-center text-[#fff] bg-[#00000086]  flex justify-between z-50 top-0 w-full ease-in-out duration-200 fixed ${
+        className={`px-50 py-[13px] text-center text-[#fff] bg-[#f3cd9ec4]  flex justify-between z-50 top-0 w-full ease-in-out duration-200 fixed ${
           small ? "py-[13px]" : "py-[13px]"
         }`}>
         <div className="w-2/12 pl-20 text-left">
