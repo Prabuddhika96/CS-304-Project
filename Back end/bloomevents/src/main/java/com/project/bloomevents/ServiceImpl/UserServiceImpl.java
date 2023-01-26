@@ -84,14 +84,11 @@ public class UserServiceImpl implements UserService {
         try{
             UserDTO validUser = getUserById(userdata.getUserId());
 
-            if(validUser != null){
-                User user=userRepo.updateUser(userdata.getFirstName(), userdata.getLastName(), userdata.getMobile(), userdata.getDistrict(), userdata.getUserId());
-                return modelMapper.map(user, new TypeToken<UserDTO>(){}.getType());
+            if(validUser != null) {
+                userRepo.updateUser(userdata.getFirstName(), userdata.getLastName(), userdata.getMobile(), userdata.getDistrict(), userdata.getUserId());
+                return getUserById(userdata.getUserId());
             }
-            else{
-                return null;
-            }
-
+            return null;
         }
         catch(Exception e){
             System.out.println(e.toString());

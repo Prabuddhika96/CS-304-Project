@@ -30,7 +30,7 @@ public class ProviderController {
         } else {
             map.clear();
             map.put("status", 0);
-            map.put("message", "No providers");
+            map.put("message", "Provider list is not found");
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
     }

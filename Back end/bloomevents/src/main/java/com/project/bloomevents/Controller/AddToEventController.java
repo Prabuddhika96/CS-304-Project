@@ -32,7 +32,7 @@ public class AddToEventController {
         } else {
             map.clear();
             map.put("status", 0);
-            map.put("message", "No add to event list");
+            map.put("message", "add to event list is not found");
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
     }

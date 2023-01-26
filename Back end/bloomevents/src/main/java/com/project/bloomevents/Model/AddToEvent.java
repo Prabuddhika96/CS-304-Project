@@ -19,6 +19,12 @@ public class AddToEvent {
     @Column(name = "addToEventId")
     private int addToEventId;
 
+    @Column(name = "isApproved", columnDefinition = "boolean default false")
+    private boolean isApproved;
+
+    @Column(name = "isPlaced", columnDefinition = "boolean default false")
+    private boolean isPlaced;
+
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "eventId", referencedColumnName = "eventId")

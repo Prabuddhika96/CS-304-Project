@@ -32,7 +32,7 @@ public class UserController {
         } else {
             map.clear();
             map.put("status", 0);
-            map.put("message", "No users");
+            map.put("message", "User list is not found");
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
     }
@@ -80,7 +80,7 @@ public class UserController {
         } else {
             map.clear();
             map.put("status", 0);
-            map.put("message", "User not found");
+            map.put("message", "Update failed");
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
     }

@@ -1,7 +1,7 @@
 package com.project.bloomevents.Controller;
 
-import com.project.bloomevents.DTO.PackageDTO;
-import com.project.bloomevents.Service.PackageService;
+import com.project.bloomevents.DTO.PaymentDTO;
+import com.project.bloomevents.Service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,24 +16,23 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/package")
-public class PackageController {
+@RequestMapping("/payment")
+public class PaymentController {
     @Autowired
-    private PackageService packageService;
+    private PaymentService paymentService;
 
-    @GetMapping("/getallpackages")
-    public ResponseEntity<?> getAllpackages(){
+    @GetMapping("/getallpayments")
+    public ResponseEntity<?> getAllPayments(){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
-        List<PackageDTO> packageList = packageService.getAllpackages();
-
-        if (!packageList.isEmpty()) {
+        List<PaymentDTO> paymentList = paymentService.getAllPayments();
+        if (!paymentList.isEmpty()) {
             map.put("status", 1);
-            map.put("data", packageList);
+            map.put("data", paymentList);
             return new ResponseEntity<>(map, HttpStatus.OK);
         } else {
             map.clear();
             map.put("status", 0);
-            map.put("message", "Packages list is not found");
+            map.put("message", "Payment list is not found");
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
     }

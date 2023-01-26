@@ -12,13 +12,10 @@ import java.sql.Time;
 @AllArgsConstructor
 @Getter
 @Setter
-public class EventDTO {
-    private int eventId;
-    private String eventName;
-    private Date eventDate;
-    private Time eventTime;
+public class PaymentDTO {
+    private int paymentId;
+    private double amount;
+    private Date paymentDate;
+    private Time paymentTime;
     private int userId;
-    private boolean isPlaced;
-    private Date placedDate;
-    private Time placedTime;
 }

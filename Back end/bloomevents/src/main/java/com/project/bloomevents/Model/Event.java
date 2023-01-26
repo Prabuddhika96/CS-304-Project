@@ -32,6 +32,18 @@ public class Event {
     @Column(name = "eventTime")
     private Time eventTime;
 
+    @Column(name = "isPlaced", columnDefinition = "boolean default false")
+    private boolean isPlaced;
+
+    @Column(name = "placedDate")
+    private Date placedDate;
+
+    @Column(name = "placedTime")
+    private Time placedTime;
+
+    @OneToOne(mappedBy = "event")
+    private Booking booking;
+
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "userId", referencedColumnName = "userId")

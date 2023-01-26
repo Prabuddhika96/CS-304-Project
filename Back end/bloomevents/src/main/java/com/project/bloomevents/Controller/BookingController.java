@@ -1,7 +1,7 @@
 package com.project.bloomevents.Controller;
 
-import com.project.bloomevents.DTO.PackageDTO;
-import com.project.bloomevents.Service.PackageService;
+import com.project.bloomevents.DTO.BookingDTO;
+import com.project.bloomevents.Service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,24 +16,23 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/package")
-public class PackageController {
+@RequestMapping("/bookings")
+public class BookingController {
     @Autowired
-    private PackageService packageService;
+    private BookingService bookingService;
 
-    @GetMapping("/getallpackages")
-    public ResponseEntity<?> getAllpackages(){
+    @GetMapping("/getallbookings")
+    public ResponseEntity<?> getAllBookings(){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
-        List<PackageDTO> packageList = packageService.getAllpackages();
-
-        if (!packageList.isEmpty()) {
+        List<BookingDTO> bookingsList = bookingService.getAllBookings();
+        if (!bookingsList.isEmpty()) {
             map.put("status", 1);
-            map.put("data", packageList);
+            map.put("data", bookingsList);
             return new ResponseEntity<>(map, HttpStatus.OK);
         } else {
             map.clear();
             map.put("status", 0);
-            map.put("message", "Packages list is not found");
+            map.put("message", "Booking list is not found");
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
     }
