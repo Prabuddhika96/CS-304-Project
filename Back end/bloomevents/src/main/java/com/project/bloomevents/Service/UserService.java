@@ -12,4 +12,6 @@ public interface UserService {
     UserDTO getUserById(int userid);
     UserDTO updateUser(UserFullDTO userdata);
     boolean deleteUser(int userId);
+
+    //String addUser(UserFullDTO userdata);
 }

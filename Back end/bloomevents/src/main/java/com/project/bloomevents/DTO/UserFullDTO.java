@@ -1,5 +1,6 @@
 package com.project.bloomevents.DTO;
 
+import com.project.bloomevents.Enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +19,7 @@ public class UserFullDTO {
     private int mobile;
     private String district;
     private Timestamp lastLogin;
-    private int isAdmin;
+    private Role role;
     private int loginId;
     private String email;
     private String password;

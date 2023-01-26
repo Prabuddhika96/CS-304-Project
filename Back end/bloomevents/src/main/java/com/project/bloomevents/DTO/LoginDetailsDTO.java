@@ -13,6 +13,7 @@ public class LoginDetailsDTO {
     private int loginId;
     private String email;
     private String password;
+    private int userId;
 
     public LoginDetailsDTO(String email, String password) {
         this.email = email;

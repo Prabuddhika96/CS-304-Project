@@ -1,13 +1,14 @@
 package com.project.bloomevents.Repository;
 
+import com.project.bloomevents.Model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
-
-import com.project.bloomevents.Model.User;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
@@ -23,4 +24,10 @@ public interface UserRepository extends JpaRepository<User, Integer> {
 
     @Query(value = "SELECT * FROM bloomeventsdb.user WHERE user_id=?1 LIMIT 1", nativeQuery = true)
     User getUserbyId(@Param(value="userId") int userid);
+
+    @Query(value = "SELECT * FROM bloomeventsdb.user WHERE login_id=?1 LIMIT 1", nativeQuery = true)
+    User getUserbyLoginId(@Param(value="userId") int loginId);
+
+    @Query(value = "SELECT * FROM bloomeventsdb.user WHERE user_id=(SELECT user_id FROM bloomeventsdb.login_details WHERE email=?1 LIMIT 1) LIMIT 1", nativeQuery = true)
+    Optional<User> findByEmail(String email);
 }

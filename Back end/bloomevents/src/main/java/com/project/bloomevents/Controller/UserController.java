@@ -41,6 +41,7 @@ public class UserController {
     public ResponseEntity<?>  addUser(@RequestBody UserFullDTO userdata) throws NoSuchAlgorithmException {
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         UserDTO user = userService.addUser(userdata);
+        //String user = userService.addUser(userdata);
         if (user != null) {
             map.put("status", 1);
             map.put("data", user);

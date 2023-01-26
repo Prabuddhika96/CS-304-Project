@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Optional;
+
 @Repository
 public interface LoginDetailsRepository extends JpaRepository<LoginDetails, Integer> {
     @Transactional
@@ -19,4 +21,7 @@ public interface LoginDetailsRepository extends JpaRepository<LoginDetails, Inte
 
     @Query(value = "SELECT * FROM bloomeventsdb.login_details WHERE login_id = ?1", nativeQuery = true)
     LoginDetails getLoginDetailsById(int loginId);
+
+    @Query(value = "SELECT * FROM bloomeventsdb.login_details WHERE email=?1 LIMIT 1", nativeQuery = true)
+    Optional<LoginDetails> findByEmail(String email);
 }

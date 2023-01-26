@@ -1,5 +1,6 @@
 package com.project.bloomevents.Model;
 
+import com.project.bloomevents.Enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,11 +37,11 @@ public class User {
     @Column(name="lastLogin")
     private Timestamp lastLogin;
 
-    @Column(name="isAdmin")
-    private int isAdmin;
+    @Enumerated(EnumType.STRING)
+    @Column(name="role")
+    private Role role;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "loginId", referencedColumnName = "loginId")
+    @OneToOne(mappedBy = "user")
     private LoginDetails loginDetails;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)

@@ -3,6 +3,7 @@ package com.project.bloomevents.Controller;
 
 import com.project.bloomevents.DTO.LoginDetailsDTO;
 import com.project.bloomevents.DTO.UserFullDTO;
+import com.project.bloomevents.Model.User;
 import com.project.bloomevents.Service.LoginDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,9 +39,9 @@ public class LoginController {
     }
 
     @PostMapping("/addlogindetails")
-    public ResponseEntity<?> addLoginDetails(@RequestBody UserFullDTO userdata) throws NoSuchAlgorithmException{
+    public ResponseEntity<?> addLoginDetails(@RequestBody UserFullDTO userdata,@RequestBody User user) throws NoSuchAlgorithmException{
         Map<String, Object> map = new LinkedHashMap<String, Object>();
-        LoginDetailsDTO loginDetails = loginservice.addLoginDetails(userdata);
+        LoginDetailsDTO loginDetails = loginservice.addLoginDetails(userdata, user);
         if (loginDetails != null) {
             map.put("status", 1);
             map.put("data", loginDetails);
