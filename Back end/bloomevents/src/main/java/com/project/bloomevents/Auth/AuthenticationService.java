@@ -36,11 +36,12 @@ public class AuthenticationService {
         UserDTO userDTO = userServiceImpl.addUser(userdata);
         if(userDTO !=null){
             var user = modelMapper.map(userdata, LoginDetails.class);
-
+            //UserDTO newUser=userServiceImpl.getUserById(userDTO.getUserId());
             var jwtToken = jwtService.generateToken(user);
             System.out.println(jwtToken);
             return  AuthenticationResponse.builder()
                     .token(jwtToken)
+                    .user(userDTO)
                     .build();
         }
         return null;
