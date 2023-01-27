@@ -21,15 +21,18 @@ function Header() {
     }
   }, []);
 
-  const logged = true;
+  //let logged = localStorage.getItem("loggedUser");
+  let logged = localStorage.getItem("loggedUser");
+
   const [user, setuser] = useState<boolean>(false);
   useEffect(() => {
+    logged = localStorage.getItem("loggedUser");
     if (logged) {
       setuser(true);
     } else {
       setuser(false);
     }
-  }, [logged]);
+  }, [localStorage.getItem("loggedUser")]);
 
   const [proMode, setproMode] = useState<boolean>(false);
   const handleClick = () => {
@@ -75,7 +78,7 @@ function Header() {
         {/* for login btns */}
         {user ? (
           <div className="flex pr-8">
-            <LoggedUserNav func={handleClick} promode={proMode} />
+            <LoggedUserNav func={handleClick} promode={proMode} name={"jjjj"} />
           </div>
         ) : (
           <div className="right-0 text-right text-[#000]">

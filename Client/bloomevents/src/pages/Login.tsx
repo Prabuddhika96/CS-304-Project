@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import image from "img/logo.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { TextField } from "@mui/material";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
-import User from "types/User";
 import { RouteName } from "constant/routeName";
+import LoginDetails from "types/LoginDetails";
+import axios from "axios";
+import User from "types/User";
+import User1 from "types/User1";
 
 function Login() {
   // show password
@@ -22,31 +25,54 @@ function Login() {
   const [email, setemail] = useState<string | "">("");
   const [password, setpassword] = useState<string | "">("");
 
-  const [values, setValues] = useState<User>({
-    userId: 0,
-    first_name: "Parbuddhika",
-    last_name: "Mayurapaksha",
-    isAdmin: false,
+  const [values, setValues] = useState<LoginDetails>({
     email: "",
     password: "",
   });
 
+  //navigate
+  const navigate = useNavigate();
+
   useEffect(() => {
     setValues({
-      userId: 0,
-      first_name: "Parbuddhika",
-      last_name: "Mayurapaksha",
-      isAdmin: false,
       email: email,
       password: password,
     });
-    // console.log(values);
   }, [email, password]);
 
-  const handleClck = (e: any) => {
+  const handleClck = async (e: any) => {
     e.preventDefault();
 
-    console.log(values);
+    const user = {
+      email: values.email,
+      password: values.password,
+    };
+
+    await axios
+      .post("http://localhost:8080/user/auth/authenticate", values)
+      .then((res) => {
+        console.log(res);
+
+        if (res.data.token) {
+          const loggedUser: User1 = {
+            userId: res.data.user.userId,
+            firstName: res.data.user.firstName,
+            lastName: res.data.user.lastName,
+            mobile: res.data.user.mobile,
+            district: res.data.user.district,
+            lastLogin: res.data.user.lastLogin,
+            role: res.data.user.role,
+          };
+
+          console.log(res.data.user);
+          localStorage.setItem("loggedUser", res.data.user);
+          //navigate(RouteName.Services);
+        }
+      });
+
+    //navigate(RouteName.Services);
+
+    console.log(localStorage.getItem("loggedUser"));
   };
 
   return (
@@ -70,6 +96,7 @@ function Login() {
                     id="outlined"
                     label="Email address"
                     className="w-full"
+                    //value={"prabuddhika@gmail.com"}
                     onChange={(e) => {
                       setemail(e.target.value);
                     }}
@@ -84,6 +111,7 @@ function Login() {
                     type={showPw ? "text" : "password"}
                     label="Password"
                     className="w-full rounded-[5px] outline-none p-0 "
+                    //value={"123"}
                     onChange={(e) => {
                       setpassword(e.target.value);
                     }}

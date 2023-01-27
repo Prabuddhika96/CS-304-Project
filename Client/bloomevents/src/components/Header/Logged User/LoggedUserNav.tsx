@@ -13,13 +13,14 @@ import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 
 import Switch from "@mui/material/Switch";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { RouteName } from "constant/routeName";
 
 import { LoggedUser } from "docs/User";
 
-function LoggedUserNav({ func, promode }: any) {
+function LoggedUserNav({ func, promode, name }: any) {
   const admin: boolean = LoggedUser.isAdmin;
+  const navigate = useNavigate();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -32,6 +33,11 @@ function LoggedUserNav({ func, promode }: any) {
 
   // switch
   const label = { inputProps: { "aria-label": "Switch demo" } };
+
+  const handleLogout = () => {
+    localStorage.removeItem("loggedUser");
+    navigate(RouteName.Home);
+  };
 
   return (
     <React.Fragment>
@@ -103,7 +109,7 @@ function LoggedUserNav({ func, promode }: any) {
             )}`,
           }}>
           <MenuItem>
-            <Avatar /> Profile
+            <Avatar /> {name}
           </MenuItem>
         </Link>
 
@@ -151,7 +157,7 @@ function LoggedUserNav({ func, promode }: any) {
           </ListItemIcon>
           Settings
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleLogout}>
           <ListItemIcon>
             <Logout fontSize="small" />
           </ListItemIcon>
