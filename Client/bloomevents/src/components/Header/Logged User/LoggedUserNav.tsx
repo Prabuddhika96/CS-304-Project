@@ -1,12 +1,14 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Avatar from "@mui/material/Avatar";
+
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import EventIcon from "@mui/icons-material/Event";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
 import Settings from "@mui/icons-material/Settings";
@@ -17,10 +19,32 @@ import { Link, useNavigate } from "react-router-dom";
 import { RouteName } from "constant/routeName";
 
 import { LoggedUser } from "docs/User";
+import { useEffect, useState } from "react";
+import { Role } from "Enums/Role";
 
-function LoggedUserNav({ func, promode, name }: any) {
-  const admin: boolean = LoggedUser.isAdmin;
+function LoggedUserNav({ func, promode, name, func1 }: any) {
+  const [admin, setAdmin] = useState<boolean>(false);
+  const [provider, setProvider] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  const [user, setUser] = useState<any>();
+
+  useEffect(() => {
+    let logged = localStorage.getItem("loggedUser");
+    if (logged) {
+      setUser(JSON.parse(logged));
+      //console.log(JSON.parse(logged));
+      if (JSON.parse(logged).role == Role.ADMIN) {
+        setAdmin(true);
+      } else {
+        setAdmin(false);
+      }
+    } else {
+      setUser(null);
+    }
+  }, [localStorage.getItem("loggedUser")]);
+
+  //console.log(provider);
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -36,23 +60,16 @@ function LoggedUserNav({ func, promode, name }: any) {
 
   const handleLogout = () => {
     localStorage.removeItem("loggedUser");
+    func1();
     navigate(RouteName.Home);
   };
 
   return (
     <React.Fragment>
       <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        {/* {admin ? (
-          <div className="items-center mr-4">
-            <Typography sx={{ minWidth: 100 }}>Admin Dashboard</Typography>
-          </div>
-        ) : (
-          <></>
-        )} */}
-
         <Typography sx={{ minWidth: 100 }} className="items-center">
           Switch to Provider Mode
-          <Switch {...label} onChange={func} />
+          <Switch {...label} onChange={func} checked={promode ? true : false} />
         </Typography>
 
         <Tooltip title="Account settings">
@@ -63,7 +80,7 @@ function LoggedUserNav({ func, promode, name }: any) {
             aria-controls={open ? "account-menu" : undefined}
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}>
-            <Avatar sx={{ width: 32, height: 32 }}>M</Avatar>
+            <Avatar sx={{ width: 32, height: 32 }}>{name.charAt(0)}</Avatar>
           </IconButton>
         </Tooltip>
       </Box>
@@ -113,23 +130,27 @@ function LoggedUserNav({ func, promode, name }: any) {
           </MenuItem>
         </Link>
 
+        <Divider />
+
         {admin ? (
-          <Link
-            to={{
-              pathname: `${RouteName.Profile.replace(
-                ":id",
-                LoggedUser.userId.toString()
-              )}`,
-            }}>
-            <MenuItem>
-              <Avatar /> Admin Dashboard
-            </MenuItem>
-          </Link>
+          <>
+            <Link
+              to={{
+                pathname: `${RouteName.AdminDashboard.replace(
+                  ":id",
+                  user.userId.toString()
+                )}`,
+              }}>
+              <MenuItem>
+                <AdminPanelSettingsIcon className="mr-[7px] my-1" />
+                Admin Dashboard
+              </MenuItem>
+            </Link>
+            <Divider />
+          </>
         ) : (
           <></>
         )}
-
-        <Divider />
 
         {/* check Pro mode to visible my events */}
         {promode ? (

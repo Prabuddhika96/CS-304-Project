@@ -35,9 +35,6 @@ public class LoginDetailsServiceImpl implements LoginDetailsService {
             if(logindetails==null){
                 valid=true;
             }
-            else{
-                valid=false;
-            }
             return valid;
         }
         catch(Exception e){

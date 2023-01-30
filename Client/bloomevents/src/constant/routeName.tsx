@@ -14,4 +14,6 @@ export enum RouteName {
   ProviderDashboard = "/:id/providerdashboard",
 
   EventDetails = "/eventdetails/:id",
+
+  AdminDashboard = "/admindashboard/:id",
 }

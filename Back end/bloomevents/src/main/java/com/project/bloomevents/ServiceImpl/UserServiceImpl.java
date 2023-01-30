@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
                 u.setLastName(userdata.getLastName());
                 u.setMobile(userdata.getMobile());
                 u.setDistrict(userdata.getDistrict());
-                u.setRole(Role.User);
+                u.setRole(Role.USER);
 
                 User us = userRepo.save(u);
                 //return userdata.getFirstName();

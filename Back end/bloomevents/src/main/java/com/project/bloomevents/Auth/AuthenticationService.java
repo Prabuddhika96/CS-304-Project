@@ -38,7 +38,7 @@ public class AuthenticationService {
             var user = modelMapper.map(userdata, LoginDetails.class);
             //UserDTO newUser=userServiceImpl.getUserById(userDTO.getUserId());
             var jwtToken = jwtService.generateToken(user);
-            System.out.println(jwtToken);
+            //System.out.println(jwtToken);
             return  AuthenticationResponse.builder()
                     .token(jwtToken)
                     .user(userDTO)
@@ -61,12 +61,16 @@ public class AuthenticationService {
             var user = repo.findByEmail(request.getEmail())
                     .orElseThrow();
             //System.out.println(user.getUsername());
-
-            var jwtToken = jwtService.generateToken(user);
-            return AuthenticationResponse.builder()
-                    .token(jwtToken)
-                    .user(modelMapper.map(user.getUser(), new TypeToken<UserDTO>() {}.getType()))
-                    .build();
+            if(user!=null){
+                var jwtToken = jwtService.generateToken(user);
+                return AuthenticationResponse.builder()
+                        .token(jwtToken)
+                        .user(modelMapper.map(user.getUser(), new TypeToken<UserDTO>() {}.getType()))
+                        .build();
+            }
+            else{
+                return null;
+            }
         }catch(Exception e){
             System.out.println(e.toString());
             return null;

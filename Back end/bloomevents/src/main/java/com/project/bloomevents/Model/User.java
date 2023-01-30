@@ -34,6 +34,11 @@ public class User {
     @Column(name="district")
     private String district;
 
+//    @JsonIgnore
+//    @ManyToOne(cascade = CascadeType.MERGE)
+//    @JoinColumn(name = "districtId", referencedColumnName = "districtId")
+//    private District district;
+
     @Column(name="lastLogin")
     private Timestamp lastLogin;
 
@@ -41,7 +46,7 @@ public class User {
     @Column(name="role")
     private Role role;
 
-    @OneToOne(mappedBy = "user")
+    @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)
     private LoginDetails loginDetails;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)

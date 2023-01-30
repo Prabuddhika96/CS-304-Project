@@ -7,6 +7,7 @@ import { districts } from "docs/districts";
 import NewUser from "types/NewUser";
 import { LoggedUser } from "docs/User";
 import SignupDropDown from "components/Drop Downs/SignupDropdown";
+import { Role } from "Enums/Role";
 
 function UserProfile() {
   const [showPw, setShowPw] = useState<boolean>(false);
@@ -32,6 +33,7 @@ function UserProfile() {
     lastName: LoggedUser.last_name,
     district: "",
     mobile: "0719246621",
+    role: Role.USER,
     email: LoggedUser.email,
     password: LoggedUser.password,
   });
@@ -42,6 +44,7 @@ function UserProfile() {
       lastName: lastName,
       district: district,
       mobile: mobile,
+      role: Role.USER,
       email: email,
       password: password,
     });

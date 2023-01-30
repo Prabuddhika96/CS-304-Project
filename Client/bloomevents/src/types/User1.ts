@@ -1,4 +1,6 @@
-export default interface User1 {
+import { type } from "os";
+
+export type User1 = {
   userId: number;
   firstName: string;
   lastName: string;
@@ -6,4 +8,4 @@ export default interface User1 {
   district: string;
   lastLogin: string;
   role: string;
-}
+};

@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import logo from "img/logo.png";
-import NavElement from "./NavElement/NavElement";
 import HeaderBtnLink from "./NavElement/HeaderBtnLink";
 
 import { RouteName } from "constant/routeName";
@@ -21,16 +20,14 @@ function Header() {
     }
   }, []);
 
-  //let logged = localStorage.getItem("loggedUser");
-  let logged = localStorage.getItem("loggedUser");
+  const [user, setuser] = useState<any>();
 
-  const [user, setuser] = useState<boolean>(false);
   useEffect(() => {
-    logged = localStorage.getItem("loggedUser");
+    let logged = localStorage.getItem("loggedUser");
     if (logged) {
-      setuser(true);
+      setuser(JSON.parse(logged));
     } else {
-      setuser(false);
+      setuser(null);
     }
   }, [localStorage.getItem("loggedUser")]);
 
@@ -48,7 +45,7 @@ function Header() {
   };
 
   useEffect(() => {
-    localStorage.setItem("ProviderMode1", JSON.stringify(proMode));
+    localStorage.setItem("ProviderMode", JSON.stringify(proMode));
     // console.log(localStorage.getItem("ProviderMode1"));
   }, [proMode]);
 
@@ -78,7 +75,17 @@ function Header() {
         {/* for login btns */}
         {user ? (
           <div className="flex pr-8">
-            <LoggedUserNav func={handleClick} promode={proMode} name={"jjjj"} />
+            <LoggedUserNav
+              func={handleClick}
+              promode={proMode}
+              name={`${
+                user.firstName.charAt(0).toUpperCase() + user.firstName.slice(1)
+              } ${
+                user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)
+              }`}
+              //name={"hdhdh"}
+              func1={setuser}
+            />
           </div>
         ) : (
           <div className="right-0 text-right text-[#000]">
