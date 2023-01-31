@@ -24,6 +24,12 @@ public class Provider {
     @Column(name = "businessName")
     private String businessName;
 
+    @Column(name="district")
+    private String district;
+
+    @Column(name="description")
+    private String description;
+
     @Column(name = "mobile")
     private String mobile;
 

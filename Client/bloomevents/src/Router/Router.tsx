@@ -9,7 +9,7 @@ import Contactus from "pages/Contactus";
 import LandingPage from "pages/LandingPage";
 import MyEvents from "pages/Logged User/MyEvents";
 import Login from "pages/Login";
-import ProviderDashboard from "pages/Provider Pages/ProviderDashboard";
+import MyServices from "pages/Provider Pages/MyServices";
 import ProviderDetails from "pages/ProviderDetails";
 import Services from "pages/Services";
 import Signup from "pages/Signup";
@@ -82,9 +82,9 @@ function Router() {
 
             {/* Provider */}
             <Route
-              path={RouteName.ProviderDashboard}
+              path={RouteName.MyServices}
               caseSensitive={false}
-              element={<ProviderDashboard />}
+              element={<MyServices />}
             />
 
             {/* Admin */}

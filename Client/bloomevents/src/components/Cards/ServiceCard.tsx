@@ -14,7 +14,7 @@ function ServiceCard({
   ratings,
 }: any) {
   return (
-    <div className="service-card">
+    <div className="w-11/12 service-card">
       <div
         id="back-img"
         style={{

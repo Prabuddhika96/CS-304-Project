@@ -79,7 +79,7 @@ function Login(): JSX.Element {
         let providermode = localStorage.getItem("ProviderMode");
         if (providermode) {
           if (JSON.parse(providermode)) {
-            navigate(RouteName.ProviderDashboard);
+            navigate(RouteName.MyServices);
           } else {
             navigate(RouteName.Services);
           }

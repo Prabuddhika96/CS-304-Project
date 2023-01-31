@@ -12,11 +12,14 @@ import lombok.Setter;
 public class ProviderDTO {
     private int providerId;
     private String businessName;
+    private String district;
+    private String description;
     private String mobile;
     private String facebook;
     private String instagram;
     private String web;
     private double rating;
     private int userId;
-    private int categoryId;
+    private String categoryName;
+    //private int packages ;
 }

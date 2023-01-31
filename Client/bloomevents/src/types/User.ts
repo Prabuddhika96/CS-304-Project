@@ -1,8 +1,11 @@
-export default interface User {
+import { type } from "os";
+
+export type User1 = {
   userId: number;
-  first_name: string;
-  last_name: string;
-  isAdmin: boolean;
-  email: string;
-  password: string;
-}
+  firstName: string;
+  lastName: string;
+  mobile: string;
+  district: string;
+  lastLogin: string;
+  role: string;
+};

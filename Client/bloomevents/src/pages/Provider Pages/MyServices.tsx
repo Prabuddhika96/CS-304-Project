@@ -1,7 +1,7 @@
 import React from "react";
 
 function ProviderDashboard() {
-  return <div>ProviderDashboard</div>;
+  return <div>MyServices</div>;
 }
 
 export default ProviderDashboard;

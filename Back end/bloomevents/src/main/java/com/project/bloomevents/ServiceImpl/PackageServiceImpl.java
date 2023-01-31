@@ -30,4 +30,18 @@ public class PackageServiceImpl implements PackageService {
             return null;
         }
     }
+
+    public int getPackagesByProviderId(int providerId){
+        try{
+            List<Packages> list = packageRepo.getPackagesByProviderId(providerId);
+            if(list.isEmpty()){
+                return 0;
+            }
+            return list.size();
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return -1;
+        }
+    }
 }

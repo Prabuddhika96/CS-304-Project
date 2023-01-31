@@ -38,9 +38,7 @@ function Header() {
       navigate(RouteName.Services);
     } else {
       setproMode(true);
-      navigate(
-        RouteName.ProviderDashboard.replace(":id", Provider.user_id.toString())
-      );
+      navigate(RouteName.MyServices.replace(":id", user.userId.toString()));
     }
   };
 
