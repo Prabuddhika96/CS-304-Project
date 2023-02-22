@@ -31,17 +31,34 @@ public class PackageServiceImpl implements PackageService {
         }
     }
 
-    public int getPackagesByProviderId(int providerId){
+    @Override
+    public int getPackageCount(int providerId) {
         try{
-            List<Packages> list = packageRepo.getPackagesByProviderId(providerId);
-            if(list.isEmpty()){
-                return 0;
+            int count = packageRepo.getPackageCount(providerId);
+            System.out.println(count);
+            if (count>=0){
+                return count;
             }
-            return list.size();
+            else{
+                return -2;
+            }
         }
         catch(Exception e){
             System.out.println(e.toString());
             return -1;
+        }
+    }
+
+    @Override
+    public List<PackageDTO> getPackagesByProviderId(int providerId) {
+        try{
+            List<Packages> list = packageRepo.getPackagesByProviderId(providerId);
+            return modelMapper.map(list, new TypeToken<List<PackageDTO>>() {
+            }.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
         }
     }
 }

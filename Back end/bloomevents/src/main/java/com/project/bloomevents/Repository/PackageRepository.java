@@ -11,4 +11,7 @@ import java.util.List;
 public interface PackageRepository extends JpaRepository<Packages, Integer> {
     @Query(value = "SELECT * FROM bloomeventsdb.packages WHERE provider_id=?1", nativeQuery = true)
     List<Packages> getPackagesByProviderId(int providerId);
+
+    @Query(value = "SELECT COUNT(package_id) FROM bloomeventsdb.packages WHERE provider_id=?1", nativeQuery = true)
+    int getPackageCount(int providerId);
 }
