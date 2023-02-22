@@ -3,7 +3,7 @@ import http from "utils/http-common";
 
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND_SERVER;
 
-//login
+//all providers
 const getAllServices = async () => {
   return http.get<any>("/provider/getallproviders");
   // var config = {
@@ -21,8 +21,14 @@ const getAllServices = async () => {
   //   });
 };
 
+//get provider
+const getProvider = async (id: any) => {
+  return http.get<any>(`/provider/getproviderbyid/${id}`);
+};
+
 const ProviderService = {
   getAllServices,
+  getProvider,
 };
 
 export default ProviderService;

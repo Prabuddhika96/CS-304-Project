@@ -4,17 +4,14 @@ import { Link } from "react-router-dom";
 
 import { useEffect, useState } from "react";
 
-import Select from "react-select";
-import { colourOptions } from "docs/data";
 import { RouteName } from "constant/routeName";
 import { ServiceProvider } from "types/ServiceProvider";
 import ProviderService from "Services/Provider/ProviderServices";
 import { toast } from "react-toastify";
-import SimpleBackdrop from "components/Backdrop/SimpleBackdrop";
 import { Category } from "types/Category";
 import CategoryService from "Services/Category/CategoryService";
-// import AutoComplete from "components/AutoComplete/AutoComplete";
 import ServiceCardSkeleton from "skeleton/ServiceCardSkeleton/ServiceCardSkeleton";
+import AutoComplete from "components/AutoComplete/AutoComplete";
 
 function Services() {
   const [isClearable /*, setIsClearable*/] = useState(true);
@@ -52,11 +49,17 @@ function Services() {
     <div className="w-full pt-24">
       {/* search section */}
       <div className="flex justify-around w-full mx-auto">
-        <div className="w-3/12">{/* <AutoComplete /> */}</div>
+        <div className="w-3/12">
+          <AutoComplete />
+        </div>
 
-        <div className="w-3/12">{/* <AutoComplete /> */}</div>
+        <div className="w-3/12">
+          <AutoComplete />
+        </div>
 
-        <div className="w-3/12">{/* <AutoComplete /> */}</div>
+        <div className="w-3/12">
+          <AutoComplete />
+        </div>
       </div>
 
       {/* service cards */}
