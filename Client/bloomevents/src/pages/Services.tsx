@@ -13,7 +13,7 @@ import { toast } from "react-toastify";
 import SimpleBackdrop from "components/Backdrop/SimpleBackdrop";
 import { Category } from "types/Category";
 import CategoryService from "Services/Category/CategoryService";
-import AutoComplete from "components/AutoComplete/AutoComplete";
+// import AutoComplete from "components/AutoComplete/AutoComplete";
 import ServiceCardSkeleton from "skeleton/ServiceCardSkeleton/ServiceCardSkeleton";
 
 function Services() {
@@ -52,17 +52,11 @@ function Services() {
     <div className="w-full pt-24">
       {/* search section */}
       <div className="flex justify-around w-full mx-auto">
-        <div className="w-3/12">
-          <AutoComplete />
-        </div>
+        <div className="w-3/12">{/* <AutoComplete /> */}</div>
 
-        <div className="w-3/12">
-          <AutoComplete />
-        </div>
+        <div className="w-3/12">{/* <AutoComplete /> */}</div>
 
-        <div className="w-3/12">
-          <AutoComplete />
-        </div>
+        <div className="w-3/12">{/* <AutoComplete /> */}</div>
       </div>
 
       {/* service cards */}
