@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface AddToEventService {
     List<AddToEventDTO> getAllAddToEvent();
+
+    AddToEventDTO addPackageToEvent(AddToEventDTO data);
 }

@@ -31,6 +31,7 @@ import BookNowDropdownPackages from "components/Drop Downs/BookNowDropdownPackag
 import BookNowDropDownEvents from "components/Drop Downs/BookNowDropDownEvents";
 import EventServices from "Services/Event/EventServices";
 import { Event } from "types/Event";
+import { AddToEvent } from "types/AddToEvent";
 
 function ProviderDetails() {
   let { providerId } = useParams();
@@ -43,11 +44,23 @@ function ProviderDetails() {
       let logged = localStorage.getItem("loggedUser");
       if (logged) {
         setuser(JSON.parse(logged));
+        let ProviderMode = localStorage.getItem("ProviderMode");
+        if (ProviderMode) {
+          ProviderMode = JSON.parse(ProviderMode);
+          if (ProviderMode) {
+            navigate(
+              RouteName.MyServices.replace(":id", user?.userId.toString())
+            );
+          }
+        }
       } else {
         setuser(null);
       }
     }, 1000);
-  }, [localStorage.getItem("loggedUser")]);
+  }, [
+    localStorage.getItem("loggedUser"),
+    localStorage.getItem("ProviderMode"),
+  ]);
 
   React.useEffect(() => {
     ProviderService.getProvider(providerId).then((res: any) => {
@@ -125,19 +138,21 @@ function ProviderDetails() {
   const [userId, setUserId] = useState<any | 0>(0);
   const [timestamp, setTimestamp] = useState<any | null>(null);
 
-  const [values, setValues] = useState<BookRequest>({
+  const [values, setValues] = useState<AddToEvent>({
+    addToEventId: 0,
     eventId: 0,
     packageId: 0,
-    userId: userId,
-    timestamp: "",
+    isApproved: false,
+    isPlaced: false,
   });
 
   useEffect(() => {
     setValues({
+      addToEventId: 0,
       eventId: eventId,
       packageId: packageId,
-      userId: user ? user.userId : "",
-      timestamp: timestamp ? timestamp : "",
+      isApproved: false,
+      isPlaced: false,
     });
     setSuccessAddEvent(successAddEvent);
   }, [eventId, packageId, userId, successAddEvent]);

@@ -29,4 +29,19 @@ public class AddToEventServiceImpl implements AddToEventService {
             return null;
         }
     }
+
+    @Override
+    public AddToEventDTO addPackageToEvent(AddToEventDTO data) {
+        try{
+            AddToEvent mappeddata=modelMapper.map(data,AddToEvent.class);
+            //mappeddata.setPackages();
+            //AddToEvent savedData=addToEventRepo.save(mappeddata);
+            return modelMapper.map(mappeddata, new TypeToken<AddToEventDTO>(){}.getType());
+//            return data;
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
 }

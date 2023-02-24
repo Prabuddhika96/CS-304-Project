@@ -60,7 +60,7 @@ function AutoComplete(array: any) {
     CategoryService.getAllCategories().then((res: any) => {
       if (res.data.status == 1) {
         setCategories(res.data.data);
-        console.log(res.data);
+        //console.log(res.data);
         return;
       } else {
         toast.error(res.data.message);
