@@ -9,4 +9,6 @@ public interface EventService {
     EventDTO addEvent(EventDTO eventdata);
 
     boolean deleteEvent(int eventId);
+
+    List<EventDTO> getEventsByUserId(int userId);
 }

@@ -62,4 +62,17 @@ public class EventServiceImpl implements EventService {
             return false;
         }
     }
+
+    @Override
+    public List<EventDTO> getEventsByUserId(int userId) {
+        try{
+            List<Event> list = eventRepo.getEventsByUserId(userId);
+            return modelMapper.map(list, new TypeToken<List<EventDTO>>() {
+            }.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
 }

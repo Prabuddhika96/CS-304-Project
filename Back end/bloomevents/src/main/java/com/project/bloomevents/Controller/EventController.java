@@ -30,7 +30,7 @@ public class EventController {
             map.clear();
             map.put("status", 0);
             map.put("message", "Event list is not found");
-            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
 
@@ -46,7 +46,7 @@ public class EventController {
             map.clear();
             map.put("status", 0);
             map.put("message", "Event is not found");
-            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
 
@@ -62,7 +62,23 @@ public class EventController {
             map.clear();
             map.put("status", 0);
             map.put("message", "Event is not found");
-            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/geteventsbyuserid/{userId}")
+    public ResponseEntity<?> getEventsByUserId(@PathVariable int userId){
+        Map<String,Object> map=new LinkedHashMap<String,Object>();
+        List<EventDTO> eventList = eventService.getEventsByUserId(userId);
+        if (!eventList.isEmpty()) {
+            map.put("status", 1);
+            map.put("data", eventList);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Event list is not found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
 }
