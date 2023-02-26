@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import { RouteName } from "constant/routeName";
 import EventServices from "Services/Event/EventServices";
 
-function AddEventForm() {
+function AddEventForm(userid: any) {
   const [eventname, seteventname] = useState<string | "">("New Event");
   const [date, setdate] = useState<Dayjs>(dayjs());
   const [time, settime] = useState<Dayjs>(dayjs());
@@ -40,8 +40,8 @@ function AddEventForm() {
     eventDate: "",
     eventTime: "",
     eventName: "New Event",
-    userId: user ? user.userId : 0,
-    isPlaced: true,
+    userId: userid.userid,
+    isPlaced: false,
     placedDate: "",
     placedTime: "",
   });
@@ -49,15 +49,15 @@ function AddEventForm() {
   useEffect(() => {
     setValues({
       eventId: 0,
-      eventDate: dayjs(date).format("DD-MMM-YYYY"),
+      eventDate: dayjs(date).format("DD-MMM-YYYY").toString(),
       eventName: eventname,
-      eventTime: dayjs(time).format("hh:mm A"),
-      userId: user ? user.userId : 0,
-      isPlaced: true,
+      eventTime: dayjs(time).format("hh:mm A").toString(),
+      userId: userid.userid,
+      isPlaced: false,
       placedDate: "",
       placedTime: "",
     });
-    //console.log(values);
+    console.log(date);
   }, [eventname, date]);
 
   const [msg, setmsg] = useState<string>();
@@ -68,11 +68,9 @@ function AddEventForm() {
     setTimeout(() => {
       setValues({
         ...values,
-        userId: user.userId,
+        userId: userid.userid,
       });
     }, 1000);
-
-    console.log(values);
 
     if (values.eventName === "") {
       setEmptyFeild(true);
@@ -84,16 +82,18 @@ function AddEventForm() {
       setmsg("Event Time is not valid !");
     } else {
       setEmptyFeild(false);
+      console.log(values);
 
-      // setTimeout(async () => {
-      //   const result = await EventServices.addEvent(values);
-      //   console.log(result);
-      //   if (result) {
-      //     setSuccessAddEvent(true);
-      //   } else {
-      //     setSuccessAddEvent(false);
-      //   }
-      // }, 1000);
+      setTimeout(async () => {
+        const result = await EventServices.addEvent(values);
+        console.log(result);
+        if (result) {
+          setSuccessAddEvent(true);
+          window.location.reload();
+        } else {
+          setSuccessAddEvent(false);
+        }
+      }, 1000);
     }
   };
 

@@ -26,7 +26,6 @@ function EventList(userid: any) {
     EventServices.getEventsByUserId(userid.userid).then((res: any) => {
       if (res.data.status == 1) {
         setEvents(res.data.data);
-        // console.log(res.data.data);
         return;
       } else {
         //toast.error(res.data.message);
@@ -37,20 +36,6 @@ function EventList(userid: any) {
 
   return (
     <div>
-      {/* {Events &&
-        user &&
-        Events.map((c: any, i: number) => (
-          <div>
-            <MyEventCard
-              eventname={c.name}
-              date={c.date}
-              time={c.time}
-              key={i}
-              id={c.id}
-            />
-          </div>
-        ))} */}
-
       {events &&
         user &&
         events.map((c: any, i: number) => (

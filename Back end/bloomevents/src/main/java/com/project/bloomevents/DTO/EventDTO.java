@@ -5,9 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
-import java.sql.Time;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -15,10 +12,10 @@ import java.sql.Time;
 public class EventDTO {
     private int eventId;
     private String eventName;
-    private Date eventDate;
-    private Time eventTime;
+    private String eventDate;
+    private String eventTime;
     private int userId;
     private boolean isPlaced;
-    private Date placedDate;
-    private Time placedTime;
+    private String placedDate;
+    private String placedTime;
 }

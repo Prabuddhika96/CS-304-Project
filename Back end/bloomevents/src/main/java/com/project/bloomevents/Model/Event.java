@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 
 @Entity
@@ -27,19 +25,19 @@ public class Event {
     private String eventName;
 
     @Column(name = "eventDate")
-    private Date eventDate;
+    private String eventDate;
 
     @Column(name = "eventTime")
-    private Time eventTime;
+    private String eventTime;
 
     @Column(name = "isPlaced", columnDefinition = "boolean default false")
     private boolean isPlaced;
 
     @Column(name = "placedDate")
-    private Date placedDate;
+    private String placedDate;
 
     @Column(name = "placedTime")
-    private Time placedTime;
+    private String placedTime;
 
     @OneToOne(mappedBy = "event")
     private Booking booking;

@@ -1,5 +1,6 @@
 import AddEventForm from "components/User Events/AddEventForm";
 import EventList from "components/User Events/EventList";
+import React from "react";
 import { useParams } from "react-router-dom";
 
 function MyEvents() {
@@ -13,7 +14,7 @@ function MyEvents() {
       </div>
 
       <div className="top-0 items-center w-4/12 px-8 mx-auto">
-        <AddEventForm />
+        <AddEventForm userid={userId} />
       </div>
     </div>
   );
