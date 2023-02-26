@@ -13,7 +13,7 @@ import { RouteName } from "constant/routeName";
 import EventServices from "Services/Event/EventServices";
 
 function AddEventForm(userid: any) {
-  const [eventname, seteventname] = useState<string | "">("New Event");
+  const [eventname, seteventname] = useState<string | "">("");
   const [date, setdate] = useState<Dayjs>(dayjs());
   const [time, settime] = useState<Dayjs>(dayjs());
 
@@ -39,7 +39,7 @@ function AddEventForm(userid: any) {
     eventId: 0,
     eventDate: "",
     eventTime: "",
-    eventName: "New Event",
+    eventName: "",
     userId: userid.userid,
     isPlaced: false,
     placedDate: "",

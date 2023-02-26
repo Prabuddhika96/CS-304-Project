@@ -73,6 +73,10 @@
     .upadate-propic{
          @apply border-2 border-solid w-[500px] border-[#000] opacity-100 h-[500px] mx-auto hover:bg-[#000]; /* bg-gradient-to-r from-cyan-500 to-blue-500; */
     }
+
+    .my-event-card-btn{
+        @apply  h-10 px-2 py-1 hover:text-[#ffff] rounded-md items-center  duration-300 border-2 border-solid;
+    }
 }
 
 .upadate-propic{

@@ -1,8 +1,7 @@
 import MyEventCard from "components/Cards/MyEventCard";
-import { Events } from "docs/Event";
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
 import EventServices from "Services/Event/EventServices";
+import EventListSkeleton from "skeleton/My Event/EventListSkeleton";
 
 function EventList(userid: any) {
   // console.log(userid.userid);
@@ -32,23 +31,37 @@ function EventList(userid: any) {
       }
     });
   }, []);
-  // console.log(events);
+
+  // handle list after deleting event
+  const [deleteId, setDeleteId] = React.useState<any>();
+
+  useEffect(() => {
+    const filteredData = events?.filter((emp: any) => emp.eventId !== deleteId);
+    setEvents(filteredData);
+  }, [deleteId]);
 
   return (
     <div>
-      {events &&
-        user &&
-        events.map((c: any, i: number) => (
-          <div>
-            <MyEventCard
-              eventname={c.eventName}
-              date={c.eventDate}
-              time={c.eventTime}
-              key={i}
-              id={c.eventId}
-            />
-          </div>
-        ))}
+      {events && user ? (
+        <>
+          {events.map((c: any, i: number) => (
+            <div>
+              <MyEventCard
+                eventname={c.eventName}
+                date={c.eventDate}
+                time={c.eventTime}
+                key={i}
+                id={c.eventId}
+                func={setDeleteId}
+              />
+            </div>
+          ))}
+        </>
+      ) : (
+        <>
+          <EventListSkeleton />
+        </>
+      )}
     </div>
   );
 }

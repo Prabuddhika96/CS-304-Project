@@ -26,10 +26,15 @@ const getEventsByUserId = async (id: any) => {
   return http.get<any>(`/event/geteventsbyuserid/${id}`);
 };
 
+const deleteEvent = async (id: any) => {
+  return http.delete<any>(`/event/deleteevent/${id}`);
+};
+
 const EventServices = {
   getAllEvents,
   addEvent,
   getEventsByUserId,
+  deleteEvent,
 };
 
 export default EventServices;

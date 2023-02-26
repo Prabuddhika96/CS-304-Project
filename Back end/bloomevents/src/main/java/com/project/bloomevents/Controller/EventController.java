@@ -61,7 +61,7 @@ public class EventController {
         } else {
             map.clear();
             map.put("status", 0);
-            map.put("message", "Event is not found");
+            map.put("message", "Event not found");
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
@@ -81,4 +81,5 @@ public class EventController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
+
 }
