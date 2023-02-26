@@ -40,7 +40,7 @@ function AddEventForm() {
     eventDate: "",
     eventTime: "",
     eventName: "New Event",
-    userId: 0,
+    userId: user ? user.userId : 0,
     isPlaced: true,
     placedDate: "",
     placedTime: "",
@@ -52,7 +52,7 @@ function AddEventForm() {
       eventDate: dayjs(date).format("DD-MMM-YYYY"),
       eventName: eventname,
       eventTime: dayjs(time).format("hh:mm A"),
-      userId: 0,
+      userId: user ? user.userId : 0,
       isPlaced: true,
       placedDate: "",
       placedTime: "",
@@ -98,19 +98,25 @@ function AddEventForm() {
   };
 
   return (
-    <div className="items-center w-full pt-24 mb-20 ">
-      <div className="items-center w-6/12 mx-auto my-3">
+    <div className="items-center w-full pt-32 mb-20 ">
+      {/* <div className="items-center w-6/12 mx-auto my-3">
         <img src={image} alt="" className="w-full" />
-      </div>
+      </div> */}
 
       <div className="w-full ">
         <div className="mt-10 sm:mt-0">
           <form action="#" method="POST">
             <div className="overflow-hidden drop-shadow-2xl sm:rounded-md">
               <div className="px-4 py-5 bg-white sm:p-6">
-                <h1 className="mb-3 text-3xl text-left">
-                  Add <span className="text-[#ffa537]">Event</span>
-                </h1>
+                <div className="flex justify-around">
+                  <div className="w-3/12 my-3">
+                    <img src={image} alt="" className="w-full" />
+                  </div>
+
+                  <h1 className="w-9/12 my-auto text-3xl text-left">
+                    Add <span className="text-[#ffa537]">Event</span>
+                  </h1>
+                </div>
 
                 {/* first name and last name */}
                 <div className="justify-between w-full ">
@@ -140,15 +146,17 @@ function AddEventForm() {
               </div>
 
               <div className="px-4 py-3 text-right bg-gray-50 sm:px-6">
-                <button
-                  type="submit"
-                  className="login-form-btn"
-                  onClick={handleClck}>
-                  <span className="mr-2 text-white">
-                    <AddCircleOutlineIcon />
-                  </span>{" "}
-                  Add Event
-                </button>
+                {user && (
+                  <button
+                    type="submit"
+                    className="login-form-btn"
+                    onClick={handleClck}>
+                    <span className="mr-2 text-white">
+                      <AddCircleOutlineIcon />
+                    </span>{" "}
+                    Add Event
+                  </button>
+                )}
               </div>
             </div>
           </form>

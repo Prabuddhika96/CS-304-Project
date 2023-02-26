@@ -160,7 +160,7 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
             <Link
               to={{
                 pathname: `${RouteName.MyEvents.replace(
-                  ":id",
+                  ":userId",
                   LoggedUser.userId.toString()
                 )}`,
               }}>

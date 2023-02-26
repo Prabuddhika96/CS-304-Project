@@ -8,7 +8,7 @@ export enum RouteName {
   Contactus = "/contactus",
   ProviderDetails = "/providerdetails/:providerId",
 
-  MyEvents = "/:id/myevents",
+  MyEvents = "/:userId/myevents",
   Profile = "/:id/profile",
 
   // provider

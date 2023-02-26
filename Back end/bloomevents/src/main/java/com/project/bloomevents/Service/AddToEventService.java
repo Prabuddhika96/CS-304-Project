@@ -8,4 +8,6 @@ public interface AddToEventService {
     List<AddToEventDTO> getAllAddToEvent();
 
     AddToEventDTO addPackageToEvent(AddToEventDTO data);
+
+    int getPackageCountByEventId(int eventId);
 }

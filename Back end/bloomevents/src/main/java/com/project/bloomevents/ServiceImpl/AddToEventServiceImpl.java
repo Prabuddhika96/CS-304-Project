@@ -33,15 +33,29 @@ public class AddToEventServiceImpl implements AddToEventService {
     @Override
     public AddToEventDTO addPackageToEvent(AddToEventDTO data) {
         try{
+//            modelMapper.typeMap(AddToEvent.class,AddToEventDTO.class).addMappings(modelMapper->{
+//                modelMapper.map(src->src.getPackages().getPackageId(),
+//                        AddToEventDTO::setPackagesPackageId);
+//            });
             AddToEvent mappeddata=modelMapper.map(data,AddToEvent.class);
-            //mappeddata.setPackages();
-            //AddToEvent savedData=addToEventRepo.save(mappeddata);
-            return modelMapper.map(mappeddata, new TypeToken<AddToEventDTO>(){}.getType());
+            AddToEvent savedData=addToEventRepo.save(mappeddata);
+            return modelMapper.map(savedData, new TypeToken<AddToEventDTO>(){}.getType());
 //            return data;
         }
         catch (Exception e){
             System.out.println(e.toString());
             return null;
+        }
+    }
+
+    @Override
+    public int getPackageCountByEventId(int eventId) {
+        try{
+            return addToEventRepo.getPackageCountByEventId(eventId);
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return -1;
         }
     }
 }

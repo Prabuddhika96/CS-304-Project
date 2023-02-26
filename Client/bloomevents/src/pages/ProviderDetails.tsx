@@ -32,6 +32,7 @@ import BookNowDropDownEvents from "components/Drop Downs/BookNowDropDownEvents";
 import EventServices from "Services/Event/EventServices";
 import { Event } from "types/Event";
 import { AddToEvent } from "types/AddToEvent";
+import AddToEventService from "Services/AddToEvent/AddToEventService";
 
 function ProviderDetails() {
   let { providerId } = useParams();
@@ -141,7 +142,7 @@ function ProviderDetails() {
   const [values, setValues] = useState<AddToEvent>({
     addToEventId: 0,
     eventId: 0,
-    packageId: 0,
+    packagesPackageId: 0,
     isApproved: false,
     isPlaced: false,
   });
@@ -150,7 +151,7 @@ function ProviderDetails() {
     setValues({
       addToEventId: 0,
       eventId: eventId,
-      packageId: packageId,
+      packagesPackageId: packageId,
       isApproved: false,
       isPlaced: false,
     });
@@ -160,16 +161,24 @@ function ProviderDetails() {
   const handleAddToEvent = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
-    if (values.eventId === 0 || values.packageId === 0) {
+    if (values.eventId === 0 || values.packagesPackageId === 0) {
       setEmptyFeild(true);
     } else {
       if (user == null) {
         navigate(RouteName.Login);
         return;
       }
-      setOpenbook(false);
-      setSuccessAddEvent(true);
-      console.log(values);
+      setTimeout(async () => {
+        const result = await AddToEventService.addPackageToEvent(values);
+        //console.log(result);
+        if (result.data.status == 1) {
+          setOpenbook(false);
+          setSuccessAddEvent(true);
+          console.log(values);
+        } else {
+          toast.error("Adding Failed");
+        }
+      }, 1000);
     }
   };
 
@@ -276,7 +285,7 @@ function ProviderDetails() {
                             array={packages}
                             title="Package"
                             func={setPackageId}
-                            val={values.packageId}
+                            val={values.packagesPackageId}
                           />
                         )}
                       </div>
