@@ -6,7 +6,7 @@ export type Event = {
   eventDate: string;
   eventTime: string;
   userId: number;
-  isPlaced: boolean;
+  placed: boolean;
   placedDate: string;
   placedTime: string;
 };

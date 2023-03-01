@@ -1,27 +1,22 @@
 import { AiOutlineCalendar, AiOutlineClockCircle } from "react-icons/ai";
 import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { RouteName } from "constant/routeName";
 import { Link } from "react-router-dom";
 import React from "react";
 import AddToEventService from "Services/AddToEvent/AddToEventService";
 import { FiPackage } from "react-icons/fi";
-import { MdOutlineDone } from "react-icons/md";
 
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
-import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import EventServices from "Services/Event/EventServices";
 import { toast } from "react-toastify";
 
-function MyEventCard({ eventname, date, time, id, func }: any) {
-  const handleDeleteEvent = () => {
-    console.log(`Event ${id}  deleted.`);
-  };
-
+function MyEventCard({ eventname, date, time, id, func, placed }: any) {
+  // handle delete event
   const [openDelete, setOpenDelete] = React.useState(false);
 
   const handleClickOpenDelete = () => {
@@ -32,6 +27,18 @@ function MyEventCard({ eventname, date, time, id, func }: any) {
     setOpenDelete(false);
   };
 
+  // handle place event
+  const [openPlace, setOpenPlace] = React.useState(false);
+
+  const handleClickOpenPlace = () => {
+    setOpenPlace(true);
+  };
+
+  const handleClickClosePlace = () => {
+    setOpenPlace(false);
+  };
+
+  // get package count
   const [packageCount, setPackageCount] = React.useState<number>(0);
 
   React.useEffect(() => {
@@ -48,22 +55,27 @@ function MyEventCard({ eventname, date, time, id, func }: any) {
     EventServices.deleteEvent(id).then((res: any) => {
       if (res.data.status == 1) {
         func(id);
-        toast.success("Successfully Deleted", {
-          position: "top-right",
-          autoClose: 3000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
+        toast.success("Successfully Deleted");
         handleClickCloseDelete();
       } else {
         toast.error(res.data.message);
       }
     });
   };
+
+  // place function
+  const placeEvent = () => {
+    EventServices.placeEvent(id).then((res: any) => {
+      if (res.data.status == 1) {
+        toast.success("Successfully Placed");
+        handleClickClosePlace();
+        window.location.reload();
+      } else {
+        toast.error(res.data.message);
+      }
+    });
+  };
+
   return (
     <div>
       <div className="w-full">
@@ -72,7 +84,7 @@ function MyEventCard({ eventname, date, time, id, func }: any) {
             <Link
               to={{
                 pathname: `${RouteName.EventDetails.replace(
-                  ":id",
+                  ":eventId",
                   id.toString()
                 )}`,
               }}>
@@ -99,47 +111,82 @@ function MyEventCard({ eventname, date, time, id, func }: any) {
             </Link>
           </div>
 
-          <div className="flex items-center justify-around w-4/12 mt-2">
+          <div
+            className={`flex items-center w-4/12 mt-2 ${
+              placed ? "justify-end" : "justify-around"
+            }`}>
+            {!placed && (
+              <>
+                <button
+                  type="button"
+                  onClick={handleClickOpenDelete}
+                  className="text-red-600 border-red-600 hover:bg-red-600 my-event-card-btn">
+                  <span className="mr-1">
+                    <DeleteIcon />
+                  </span>
+                  Delete
+                </button>
+
+                {/* delete dialog */}
+                <Dialog
+                  open={openDelete}
+                  onClose={handleClickCloseDelete}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description">
+                  <DialogTitle id="alert-dialog-title">
+                    {/* {`Are you sure you want to delete ${eventname}?`} */}
+                    Are you sure you want to delete {eventname} ?
+                  </DialogTitle>
+
+                  <DialogActions>
+                    <Button onClick={handleClickCloseDelete}>Cancel</Button>
+                    <button
+                      className="text-red-600 border-red-600 hover:bg-red-600 my-event-card-btn"
+                      onClick={deleteEvent}>
+                      Delete
+                    </button>
+                  </DialogActions>
+                </Dialog>
+              </>
+            )}
+
             <button
               type="button"
-              onClick={handleClickOpenDelete}
-              className="text-red-600 border-red-600 hover:bg-red-600 my-event-card-btn">
+              //disabled
+              // onClick={handleDeleteEvent}
+              onClick={!placed ? handleClickOpenPlace : undefined}
+              className={
+                placed
+                  ? "border-green-600 bg-green-600 my-event-card-btn !text-white"
+                  : "text-green-600 border-green-600 hover:bg-green-600 my-event-card-btn"
+              }>
               <span className="mr-1">
-                <DeleteIcon />
+                {placed ? <DoneAllIcon /> : <CheckIcon />}
               </span>
-              Delete
+              {placed ? "Placed" : "Place Event"}
             </button>
 
-            {/* delete dialog */}
+            {/* place event dialog */}
             <Dialog
-              open={openDelete}
-              onClose={handleClickCloseDelete}
+              open={openPlace}
+              onClose={handleClickClosePlace}
               aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description">
+              aria-describedby="alert-dialog-description"
+              className="p-5">
               <DialogTitle id="alert-dialog-title">
                 {/* {`Are you sure you want to delete ${eventname}?`} */}
-                <p>Are you sure you want to delete {eventname} ?</p>
+                Are you sure you want to place {eventname} ?
               </DialogTitle>
 
               <DialogActions>
-                <Button onClick={handleClickCloseDelete} color="error">
-                  Disagree
-                </Button>
-                <Button onClick={deleteEvent} autoFocus>
-                  Agree
-                </Button>
+                <Button onClick={handleClickClosePlace}>Cancel</Button>
+                <button
+                  className="text-green-600 border-green-600 hover:bg-green-600 my-event-card-btn"
+                  onClick={placeEvent}>
+                  Place Event
+                </button>
               </DialogActions>
             </Dialog>
-
-            <button
-              type="button"
-              onClick={handleDeleteEvent}
-              className="text-green-600 border-green-600 hover:bg-green-600 my-event-card-btn">
-              <span className="mr-1">
-                <CheckIcon />
-              </span>
-              Place Event
-            </button>
           </div>
         </div>
       </div>

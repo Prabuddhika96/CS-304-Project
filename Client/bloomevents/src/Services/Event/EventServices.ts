@@ -30,11 +30,21 @@ const deleteEvent = async (id: any) => {
   return http.delete<any>(`/event/deleteevent/${id}`);
 };
 
+const getEventById = async (id: any) => {
+  return http.get<any>(`/event/geteventbyid/${id}`);
+};
+
+const placeEvent = async (id: any) => {
+  return http.put<any>(`/event/placeevent/${id}`);
+};
+
 const EventServices = {
   getAllEvents,
   addEvent,
   getEventsByUserId,
   deleteEvent,
+  getEventById,
+  placeEvent,
 };
 
 export default EventServices;

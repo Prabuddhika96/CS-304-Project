@@ -77,6 +77,7 @@
     .my-event-card-btn{
         @apply  h-10 px-2 py-1 hover:text-[#ffff] rounded-md items-center  duration-300 border-2 border-solid;
     }
+    
 }
 
 .upadate-propic{

@@ -41,7 +41,7 @@ function AddEventForm(userid: any) {
     eventTime: "",
     eventName: "",
     userId: userid.userid,
-    isPlaced: false,
+    placed: false,
     placedDate: "",
     placedTime: "",
   });
@@ -53,7 +53,7 @@ function AddEventForm(userid: any) {
       eventName: eventname,
       eventTime: dayjs(time).format("hh:mm A").toString(),
       userId: userid.userid,
-      isPlaced: false,
+      placed: false,
       placedDate: "",
       placedTime: "",
     });

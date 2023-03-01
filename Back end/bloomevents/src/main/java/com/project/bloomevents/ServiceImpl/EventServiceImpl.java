@@ -75,4 +75,33 @@ public class EventServiceImpl implements EventService {
             return null;
         }
     }
+
+    @Override
+    public EventDTO getEventById(int eventId) {
+        try{
+            Event event = eventRepo.getById(eventId);
+            return modelMapper.map(event, new TypeToken<EventDTO>() {
+            }.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public EventDTO placeEvent(int eventId) {
+        try{
+            int updatedEventId = eventRepo.placeEvent(true,eventId);
+            if(updatedEventId==1){
+                return getEventById(eventId);
+            }
+            //System.out.println(updatedEventId);
+            return null;
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
 }

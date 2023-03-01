@@ -82,4 +82,37 @@ public class EventController {
         }
     }
 
+    @GetMapping("/geteventbyid/{eventId}")
+    public ResponseEntity<?> getEventById(@PathVariable int eventId){
+        Map<String,Object> map=new LinkedHashMap<String,Object>();
+        EventDTO event = eventService.getEventById(eventId);
+        if (event!=null) {
+            map.put("status", 1);
+            map.put("data", event);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Event not found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
+    @PutMapping("/placeevent/{eventId}")
+
+    public ResponseEntity<?> placeEvent(@PathVariable int eventId){
+        Map<String,Object> map=new LinkedHashMap<String,Object>();
+        EventDTO event = eventService.placeEvent(eventId);
+        if (event!=null) {
+            map.put("status", 1);
+            map.put("data", event);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Event not found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
 }

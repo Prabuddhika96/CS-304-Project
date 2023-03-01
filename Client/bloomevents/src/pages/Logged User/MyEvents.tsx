@@ -1,11 +1,13 @@
 import AddEventForm from "components/User Events/AddEventForm";
 import EventList from "components/User Events/EventList";
-import React from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 
 function MyEvents() {
   let { userId } = useParams();
   console.log(userId);
+
+  const [reRender, setReRender] = useState<any>("");
 
   return (
     <div className="flex justify-around w-full mx-auto">

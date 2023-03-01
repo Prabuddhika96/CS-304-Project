@@ -1,12 +1,13 @@
 import MyEventCard from "components/Cards/MyEventCard";
+import { RouteName } from "constant/routeName";
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import EventServices from "Services/Event/EventServices";
 import EventListSkeleton from "skeleton/My Event/EventListSkeleton";
 
 function EventList(userid: any) {
-  // console.log(userid.userid);
-
-  const [user, setuser] = React.useState<any>();
+  const navigate = useNavigate();
+  const [user, setuser] = React.useState<any>("");
 
   useEffect(() => {
     setTimeout(() => {
@@ -15,6 +16,7 @@ function EventList(userid: any) {
         setuser(JSON.parse(logged));
       } else {
         setuser(null);
+        navigate(RouteName.Login);
       }
     }, 1000);
   }, [localStorage.getItem("loggedUser")]);
@@ -53,6 +55,7 @@ function EventList(userid: any) {
                 key={i}
                 id={c.eventId}
                 func={setDeleteId}
+                placed={c.placed}
               />
             </div>
           ))}
