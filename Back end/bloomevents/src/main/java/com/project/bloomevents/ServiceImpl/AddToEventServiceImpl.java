@@ -1,7 +1,9 @@
 package com.project.bloomevents.ServiceImpl;
 
 import com.project.bloomevents.DTO.AddToEventDTO;
+import com.project.bloomevents.DTO.EventDTO;
 import com.project.bloomevents.Model.AddToEvent;
+import com.project.bloomevents.Model.Event;
 import com.project.bloomevents.Repository.AddToEventRepository;
 import com.project.bloomevents.Service.AddToEventService;
 import org.modelmapper.ModelMapper;
@@ -15,6 +17,8 @@ import java.util.List;
 public class AddToEventServiceImpl implements AddToEventService {
     @Autowired
     private AddToEventRepository addToEventRepo;
+    @Autowired
+    private EventServiceImpl eventServiceImpl;
     @Autowired
     private ModelMapper modelMapper;
 
@@ -56,6 +60,23 @@ public class AddToEventServiceImpl implements AddToEventService {
         catch (Exception e){
             System.out.println(e.toString());
             return -1;
+        }
+    }
+
+    @Override
+    public boolean placePackages(int eventId){
+        try{
+            EventDTO event=eventServiceImpl.getEventById(eventId);
+            int success=addToEventRepo.placePackages(true, modelMapper.map(event, Event.class));
+            System.out.println(success);
+            if(success>=0){
+                return true;
+            }
+            return false;
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return false;
         }
     }
 }

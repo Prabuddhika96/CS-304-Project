@@ -16,6 +16,8 @@ public class EventServiceImpl implements EventService {
     @Autowired
     private EventRepository eventRepo;
     @Autowired
+    private AddToEventServiceImpl addToEventServiceImpl;
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
@@ -94,6 +96,7 @@ public class EventServiceImpl implements EventService {
         try{
             int updatedEventId = eventRepo.placeEvent(true,eventId);
             if(updatedEventId==1){
+                addToEventServiceImpl.placePackages(eventId);
                 return getEventById(eventId);
             }
             //System.out.println(updatedEventId);

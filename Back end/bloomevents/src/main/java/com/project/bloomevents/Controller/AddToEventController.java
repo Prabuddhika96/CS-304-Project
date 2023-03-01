@@ -65,4 +65,20 @@ public class AddToEventController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
+
+    @PutMapping("/placePackages/{eventId}")
+    public ResponseEntity<?> placePackages(@PathVariable int eventId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        boolean success = addToEventService.placePackages(eventId);
+        if (success) {
+            map.put("status", 1);
+            map.put("data", success);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "No Packages Found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
 }

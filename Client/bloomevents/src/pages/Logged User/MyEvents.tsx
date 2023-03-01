@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 
 function MyEvents() {
   let { userId } = useParams();
-  console.log(userId);
+  //console.log(userId);
 
   const [reRender, setReRender] = useState<any>("");
 
