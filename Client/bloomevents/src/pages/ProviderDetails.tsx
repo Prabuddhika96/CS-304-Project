@@ -94,7 +94,10 @@ function ProviderDetails() {
     setTimeout(() => {
       EventServices.getEventsByUserId(1).then((res: any) => {
         if (res.data.status == 1) {
-          setEvents(res.data.data);
+          const filteredData = res.data.data?.filter(
+            (emp: any) => emp.placed == false
+          );
+          setEvents(filteredData);
           //console.log(res.data.data);
           return;
         } else {
