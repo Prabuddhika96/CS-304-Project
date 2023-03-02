@@ -4,7 +4,7 @@ import http from "utils/http-common";
 
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND_SERVER;
 
-//login
+//get all packages
 const getAllAddToEvent = async () => {
   return http.get<any>("/addtoevent/getalladdtoevent");
 };
@@ -21,15 +21,21 @@ const addPackageToEvent = async (data: AddToEvent) => {
   return response;
 };
 
-//login
+//get packkage count
 const getpackagecountbyeventid = async (eventId: any) => {
   return http.get<any>(`/addtoevent/getpackagecountbyeventid/${eventId}`);
+};
+
+// get packages
+const getPackagesByEventId = async (eventId: any) => {
+  return http.get<any>(`/addtoevent/getpackagesbyeventid/${eventId}`);
 };
 
 const AddToEventService = {
   getAllAddToEvent,
   addPackageToEvent,
   getpackagecountbyeventid,
+  getPackagesByEventId,
 };
 
 export default AddToEventService;

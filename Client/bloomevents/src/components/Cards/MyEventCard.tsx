@@ -152,7 +152,7 @@ function MyEventCard({ eventname, date, time, id, func, placed }: any) {
 
             <button
               type="button"
-              //disabled
+              disabled={placed && true}
               // onClick={handleDeleteEvent}
               onClick={!placed ? handleClickOpenPlace : undefined}
               className={

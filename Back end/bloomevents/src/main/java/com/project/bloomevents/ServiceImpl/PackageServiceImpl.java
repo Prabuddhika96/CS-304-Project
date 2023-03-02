@@ -61,4 +61,18 @@ public class PackageServiceImpl implements PackageService {
             return null;
         }
     }
+
+    @Override
+    public PackageDTO getPackageByPackageId(int packageId) {
+        try{
+            //List<Packages> list = packageRepo.getPackagesByProviderId(packageId);
+            Packages pckge=packageRepo.getReferenceById(packageId);
+            return modelMapper.map(pckge, new TypeToken<PackageDTO>() {
+            }.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
 }

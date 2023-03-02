@@ -93,14 +93,3 @@ function ProviderDetailsCard({ providerDetails }: any) {
 }
 
 export default ProviderDetailsCard;
-function userState<T>(): [any, any] {
-  throw new Error("Function not implemented.");
-}
-
-function useEffect(arg0: () => void, arg1: never[]) {
-  throw new Error("Function not implemented.");
-}
-
-function setProvider(data: any) {
-  throw new Error("Function not implemented.");
-}

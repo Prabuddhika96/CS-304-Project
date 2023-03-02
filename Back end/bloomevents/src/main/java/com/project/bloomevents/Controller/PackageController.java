@@ -68,4 +68,21 @@ public class PackageController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
+
+    @GetMapping("/getpackagebypackageid/{packageId}")
+    public ResponseEntity<?> getPackageByPackageId(@PathVariable int packageId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        PackageDTO packge = packageService.getPackageByPackageId(packageId);
+
+        if (packge!=null) {
+            map.put("status", 1);
+            map.put("data", packge);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Package not found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
 }

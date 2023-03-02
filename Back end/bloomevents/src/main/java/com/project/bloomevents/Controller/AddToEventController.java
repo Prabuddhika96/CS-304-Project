@@ -30,7 +30,7 @@ public class AddToEventController {
             map.clear();
             map.put("status", 0);
             map.put("message", "add to event list is not found");
-            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
 
@@ -46,7 +46,7 @@ public class AddToEventController {
             map.clear();
             map.put("status", 0);
             map.put("message", "Adding Failed");
-            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
 
@@ -78,6 +78,38 @@ public class AddToEventController {
             map.clear();
             map.put("status", 0);
             map.put("message", "No Packages Found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/getpackagesbyeventid/{eventId}")
+    public ResponseEntity<?> getPackagesByEventId(@PathVariable int eventId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        List<AddToEventDTO> list = addToEventService.getPackagesByEventId(eventId);
+        if (!list.isEmpty()) {
+            map.put("status", 1);
+            map.put("data", list);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Packages not found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
+    @DeleteMapping("/deletepackagebyid/{addToEventId}")
+    public ResponseEntity<?> deletePackageById(@PathVariable int addToEventId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        boolean deleted = addToEventService.deletePackageById(addToEventId);
+        if (deleted) {
+            map.put("status", 1);
+            map.put("data", deleted);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Delete Failed");
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }

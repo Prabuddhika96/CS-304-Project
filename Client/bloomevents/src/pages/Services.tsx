@@ -46,7 +46,7 @@ function Services() {
   //console.log(categories);
 
   return (
-    <div className="w-full pt-24">
+    <div className="w-full">
       {/* search section */}
       <div className="flex justify-around w-full mx-auto">
         <div className="w-3/12">
@@ -80,7 +80,7 @@ function Services() {
                   providerName={c.businessName}
                   district={c.district}
                   category={c.categoryName}
-                  packageCount={3}
+                  providerId={c.providerId}
                   description={c.description}
                   ratings={c.rating}
                 />

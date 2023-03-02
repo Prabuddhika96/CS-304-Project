@@ -12,4 +12,8 @@ public interface AddToEventService {
     int getPackageCountByEventId(int eventId);
 
     boolean placePackages(int eventId);
+
+    List<AddToEventDTO> getPackagesByEventId(int eventId);
+
+    boolean deletePackageById(int addToEventId);
 }

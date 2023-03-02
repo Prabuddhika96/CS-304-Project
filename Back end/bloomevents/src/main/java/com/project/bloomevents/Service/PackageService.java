@@ -10,4 +10,6 @@ public interface PackageService {
     int getPackageCount(int providerId);
 
     List<PackageDTO> getPackagesByProviderId(int providerId);
+
+    PackageDTO getPackageByPackageId(int packageId);
 }

@@ -18,10 +18,15 @@ const getPackagesByProviderId = async (id: any) => {
   return http.get<any>(`/package/getpackagesbyproviderid/${id}`);
 };
 
+const getPackageByPackageId = async (id: any) => {
+  return http.get<any>(`/package/getpackagebypackageid/${id}`);
+};
+
 const PackageServices = {
   getAllpackages,
   getPackageCountByProviderId,
   getPackagesByProviderId,
+  getPackageByPackageId,
 };
 
 export default PackageServices;

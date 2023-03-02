@@ -1,7 +1,6 @@
 import EventDetailCard from "components/Cards/EventDetailCard";
 import { RouteName } from "constant/routeName";
 import { Events } from "docs/Event";
-import { packages } from "docs/packages";
 import { AiOutlineCalendar, AiOutlineClockCircle } from "react-icons/ai";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
@@ -14,6 +13,8 @@ import EventServices from "Services/Event/EventServices";
 import { toast } from "react-toastify";
 import { Event } from "types/Event";
 import { Dialog, DialogTitle, DialogActions, Button } from "@mui/material";
+import AddToEventService from "Services/AddToEvent/AddToEventService";
+import PackageServices from "Services/Packages/PackageService";
 
 function EventDetails() {
   let { eventId } = useParams();
@@ -40,10 +41,10 @@ function EventDetails() {
     EventServices.getEventById(index).then((res: any) => {
       if (res.data.status == 1) {
         setEvent(res.data.data);
-        console.log(res.data.data);
+        //console.log(res.data.data);
         return;
       } else {
-        toast.error(res.data.message);
+        //toast.error(res.data.message);
       }
     });
   }, []);
@@ -97,7 +98,30 @@ function EventDetails() {
     });
   };
 
-  const Event = Events[index % Events.length];
+  // get packages
+  const [packages, setPackages] = React.useState<Array<Event>>();
+  React.useEffect(() => {
+    AddToEventService.getPackagesByEventId(index).then((res: any) => {
+      if (res.data.status == 1) {
+        setPackages(res.data.data);
+        console.log(res.data.data);
+        return;
+      } else {
+        toast.error(res.data.message);
+      }
+    });
+  }, []);
+
+  // handle list after deleting package
+  const [deleteId, setDeleteId] = React.useState<any>();
+
+  useEffect(() => {
+    const filteredData = packages?.filter(
+      (emp: any) => emp.addToEventId !== deleteId
+    );
+    setPackages(filteredData);
+  }, [deleteId]);
+
   return (
     <div className="w-full pt-24">
       <div className="flex items-center w-full px-5">
@@ -173,7 +197,7 @@ function EventDetails() {
 
           <button
             type="button"
-            //disabled
+            disabled={event && event.placed && true}
             // onClick={handleDeleteEvent}
             onClick={
               event && (!event.placed ? handleClickOpenPlace : undefined)
@@ -216,22 +240,21 @@ function EventDetails() {
 
       {/* packages that add to event */}
       <div className="grid w-11/12 grid-cols-3 gap-5 mx-auto">
-        {packages.map((p: any, i: number) => (
-          <Link
-            to={{
-              pathname: `${RouteName.ProviderDetails.replace(
-                ":providerId",
-                p.id.toString()
-              )}`,
-            }}
-            className="w-10/12">
-            <EventDetailCard
-              providername={`Provider ${p.id}`}
-              packagename={p.name}
-              key={i}
-            />
-          </Link>
-        ))}
+        {packages ? (
+          <>
+            {packages.map((p: any, i: number) => (
+              <EventDetailCard
+                addToEventId={p.addToEventId}
+                packageId={p.packagesPackageId}
+                placed={p.placed}
+                func={setDeleteId}
+                key={i}
+              />
+            ))}
+          </>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

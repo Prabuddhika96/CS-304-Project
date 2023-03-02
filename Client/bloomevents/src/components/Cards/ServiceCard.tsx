@@ -1,6 +1,10 @@
 import { BiCategory } from "react-icons/bi";
 import { GoLocation } from "react-icons/go";
 import { FiPackage } from "react-icons/fi";
+import React, { useState } from "react";
+import { toast } from "react-toastify";
+import PackageServices from "Services/Packages/PackageService";
+import { AiOutlineStar } from "react-icons/ai";
 
 // import image from 'img/dj.jpg';
 
@@ -9,10 +13,24 @@ function ServiceCard({
   providerName,
   district,
   category,
-  packageCount,
+  providerId,
   description,
   ratings,
 }: any) {
+  const [packageCount, setPackageCount] = useState<any>();
+
+  React.useEffect(() => {
+    PackageServices.getPackageCountByProviderId(providerId).then((res: any) => {
+      if (res.data.status == 1) {
+        setPackageCount(res.data.data);
+        console.log(res.data.data);
+        return;
+      } else {
+        toast.error(res.data.message);
+      }
+    });
+  }, []);
+
   return (
     <div className="w-11/12 service-card">
       <div
@@ -31,72 +49,25 @@ function ServiceCard({
       <div className="w-9/12 px-6 pt-2 text-left">
         <h2 className="mb-2 text-xl text-[#c26d06]">{providerName}</h2>
 
-        <div className="rating rating-sm rating-half">
-          <input type="radio" name="rating-10" className="rating-hidden" />
-          <input
-            type="radio"
-            name="rating-10"
-            className="bg-yellow-500 mask mask-star-2 mask-half-1"
-          />
-          <input
-            type="radio"
-            name="rating-10"
-            className="bg-yellow-500 mask mask-star-2 mask-half-2"
-          />
-          <input
-            type="radio"
-            name="rating-10"
-            className="bg-yellow-500 mask mask-star-2 mask-half-1"
-          />
-          <input
-            type="radio"
-            name="rating-10"
-            className="bg-yellow-500 mask mask-star-2 mask-half-2"
-          />
-          <input
-            type="radio"
-            name="rating-10"
-            className="bg-yellow-500 mask mask-star-2 mask-half-1"
-            checked
-          />
-          <input
-            type="radio"
-            name="rating-10"
-            className="bg-yellow-500 mask mask-star-2 mask-half-2"
-          />
-          <input
-            type="radio"
-            name="rating-10"
-            className="bg-yellow-500 mask mask-star-2 mask-half-1"
-          />
-          <input
-            type="radio"
-            name="rating-10"
-            className="bg-yellow-500 mask mask-star-2 mask-half-2"
-          />
-          <input
-            type="radio"
-            name="rating-10"
-            className="bg-yellow-500 mask mask-star-2 mask-half-1"
-          />
-          <input
-            type="radio"
-            name="rating-10"
-            className="bg-yellow-500 mask mask-star-2 mask-half-2"
-          />
-        </div>
+        {packageCount && (
+          <div className="flex justify-start mb-1">
+            <h3 className="flex items-center mr-6 text-[#464646]">
+              <GoLocation className="service-card-icon" /> {district}
+            </h3>
+            <h3 className="flex items-center mr-6 text-[#464646]">
+              <BiCategory className="service-card-icon" /> {category}
+            </h3>
 
-        <div className="flex justify-start mb-1">
-          <h3 className="flex items-center mr-6 text-[#464646]">
-            <GoLocation className="service-card-icon" /> {district}
-          </h3>
-          <h3 className="flex items-center mr-6 text-[#464646]">
-            <BiCategory className="service-card-icon" /> {category}
-          </h3>
-          <h3 className="flex items-center mr-6 text-[#464646]">
-            <FiPackage className="service-card-icon" /> {packageCount} Packages
-          </h3>
-        </div>
+            <h3 className="flex items-center mr-6 text-[#464646]">
+              <FiPackage className="service-card-icon" /> {packageCount}{" "}
+              Packages
+            </h3>
+
+            <h3 className="flex items-center mr-6 text-[#464646]">
+              <AiOutlineStar className="service-card-icon" /> {ratings}{" "}
+            </h3>
+          </div>
+        )}
 
         <div className="mt-5 text-[#000]">
           <p>{description}</p>
