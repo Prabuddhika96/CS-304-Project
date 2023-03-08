@@ -46,7 +46,7 @@ function Services() {
   //console.log(categories);
 
   return (
-    <div className="w-full">
+    <div className="w-full pt-24">
       {/* search section */}
       <div className="flex justify-around w-full mx-auto">
         <div className="w-3/12">

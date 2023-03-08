@@ -86,7 +86,7 @@ public class AddToEventController {
     public ResponseEntity<?> getPackagesByEventId(@PathVariable int eventId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<AddToEventDTO> list = addToEventService.getPackagesByEventId(eventId);
-        if (!list.isEmpty()) {
+        if (list.size()>=0) {
             map.put("status", 1);
             map.put("data", list);
             return new ResponseEntity<>(map, HttpStatus.OK);

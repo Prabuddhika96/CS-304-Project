@@ -1,6 +1,5 @@
 import EventDetailCard from "components/Cards/EventDetailCard";
 import { RouteName } from "constant/routeName";
-import { Events } from "docs/Event";
 import { AiOutlineCalendar, AiOutlineClockCircle } from "react-icons/ai";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
@@ -14,7 +13,7 @@ import { toast } from "react-toastify";
 import { Event } from "types/Event";
 import { Dialog, DialogTitle, DialogActions, Button } from "@mui/material";
 import AddToEventService from "Services/AddToEvent/AddToEventService";
-import PackageServices from "Services/Packages/PackageService";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 function EventDetails() {
   let { eventId } = useParams();
@@ -124,11 +123,11 @@ function EventDetails() {
 
   return (
     <div className="w-full pt-24">
-      <div className="flex items-center w-full px-5">
+      <div className="flex w-full px-5">
         {/* title and date */}
         {/* event details */}
         {event ? (
-          <div className="w-9/12 mb-5">
+          <div className="w-8/12 mb-5">
             <div className="w-full ml-8">
               <h2 className="card-title text-[#ffa537] text-3xl mb-3">
                 {event.eventName}
@@ -159,7 +158,7 @@ function EventDetails() {
         )}
 
         {/* place btn */}
-        <div className="flex justify-around w-3/12">
+        <div className="flex justify-around w-4/12">
           {event && !event.placed && (
             <>
               <button
@@ -195,24 +194,26 @@ function EventDetails() {
             </>
           )}
 
-          <button
-            type="button"
-            disabled={event && event.placed && true}
-            // onClick={handleDeleteEvent}
-            onClick={
-              event && (!event.placed ? handleClickOpenPlace : undefined)
-            }
-            className={
-              event &&
-              (event.placed
-                ? "border-green-600 bg-green-600 my-event-card-btn !text-white"
-                : "text-green-600 border-green-600 hover:bg-green-600 my-event-card-btn")
-            }>
-            <span className="mr-1">
-              {event && (event.placed ? <DoneAllIcon /> : <CheckIcon />)}
-            </span>
-            {event && (event.placed ? "Placed" : "Place Event")}
-          </button>
+          {packages && (
+            <button
+              type="button"
+              disabled={event && event.placed && true}
+              // onClick={handleDeleteEvent}
+              onClick={
+                event && (!event.placed ? handleClickOpenPlace : undefined)
+              }
+              className={
+                event &&
+                (event.placed
+                  ? "border-green-600 bg-green-600 my-event-card-btn !text-white"
+                  : "text-green-600 border-green-600 hover:bg-green-600 my-event-card-btn")
+              }>
+              <span className="mr-1">
+                {event && (event.placed ? <DoneAllIcon /> : <CheckIcon />)}
+              </span>
+              {event && (event.placed ? "Placed" : "Place Event")}
+            </button>
+          )}
 
           {/* place event dialog */}
           <Dialog
@@ -235,8 +236,29 @@ function EventDetails() {
               </button>
             </DialogActions>
           </Dialog>
+
+          {/* add packages btn */}
+          {!event?.placed && (
+            <Link to={RouteName.Services}>
+              <button
+                type="button"
+                onClick={handleClickOpenDelete}
+                className="text-purple-600 border-purple-600 hover:bg-purple-600 my-event-card-btn">
+                <span className="mr-1">
+                  <AddCircleOutlineIcon />
+                </span>
+                Add Packages
+              </button>
+            </Link>
+          )}
         </div>
       </div>
+
+      {packages?.length == 0 ? (
+        <p className="my-5 text-center">No Packages</p>
+      ) : (
+        <></>
+      )}
 
       {/* packages that add to event */}
       <div className="grid w-11/12 grid-cols-3 gap-5 mx-auto">

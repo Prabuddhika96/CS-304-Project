@@ -1,4 +1,5 @@
 import { ToggleButtonGroup, ToggleButton, Box, Tab, Tabs } from "@mui/material";
+import "styles/myEventsRadioBtns.css";
 import MyEventCard from "components/Cards/MyEventCard";
 import { RouteName } from "constant/routeName";
 import React, { useEffect } from "react";
@@ -49,48 +50,54 @@ function EventList(userid: any) {
   }, [deleteId]);
 
   // rdio btn function
-  const [alignment, setAlignment] = React.useState<any>(true);
-  //setFilteredEvents(events);
+  const [filterEvents, setFilterEvents] = React.useState<any>(true);
+  const handleFilterEvents = (e: any) => {
+    setFilterEvents(e.target.value);
+  };
 
-  const handleAlignment = (
-    event: React.MouseEvent<HTMLElement>,
-    newAlignment: string | null
-  ) => {
-    setAlignment(newAlignment);
-    console.log(newAlignment);
-
-    if (newAlignment == "true") {
-      //alert("true");
+  useEffect(() => {
+    if (filterEvents == "true") {
       const filteredData = events?.filter((emp: any) => emp.placed == true);
       setFilteredEvents(filteredData);
-    } else if (newAlignment == "false") {
-      //alert("false");
+    } else if (filterEvents == "false") {
       const filteredData = events?.filter((emp: any) => emp.placed == false);
       setFilteredEvents(filteredData);
     } else {
-      //alert("null");
       setFilteredEvents(events);
     }
-  };
+  }, [filterEvents]);
 
   return (
     <div>
-      <div className="mb-8 text-center">
-        <ToggleButtonGroup
-          value={alignment}
-          exclusive
-          onChange={handleAlignment}
-          aria-label="text alignment">
-          <ToggleButton value="" aria-label="left aligned" defaultChecked>
-            All Events
-          </ToggleButton>
-          <ToggleButton value={"true"} aria-label="centered">
-            Placed Events
-          </ToggleButton>
-          <ToggleButton value={"false"} aria-label="right aligned">
-            Not Placed Events
-          </ToggleButton>
-        </ToggleButtonGroup>
+      {/* radio btns */}
+      <div className="align-container">
+        <input
+          type="radio"
+          id="align-left"
+          name="alignment"
+          value=""
+          defaultChecked
+          onChange={handleFilterEvents}
+        />
+        <label htmlFor="align-left">All</label>
+
+        <input
+          type="radio"
+          id="align-center"
+          name="alignment"
+          value="true"
+          onChange={handleFilterEvents}
+        />
+        <label htmlFor="align-center">Placed</label>
+
+        <input
+          type="radio"
+          id="align-right"
+          name="alignment"
+          value="false"
+          onChange={handleFilterEvents}
+        />
+        <label htmlFor="align-right">Not Placed</label>
       </div>
 
       <div>

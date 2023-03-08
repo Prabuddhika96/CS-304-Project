@@ -106,12 +106,20 @@
 }
 .Mui-selected{
     color: #ffa537 !important;
+    border-bottom: #ffa537 1px solid !important;
+    background-color: #ffd8a885 !important;
 }
 .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked+.MuiSwitch-track{
     background-color: #ffa537 !important;
 }
 .css-5ryogn-MuiButtonBase-root-MuiSwitch-switchBase.Mui-checked{
     color: #ffa537 !important;
+}
+.MuiTabs-vertical{
+    width: 100% !important;
+}
+.MuiButtonBase-root{
+    border-bottom: 1px solid red ;
 }
 
 

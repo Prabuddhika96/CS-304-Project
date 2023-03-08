@@ -5,12 +5,20 @@ import { RouteName } from "constant/routeName";
 import PackageServices from "Services/Packages/PackageService";
 import { toast } from "react-toastify";
 import ProviderService from "Services/Provider/ProviderServices";
+import AddToEventService from "Services/AddToEvent/AddToEventService";
 
 function EventDetailCard({ packageId, placed, func, addToEventId }: any) {
   //console.log(placed);
   const handleDeleteEvent = () => {
+    AddToEventService.deletePackage(addToEventId).then((res: any) => {
+      if (res.data.data == 1) {
+        toast.success("Successfully Deleted");
+      } else {
+        toast.error(res.data.message);
+      }
+    });
     func(addToEventId);
-    alert(`${packageId} deleted.`);
+    alert(`${addToEventId} deleted.`);
   };
 
   const [packge, setPackge] = React.useState<any>();

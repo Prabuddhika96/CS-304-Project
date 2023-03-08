@@ -31,11 +31,16 @@ const getPackagesByEventId = async (eventId: any) => {
   return http.get<any>(`/addtoevent/getpackagesbyeventid/${eventId}`);
 };
 
+const deletePackage = async (eventId: any) => {
+  return http.delete<any>(`/addtoevent/deletepackagebyid/${eventId}`);
+};
+
 const AddToEventService = {
   getAllAddToEvent,
   addPackageToEvent,
   getpackagecountbyeventid,
   getPackagesByEventId,
+  deletePackage,
 };
 
 export default AddToEventService;

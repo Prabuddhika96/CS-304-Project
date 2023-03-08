@@ -120,7 +120,7 @@ function MyEventCard({ eventname, date, time, id, func, placed }: any) {
                 <button
                   type="button"
                   onClick={handleClickOpenDelete}
-                  className="text-red-600 border-red-600 hover:bg-red-600 my-event-card-btn">
+                  className={`text-red-600 border-red-600 hover:bg-red-600 my-event-card-btn `}>
                   <span className="mr-1">
                     <DeleteIcon />
                   </span>
