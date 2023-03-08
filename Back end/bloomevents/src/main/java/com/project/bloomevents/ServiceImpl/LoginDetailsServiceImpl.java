@@ -2,6 +2,7 @@ package com.project.bloomevents.ServiceImpl;
 
 
 import com.project.bloomevents.DTO.LoginDetailsDTO;
+import com.project.bloomevents.DTO.UpdatePasswordRequestDTO;
 import com.project.bloomevents.DTO.UserFullDTO;
 import com.project.bloomevents.Model.LoginDetails;
 import com.project.bloomevents.Model.User;
@@ -11,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +29,8 @@ public class LoginDetailsServiceImpl implements LoginDetailsService {
     private ModelMapper modelMapper;
     @Autowired
     private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private final AuthenticationManager authenticationManager;
 
     @Override
     public boolean validateEmail(String email){
@@ -97,20 +102,35 @@ public class LoginDetailsServiceImpl implements LoginDetailsService {
     }
 
     @Override
-    public LoginDetailsDTO updatePassword(LoginDetailsDTO logindata) throws NoSuchAlgorithmException {
+    public int updatePassword(int userId, UpdatePasswordRequestDTO updateRequest) throws NoSuchAlgorithmException {
         try{
-            LoginDetailsDTO logindto = getLoginDetailById(logindata.getLoginId());
+            LoginDetails ld=loginrepo.getEmailByUserId(userId);
+            if(ld != null){
+                authenticationManager.authenticate(
+                        new UsernamePasswordAuthenticationToken(
+                                ld.getEmail(),
+                                updateRequest.getOldPw()
+                        )
+                );
 
-            if(logindto != null) {
-                String hashedPW= passwordEncoder.encode(logindata.getPassword());
-                loginrepo.updatePassword(hashedPW, logindata.getLoginId());
-                return getLoginDetailById(logindata.getLoginId());
+                String hashedNewPW= passwordEncoder.encode(updateRequest.getNewPw());
+
+                int update=loginrepo.updatePassword(hashedNewPW,ld.getLoginId());
+                if(update==1){
+                    return 1;
+                }
+                else{
+                    return -2;
+                }
+            }
+            else{
+                return -1;
             }
         }
         catch(Exception e){
-            System.out.println(e.toString());
+            System.out.println("err- "+e.toString());
+            return 0;
         }
-        return null;
     }
 
     @Override

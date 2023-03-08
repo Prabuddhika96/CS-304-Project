@@ -2,6 +2,7 @@ package com.project.bloomevents.Controller;
 
 
 import com.project.bloomevents.DTO.LoginDetailsDTO;
+import com.project.bloomevents.DTO.UpdatePasswordRequestDTO;
 import com.project.bloomevents.DTO.UserFullDTO;
 import com.project.bloomevents.Model.User;
 import com.project.bloomevents.Service.LoginDetailsService;
@@ -54,20 +55,32 @@ public class LoginController {
         }
     }
 
-    @PutMapping("/updatepassword")
-    public ResponseEntity<?> updatePassword(@RequestBody LoginDetailsDTO logindata) throws NoSuchAlgorithmException{
+    @PutMapping("/updatepassword/{userId}")
+    public ResponseEntity<?> updatePassword(@PathVariable int userId, @RequestBody UpdatePasswordRequestDTO updateRequest) throws NoSuchAlgorithmException{
         Map<String, Object> map = new LinkedHashMap<String, Object>();
-        LoginDetailsDTO loginDetails = loginservice.updatePassword(logindata);
+        int result = loginservice.updatePassword(userId,updateRequest);
 
-        if (loginDetails != null) {
+        if (result == 1) {
             map.put("status", 1);
-            map.put("data", loginDetails);
+            map.put("data", "Password updated");
             return new ResponseEntity<>(map, HttpStatus.OK);
-        } else {
+        } else if (result==-1) {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "User not found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+        else if (result==-2) {
             map.clear();
             map.put("status", 0);
             map.put("message", "Update password is failed");
-            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+        else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Invalid current password");
+            return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
 
@@ -104,4 +117,6 @@ public class LoginController {
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
     }
+
+
 }

@@ -118,7 +118,7 @@ function AddEventForm(userid: any) {
                   </h1>
                 </div>
 
-                {/* first name and last name */}
+                {/* Event name */}
                 <div className="justify-between w-full ">
                   <div className="w-full col-span-5 my-3 buttonIn sm:col-span-4">
                     <TextField

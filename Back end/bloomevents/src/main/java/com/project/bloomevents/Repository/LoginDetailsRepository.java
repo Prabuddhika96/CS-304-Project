@@ -14,7 +14,7 @@ public interface LoginDetailsRepository extends JpaRepository<LoginDetails, Inte
     @Transactional
     @Modifying
     @Query("update LoginDetails l set l.password = ?1 where l.loginId = ?2")
-    void updatePassword(String password, int loginId);
+    int updatePassword(String password, int loginId);
 
     @Query(value = "SELECT * FROM bloomeventsdb.login_details WHERE email = ?1", nativeQuery = true)
     LoginDetails validateEmail(String email);
@@ -27,4 +27,5 @@ public interface LoginDetailsRepository extends JpaRepository<LoginDetails, Inte
 
     @Query(value = "SELECT * FROM bloomeventsdb.login_details WHERE user_id=?1 LIMIT 1", nativeQuery = true)
     LoginDetails getEmailByUserId(int userId);
+
 }

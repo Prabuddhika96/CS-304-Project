@@ -91,6 +91,7 @@ function Signup() {
                   <div className="form-input-sub-div">
                     <TextField
                       id="outlined"
+                      color="warning"
                       label="First Name"
                       className="form-textfield-double"
                       {...register("firstName", {
@@ -108,6 +109,7 @@ function Signup() {
                   <div className="form-input-sub-div">
                     <TextField
                       id="outlined"
+                      color="warning"
                       label="Last Name"
                       className="form-textfield-double"
                       {...register("lastName", {
@@ -142,6 +144,7 @@ function Signup() {
                   <div className="form-input-sub-div">
                     <TextField
                       id="outlined"
+                      color="warning"
                       label="Mobile"
                       className="form-textfield-double"
                       {...register("mobile", {
@@ -164,6 +167,7 @@ function Signup() {
                 <div className="col-span-6 my-3 buttonIn sm:col-span-4">
                   <TextField
                     id="outlined"
+                    color="warning"
                     label="Email address"
                     className="w-full"
                     {...register("email", {
@@ -185,6 +189,7 @@ function Signup() {
                   <div className="w-full">
                     <TextField
                       id="outlined"
+                      color="warning"
                       type={showPw ? "text" : "password"}
                       label="Password"
                       className="w-full rounded-[5px] outline-none p-0 "

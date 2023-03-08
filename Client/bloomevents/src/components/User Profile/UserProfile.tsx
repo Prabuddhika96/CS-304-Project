@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import LoginDetailsServices from "Services/Login Details/LoginDetailsServices";
 import UserServices from "Services/User/UserServices";
 import { toast } from "react-toastify";
+import ChangePassword from "./ChangePassword";
 
 function UserProfile() {
   const [userEmail, setUserEmail] = useState<any>();
@@ -71,6 +72,17 @@ function UserProfile() {
     }
   };
 
+  // change password
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div className="flex w-11/12 pt-24 mb-20">
       {user && userEmail && (
@@ -90,7 +102,7 @@ function UserProfile() {
             </div>
           </div>
 
-          <div className="w-6/12 py-10">
+          <div className="w-6/12 pt-14">
             <div className="mt-10 sm:mt-0">
               <form action="#" method="POST" onSubmit={handleSubmit(onSubmit)}>
                 <div className="overflow-hidden drop-shadow-2xl sm:rounded-md">
@@ -103,6 +115,7 @@ function UserProfile() {
                     <div className="form-input-main-div">
                       <div className="form-input-sub-div">
                         <TextField
+                          color="warning"
                           id="outlined"
                           label="First Name"
                           defaultValue={user.firstName}
@@ -121,6 +134,7 @@ function UserProfile() {
 
                       <div className="form-input-sub-div">
                         <TextField
+                          color="warning"
                           id="outlined"
                           label="Last Name"
                           className="form-textfield-double"
@@ -159,6 +173,7 @@ function UserProfile() {
                         <TextField
                           id="outlined"
                           label="Mobile"
+                          color="warning"
                           className="form-textfield-double"
                           {...register("mobile", {
                             required: true,
@@ -185,6 +200,7 @@ function UserProfile() {
                         className="w-full"
                         variant="outlined"
                         disabled
+                        color="warning"
                         defaultValue={userEmail}
                       />
                       {errors.email && (
@@ -192,6 +208,21 @@ function UserProfile() {
                           Please check the Email
                         </p>
                       )}
+                    </div>
+
+                    <p
+                      className="text-left hover:text-[#ffa537] cursor-pointer mt-6"
+                      onClick={handleClickOpen}>
+                      Change Password
+                    </p>
+
+                    {/* change password dialog */}
+                    <div>
+                      <ChangePassword
+                        open={open}
+                        handleClose={handleClose}
+                        userId={user.userId}
+                      />
                     </div>
                   </div>
 

@@ -9,7 +9,7 @@ function App() {
     <div className="App">
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={2000}
         limit={1}
         hideProgressBar={false}
         newestOnTop

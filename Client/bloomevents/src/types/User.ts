@@ -1,5 +1,3 @@
-import { type } from "os";
-
 export type User1 = {
   userId: number;
   firstName: string;

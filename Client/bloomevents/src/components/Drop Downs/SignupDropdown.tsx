@@ -10,6 +10,7 @@ function SignupDropDown({ val, array, title, func1, userDistrict }: any) {
     <FormControl sx={{ m: 0, width: 1 }}>
       <InputLabel id="demo-simple-select-helper-label">{title}</InputLabel>
       <Select
+        color="warning"
         labelId="demo-simple-select-helper-label"
         id="demo-simple-select-helper"
         value={val}
