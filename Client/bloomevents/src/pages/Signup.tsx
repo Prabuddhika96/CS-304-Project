@@ -5,14 +5,10 @@ import { TextField } from "@mui/material";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 
 import { districts } from "docs/districts";
-import NewUser from "types/NewUser";
 import SignupDropDown from "components/Drop Downs/SignupDropdown";
 import { RouteName } from "constant/routeName";
-import { Role } from "Enums/Role";
-import axios from "axios";
 import { useForm } from "react-hook-form";
 import AuthService from "Services/Authencation/AuthService";
-import { RequestStatus } from "constant/RequestStatus";
 import { toast } from "react-toastify";
 
 function Signup() {
@@ -104,7 +100,7 @@ function Signup() {
                     />
                     {errors.firstName && (
                       <p className="text-xs text-red-600">
-                        Last name is required
+                        First name is required
                       </p>
                     )}
                   </div>

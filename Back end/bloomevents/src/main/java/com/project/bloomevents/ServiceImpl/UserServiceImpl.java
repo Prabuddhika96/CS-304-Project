@@ -89,8 +89,10 @@ public class UserServiceImpl implements UserService {
             UserDTO validUser = getUserById(userdata.getUserId());
 
             if(validUser != null) {
-                userRepo.updateUser(userdata.getFirstName(), userdata.getLastName(), userdata.getMobile(), userdata.getDistrict(), userdata.getUserId());
-                return getUserById(userdata.getUserId());
+                int n=userRepo.updateUser(userdata.getFirstName(), userdata.getLastName(), userdata.getMobile(), userdata.getDistrict(), userdata.getUserId());
+                if(n==1) {
+                    return getUserById(validUser.getUserId());
+                }
             }
             return null;
         }

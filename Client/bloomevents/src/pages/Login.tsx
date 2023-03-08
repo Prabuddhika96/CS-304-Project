@@ -58,41 +58,39 @@ function Login(): JSX.Element {
     //e.preventDefault();
     //console.log(data);
 
-    setTimeout(async () => {
-      const result = await AuthService.loginRequest(data);
-      console.log(result);
-      console.log(result.data.status);
-      if (result.data.status == 1) {
-        //redirect to login page
-        localStorage.setItem(
-          "loggedUser",
-          JSON.stringify({
-            userId: result.data.data.user.userId,
-            firstName: result.data.data.user.firstName,
-            lastName: result.data.data.user.lastName,
-            mobile: result.data.data.user.mobile,
-            district: result.data.data.user.district,
-            lastLogin: result.data.data.user.lastLogin,
-            role: result.data.data.user.role,
-          })
-        );
-        let providermode = localStorage.getItem("ProviderMode");
-        if (providermode) {
-          if (JSON.parse(providermode)) {
-            navigate(RouteName.MyServices);
-          } else {
-            navigate(RouteName.Services);
-          }
+    const result = await AuthService.loginRequest(data);
+    console.log(result);
+    console.log(result.data.status);
+    if (result.data.status == 1) {
+      //redirect to login page
+      localStorage.setItem(
+        "loggedUser",
+        JSON.stringify({
+          userId: result.data.data.user.userId,
+          firstName: result.data.data.user.firstName,
+          lastName: result.data.data.user.lastName,
+          mobile: result.data.data.user.mobile,
+          district: result.data.data.user.district,
+          lastLogin: result.data.data.user.lastLogin,
+          role: result.data.data.user.role,
+        })
+      );
+      let providermode = localStorage.getItem("ProviderMode");
+      if (providermode) {
+        if (JSON.parse(providermode)) {
+          navigate(RouteName.MyServices);
         } else {
           navigate(RouteName.Services);
         }
-
-        toast.success("Login Successfull");
-        return;
       } else {
-        toast.error(result.data.message);
+        navigate(RouteName.Services);
       }
-    }, 1000);
+
+      // toast.success("Login Successfull");
+      return;
+    } else {
+      toast.error(result.data.message);
+    }
   };
 
   return (

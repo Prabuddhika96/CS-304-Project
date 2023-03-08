@@ -87,4 +87,21 @@ public class LoginController {
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/getemailbyuserid/{userId}")
+    public ResponseEntity<?> getEmailByUserId(@PathVariable int userId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        LoginDetailsDTO user = loginservice.getEmailByUserId(userId);
+
+        if (user!=null) {
+            map.put("status", 1);
+            map.put("data", user.getEmail());
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Email not found");
+            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+        }
+    }
 }

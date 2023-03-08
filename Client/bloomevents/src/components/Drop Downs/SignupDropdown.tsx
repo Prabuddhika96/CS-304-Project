@@ -3,7 +3,7 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
-function SignupDropDown({ val, array, title, func1 }: any) {
+function SignupDropDown({ val, array, title, func1, userDistrict }: any) {
   // console.log(array);
 
   return (
@@ -16,7 +16,8 @@ function SignupDropDown({ val, array, title, func1 }: any) {
         {...func1("district", {
           required: true,
         })}
-        label={title}>
+        label={title}
+        defaultValue={userDistrict}>
         <MenuItem value="" disabled>
           <em>None</em>
         </MenuItem>

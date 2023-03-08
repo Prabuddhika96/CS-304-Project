@@ -15,12 +15,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Transactional
     @Modifying
     @Query("update User u set u.firstName = ?1, u.lastName = ?2, u.mobile = ?3, u.district = ?4 where u.userId = ?5")
-    void updateUser(String firstName, String lastName, int mobile, String district, int userId);
-    @Transactional
-    @Modifying
-    @Query("update User u set u.firstName = ?1, u.lastName = ?2, u.mobile = ?3, u.district = ?4 where u.userId = ?5")
-    void updateFirstNameAndLastNameAndMobileAndDistrictByUserIdEquals(String firstName, String lastName, int mobile,
-                                                                      String district, int userId);
+    int updateUser(String firstName, String lastName, int mobile, String district, int userId);
 
     @Query(value = "SELECT * FROM bloomeventsdb.user WHERE user_id=?1 LIMIT 1", nativeQuery = true)
     User getUserbyId(@Param(value="userId") int userid);

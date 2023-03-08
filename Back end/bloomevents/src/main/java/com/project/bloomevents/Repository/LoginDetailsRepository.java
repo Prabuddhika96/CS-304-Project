@@ -24,4 +24,7 @@ public interface LoginDetailsRepository extends JpaRepository<LoginDetails, Inte
 
     @Query(value = "SELECT * FROM bloomeventsdb.login_details WHERE email=?1 LIMIT 1", nativeQuery = true)
     Optional<LoginDetails> findByEmail(String email);
+
+    @Query(value = "SELECT * FROM bloomeventsdb.login_details WHERE user_id=?1 LIMIT 1", nativeQuery = true)
+    LoginDetails getEmailByUserId(int userId);
 }

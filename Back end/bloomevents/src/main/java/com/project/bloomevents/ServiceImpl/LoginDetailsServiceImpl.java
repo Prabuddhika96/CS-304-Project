@@ -43,6 +43,22 @@ public class LoginDetailsServiceImpl implements LoginDetailsService {
         }
     }
 
+    @Override
+    public LoginDetailsDTO getEmailByUserId(int userId) {
+        try{
+            LoginDetails user = loginrepo.getEmailByUserId(userId);
+            if(user!=null){
+                return modelMapper.map(user, new TypeToken<LoginDetailsDTO>() {
+                }.getType());
+            }
+            return null;
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
     public LoginDetailsDTO getLoginDetailById(int loginId){
         try{
             LoginDetails logindetails=loginrepo.getLoginDetailsById(loginId);
