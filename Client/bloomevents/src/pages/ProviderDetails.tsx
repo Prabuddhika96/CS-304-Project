@@ -1,6 +1,5 @@
-import { Button } from "@mui/material";
+import { Box, Button, Tab } from "@mui/material";
 import CalenderElement from "components/Elements/CalenderElement";
-import PackageTabs from "components/Elements/PackageTabs";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -16,7 +15,6 @@ import logo from "img/logo.png";
 
 import { AiOutlineClose } from "react-icons/ai";
 import { RouteName } from "constant/routeName";
-import BookRequest from "types/BookRequest";
 import ProviderDetailsCard from "components/Cards/ProviderDetailsCard";
 import SuccessSnakBar from "components/Snak Bars/SuccessSnakBar";
 import Reviews from "components/Cards/Reviews";
@@ -33,6 +31,10 @@ import EventServices from "Services/Event/EventServices";
 import { Event } from "types/Event";
 import { AddToEvent } from "types/AddToEvent";
 import AddToEventService from "Services/AddToEvent/AddToEventService";
+import TabContext from "@mui/lab/TabContext";
+import TabList from "@mui/lab/TabList";
+import TabPanel from "@mui/lab/TabPanel";
+import PackageList from "components/Elements/PackageList";
 
 function ProviderDetails() {
   let { providerId } = useParams();
@@ -185,6 +187,13 @@ function ProviderDetails() {
     }
   };
 
+  // package and review
+  const [value, setValue] = React.useState("1");
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setValue(newValue);
+  };
+
   return (
     <div>
       {provider ? (
@@ -309,14 +318,29 @@ function ProviderDetails() {
           </div>
 
           {/* package Details */}
-          <div className="flex justify-center w-11/12 mx-auto mt-16">
-            <div className="w-7/12 px-8">
-              <PackageTabs packages={packages} />
-            </div>
+          <div>
+            <Box
+              sx={{ width: "80%", margin: "50px auto", typography: "body1" }}>
+              <TabContext value={value}>
+                <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
+                  <TabList
+                    onChange={handleChange}
+                    aria-label="lab API tabs example">
+                    <Tab label="Packages" value="1" />
+                    <Tab label="Customer Reviews" value="2" />
+                    {/* <Tab label="Item Three" value="3" /> */}
+                  </TabList>
+                </Box>
 
-            <div className="w-5/12 px-8">
-              <Reviews reviews={reviews} />
-            </div>
+                <TabPanel value="1">
+                  {packages ? <PackageList packages={packages} /> : <></>}
+                </TabPanel>
+
+                <TabPanel value="2">
+                  {reviews ? <Reviews reviews={reviews} /> : <></>}
+                </TabPanel>
+              </TabContext>
+            </Box>
           </div>
 
           <div className="absolute bottom-0 left-0">

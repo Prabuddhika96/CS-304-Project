@@ -21,5 +21,6 @@ public class ProviderDTO {
     private double rating;
     private int userId;
     private String categoryName;
+    private int categoryId;
     //private int packages ;
 }

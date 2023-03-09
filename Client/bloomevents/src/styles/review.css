@@ -76,6 +76,7 @@
   }
   .review:hover {
     box-shadow: var(--dark-shadow);
+    background-color: #fff;
   }
   .img-container {
     position: relative;

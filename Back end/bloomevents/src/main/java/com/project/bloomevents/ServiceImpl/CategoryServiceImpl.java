@@ -30,4 +30,18 @@ public class CategoryServiceImpl implements CategoryService {
             return null;
         }
     }
+
+    @Override
+    public CategoryDTO addCategory(CategoryDTO categoryData) {
+        try{
+            Category c=modelMapper.map(categoryData,Category.class);
+            Category savedCategory=categoryRepository.save(c);
+            return modelMapper.map(savedCategory, new TypeToken<CategoryDTO>() {
+            }.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
 }

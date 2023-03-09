@@ -23,13 +23,15 @@ function Services() {
     ProviderService.getAllServices().then((res: any) => {
       if (res.data.status == 1) {
         setServices(res.data.data);
-        //console.log(res.data);
+        // console.log(res.data.data);
         return;
       } else {
         toast.error(res.data.message);
       }
     });
   }, []);
+
+  // console.log(services);
 
   useEffect(() => {
     CategoryService.getAllCategories().then((res: any) => {
@@ -66,25 +68,20 @@ function Services() {
       <div className="service-card-area">
         {services ? (
           <>
+            {/* <ServiceList services={services} /> */}
             {services.map((c: any, i: number) => (
-              <Link
-                to={{
-                  pathname: `${RouteName.ProviderDetails.replace(
-                    ":providerId",
-                    c.providerId.toString()
-                  )}`,
-                }}
-                key={i}>
-                <ServiceCard
-                  image={image}
-                  providerName={c.businessName}
-                  district={c.district}
-                  category={c.categoryName}
-                  providerId={c.providerId}
-                  description={c.description}
-                  ratings={c.rating}
-                />
-              </Link>
+              <div>
+                <Link
+                  to={{
+                    pathname: `${RouteName.ProviderDetails.replace(
+                      ":providerId",
+                      c.providerId.toString()
+                    )}`,
+                  }}
+                  key={i}>
+                  <ServiceCard provider={c} />
+                </Link>
+              </div>
             ))}
           </>
         ) : (

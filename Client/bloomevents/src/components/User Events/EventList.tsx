@@ -16,6 +16,10 @@ function EventList(userid: any) {
       let logged = localStorage.getItem("loggedUser");
       if (logged) {
         setuser(JSON.parse(logged));
+        if (JSON.parse(logged).userId != userid) {
+          // localStorage.removeItem("loggedUser");
+          // navigate(RouteName.Home);
+        }
       } else {
         setuser(null);
         navigate(RouteName.Login);
@@ -26,17 +30,25 @@ function EventList(userid: any) {
   const [events, setEvents] = React.useState<Array<Event>>();
   const [filteredEvents, setFilteredEvents] = React.useState<Array<Event>>(); // for filter purpose
 
+  const [listFound, setListFound] = React.useState<boolean>(false);
+
   React.useEffect(() => {
+    // setTimeout(() => {
     EventServices.getEventsByUserId(userid.userid).then((res: any) => {
       if (res.data.status == 1) {
+        setListFound(true);
         setEvents(res.data.data);
         setFilteredEvents(res.data.data);
-        console.log(res.data.data);
+        // console.log(res.data.data);
         return;
       } else {
-        //toast.error(res.data.message);
+        setListFound(false);
+        // setEvents(res.data.message);
+        // setFilteredEvents(res.data.message);
+        // toast.warning(res.data.message);
       }
     });
+    // }, 1000);
   }, []);
 
   // handle list after deleting event
@@ -103,9 +115,9 @@ function EventList(userid: any) {
       <div>
         {filteredEvents && user ? (
           <>
-            <p className="mt-5 text-center">
-              {filteredEvents.length == 0 && "No Events"}
-            </p>
+            {filteredEvents.length == 0 && (
+              <p className="mt-5 text-center">No Events</p>
+            )}
             {filteredEvents.map((c: any, i: number) => (
               <div>
                 <MyEventCard
@@ -122,7 +134,11 @@ function EventList(userid: any) {
           </>
         ) : (
           <>
-            <EventListSkeleton />
+            {listFound ? (
+              <EventListSkeleton />
+            ) : (
+              <p className="mt-5 text-center">No Events</p>
+            )}
           </>
         )}
       </div>

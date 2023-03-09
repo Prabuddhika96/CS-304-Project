@@ -35,7 +35,7 @@ public class PackageServiceImpl implements PackageService {
     public int getPackageCount(int providerId) {
         try{
             int count = packageRepo.getPackageCount(providerId);
-            System.out.println(count);
+//            System.out.println(count);
             if (count>=0){
                 return count;
             }

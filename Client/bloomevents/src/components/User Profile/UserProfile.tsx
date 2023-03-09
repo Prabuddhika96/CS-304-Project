@@ -3,7 +3,7 @@ import { TextField } from "@mui/material";
 
 import { districts } from "docs/districts";
 import SignupDropDown from "components/Drop Downs/SignupDropdown";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { RouteName } from "constant/routeName";
 import { useForm } from "react-hook-form";
 import LoginDetailsServices from "Services/Login Details/LoginDetailsServices";
@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import ChangePassword from "./ChangePassword";
 
 function UserProfile() {
+  let { userId } = useParams();
   const [userEmail, setUserEmail] = useState<any>();
 
   // check logged user
@@ -31,6 +32,11 @@ function UserProfile() {
             }
           }
         );
+      }
+
+      if (JSON.parse(logged).userId != userId) {
+        localStorage.removeItem("loggedUser");
+        navigate(RouteName.Home);
       }
     } else {
       setuser(null);

@@ -18,7 +18,6 @@ import Switch from "@mui/material/Switch";
 import { Link, useNavigate } from "react-router-dom";
 import { RouteName } from "constant/routeName";
 
-import { LoggedUser } from "docs/User";
 import { useEffect, useState } from "react";
 import { Role } from "Enums/Role";
 
@@ -33,7 +32,6 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
     let logged = localStorage.getItem("loggedUser");
     if (logged) {
       setUser(JSON.parse(logged));
-      //console.log(JSON.parse(logged));
       if (JSON.parse(logged).role == Role.ADMIN) {
         setAdmin(true);
       } else {
@@ -65,127 +63,136 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
   };
 
   return (
-    <React.Fragment>
-      <Box sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
-        <Typography sx={{ minWidth: 100 }} className="items-center">
-          Switch to Provider Mode
-          <Switch {...label} onChange={func} checked={promode ? true : false} />
-        </Typography>
+    <div>
+      {user && (
+        <React.Fragment>
+          <Box
+            sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
+            <Typography sx={{ minWidth: 100 }} className="items-center">
+              Switch to Provider Mode
+              <Switch
+                {...label}
+                onChange={func}
+                checked={promode ? true : false}
+              />
+            </Typography>
 
-        <Tooltip title="Account settings">
-          <IconButton
-            onClick={handleClick}
-            size="small"
-            sx={{ ml: 2 }}
-            aria-controls={open ? "account-menu" : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? "true" : undefined}>
-            <Avatar sx={{ width: 32, height: 32 }}>{name.charAt(0)}</Avatar>
-          </IconButton>
-        </Tooltip>
-      </Box>
-      <Menu
-        anchorEl={anchorEl}
-        id="account-menu"
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: "visible",
-            filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
-            mt: 1.5,
-            "& .MuiAvatar-root": {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1,
-            },
-            "&:before": {
-              content: '""',
-              display: "block",
-              position: "absolute",
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: "background.paper",
-              transform: "translateY(-50%) rotate(45deg)",
-              zIndex: 0,
-            },
-          },
-        }}
-        transformOrigin={{ horizontal: "right", vertical: "top" }}
-        anchorOrigin={{ horizontal: "right", vertical: "bottom" }}>
-        <Link
-          to={{
-            pathname: `${RouteName.Profile.replace(
-              ":id",
-              LoggedUser.userId.toString()
-            )}`,
-          }}>
-          <MenuItem>
-            <Avatar /> {name}
-          </MenuItem>
-        </Link>
-
-        <Divider />
-
-        {admin ? (
-          <>
+            <Tooltip title="Account settings">
+              <IconButton
+                onClick={handleClick}
+                size="small"
+                sx={{ ml: 2 }}
+                aria-controls={open ? "account-menu" : undefined}
+                aria-haspopup="true"
+                aria-expanded={open ? "true" : undefined}>
+                <Avatar sx={{ width: 32, height: 32 }}>{name.charAt(0)}</Avatar>
+              </IconButton>
+            </Tooltip>
+          </Box>
+          <Menu
+            anchorEl={anchorEl}
+            id="account-menu"
+            open={open}
+            onClose={handleClose}
+            onClick={handleClose}
+            PaperProps={{
+              elevation: 0,
+              sx: {
+                overflow: "visible",
+                filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+                mt: 1.5,
+                "& .MuiAvatar-root": {
+                  width: 32,
+                  height: 32,
+                  ml: -0.5,
+                  mr: 1,
+                },
+                "&:before": {
+                  content: '""',
+                  display: "block",
+                  position: "absolute",
+                  top: 0,
+                  right: 14,
+                  width: 10,
+                  height: 10,
+                  bgcolor: "background.paper",
+                  transform: "translateY(-50%) rotate(45deg)",
+                  zIndex: 0,
+                },
+              },
+            }}
+            transformOrigin={{ horizontal: "right", vertical: "top" }}
+            anchorOrigin={{ horizontal: "right", vertical: "bottom" }}>
             <Link
               to={{
-                pathname: `${RouteName.AdminDashboard.replace(
-                  ":id",
+                pathname: `${RouteName.Profile.replace(
+                  ":userId",
                   user.userId.toString()
                 )}`,
               }}>
               <MenuItem>
-                <AdminPanelSettingsIcon className="mr-[7px] my-1" />
-                Admin Dashboard
+                <Avatar /> {name}
               </MenuItem>
             </Link>
+
             <Divider />
-          </>
-        ) : (
-          <></>
-        )}
 
-        {/* check Pro mode to visible my events */}
-        {promode ? (
-          <></>
-        ) : (
-          <MenuItem>
-            <Link
-              to={{
-                pathname: `${RouteName.MyEvents.replace(
-                  ":userId",
-                  LoggedUser.userId.toString()
-                )}`,
-              }}>
+            {admin ? (
+              <>
+                <Link
+                  to={{
+                    pathname: `${RouteName.AdminDashboard.replace(
+                      ":id",
+                      user.userId.toString()
+                    )}`,
+                  }}>
+                  <MenuItem>
+                    <AdminPanelSettingsIcon className="mr-[7px] my-1" />
+                    Admin Dashboard
+                  </MenuItem>
+                </Link>
+                <Divider />
+              </>
+            ) : (
+              <></>
+            )}
+
+            {/* check Pro mode to visible my events */}
+            {promode ? (
+              <></>
+            ) : (
+              <MenuItem>
+                <Link
+                  to={{
+                    pathname: `${RouteName.MyEvents.replace(
+                      ":userId",
+                      user.userId.toString()
+                    )}`,
+                  }}>
+                  <ListItemIcon>
+                    <EventIcon fontSize="small" />
+                  </ListItemIcon>
+                  My Events
+                </Link>
+              </MenuItem>
+            )}
+
+            <MenuItem>
               <ListItemIcon>
-                <EventIcon fontSize="small" />
+                <Settings fontSize="small" />
               </ListItemIcon>
-              My Events
-            </Link>
-          </MenuItem>
-        )}
-
-        <MenuItem>
-          <ListItemIcon>
-            <Settings fontSize="small" />
-          </ListItemIcon>
-          Settings
-        </MenuItem>
-        <MenuItem onClick={handleLogout}>
-          <ListItemIcon>
-            <Logout fontSize="small" />
-          </ListItemIcon>
-          Logout
-        </MenuItem>
-      </Menu>
-    </React.Fragment>
+              Settings
+            </MenuItem>
+            <MenuItem onClick={handleLogout}>
+              <ListItemIcon>
+                <Logout fontSize="small" />
+              </ListItemIcon>
+              Logout
+            </MenuItem>
+          </Menu>
+        </React.Fragment>
+      )}
+    </div>
   );
 }
 

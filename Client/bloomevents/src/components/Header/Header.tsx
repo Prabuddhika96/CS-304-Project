@@ -49,9 +49,7 @@ function Header() {
   return (
     <div>
       <header
-        className={`px-50 py-[13px] text-center text-[#fff] bg-[#f3cd9ec4]  flex justify-between z-50 top-0 w-full ease-in-out duration-200 fixed ${
-          small ? "py-[13px]" : "py-[13px]"
-        }`}>
+        className={`py-[13px] text-center text-[#fff] bg-[#f3cd9ec4] w-full flex justify-between z-50 top-0  ease-in-out duration-200 fixed`}>
         <div className="w-2/12 pl-20 text-left">
           <Link to={RouteName.Home}>
             <img src={logo} alt="" className="w-20 hover:shadow-lg" />

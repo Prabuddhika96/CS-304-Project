@@ -68,7 +68,7 @@ function AutoComplete(array: any) {
     });
   }, []);
 
-  console.log(categories);
+  // console.log(categories);
 
   return (
     <Autocomplete

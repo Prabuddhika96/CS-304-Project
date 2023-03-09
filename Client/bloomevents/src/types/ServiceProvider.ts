@@ -8,4 +8,5 @@ export type ServiceProvider = {
   rating: number;
   userId: number;
   categoryName: string;
+  categoryId: number;
 };

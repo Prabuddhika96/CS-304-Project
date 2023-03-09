@@ -20,7 +20,7 @@ function Router() {
     <div>
       <BrowserRouter>
         <Header />
-        <div className="flex min-h-[650px]">
+        <div className="min-h-[650px]">
           <Routes>
             {/* Nav bar */}
             <Route

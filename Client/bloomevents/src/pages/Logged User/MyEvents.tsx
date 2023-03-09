@@ -1,11 +1,32 @@
 import AddEventForm from "components/User Events/AddEventForm";
 import EventList from "components/User Events/EventList";
+import { RouteName } from "constant/routeName";
+import React, { useEffect } from "react";
 import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function MyEvents() {
   let { userId } = useParams();
-  //console.log(userId);
+  console.log(userId);
+
+  const navigate = useNavigate();
+  const [user, setuser] = React.useState<any>("");
+
+  useEffect(() => {
+    setTimeout(() => {
+      let logged = localStorage.getItem("loggedUser");
+      if (logged) {
+        setuser(JSON.parse(logged));
+        if (JSON.parse(logged).userId != userId) {
+          localStorage.removeItem("loggedUser");
+          navigate(RouteName.Home);
+        }
+      } else {
+        setuser(null);
+        navigate(RouteName.Login);
+      }
+    }, 1000);
+  }, [localStorage.getItem("loggedUser")]);
 
   const [reRender, setReRender] = useState<any>("");
 

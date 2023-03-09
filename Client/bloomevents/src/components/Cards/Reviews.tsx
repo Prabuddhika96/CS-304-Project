@@ -1,9 +1,8 @@
-import React, { useState } from "react";
-
+import { useState } from "react";
 import { FaChevronLeft, FaChevronRight, FaQuoteRight } from "react-icons/fa";
-import 'styles/review.css';
+import "styles/review.css";
 
-const Review = ({reviews}:any) => {
+const Review = ({ reviews }: any) => {
   const [index, setIndex] = useState(0);
   const { id, name, job, image, text } = reviews[index];
   const checkNumber = (number: number) => {
@@ -30,28 +29,25 @@ const Review = ({reviews}:any) => {
     });
   };
 
-  const minIndex=0;
-  const maxIndex=reviews.length-1;
+  const minIndex = 0;
+  const maxIndex = reviews.length - 1;
 
-  
-  const getRandomPerson=()=>{
-    const getRandomIntInclusive=(min: number, max: number) =>{
+  const getRandomPerson = () => {
+    const getRandomIntInclusive = (min: number, max: number) => {
       min = Math.ceil(min);
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
-    }
+    };
 
-    let randomIndex=getRandomIntInclusive(minIndex, maxIndex);
-    if (randomIndex===index){
-      randomIndex=index+1
+    let randomIndex = getRandomIntInclusive(minIndex, maxIndex);
+    if (randomIndex === index) {
+      randomIndex = index + 1;
     }
     setIndex(checkNumber(randomIndex));
-
-  }
-  
+  };
 
   return (
-    <article className="bg-[#ffe4c3] review">
+    <article className="review">
       <div className="img-container">
         <img src={image} alt={name} className="person-img" />
         <span className="quote-icon">
@@ -69,7 +65,9 @@ const Review = ({reviews}:any) => {
           <FaChevronRight />
         </button>
       </div>
-      <button className="random-btn" onClick={getRandomPerson}>Get Random Review</button>
+      <button className="random-btn" onClick={getRandomPerson}>
+        Get Random Review
+      </button>
     </article>
   );
 };
