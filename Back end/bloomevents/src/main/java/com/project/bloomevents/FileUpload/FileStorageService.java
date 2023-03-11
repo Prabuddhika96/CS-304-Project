@@ -38,7 +38,7 @@ public class FileStorageService {
             if(!Files.exists(uplaodPath)){
                 Files.createDirectories(uplaodPath);
             }
-            System.out.println("Store\t- :"+uplaodPath.toString()+"\\"+imgName);
+
             Path targetLocation = uplaodPath.resolve(imgName);
             Files.copy(file.getInputStream(), targetLocation,StandardCopyOption.REPLACE_EXISTING);
 
@@ -50,13 +50,10 @@ public class FileStorageService {
 
 
     //	function to load the file
-    public Resource loadFileAsResource(String fileName,String uploadDir) {
+    public Resource loadFileAsResource(String fileName,String fileDir) {
         try {
-//            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
-            Path filePath=Paths.get(this.fileStorageLocation.toString()+"\\"+uploadDir);
-            System.out.println("load\t- :"+filePath.toString()+"\\"+fileName);
+            Path filePath=Paths.get(this.fileStorageLocation.toString()+"\\"+fileDir).resolve(fileName).normalize();
 
-            filePath=filePath.resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
             if(resource.exists()) {
                 return resource;

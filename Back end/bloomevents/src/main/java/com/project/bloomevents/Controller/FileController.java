@@ -34,16 +34,9 @@ public class FileController {
         return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.OK);
     }
 
-    @PostMapping("/uploadprofilepic/{userId}")
-    public ResponseEntity<FileResponse> ProfilePicture(@RequestParam("file") MultipartFile file,@PathVariable int userId){
-        String imgName=Integer.toString(userId)+".jpg";
-        return uploadFile(file,imgName,"profilePic","");
-    }
-
-    @GetMapping("/profilePic/{userId}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable int userId, HttpServletRequest request){
-        String fileName=Integer.toString(userId)+".jpg";
-        Resource resource = fileStorageService.loadFileAsResource(fileName,"");
+    // load function
+    public ResponseEntity<Resource> LoadFile(String fileName,String fileDir,HttpServletRequest request){
+        Resource resource = fileStorageService.loadFileAsResource(fileName,fileDir);
 
         String contentType = null;
 
@@ -59,6 +52,22 @@ public class FileController {
 
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
-                .body(resource);
+                .body( resource);
+    }
+
+
+    // mappings
+    @PostMapping("/uploadprofilepic/{userId}")
+    public ResponseEntity<FileResponse> ProfilePicture(@RequestParam("file") MultipartFile file,@PathVariable int userId){
+        String imgName=Integer.toString(userId)+".jpg";
+        String uploadDir="profilePic";
+        return uploadFile(file,imgName,"profilePic",uploadDir);
+    }
+
+    @GetMapping("/profilePic/{userId}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable int userId, HttpServletRequest request){
+        String fileName=Integer.toString(userId)+".jpg";
+        String fileDir="profilePic";
+        return LoadFile(fileName,fileDir,request);
     }
 }

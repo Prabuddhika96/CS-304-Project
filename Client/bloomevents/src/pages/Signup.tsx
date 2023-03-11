@@ -10,6 +10,7 @@ import { RouteName } from "constant/routeName";
 import { useForm } from "react-hook-form";
 import AuthService from "Services/Authencation/AuthService";
 import { toast } from "react-toastify";
+import UploadProPicture from "components/UploadImages/UploadProPicture";
 
 function Signup() {
   //navigate
@@ -212,6 +213,11 @@ function Signup() {
                   <h1 id="clear" className="showPw" onClick={showPassword}>
                     {showPw ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
                   </h1>
+                </div>
+
+                {/* upload profile picture */}
+                <div className="w-full">
+                  <UploadProPicture />
                 </div>
               </div>
 
