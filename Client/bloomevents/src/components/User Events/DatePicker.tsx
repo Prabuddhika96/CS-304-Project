@@ -5,6 +5,13 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import React from "react";
+import { DesktopTimePicker } from "@mui/x-date-pickers/DesktopTimePicker";
+import {
+  MobileDatePicker,
+  MobileTimePicker,
+  StaticTimePicker,
+} from "@mui/x-date-pickers";
 
 function DatePicker({ datefunc, dateval, timefunc, timeval }: any) {
   // const [value, setValue] = React.useState<Dayjs | null>(
@@ -21,19 +28,16 @@ function DatePicker({ datefunc, dateval, timefunc, timeval }: any) {
   return (
     <LocalizationProvider dateAdapter={AdapterDayjs} color="warning">
       <Stack spacing={3}>
-        <DesktopDatePicker
-          label="Date desktop"
-          inputFormat="DD-MMM-YYYY"
+        <MobileDatePicker
+          label="Event Date"
           value={dateval}
           onChange={handleChange}
-          renderInput={(params) => <TextField {...params} />}
         />
 
-        <TimePicker
+        <MobileTimePicker
           label="Time"
           value={timeval}
           onChange={handleChange}
-          renderInput={(params) => <TextField {...params} />}
         />
       </Stack>
     </LocalizationProvider>
