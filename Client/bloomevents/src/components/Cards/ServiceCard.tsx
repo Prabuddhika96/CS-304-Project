@@ -17,7 +17,7 @@ function ServiceCard({ provider }: any) {
       (res: any) => {
         if (res.data.status == 1) {
           setPackageCount(res.data.data.toString());
-          console.log(provider.providerId + " - " + res.data.data);
+          // console.log(provider.providerId + " - " + res.data.data);
           return;
         } else {
           setPackageCount(0);

@@ -10,7 +10,9 @@ import { RouteName } from "constant/routeName";
 import { useForm } from "react-hook-form";
 import AuthService from "Services/Authencation/AuthService";
 import { toast } from "react-toastify";
-import UploadProPicture from "components/UploadImages/UploadProPicture";
+import UploadProPic from "components/UploadImages/UploadProPic";
+import axios from "axios";
+import FileUpload from "Services/FileUpload/FileUpload";
 
 function Signup() {
   //navigate
@@ -35,6 +37,17 @@ function Signup() {
   };
 
   const [district, setDistrict] = useState<string | "">("");
+
+  // profile picture
+  const [preview, setPreview] = useState<any>();
+  const handlePropic = (userId: any) => {
+    const file = FileUpload.convertBase64ToFile(preview, "aa.png");
+
+    let formData = new FormData();
+    formData.append("file", file);
+
+    FileUpload.uploadProfilePicture(userId, formData);
+  };
 
   //handle form
   const {
@@ -63,6 +76,11 @@ function Signup() {
             role: result.data.data.user.role,
           })
         );
+        if (preview) {
+          setTimeout(() => {
+            handlePropic(result.data.data.user.userId);
+          }, 1000);
+        }
         navigate(RouteName.Services);
         toast.success("Registration Successfull");
         return;
@@ -217,7 +235,15 @@ function Signup() {
 
                 {/* upload profile picture */}
                 <div className="w-full">
-                  <UploadProPicture />
+                  <UploadProPic setPreview={setPreview} />
+                  {/* {preview && (
+                    <img
+                      src={preview}
+                      alt="Preview"
+                      width={"500px"}
+                      height={"500px"}
+                    />
+                  )} */}
                 </div>
               </div>
 
@@ -230,6 +256,7 @@ function Signup() {
                 </p>
                 <button
                   type="submit"
+                  // onClick={handlePropic}
                   className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-[#ffa537] border border-transparent rounded-md shadow-sm hover:bg-[#d48019] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                   Register
                 </button>

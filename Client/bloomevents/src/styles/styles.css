@@ -77,14 +77,22 @@
     .my-event-card-btn{
         @apply  h-10 px-2 py-1 hover:text-[#ffff] rounded-md items-center  duration-300 border-2 border-solid;
     }
+    .logged-nav-bar-propic{
+        @apply rounded-full w-[45px] h-[45px]
+    }
     
 }
 
 .upadate-propic{
-    background-image: url('img/man.jpg');
+    /* background-image: url('img/man.jpg'); */
     background-size: cover;
     border-radius: 100%;
     color:transparent;
+    border: none;box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+    transition: box-shadow 0.2s ease-in-out;
+}
+.upadate-propic:hover{
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
 }
 
 .parallax {

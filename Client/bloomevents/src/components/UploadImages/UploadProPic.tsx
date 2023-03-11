@@ -1,5 +1,5 @@
 import React from "react";
-// import Avatar from "react-avatar-edit";
+import Avatar from "react-avatar-edit";
 import { useState } from "react";
 
 function UploadProPic({ setPreview }: any) {
@@ -20,7 +20,7 @@ function UploadProPic({ setPreview }: any) {
 
   return (
     <div>
-      {/* <Avatar
+      <Avatar
         width={470}
         height={470}
         onCrop={onCrop}
@@ -31,7 +31,7 @@ function UploadProPic({ setPreview }: any) {
         shadingOpacity={0.6}
         exportAsSquare
         exportSize={2000}
-      /> */}
+      />
       {/* {preview && (
         <img src={preview} alt="Preview" width={"500px"} height={"500px"} />
       )} */}
