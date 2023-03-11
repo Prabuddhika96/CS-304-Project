@@ -20,6 +20,7 @@ import { RouteName } from "constant/routeName";
 
 import { useEffect, useState } from "react";
 import { Role } from "Enums/Role";
+import FileUpload from "Services/FileUpload/FileUpload";
 
 function LoggedUserNav({ func, promode, name, func1 }: any) {
   const [admin, setAdmin] = useState<boolean>(false);
@@ -62,6 +63,51 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
     navigate(RouteName.Home);
   };
 
+  //get profile picture
+  const [propic, setPropic] = useState<any>("");
+  useEffect(() => {
+    FileUpload.getProfilePicture(1).then((res: any) => {
+      console.log(res);
+      if (res.status == 200) {
+        setPropic(
+          `${process.env.REACT_APP_BACKEND_SERVER}/upload/profilePic/${user?.userId}`
+        );
+        return;
+      } else {
+        // setPropic(res.status);
+      }
+    });
+  }, [user]);
+
+  useEffect(() => {
+    if (promode == false) {
+      FileUpload.getProfilePicture(1).then((res: any) => {
+        // console.log(res);
+        if (res.status == 200) {
+          setPropic(
+            `${process.env.REACT_APP_BACKEND_SERVER}/upload/profilePic/${user?.userId}`
+          );
+          return;
+        } else {
+          // setPropic(res.status);
+        }
+      });
+    } else {
+      FileUpload.getProfilePicture(1).then((res: any) => {
+        if (res.status == 200) {
+          setPropic(
+            `${process.env.REACT_APP_BACKEND_SERVER}/upload/profilePic/4`
+          );
+          return;
+        } else {
+          setPropic(
+            `${process.env.REACT_APP_BACKEND_SERVER}/upload/profilePic/0`
+          );
+        }
+      });
+    }
+  }, [promode]);
+
   return (
     <div>
       {user && (
@@ -85,7 +131,24 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
                 aria-controls={open ? "account-menu" : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}>
-                <Avatar sx={{ width: 32, height: 32 }}>{name.charAt(0)}</Avatar>
+                {
+                  propic != "" && user && (
+                    <>
+                      <img
+                        src={propic}
+                        className={"logged-nav-bar-propic"}
+                        alt=""
+                      />
+                    </>
+                  )
+                  //: (
+                  //   <>
+                  //     <Avatar sx={{ width: 32, height: 32 }}>
+                  //       {name.charAt(0)}
+                  //     </Avatar>
+                  //   </>
+                  // )
+                }
               </IconButton>
             </Tooltip>
           </Box>
@@ -131,7 +194,20 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
                 )}`,
               }}>
               <MenuItem>
-                <Avatar /> {name}
+                {propic != "" && user ? (
+                  <>
+                    <img
+                      src={propic}
+                      className={"logged-nav-bar-propic mr-2"}
+                      alt=""
+                    />
+                  </>
+                ) : (
+                  <>
+                    <Avatar />{" "}
+                  </>
+                )}
+                {name}
               </MenuItem>
             </Link>
 

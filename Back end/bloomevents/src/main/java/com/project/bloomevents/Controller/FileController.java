@@ -13,6 +13,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -36,6 +38,7 @@ public class FileController {
 
     // load function
     public ResponseEntity<Resource> LoadFile(String fileName,String fileDir,HttpServletRequest request){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
         Resource resource = fileStorageService.loadFileAsResource(fileName,fileDir);
 
         String contentType = null;
