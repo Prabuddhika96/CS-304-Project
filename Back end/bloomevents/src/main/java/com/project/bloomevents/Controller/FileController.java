@@ -21,11 +21,12 @@ public class FileController {
     @Autowired
     private FileStorageService fileStorageService;
 
-    @PostMapping
-    public ResponseEntity<FileResponse> uploadFile(@RequestParam("file") MultipartFile file){
-        String fileName = fileStorageService.storeFile(file);
+
+    // store function
+    public ResponseEntity<FileResponse> uploadFile(MultipartFile file,String imgName, String imgCategory,String uploadDir){
+        String fileName = fileStorageService.storeFile(file,imgName,uploadDir);
         String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path("/files/")
+                .path("/upload/"+imgCategory+"/")
                 .path(fileName)
                 .toUriString();
 
@@ -33,10 +34,16 @@ public class FileController {
         return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.OK);
     }
 
-    @GetMapping("/{fileName:.+}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable String fileName, HttpServletRequest request){
+    @PostMapping("/uploadprofilepic/{userId}")
+    public ResponseEntity<FileResponse> ProfilePicture(@RequestParam("file") MultipartFile file,@PathVariable int userId){
+        String imgName=Integer.toString(userId)+".jpg";
+        return uploadFile(file,imgName,"profilePic","");
+    }
 
-        Resource resource = fileStorageService.loadFileAsResource(fileName);
+    @GetMapping("/profilePic/{userId}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable int userId, HttpServletRequest request){
+        String fileName=Integer.toString(userId)+".jpg";
+        Resource resource = fileStorageService.loadFileAsResource(fileName,"");
 
         String contentType = null;
 

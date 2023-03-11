@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.UrlResource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -32,26 +31,32 @@ public class FileStorageService {
         }
     }
 
-
     //	function to store the file
-    public String storeFile(MultipartFile file) {
-
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+    public String storeFile(MultipartFile file,String imgName,String uploadDir) {
         try {
-            Path targetLocation = this.fileStorageLocation.resolve(fileName);
+            Path uplaodPath= Paths.get(this.fileStorageLocation.toString()+"\\"+uploadDir);
+            if(!Files.exists(uplaodPath)){
+                Files.createDirectories(uplaodPath);
+            }
+            System.out.println("Store\t- :"+uplaodPath.toString()+"\\"+imgName);
+            Path targetLocation = uplaodPath.resolve(imgName);
             Files.copy(file.getInputStream(), targetLocation,StandardCopyOption.REPLACE_EXISTING);
 
-            return fileName;
+            return imgName;
         }catch(IOException ex) {
-            throw new FileStorageException("Could not store file"+fileName + ". Please try again!",ex);
+            throw new FileStorageException("Could not store file"+imgName + ". Please try again!",ex);
         }
     }
 
 
     //	function to load the file
-    public Resource loadFileAsResource(String fileName) {
+    public Resource loadFileAsResource(String fileName,String uploadDir) {
         try {
-            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+//            Path filePath = this.fileStorageLocation.resolve(fileName).normalize();
+            Path filePath=Paths.get(this.fileStorageLocation.toString()+"\\"+uploadDir);
+            System.out.println("load\t- :"+filePath.toString()+"\\"+fileName);
+
+            filePath=filePath.resolve(fileName).normalize();
             Resource resource = new UrlResource(filePath.toUri());
             if(resource.exists()) {
                 return resource;
