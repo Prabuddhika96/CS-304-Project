@@ -66,4 +66,21 @@ public class ReviewController {
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/getreviewsbyproviderid/{providerId}")
+    public ResponseEntity<?> getReviewsByProviderId(@PathVariable int providerId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        List<ReviewDTO> reviewList = reviewService.getReviewsByProviderId(providerId);
+
+        if (reviewList.size()>0 && reviewList!=null) {
+            map.put("status", 1);
+            map.put("data", reviewList);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Review list not found");
+            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+        }
+    }
 }

@@ -91,4 +91,22 @@ public class ReviewServiceImpl implements ReviewService {
             return deleted;
         }
     }
+
+    @Override
+    public List<ReviewDTO> getReviewsByProviderId(int providerId) {
+        try{
+            List<Review> list = reviewRepo.getReviewsByProviderId(providerId);
+
+            if(list.size()>=0){
+                return modelMapper.map(list, new TypeToken<List<ReviewDTO>>() {
+                }.getType());
+            }
+            return null;
+
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
 }

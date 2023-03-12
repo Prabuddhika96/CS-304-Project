@@ -14,9 +14,8 @@ import java.sql.Timestamp;
 public class ReviewDTO {
     private int reviewId;
     private String review;
-    private Timestamp timestamp;
+    private String timestamp;
     private double rate;
     private int userId;
-
     private int providerId;
 }

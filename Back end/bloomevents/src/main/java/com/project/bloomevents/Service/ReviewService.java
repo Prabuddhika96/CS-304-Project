@@ -8,4 +8,6 @@ public interface ReviewService {
     List<ReviewDTO> getAllReviews();
     ReviewDTO addReview(ReviewDTO review);
     boolean deleteReview(int reviewId);
+
+    List<ReviewDTO> getReviewsByProviderId(int providerId);
 }

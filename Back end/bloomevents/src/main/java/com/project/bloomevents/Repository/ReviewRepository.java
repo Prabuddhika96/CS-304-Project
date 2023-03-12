@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Repository
 public interface ReviewRepository extends JpaRepository<Review,Integer> {
     @Transactional
@@ -16,4 +18,7 @@ public interface ReviewRepository extends JpaRepository<Review,Integer> {
 
     @Query(value = "SELECT * FROM bloomeventsdb.review WHERE review_id = ?1", nativeQuery = true)
     Review getReviewById(int reviewId);
+
+    @Query(value = "SELECT * FROM bloomeventsdb.review WHERE provider_id = ?1", nativeQuery = true)
+    List<Review> getReviewsByProviderId(int providerId);
 }

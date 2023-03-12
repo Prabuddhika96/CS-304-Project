@@ -3,7 +3,7 @@ import CalenderElement from "components/Elements/CalenderElement";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-import { reviews } from "docs/reviews";
+// import { reviews } from "docs/reviews";
 import { Events } from "docs/Event";
 
 import Dialog from "@mui/material/Dialog";
@@ -17,7 +17,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import { RouteName } from "constant/routeName";
 import ProviderDetailsCard from "components/Cards/ProviderDetailsCard";
 import SuccessSnakBar from "components/Snak Bars/SuccessSnakBar";
-import Reviews from "components/Cards/Reviews";
 import Carousel from "components/Carousel/Carousel";
 import ServiceProviderSkeleton from "skeleton/Service Provider/ServiceProviderSkeleton";
 import { toast } from "react-toastify";
@@ -35,6 +34,9 @@ import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import PackageList from "components/Elements/PackageList";
+import Reviews from "components/Cards/Reviews";
+import { Review } from "types/Review";
+import ReviewService from "Services/ReviewService/ReviewService";
 
 function ProviderDetails() {
   let { providerId } = useParams();
@@ -193,6 +195,21 @@ function ProviderDetails() {
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
   };
+
+  // get reviews
+  const [reviews, setReviews] = useState<Array<Review>>();
+
+  useEffect(() => {
+    ReviewService.getReviewsByProviderId(providerId).then((res: any) => {
+      if (res.data.status == 1) {
+        setReviews(res.data.data);
+        console.log(res.data.data);
+        return;
+      } else {
+        //toast.error(res.data.message);
+      }
+    });
+  }, []);
 
   return (
     <div>

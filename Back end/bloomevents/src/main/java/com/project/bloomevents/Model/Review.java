@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Timestamp;
-
 @Entity
 @Table(name="Review")
 @Getter
@@ -25,7 +23,7 @@ public class Review {
     private String review;
 
     @Column(name = "timestamp")
-    private Timestamp timestamp;
+    private String timestamp;
 
     @Column(name = "rate")
     private double rate;
