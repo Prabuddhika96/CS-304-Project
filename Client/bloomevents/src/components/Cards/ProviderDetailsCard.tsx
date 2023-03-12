@@ -1,4 +1,5 @@
 import { DialogContentText } from "@mui/material";
+import Ratings from "components/Ratings/Ratings";
 import React from "react";
 import { useState } from "react";
 import {
@@ -59,7 +60,8 @@ function ProviderDetailsCard({ providerDetails }: any) {
         <h3 className="pro-dialog-h3">
           <AiOutlineStar className="service-card-icon !text-[#c26d06]" />
           <span className="pro-dialog-span">Ratings : </span>{" "}
-          {providerDetails.rating}
+          {/* {providerDetails.rating} */}
+          <Ratings rating={providerDetails.rating} />
         </h3>
         <h3 className="pro-dialog-h3">
           <AiOutlinePhone className="service-card-icon !text-[#c26d06]" />

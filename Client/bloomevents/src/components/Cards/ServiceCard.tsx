@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import PackageServices from "Services/Packages/PackageService";
 import { AiOutlineStar } from "react-icons/ai";
 import image from "img/new/image8.jpg";
+import Ratings from "components/Ratings/Ratings";
 // import image from 'img/dj.jpg';
 
 function ServiceCard({ provider }: any) {
@@ -54,9 +55,13 @@ function ServiceCard({ provider }: any) {
 
       <div className="w-9/12 px-6 pt-2 text-left">
         <h2 className="mb-2 text-xl text-[#c26d06]">{provider.businessName}</h2>
+        <h3 className="flex items-center mr-6 text-[#464646]">
+          {/* <AiOutlineStar className="service-card-icon" /> {provider.rating}{" "} */}
+          <Ratings rating={provider.rating} />
+        </h3>
 
         {packageCount && (
-          <div className="flex justify-start mb-1">
+          <div className="grid w-8/12 grid-cols-3 mb-1">
             <h3 className="flex items-center mr-6 text-[#464646]">
               <GoLocation className="service-card-icon" /> {provider.district}
             </h3>
@@ -69,10 +74,6 @@ function ServiceCard({ provider }: any) {
             <h3 className="flex items-center mr-6 text-[#464646]">
               <FiPackage className="service-card-icon" /> {packageCount}{" "}
               Packages
-            </h3>
-
-            <h3 className="flex items-center mr-6 text-[#464646]">
-              <AiOutlineStar className="service-card-icon" /> {provider.rating}{" "}
             </h3>
           </div>
         )}

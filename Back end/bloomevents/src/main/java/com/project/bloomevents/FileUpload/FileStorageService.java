@@ -55,9 +55,15 @@ public class FileStorageService {
             Path filePath=Paths.get(this.fileStorageLocation.toString()+"\\"+fileDir).resolve(fileName).normalize();
 
             Resource resource = new UrlResource(filePath.toUri());
+
             if(resource.exists()) {
                 return resource;
-            }else {
+            }
+            if(!resource.exists()){
+                Path noPicFilePath=Paths.get(this.fileStorageLocation.toString()+"\\"+fileDir).resolve("0.jpg").normalize();
+                return new UrlResource(noPicFilePath.toUri());
+            }
+            else {
                 throw new MyFileNotFoundException("File not found " + fileName);
             }
         }catch(MalformedURLException ex) {

@@ -79,35 +79,6 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
     });
   }, [user]);
 
-  useEffect(() => {
-    if (promode == false) {
-      FileUpload.getProfilePicture(1).then((res: any) => {
-        // console.log(res);
-        if (res.status == 200) {
-          setPropic(
-            `${process.env.REACT_APP_BACKEND_SERVER}/upload/profilePic/${user?.userId}`
-          );
-          return;
-        } else {
-          // setPropic(res.status);
-        }
-      });
-    } else {
-      FileUpload.getProfilePicture(1).then((res: any) => {
-        if (res.status == 200) {
-          setPropic(
-            `${process.env.REACT_APP_BACKEND_SERVER}/upload/profilePic/4`
-          );
-          return;
-        } else {
-          setPropic(
-            `${process.env.REACT_APP_BACKEND_SERVER}/upload/profilePic/0`
-          );
-        }
-      });
-    }
-  }, [promode]);
-
   return (
     <div>
       {user && (
@@ -186,32 +157,35 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
             }}
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}>
-            <Link
-              to={{
-                pathname: `${RouteName.Profile.replace(
-                  ":userId",
-                  user.userId.toString()
-                )}`,
-              }}>
-              <MenuItem>
-                {propic != "" && user ? (
-                  <>
-                    <img
-                      src={propic}
-                      className={"logged-nav-bar-propic mr-2"}
-                      alt=""
-                    />
-                  </>
-                ) : (
-                  <>
-                    <Avatar />{" "}
-                  </>
-                )}
-                {name}
-              </MenuItem>
-            </Link>
-
-            <Divider />
+            {promode != true && (
+              <>
+                <Link
+                  to={{
+                    pathname: `${RouteName.Profile.replace(
+                      ":userId",
+                      user.userId.toString()
+                    )}`,
+                  }}>
+                  <MenuItem>
+                    {propic != "" && user ? (
+                      <>
+                        <img
+                          src={propic}
+                          className={"logged-nav-bar-propic mr-2"}
+                          alt=""
+                        />
+                      </>
+                    ) : (
+                      <>
+                        <Avatar />{" "}
+                      </>
+                    )}
+                    {name}
+                  </MenuItem>
+                </Link>
+                <Divider />
+              </>
+            )}
 
             {admin ? (
               <>
@@ -253,12 +227,12 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
               </MenuItem>
             )}
 
-            <MenuItem>
+            {/* <MenuItem>
               <ListItemIcon>
                 <Settings fontSize="small" />
               </ListItemIcon>
               Settings
-            </MenuItem>
+            </MenuItem> */}
             <MenuItem onClick={handleLogout}>
               <ListItemIcon>
                 <Logout fontSize="small" />

@@ -13,6 +13,7 @@ import ChangePassword from "./ChangePassword";
 import FileUpload from "Services/FileUpload/FileUpload";
 import profile from "img/no-profile.jpg";
 import Avatar from "react-avatar-edit";
+import { Role } from "Enums/Role";
 
 function UserProfile() {
   let { userId } = useParams();
@@ -37,7 +38,10 @@ function UserProfile() {
         );
       }
 
-      if (JSON.parse(logged).userId != userId) {
+      if (
+        JSON.parse(logged).userId != userId &&
+        JSON.parse(logged).role != Role.ADMIN
+      ) {
         localStorage.removeItem("loggedUser");
         navigate(RouteName.Home);
       }

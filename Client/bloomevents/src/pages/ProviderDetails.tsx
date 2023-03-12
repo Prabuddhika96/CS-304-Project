@@ -33,10 +33,10 @@ import AddToEventService from "Services/AddToEvent/AddToEventService";
 import TabContext from "@mui/lab/TabContext";
 import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
-import PackageList from "components/Elements/PackageList";
 import Reviews from "components/Cards/Reviews";
 import { Review } from "types/Review";
 import ReviewService from "Services/ReviewService/ReviewService";
+import ProviderPackageSwiper from "components/Carousel/ProviderPackageSwiper";
 
 function ProviderDetails() {
   let { providerId } = useParams();
@@ -203,7 +203,7 @@ function ProviderDetails() {
     ReviewService.getReviewsByProviderId(providerId).then((res: any) => {
       if (res.data.status == 1) {
         setReviews(res.data.data);
-        console.log(res.data.data);
+        // console.log(res.data.data);
         return;
       } else {
         //toast.error(res.data.message);
@@ -350,7 +350,12 @@ function ProviderDetails() {
                 </Box>
 
                 <TabPanel value="1">
-                  {packages ? <PackageList packages={packages} /> : <></>}
+                  {/* {packages ? <PackageList packages={packages} /> : <></>} */}
+                  {packages ? (
+                    <ProviderPackageSwiper packages={packages} />
+                  ) : (
+                    <></>
+                  )}
                 </TabPanel>
 
                 <TabPanel value="2">

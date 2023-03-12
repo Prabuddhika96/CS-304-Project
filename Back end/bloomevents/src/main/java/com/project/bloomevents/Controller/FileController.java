@@ -41,6 +41,7 @@ public class FileController {
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         Resource resource = fileStorageService.loadFileAsResource(fileName,fileDir);
 
+
         String contentType = null;
 
         try {
@@ -53,6 +54,12 @@ public class FileController {
             contentType = "application/octet-stream";
         }
 
+        if(resource==null){
+            System.out.print("null");
+            return ResponseEntity.ok()
+                    .contentType(MediaType.parseMediaType(contentType))
+                    .body( null);
+        }
         return ResponseEntity.ok()
                 .contentType(MediaType.parseMediaType(contentType))
                 .body( resource);
