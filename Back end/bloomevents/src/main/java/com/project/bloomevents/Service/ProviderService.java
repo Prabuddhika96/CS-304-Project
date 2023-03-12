@@ -10,4 +10,6 @@ public interface ProviderService {
     ProviderDTO addProvider(ProviderDTO providerdata);
 
     ProviderDTO getProviderById(int providerId);
+
+    ProviderDTO getProviderByPackageId(int packageId);
 }

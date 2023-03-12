@@ -68,4 +68,21 @@ public class ProviderController {
             return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping("/getproviderbypackageid/{packageId}")
+    public ResponseEntity<?> getProviderByPackageId(@PathVariable int packageId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        ProviderDTO provider = providerService.getProviderByPackageId(packageId);
+
+        if (provider != null) {
+            map.put("status", 1);
+            map.put("data", provider);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Provider not found");
+            return new ResponseEntity<>(map, HttpStatus.NOT_FOUND);
+        }
+    }
 }

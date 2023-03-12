@@ -14,6 +14,7 @@ import { Event } from "types/Event";
 import { Dialog, DialogTitle, DialogActions, Button } from "@mui/material";
 import AddToEventService from "Services/AddToEvent/AddToEventService";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import dayjs from "dayjs";
 
 function EventDetails() {
   let { eventId } = useParams();
@@ -135,11 +136,11 @@ function EventDetails() {
               <div className="text-[#000] flex justify-between text-lg w-10/12">
                 <p className="flex items-center">
                   <AiOutlineCalendar className="mr-1 text-[#ffa537]" />
-                  Date : {event.eventDate}
+                  Event Date : {event.eventDate}
                 </p>
                 <p className="flex items-center">
                   <AiOutlineClockCircle className="mr-1 text-[#ffa537]" />
-                  Time : {event.eventTime}
+                  Event Time : {event.eventTime}
                 </p>
 
                 <p className="flex items-center">
@@ -157,9 +158,9 @@ function EventDetails() {
           <></>
         )}
 
-        {/* place btn */}
-        <div className="flex justify-around w-4/12">
-          {event && !event.placed && (
+        {/* btns */}
+        <div className="flex items-center justify-around w-4/12">
+          {event && !event.placed ? (
             <>
               <button
                 type="button"
@@ -192,27 +193,57 @@ function EventDetails() {
                 </DialogActions>
               </Dialog>
             </>
+          ) : (
+            <>
+              <div className="block">
+                <p className="flex items-center">
+                  <AiOutlineCalendar className="mr-1 text-[#ffa537]" />
+                  Placed Date : {event?.placedDate}
+                </p>
+                <p className="flex items-center">
+                  <AiOutlineClockCircle className="mr-1 text-[#ffa537]" />
+                  Placed Time : {event?.placedTime}
+                </p>
+              </div>
+            </>
           )}
 
-          {packages && (
+          {/* place event */}
+          {event?.placed ? (
             <button
               type="button"
-              disabled={event && event.placed && true}
-              // onClick={handleDeleteEvent}
-              onClick={
-                event && (!event.placed ? handleClickOpenPlace : undefined)
-              }
+              disabled
               className={
-                event &&
-                (event.placed
-                  ? "border-green-600 bg-green-600 my-event-card-btn !text-white"
-                  : "text-green-600 border-green-600 hover:bg-green-600 my-event-card-btn")
+                "border-green-600 bg-green-600 my-event-card-btn !text-white"
               }>
               <span className="mr-1">
-                {event && (event.placed ? <DoneAllIcon /> : <CheckIcon />)}
+                <DoneAllIcon />
               </span>
-              {event && (event.placed ? "Placed" : "Place Event")}
+              Placed
             </button>
+          ) : (
+            <>
+              {dayjs(
+                `${event?.eventDate} ${event?.eventTime}`,
+                "DD-MMM-YYYY hh:mm A"
+              ).isBefore(dayjs()) ? (
+                <></>
+              ) : (
+                <>
+                  <button
+                    type="button"
+                    onClick={handleClickOpenPlace}
+                    className={
+                      "text-green-600 border-green-600 hover:bg-green-600 my-event-card-btn"
+                    }>
+                    <span className="mr-1">
+                      <CheckIcon />
+                    </span>
+                    Place Event
+                  </button>
+                </>
+              )}
+            </>
           )}
 
           {/* place event dialog */}
@@ -261,7 +292,7 @@ function EventDetails() {
       )}
 
       {/* packages that add to event */}
-      <div className="grid w-11/12 grid-cols-3 gap-5 mx-auto">
+      <div className="grid w-11/12 grid-cols-4 gap-5 mx-auto">
         {packages ? (
           <>
             {packages.map((p: any, i: number) => (

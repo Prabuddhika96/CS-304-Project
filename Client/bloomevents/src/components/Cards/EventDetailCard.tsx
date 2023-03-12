@@ -6,6 +6,7 @@ import PackageServices from "Services/Packages/PackageService";
 import { toast } from "react-toastify";
 import ProviderService from "Services/Provider/ProviderServices";
 import AddToEventService from "Services/AddToEvent/AddToEventService";
+import { ServiceProvider } from "types/ServiceProvider";
 
 function EventDetailCard({ packageId, placed, func, addToEventId }: any) {
   //console.log(placed);
@@ -38,56 +39,81 @@ function EventDetailCard({ packageId, placed, func, addToEventId }: any) {
   const [provider, setProvider] = React.useState<any>();
   React.useEffect(() => {
     if (packge) {
-      ProviderService.getProvider(packge.packageId).then((res: any) => {
-        if (res.data.status == 1) {
-          setProvider(res.data.data);
-          //console.log(res.data.data);
-          return;
-        } else {
-          toast.error(res.data.message);
+      ProviderService.getProviderByPackageId(packge.packageId).then(
+        (res: any) => {
+          if (res.data.status == 1) {
+            setProvider(res.data.data);
+            //console.log(res.data.data);
+            return;
+          } else {
+            setProvider(0);
+            toast.error(res.data.message);
+          }
         }
-      });
+      );
     }
   }, [packge]);
 
   return (
-    <div>
-      {packge && provider && (
+    <div className="border-solid border-[2px] border-[#ffa537] rounded-xl hover:scale-105 ease-in-out duration-200">
+      {packge && (
         <>
-          <Link
-            to={{
-              pathname: `${RouteName.ProviderDetails.replace(
-                ":providerId",
-                packge.providerId.toString()
-              )}`,
-            }}
-            className="w-10/12">
-            <div className="card w-96 glass">
-              <figure>
-                <img src="https://placeimg.com/400/225/arch" alt="car!" />
+          <div className="w-full card glass">
+            <Link
+              to={{
+                pathname: `${RouteName.ProviderDetails.replace(
+                  ":providerId",
+                  packge.providerId.toString()
+                )}`,
+              }}
+              className="">
+              <figure className="rounded-xl">
+                <img
+                  src="https://placeimg.com/400/225/arch"
+                  alt="car!"
+                  width={"100%"}
+                  className={"rounded-t-xl p-1 !pb-0"}
+                />
               </figure>
-              <div className="card-body">
-                <h2 className="card-title text-[#ffa537]">
-                  {provider.businessName}
-                </h2>
-                <p className="text-[#000]">{packge.packageName}</p>
+            </Link>
+
+            {/* details */}
+            <div className="grid items-center w-full grid-cols-3">
+              <div className="col-span-2">
+                <Link
+                  to={{
+                    pathname: `${RouteName.ProviderDetails.replace(
+                      ":providerId",
+                      packge.providerId.toString()
+                    )}`,
+                  }}
+                  className="">
+                  <div className="w-full px-4 py-2 card-body">
+                    <h2 className=" text-[#ffa537]">
+                      {provider?.businessName}
+                    </h2>
+                    <p className="text-[#000]">{packge.packageName}</p>
+                  </div>
+                </Link>
+              </div>
+
+              {/* delete btn */}
+              <div className="">
+                {placed == false && (
+                  <div className="flex items-center justify-end px-4 my-3 text-center card-actions">
+                    <button
+                      type="button"
+                      onClick={handleDeleteEvent}
+                      className="text-red-600 border-red-600 hover:bg-red-600 my-event-card-btn !rounded-full !p-2 !w-12 !h-12">
+                      <span className="">
+                        <DeleteIcon />
+                      </span>
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
-          </Link>
-
-          {placed == false && (
-            <div className="justify-end mt-3 card-actions">
-              <button
-                type="button"
-                onClick={handleDeleteEvent}
-                className="text-red-600 border-red-600 hover:bg-red-600 my-event-card-btn">
-                <span className="mr-1">
-                  <DeleteIcon />
-                </span>
-                Remove Package
-              </button>
-            </div>
-          )}
+          </div>
         </>
       )}
     </div>

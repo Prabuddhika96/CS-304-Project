@@ -34,8 +34,15 @@ const getEventById = async (id: any) => {
   return http.get<any>(`/event/geteventbyid/${id}`);
 };
 
-const placeEvent = async (id: any) => {
-  return http.put<any>(`/event/placeevent/${id}`);
+const placeEvent = async (data: any) => {
+  // return http.put<any>(`/event/placeevent/${id}`);
+  const response = await axios({
+    method: "put",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/event/placeevent`,
+    data: data,
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+  });
+  return response;
 };
 
 const EventServices = {

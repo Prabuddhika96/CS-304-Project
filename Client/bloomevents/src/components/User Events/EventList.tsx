@@ -119,15 +119,15 @@ function EventList(userid: any) {
               <p className="mt-5 text-center">No Events</p>
             )}
             {filteredEvents.map((c: any, i: number) => (
-              <div>
+              <div key={i}>
                 <MyEventCard
-                  eventname={c.eventName}
-                  date={c.eventDate}
-                  time={c.eventTime}
-                  key={i}
-                  id={c.eventId}
+                  // eventname={c.eventName}
+                  // date={c.eventDate}
+                  // time={c.eventTime}
+                  // id={c.eventId}
                   func={setDeleteId}
-                  placed={c.placed}
+                  // placed={c.placed}
+                  event={c}
                 />
               </div>
             ))}

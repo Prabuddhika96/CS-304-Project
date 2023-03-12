@@ -14,5 +14,5 @@ public interface EventService {
 
     EventDTO getEventById(int eventId);
 
-    EventDTO placeEvent(int eventId);
+    EventDTO placeEvent(EventDTO eventData);
 }

@@ -1,74 +1,41 @@
 import { useState } from "react";
-import { FaChevronLeft, FaChevronRight, FaQuoteRight } from "react-icons/fa";
+import { FaQuoteRight } from "react-icons/fa";
+import FileUpload from "Services/FileUpload/FileUpload";
 import "styles/review.css";
 
-const Review = ({ reviews }: any) => {
-  const [index, setIndex] = useState(0);
-  const { id, name, job, image, text } = reviews[index];
-  const checkNumber = (number: number) => {
-    if (number > reviews.length - 1) {
-      return 0;
+const Review = ({ review }: any) => {
+  console.log(review);
+  const [propic, setPropic] = useState<any>("");
+  FileUpload.getProfilePicture(1).then((res: any) => {
+    // console.log(res);
+    if (res.status == 200) {
+      setPropic(
+        `${process.env.REACT_APP_BACKEND_SERVER}/upload/profilePic/${
+          review ? review.id : "4"
+        }`
+      );
+      return;
+    } else {
+      // setPropic(res.status);
     }
-    if (number < 0) {
-      return reviews.length - 1;
-    }
-    return number;
-  };
-
-  const nextPerson = () => {
-    setIndex((index) => {
-      let newIndex = index + 1;
-      return checkNumber(newIndex);
-    });
-  };
-
-  const prevPerson = () => {
-    setIndex((index) => {
-      let newIndex = index - 1;
-      return checkNumber(newIndex);
-    });
-  };
-
-  const minIndex = 0;
-  const maxIndex = reviews.length - 1;
-
-  const getRandomPerson = () => {
-    const getRandomIntInclusive = (min: number, max: number) => {
-      min = Math.ceil(min);
-      max = Math.floor(max);
-      return Math.floor(Math.random() * (max - min + 1) + min); //The maximum is inclusive and the minimum is inclusive
-    };
-
-    let randomIndex = getRandomIntInclusive(minIndex, maxIndex);
-    if (randomIndex === index) {
-      randomIndex = index + 1;
-    }
-    setIndex(checkNumber(randomIndex));
-  };
-
+  });
   return (
-    <article className="review">
-      <div className="img-container">
-        <img src={image} alt={name} className="person-img" />
-        <span className="quote-icon">
-          <FaQuoteRight />
-        </span>
-      </div>
-      <h4 className="author">{name}</h4>
-      <p className="job">{job}</p>
-      <p className="info">{text}</p>
-      <div className="button-container">
-        <button className="prev-btn" onClick={prevPerson}>
-          <FaChevronLeft />
-        </button>
-        <button className="next-btn" onClick={nextPerson}>
-          <FaChevronRight />
-        </button>
-      </div>
-      <button className="random-btn" onClick={getRandomPerson}>
-        Get Random Review
-      </button>
-    </article>
+    <div>
+      <article className="grid items-center grid-cols-3 my-2 review">
+        <div className="items-center img-container">
+          <img src={propic} alt={review.name} className="person-img" />
+          <span className="quote-icon">
+            <FaQuoteRight />
+          </span>
+        </div>
+
+        <div className="col-span-2 text-left">
+          <h4 className="text-lg uppercase author">{review.name}</h4>
+          <p className="job">{review.job}</p>
+          <p className="info">{review.text}</p>
+        </div>
+      </article>
+    </div>
   );
 };
 

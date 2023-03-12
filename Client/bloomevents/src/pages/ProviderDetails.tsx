@@ -337,7 +337,15 @@ function ProviderDetails() {
                 </TabPanel>
 
                 <TabPanel value="2">
-                  {reviews ? <Reviews reviews={reviews} /> : <></>}
+                  {reviews ? (
+                    <>
+                      {reviews.map((review: any, i: number) => (
+                        <Reviews review={review} key={i} />
+                      ))}
+                    </>
+                  ) : (
+                    <></>
+                  )}
                 </TabPanel>
               </TabContext>
             </Box>

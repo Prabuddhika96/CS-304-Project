@@ -71,4 +71,21 @@ public class ProviderServiceImpl implements ProviderService {
             return null;
         }
     }
+
+    @Override
+    public ProviderDTO getProviderByPackageId(int packageId) {
+        try{
+            Provider provider = providerRepo.getProviderByPackageId(packageId);
+            if(provider != null){
+                return modelMapper.map(provider, new TypeToken<ProviderDTO>() {}.getType());
+            }
+            else{
+                return null;
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
 }

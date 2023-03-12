@@ -67,7 +67,7 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
   const [propic, setPropic] = useState<any>("");
   useEffect(() => {
     FileUpload.getProfilePicture(1).then((res: any) => {
-      console.log(res);
+      // console.log(res);
       if (res.status == 200) {
         setPropic(
           `${process.env.REACT_APP_BACKEND_SERVER}/upload/profilePic/${user?.userId}`

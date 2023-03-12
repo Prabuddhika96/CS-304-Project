@@ -57,7 +57,7 @@ function AddEventForm(userid: any) {
       placedDate: "",
       placedTime: "",
     });
-    console.log(date);
+    // console.log(date);
   }, [eventname, date]);
 
   const [msg, setmsg] = useState<string>();

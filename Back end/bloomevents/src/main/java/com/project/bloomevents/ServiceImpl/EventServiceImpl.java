@@ -92,9 +92,12 @@ public class EventServiceImpl implements EventService {
     }
 
     @Override
-    public EventDTO placeEvent(int eventId) {
+    public EventDTO placeEvent(EventDTO eventData) {
         try{
-            int updatedEventId = eventRepo.placeEvent(true,eventId);
+            int eventId=eventData.getEventId();
+            String placedDate=eventData.getPlacedDate();
+            String placedTime=eventData.getPlacedTime();
+            int updatedEventId = eventRepo.placeEvent(true,eventId,placedDate,placedTime);
             if(updatedEventId==1){
                 addToEventServiceImpl.placePackages(eventId);
                 return getEventById(eventId);

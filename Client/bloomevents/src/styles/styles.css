@@ -83,6 +83,10 @@
     
 }
 
+.my-event-card-btns>button{
+    margin: 0 8px;
+}
+
 .upadate-propic{
     /* background-image: url('img/man.jpg'); */
     background-size: cover;

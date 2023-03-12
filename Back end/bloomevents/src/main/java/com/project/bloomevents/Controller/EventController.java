@@ -98,11 +98,10 @@ public class EventController {
         }
     }
 
-    @PutMapping("/placeevent/{eventId}")
-
-    public ResponseEntity<?> placeEvent(@PathVariable int eventId){
+    @PutMapping("/placeevent")
+    public ResponseEntity<?> placeEvent(@RequestBody EventDTO eventData){
         Map<String,Object> map=new LinkedHashMap<String,Object>();
-        EventDTO event = eventService.placeEvent(eventId);
+        EventDTO event = eventService.placeEvent(eventData);
         if (event!=null) {
             map.put("status", 1);
             map.put("data", event);

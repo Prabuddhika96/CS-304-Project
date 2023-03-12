@@ -26,9 +26,15 @@ const getProvider = async (id: any) => {
   return http.get<any>(`/provider/getproviderbyid/${id}`);
 };
 
+//get provider by package id
+const getProviderByPackageId = async (packageId: any) => {
+  return http.get<any>(`/provider/getproviderbypackageid/${packageId}`);
+};
+
 const ProviderService = {
   getAllServices,
   getProvider,
+  getProviderByPackageId,
 };
 
 export default ProviderService;
