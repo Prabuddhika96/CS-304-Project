@@ -14,19 +14,19 @@ function ProviderMode() {
     }
   }, [localStorage.getItem("loggedUser")]);
 
-  console.log(user);
+  // console.log(user);
   return (
     <div>
       <ul className={`pt-4 ml-10 text-center flex text-base`}>
         <NavElement
           linkAddress={RouteName.MyServices.replace(
-            ":id",
+            ":userId",
             user?.userId.toString()
           )}
           name={"My Services"}
         />
         <NavElement linkAddress={RouteName.Services} name={"Add New Service"} />
-        <NavElement linkAddress={RouteName.Aboutus} name={"Reviews"} />
+        <NavElement linkAddress={RouteName.ProviderReviews} name={"Reviews"} />
       </ul>
     </div>
   );

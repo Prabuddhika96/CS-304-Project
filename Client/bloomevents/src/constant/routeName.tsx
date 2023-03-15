@@ -8,13 +8,15 @@ export enum RouteName {
   Contactus = "/contactus",
   ProviderDetails = "/providerdetails/:providerId",
 
+  //logged user
   MyEvents = "/myevents/:userId",
   Profile = "/profile/:userId",
-
-  // provider
-  MyServices = "/myservices/:id",
-
   EventDetails = "/eventdetails/:eventId",
 
+  // provider
+  MyServices = "/myservices/:userId",
+  ProviderReviews = "/providereviews/:providerId",
+
+  //admin
   AdminDashboard = "/admindashboard/:id",
 }

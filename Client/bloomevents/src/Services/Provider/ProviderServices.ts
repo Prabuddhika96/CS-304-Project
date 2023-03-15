@@ -31,10 +31,15 @@ const getProviderByPackageId = async (packageId: any) => {
   return http.get<any>(`/provider/getproviderbypackageid/${packageId}`);
 };
 
+const getProvidersByUserId = async (userId: any) => {
+  return http.get<any>(`/provider/getprovidersbyuserid/${userId}`);
+};
+
 const ProviderService = {
   getAllServices,
   getProvider,
   getProviderByPackageId,
+  getProvidersByUserId,
 };
 
 export default ProviderService;

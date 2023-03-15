@@ -28,7 +28,7 @@ function MyEvents() {
     }, 1000);
   }, [localStorage.getItem("loggedUser")]);
 
-  const [reRender, setReRender] = useState<any>("");
+  // const [reRender, setReRender] = useState<any>("");
 
   return (
     <div className="flex justify-around w-full mx-auto">

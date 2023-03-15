@@ -11,7 +11,6 @@ import EventIcon from "@mui/icons-material/Event";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
 import Typography from "@mui/material/Typography";
 import Tooltip from "@mui/material/Tooltip";
-import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 
 import Switch from "@mui/material/Switch";
