@@ -10,16 +10,9 @@ import ProviderMode from "./Nav Options/ProviderMode";
 
 function Header() {
   const navigate = useNavigate();
-  const [small, setSmall] = useState(false);
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.addEventListener("scroll", () =>
-        setSmall(window.pageYOffset > 50)
-      );
-    }
-  }, []);
 
   const [user, setuser] = useState<any>();
+  const [proMode, setproMode] = useState<boolean>(false);
 
   useEffect(() => {
     let logged = localStorage.getItem("loggedUser");
@@ -30,21 +23,26 @@ function Header() {
     }
   }, [localStorage.getItem("loggedUser")]);
 
-  const [proMode, setproMode] = useState<boolean>(false);
+  useEffect(() => {
+    let pro = localStorage.getItem("ProviderMode");
+    if (pro) {
+      setproMode(JSON.parse(pro));
+    } else {
+      setproMode(false);
+    }
+  }, [localStorage.getItem("ProviderMode")]);
+
   const handleClick = () => {
     if (proMode) {
+      localStorage.setItem("ProviderMode", JSON.stringify(false));
       setproMode(false);
       navigate(RouteName.Services);
     } else {
+      localStorage.setItem("ProviderMode", JSON.stringify(true));
       setproMode(true);
       navigate(RouteName.MyServices.replace(":userId", user.userId.toString()));
     }
   };
-
-  useEffect(() => {
-    localStorage.setItem("ProviderMode", JSON.stringify(proMode));
-    // console.log(localStorage.getItem("ProviderMode1"));
-  }, [proMode]);
 
   return (
     <div>
@@ -78,7 +76,6 @@ function Header() {
               } ${
                 user.lastName.charAt(0).toUpperCase() + user.lastName.slice(1)
               }`}
-              //name={"hdhdh"}
               func1={setuser}
             />
           </div>

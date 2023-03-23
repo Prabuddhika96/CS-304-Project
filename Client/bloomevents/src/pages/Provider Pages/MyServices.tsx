@@ -31,7 +31,7 @@ function ProviderDashboard() {
   //get provider list
   const [services, setServices] = useState<any>();
   useEffect(() => {
-    ProviderService.getProvidersByUserId(2).then((res: any) => {
+    ProviderService.getProvidersByUserId(userId).then((res: any) => {
       if (res.data.status == 1) {
         setServices(res.data.data);
         // console.log(res.data.data);
@@ -59,7 +59,7 @@ function ProviderDashboard() {
           </div>
         </>
       ) : (
-        <>na</>
+        <>service na</>
       )}
     </div>
   );

@@ -1,12 +1,36 @@
 import Carousel from "components/Carousel/Carousel";
 import SuccessCard from "components/Cards/SuccessCard";
 import "styles/btns.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiOutlineCamera, AiOutlineCalendar } from "react-icons/ai";
 import { FiUsers, FiPackage } from "react-icons/fi";
 import SwiperElemet from "components/Carousel/SwiperElemet";
+import { RouteName } from "constant/routeName";
+import { useState, useEffect } from "react";
 
 function LandingPage() {
+  const navigate = useNavigate();
+  const [user, setuser] = useState<any>();
+
+  useEffect(() => {
+    let logged = localStorage.getItem("loggedUser");
+    if (logged) {
+      setuser(JSON.parse(logged));
+      let pro = localStorage.getItem("ProviderMode");
+      if (pro) {
+        if (JSON.parse(pro)) {
+          navigate(
+            RouteName.MyServices.replace(":userId", JSON.parse(logged).userId)
+          );
+        } else {
+          navigate(RouteName.Services);
+        }
+      }
+      // navigate(RouteName.Services);
+    } else {
+      setuser(null);
+    }
+  }, [localStorage.getItem("loggedUser")]);
   const cardDetails = [
     {
       id: 0,

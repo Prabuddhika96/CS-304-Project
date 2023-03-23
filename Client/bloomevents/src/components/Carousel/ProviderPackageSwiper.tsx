@@ -14,7 +14,7 @@ import { Navigation } from "swiper";
 import PackageDetailCard from "components/Cards/PackageDetailCard";
 
 function ProviderPackageSwiper({ packages }: any) {
-  console.log(packages);
+  // console.log(packages);
   return (
     <>
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">

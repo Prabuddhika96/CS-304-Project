@@ -25,8 +25,14 @@ function ProviderMode() {
           )}
           name={"My Services"}
         />
-        <NavElement linkAddress={RouteName.Services} name={"Add New Service"} />
-        <NavElement linkAddress={RouteName.ProviderReviews} name={"Reviews"} />
+        <NavElement
+          linkAddress={RouteName.AddNewService.replace(
+            ":userId",
+            user?.userId.toString()
+          )}
+          name={"Add New Service"}
+        />
+        {/* <NavElement linkAddress={RouteName.ProviderReviews} name={"Reviews"} /> */}
       </ul>
     </div>
   );

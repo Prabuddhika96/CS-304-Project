@@ -15,7 +15,9 @@ export enum RouteName {
 
   // provider
   MyServices = "/myservices/:userId",
-  ProviderReviews = "/providereviews/:providerId",
+  // ProviderReviews = "/providereviews/:providerId",
+  AddNewService = "/addnewservice/:userId",
+  ServiceDetails = "/servicedetails/:providerId",
 
   //admin
   AdminDashboard = "/admindashboard/:id",

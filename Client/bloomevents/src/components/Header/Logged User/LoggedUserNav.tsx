@@ -58,6 +58,7 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
 
   const handleLogout = () => {
     localStorage.removeItem("loggedUser");
+    localStorage.removeItem("ProviderMode");
     func1();
     navigate(RouteName.Home);
   };

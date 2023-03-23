@@ -40,6 +40,7 @@ import ProviderPackageSwiper from "components/Carousel/ProviderPackageSwiper";
 
 function ProviderDetails() {
   let { providerId } = useParams();
+  let iid = 0;
 
   const [user, setuser] = useState<any>();
   const [provider, setProvider] = useState<any>();
@@ -49,6 +50,7 @@ function ProviderDetails() {
       let logged = localStorage.getItem("loggedUser");
       if (logged) {
         setuser(JSON.parse(logged));
+        iid = JSON.parse(logged).userId;
         let ProviderMode = localStorage.getItem("ProviderMode");
         if (ProviderMode) {
           ProviderMode = JSON.parse(ProviderMode);
@@ -66,6 +68,7 @@ function ProviderDetails() {
     localStorage.getItem("loggedUser"),
     localStorage.getItem("ProviderMode"),
   ]);
+  // console.log(user);
 
   React.useEffect(() => {
     ProviderService.getProvider(providerId).then((res: any) => {
@@ -73,7 +76,6 @@ function ProviderDetails() {
         setProvider(res.data.data);
         return;
       } else {
-        //toast.error(res.data.message);
       }
     });
   }, []);
@@ -87,29 +89,28 @@ function ProviderDetails() {
         setPackages(res.data.data);
         return;
       } else {
-        //toast.error(res.data.message);
       }
     });
   }, []);
 
   // get user events
-  const [events, setEvents] = useState<Array<Event>>();
+  const [events, setEvents] = useState<any>(null);
   React.useEffect(() => {
     setTimeout(() => {
-      EventServices.getEventsByUserId(1).then((res: any) => {
+      EventServices.getEventsByUserId(iid).then((res: any) => {
         if (res.data.status == 1) {
           const filteredData = res.data.data?.filter(
             (emp: any) => emp.placed == false
           );
           setEvents(filteredData);
-          //console.log(res.data.data);
           return;
         } else {
           //toast.error(res.data.message);
         }
       });
-    }, 1000);
+    }, 1500);
   }, []);
+  // console.log(events);
 
   // more Info
   const [open, setOpen] = useState(false);
@@ -250,7 +251,7 @@ function ProviderDetails() {
                     More Infomation
                   </Button>
 
-                  {Events && packages && user && (
+                  {events && packages && user && (
                     <Button
                       variant="contained"
                       color="secondary"

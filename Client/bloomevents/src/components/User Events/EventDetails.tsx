@@ -41,7 +41,6 @@ function EventDetails() {
     EventServices.getEventById(index).then((res: any) => {
       if (res.data.status == 1) {
         setEvent(res.data.data);
-        //console.log(res.data.data);
         return;
       } else {
         //toast.error(res.data.message);
@@ -87,7 +86,15 @@ function EventDetails() {
 
   //place function
   const placeEvent = () => {
-    EventServices.placeEvent(index).then((res: any) => {
+    const placedDate = dayjs();
+    // console.log(placedDate.format("DD-MMM-YYYY").toString());
+    // console.log(placedDate.format("hh:mm A").toString());
+    const placedEvent = {
+      eventId: Number(index),
+      placedDate: placedDate.format("DD-MMM-YYYY").toString(),
+      placedTime: placedDate.format("hh:mm A").toString(),
+    };
+    EventServices.placeEvent(placedEvent).then((res: any) => {
       if (res.data.status == 1) {
         toast.success("Successfully Placed");
         handleClickClosePlace();

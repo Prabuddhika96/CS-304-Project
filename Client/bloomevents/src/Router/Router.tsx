@@ -9,6 +9,8 @@ import Contactus from "pages/Contactus";
 import LandingPage from "pages/LandingPage";
 import MyEvents from "pages/Logged User/MyEvents";
 import Login from "pages/Login";
+import AddNewServices from "pages/Provider Pages/AddNewServices";
+import EditServiceDetail from "pages/Provider Pages/EditServiceDetail";
 import MyServices from "pages/Provider Pages/MyServices";
 import ProviderDetails from "pages/ProviderDetails";
 import Services from "pages/Services";
@@ -85,6 +87,18 @@ function Router() {
               path={RouteName.MyServices}
               caseSensitive={false}
               element={<MyServices />}
+            />
+
+            <Route
+              path={RouteName.AddNewService}
+              caseSensitive={false}
+              element={<AddNewServices />}
+            />
+
+            <Route
+              path={RouteName.ServiceDetails}
+              caseSensitive={false}
+              element={<EditServiceDetail />}
             />
 
             {/* Admin */}
