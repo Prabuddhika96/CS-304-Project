@@ -104,4 +104,21 @@ public class ProviderServiceImpl implements ProviderService {
             return null;
         }
     }
+
+    @Override
+    public ProviderDTO updateProvider(ProviderDTO providerData) {
+        try{
+            int count = providerRepo.updateProvider(providerData.getBusinessName(), providerData.getDistrict(), providerData.getDescription(), providerData.getMobile(), providerData.getFacebook(), providerData.getInstagram(), providerData.getWeb(), providerData.getProviderId());
+            if(count==1) {
+                Provider provider=providerRepo.getProviderById(providerData.getProviderId());
+                return modelMapper.map(provider, new TypeToken<ProviderDTO>() {
+                }.getType());
+            }
+            return null;
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
 }

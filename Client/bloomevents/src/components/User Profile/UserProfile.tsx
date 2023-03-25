@@ -71,7 +71,7 @@ function UserProfile() {
       lastName: data.lastName,
       mobile: data.mobile,
     };
-    console.log(updatedUser);
+    // console.log(updatedUser);
     const result = await UserServices.updateUser(updatedUser);
     if (result.data.status == 1) {
       const newUser = await UserServices.getUserByUserId(user.userId);
@@ -81,7 +81,7 @@ function UserProfile() {
         window.location.reload();
       }
     } else {
-      console.log("faild");
+      console.log("failed");
     }
   };
 

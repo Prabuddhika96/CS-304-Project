@@ -102,4 +102,21 @@ public class ProviderController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
+
+    @PutMapping("/updateprovider")
+    public ResponseEntity<?> updateProvider(@RequestBody ProviderDTO providerData){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        ProviderDTO provider = providerService.updateProvider(providerData);
+
+        if (provider!=null) {
+            map.put("status", 1);
+            map.put("data", provider);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Provider not found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
 }

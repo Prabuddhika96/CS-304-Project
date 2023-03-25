@@ -22,8 +22,6 @@ function LandingPage() {
           navigate(
             RouteName.MyServices.replace(":userId", JSON.parse(logged).userId)
           );
-        } else {
-          navigate(RouteName.Services);
         }
       }
       // navigate(RouteName.Services);

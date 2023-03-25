@@ -35,11 +35,23 @@ const getProvidersByUserId = async (userId: any) => {
   return http.get<any>(`/provider/getprovidersbyuserid/${userId}`);
 };
 
+// update provider
+const updateProvider = async (data: any) => {
+  const response = await axios({
+    method: "put",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/provider/updateprovider`,
+    data: data,
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+  });
+  return response;
+};
+
 const ProviderService = {
   getAllServices,
   getProvider,
   getProviderByPackageId,
   getProvidersByUserId,
+  updateProvider,
 };
 
 export default ProviderService;

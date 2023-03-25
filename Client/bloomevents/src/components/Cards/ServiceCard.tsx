@@ -1,12 +1,11 @@
 import { BiCategory } from "react-icons/bi";
 import { GoLocation } from "react-icons/go";
 import { FiPackage } from "react-icons/fi";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import PackageServices from "Services/Packages/PackageService";
-import { AiOutlineStar } from "react-icons/ai";
-import image from "img/new/image8.jpg";
 import Ratings from "components/Ratings/Ratings";
+import FileUpload from "Services/FileUpload/FileUpload";
 // import image from 'img/dj.jpg';
 
 function ServiceCard({ provider }: any) {
@@ -28,30 +27,37 @@ function ServiceCard({ provider }: any) {
     );
   }, []);
 
-  return (
-    // <div>
-    //   <p>{provider.businessName}</p>
-    //   <p>{provider.district}</p>
-    //   <p>{provider.categoryName}</p>
-    //   <p>{provider.providerId}</p>
-    //   <p>{provider.description}</p>
-    //   <p>{provider.rating}</p>
-    //   <p></p>
-    // </div>
+  const [picture, setPicture] = useState("");
+  useEffect(() => {
+    FileUpload.getProfilePicture(1).then((res: any) => {
+      // console.log(res);
+      if (res.status == 200) {
+        setPicture(
+          `${process.env.REACT_APP_BACKEND_SERVER}/upload/ProviderLogos/${provider?.providerId}`
+        );
+        return;
+      } else {
+        // setPropic(res.status);
+      }
+    });
+  }, [provider]);
 
-    <div className="w-11/12 service-card">
+  return (
+    <div className="w-11/12 h-56 service-card duration-200 ease-in-out hover:scale-[1.01]">
       <div
         id="back-img"
-        style={{
-          background: `url(${image}) center no-repeat`,
-          backgroundSize: "cover",
-          // position: 'absolute',
-          zIndex: -10,
-          // height: '500px',
-          // top: '32px',
-          overflow: "hidden",
-          width: "25%",
-        }}></div>
+        className="w-3/12 h-56 bg-center"
+        // style={{
+        //   background: `url(${picture}) no-repeat center`,
+        //   backgroundSize: "cover",
+        // }}
+      >
+        <img
+          src={picture}
+          alt={provider.businessName}
+          className="w-full bg-center bg-cover"
+        />
+      </div>
 
       <div className="w-9/12 px-6 pt-2 text-left">
         <h2 className="mb-2 text-xl text-[#c26d06]">{provider.businessName}</h2>

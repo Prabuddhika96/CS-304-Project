@@ -71,24 +71,50 @@ function ProviderDetailsCard({ providerDetails }: any) {
       </div>
 
       <div className="flex justify-around w-6/12 mx-auto my-3 text-lg">
-        <a
-          href={providerDetails.instagram}
-          target="_blank"
-          className="provider-detail-dialog-box-icon">
-          <AiOutlineInstagram />
-        </a>
-        <a
+        {providerDetails.instagram && (
+          <a
+            href={providerDetails.instagram}
+            target="_blank"
+            className="provider-detail-dialog-box-icon"
+            rel="noreferrer">
+            <AiOutlineInstagram />
+          </a>
+        )}
+
+        {providerDetails.facebook && (
+          <a
+            href={providerDetails.facebook}
+            target="_blank"
+            className="provider-detail-dialog-box-icon"
+            rel="noreferrer">
+            <AiOutlineFacebook />
+          </a>
+        )}
+
+        {providerDetails.web && (
+          <a
+            href={providerDetails.web}
+            target="_blank"
+            className="provider-detail-dialog-box-icon"
+            rel="noreferrer">
+            <BiWorld />
+          </a>
+        )}
+
+        {/* <a
           href={providerDetails.facebook}
           target="_blank"
-          className="provider-detail-dialog-box-icon">
+          className="provider-detail-dialog-box-icon"
+          rel="noreferrer">
           <AiOutlineFacebook />
         </a>
         <a
           href={providerDetails.web}
           target="_blank"
-          className="provider-detail-dialog-box-icon">
+          className="provider-detail-dialog-box-icon"
+          rel="noreferrer">
           <BiWorld />
-        </a>
+        </a> */}
       </div>
     </DialogContentText>
   );

@@ -67,6 +67,7 @@ public class FileController {
 
 
     // mappings
+    //profile pics
     @PostMapping("/uploadprofilepic/{userId}")
     public ResponseEntity<FileResponse> ProfilePicture(@RequestParam("file") MultipartFile file,@PathVariable int userId){
         String imgName=Integer.toString(userId)+".jpg";
@@ -78,6 +79,21 @@ public class FileController {
     public ResponseEntity<Resource> downloadFile(@PathVariable int userId, HttpServletRequest request){
         String fileName=Integer.toString(userId)+".jpg";
         String fileDir="profilePic";
+        return LoadFile(fileName,fileDir,request);
+    }
+
+    // provider logos
+    @PostMapping("/provideruploadimage/{providerId}")
+    public ResponseEntity<FileResponse> providerImage(@RequestParam("file") MultipartFile file,@PathVariable int providerId){
+        String imgName=Integer.toString(providerId)+".jpg";
+        String uploadDir="ProviderLogos";
+        return uploadFile(file,imgName,"ProviderLogos",uploadDir);
+    }
+
+    @GetMapping("/ProviderLogos/{providerId}")
+    public ResponseEntity<Resource> getProviderLogo(@PathVariable int providerId, HttpServletRequest request){
+        String fileName=Integer.toString(providerId)+".jpg";
+        String fileDir="ProviderLogos";
         return LoadFile(fileName,fileDir,request);
     }
 }

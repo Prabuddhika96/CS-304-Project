@@ -20,7 +20,7 @@ function ProviderPackageSwiper({ packages }: any) {
       <Swiper navigation={true} modules={[Navigation]} className="mySwiper">
         {packages?.map((p: any, i: number) => (
           <div key={i}>
-            <SwiperSlide className="!w-full">
+            <SwiperSlide className="!w-full bg-transparent">
               <PackageDetailCard pckage={p} />
             </SwiperSlide>
           </div>

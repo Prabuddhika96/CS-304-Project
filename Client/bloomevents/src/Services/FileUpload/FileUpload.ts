@@ -35,10 +35,23 @@ const uploadProfilePicture = async (userId: any, formData: any) => {
   return response;
 };
 
+// upload service logo
+const uploadServiceLogo = async (providerId: any, formData: any) => {
+  //console.log(data);
+  const response = await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/upload/provideruploadimage/${providerId}`,
+    data: formData,
+    headers: {},
+  });
+  return response;
+};
+
 const FileUpload = {
   getProfilePicture,
   convertBase64ToFile,
   uploadProfilePicture,
+  uploadServiceLogo,
 };
 
 export default FileUpload;
