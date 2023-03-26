@@ -12,4 +12,10 @@ public interface PackageService {
     List<PackageDTO> getPackagesByProviderId(int providerId);
 
     PackageDTO getPackageByPackageId(int packageId);
+
+    PackageDTO addPackage(PackageDTO packageData);
+
+    PackageDTO updatePackage(int packageId, PackageDTO packageData);
+
+    boolean deletePackage(int packageId);
 }

@@ -75,4 +75,54 @@ public class PackageServiceImpl implements PackageService {
             return null;
         }
     }
+
+    @Override
+    public PackageDTO addPackage(PackageDTO packageData) {
+        try{
+            Packages newPackage=modelMapper.map(packageData, Packages.class);
+            Packages pckge=packageRepo.save(newPackage);
+            return modelMapper.map(pckge, new TypeToken<PackageDTO>() {
+            }.getType());
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public PackageDTO updatePackage(int packageId, PackageDTO packageData) {
+        try{
+            int count=packageRepo.updatePackage(packageData.getPackageName(),packageData.getPrice(),packageData.getDescription(),packageId);
+            if(count==1){
+                return getPackageByPackageId(packageData.getPackageId());
+            }
+            else{
+                return null;
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public boolean deletePackage(int packageId) {
+        try{
+            PackageDTO pckge=getPackageByPackageId(packageId);
+            if(pckge!=null){
+                int count = packageRepo.deletePackage(packageId);
+                if(count==1){
+                    return true;
+                }
+                return false;
+            }
+            return false;
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return false;
+        }
+    }
 }

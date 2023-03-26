@@ -14,6 +14,8 @@ import FileUpload from "Services/FileUpload/FileUpload";
 import profile from "img/no-profile.jpg";
 import Avatar from "react-avatar-edit";
 import { Role } from "Enums/Role";
+import UpdateUserProfilePic from "./UpdateUserProfilePic";
+import CircularProgressItem from "components/CircularProgress/CircularProgressItem";
 
 function UserProfile() {
   let { userId } = useParams();
@@ -55,6 +57,9 @@ function UserProfile() {
   // set district
   const [district, setDistrict] = useState<any>();
 
+  // handle backdrop
+  const [backdrop, setBackdrop] = useState<boolean>(false);
+
   //handle form
   const {
     register,
@@ -63,7 +68,7 @@ function UserProfile() {
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    // console.log(data);
+    setBackdrop(true);
     const updatedUser: any = {
       userId: user.userId,
       district: data.district,
@@ -71,18 +76,20 @@ function UserProfile() {
       lastName: data.lastName,
       mobile: data.mobile,
     };
-    // console.log(updatedUser);
-    const result = await UserServices.updateUser(updatedUser);
-    if (result.data.status == 1) {
-      const newUser = await UserServices.getUserByUserId(user.userId);
-      if (newUser) {
-        localStorage.setItem("loggedUser", JSON.stringify(newUser.data.data));
-        toast.success("Profile Updated");
-        window.location.reload();
+
+    setTimeout(async () => {
+      const result = await UserServices.updateUser(updatedUser);
+      if (result.data.status == 1) {
+        const newUser = await UserServices.getUserByUserId(user.userId);
+        if (newUser) {
+          localStorage.setItem("loggedUser", JSON.stringify(newUser.data.data));
+          toast.success("Profile Updated");
+          window.location.reload();
+        }
+      } else {
+        console.log("failed");
       }
-    } else {
-      console.log("failed");
-    }
+    }, 1000);
   };
 
   // change password
@@ -110,68 +117,12 @@ function UserProfile() {
     });
   }, [user]);
 
-  //update propic
-  const [src, setSrc] = useState<any>();
-  const [preview, setPreview] = useState(null);
-  function onClose() {
-    setPreview(null);
-  }
-  function onCrop(pv: any) {
-    setPreview(pv);
-  }
-  function onBeforeFileLoad(elem: any) {
-    if (elem.target.files[0].size > 7168000) {
-      alert("File is too big!");
-      elem.target.value = "";
-    }
-  }
-
-  const handlePropic = () => {
-    // e.preventDefault();
-    const file = FileUpload.convertBase64ToFile(preview, "aa.png");
-
-    let formData = new FormData();
-    formData.append("file", file);
-
-    FileUpload.uploadProfilePicture(user?.userId, formData);
-    window.location.reload();
-  };
-
   return (
     <div className="flex w-11/12 pt-24 mb-20">
       {user && userEmail && (
         <>
           <div className="w-6/12 mx-auto mt-7">
-            <div className="flex justify-center w-full text-center">
-              {/* <input
-                type="file"
-                className="upadate-propic"
-                style={{
-                  backgroundImage: `url(${propic != "" ? propic : profile})`,
-                }}
-              /> */}
-              <Avatar
-                width={470}
-                height={470}
-                onCrop={onCrop}
-                onClose={onClose}
-                onBeforeFileLoad={onBeforeFileLoad}
-                src={src}
-                exportQuality={1}
-                shadingOpacity={0.6}
-                exportAsSquare
-                exportSize={2000}
-              />
-            </div>
-
-            <div className="flex justify-center w-full mt-2 text-center">
-              <button
-                type="submit"
-                onClick={handlePropic}
-                className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-[#ffa537] border border-transparent rounded-md shadow-sm hover:bg-[#d48019] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                Update Profile Picture
-              </button>
-            </div>
+            <UpdateUserProfilePic user={user} />
           </div>
 
           <div className="w-6/12 pt-14">
@@ -298,10 +249,17 @@ function UserProfile() {
                     </div>
                   </div>
 
-                  <div className="px-4 py-3 text-right bg-gray-50 sm:px-6">
+                  <div className="react-hook-form-btn-div">
                     <button
                       type="submit"
-                      className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-[#ffa537] border border-transparent rounded-md shadow-sm hover:bg-[#d48019] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                      className="react-hook-form-btn react-hook-form-btn-submit">
+                      {backdrop === true && (
+                        <>
+                          <div className="mr-3">
+                            <CircularProgressItem />
+                          </div>
+                        </>
+                      )}
                       Save Changes
                     </button>
                   </div>

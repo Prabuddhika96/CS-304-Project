@@ -82,7 +82,23 @@
   }
 
   .logo-file-upload {
-    @apply p-5 border border-sky-500 text-transparent h-[300px] w-[310px] rounded-full bg-red-600 file:bg-transparent file:border-none file:text-transparent;
+    @apply p-5 border  text-transparent h-[300px] w-[310px] rounded-full file:bg-transparent file:border-none file:text-transparent;
+  }
+
+  .react-hook-form-btn {
+    @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium text-white border border-transparent rounded-md shadow-sm;
+  }
+
+  .react-hook-form-btn-div {
+    @apply flex justify-end w-full px-4 py-3 text-right bg-gray-50 sm:px-6;
+  }
+
+  .react-hook-form-btn-submit {
+    @apply bg-[#ffa537] hover:bg-[#d48019];
+  }
+
+  .react-hook-form-btn-delete {
+    @apply mr-3 bg-red-600 hover:bg-red-700;
   }
 }
 

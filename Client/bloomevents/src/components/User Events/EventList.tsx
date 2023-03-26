@@ -33,22 +33,16 @@ function EventList(userid: any) {
   const [listFound, setListFound] = React.useState<boolean>(false);
 
   React.useEffect(() => {
-    // setTimeout(() => {
     EventServices.getEventsByUserId(userid.userid).then((res: any) => {
       if (res.data.status == 1) {
         setListFound(true);
         setEvents(res.data.data);
         setFilteredEvents(res.data.data);
-        // console.log(res.data.data);
         return;
       } else {
         setListFound(false);
-        // setEvents(res.data.message);
-        // setFilteredEvents(res.data.message);
-        // toast.warning(res.data.message);
       }
     });
-    // }, 1000);
   }, []);
 
   // handle list after deleting event
@@ -59,6 +53,11 @@ function EventList(userid: any) {
       (emp: any) => emp.eventId !== deleteId
     );
     setFilteredEvents(filteredData);
+
+    const filteredEventData = events?.filter(
+      (emp: any) => emp.eventId !== deleteId
+    );
+    setEvents(filteredEventData);
   }, [deleteId]);
 
   // rdio btn function

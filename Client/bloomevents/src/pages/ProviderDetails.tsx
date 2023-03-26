@@ -3,9 +3,6 @@ import CalenderElement from "components/Elements/CalenderElement";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
-// import { reviews } from "docs/reviews";
-import { Events } from "docs/Event";
-
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -27,7 +24,6 @@ import { Package } from "types/Packages";
 import BookNowDropdownPackages from "components/Drop Downs/BookNowDropdownPackages";
 import BookNowDropDownEvents from "components/Drop Downs/BookNowDropDownEvents";
 import EventServices from "Services/Event/EventServices";
-import { Event } from "types/Event";
 import { AddToEvent } from "types/AddToEvent";
 import AddToEventService from "Services/AddToEvent/AddToEventService";
 import TabContext from "@mui/lab/TabContext";
@@ -37,6 +33,7 @@ import Reviews from "components/Cards/Reviews";
 import { Review } from "types/Review";
 import ReviewService from "Services/ReviewService/ReviewService";
 import ProviderPackageSwiper from "components/Carousel/ProviderPackageSwiper";
+import FileUpload from "Services/FileUpload/FileUpload";
 
 function ProviderDetails() {
   let { providerId } = useParams();
@@ -212,6 +209,20 @@ function ProviderDetails() {
     });
   }, []);
 
+  // get provider logo
+  const [picture, setPicture] = useState("");
+  useEffect(() => {
+    FileUpload.getProfilePicture(1).then((res: any) => {
+      // console.log(res);
+      if (res.status == 200) {
+        setPicture(
+          `${process.env.REACT_APP_BACKEND_SERVER}/upload/ProviderLogos/${provider?.providerId}`
+        );
+        return;
+      }
+    });
+  }, [provider]);
+
   return (
     <div>
       {provider ? (
@@ -219,9 +230,13 @@ function ProviderDetails() {
           {/* <ServiceProviderSkeleton /> */}
           <div className="flex justify-around w-full pt-24">
             <div className="w-8/12 px-16">
-              <div className="flex mb-5">
-                <div className="">
-                  <img src={logo} alt="" className="w-28" />
+              <div className="flex items-center mb-5">
+                <div className="mr-3 rounded-full">
+                  <img
+                    src={picture}
+                    alt=""
+                    className="w-24 h-24 rounded-full"
+                  />
                 </div>
                 <div>
                   <h1 className="text-4xl text-[#c26d06]">
@@ -353,7 +368,10 @@ function ProviderDetails() {
                 <TabPanel value="1">
                   {/* {packages ? <PackageList packages={packages} /> : <></>} */}
                   {packages ? (
-                    <ProviderPackageSwiper packages={packages} />
+                    <ProviderPackageSwiper
+                      packages={packages}
+                      image={picture}
+                    />
                   ) : (
                     <></>
                   )}

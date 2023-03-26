@@ -5,6 +5,7 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
+import CircularProgressItem from "components/CircularProgress/CircularProgressItem";
 import { useEffect, useState } from "react";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { toast } from "react-toastify";
@@ -38,6 +39,9 @@ function ChangePassword({ open, handleClose, userId }: any) {
     return passwordRegex.test(password);
   };
 
+  // handle backdrop
+  const [backdrop, setBackdrop] = useState<boolean>(false);
+
   const [oldPw, setOldPw] = useState<string>("");
   const [newPw, setNewPw] = useState<string>("");
   useEffect(() => {
@@ -50,6 +54,7 @@ function ChangePassword({ open, handleClose, userId }: any) {
 
   const onSubmitPassword = async (e: any) => {
     e.preventDefault();
+    setBackdrop(true);
     if (oldPw == "" || newPw == "") {
       toast.error("Both passwords are required.");
     } else {
@@ -58,18 +63,19 @@ function ChangePassword({ open, handleClose, userId }: any) {
           oldPw: oldPw,
           newPw: newPw,
         };
-        const result = await LoginDetailsServices.updatePassword(
-          userId,
-          updatePwRequest
-        );
+        setTimeout(async () => {
+          const result = await LoginDetailsServices.updatePassword(
+            userId,
+            updatePwRequest
+          );
 
-        //   console.log(result);
-        if (result.data.status == 1) {
-          toast.success(result.data.data);
-          handleClose();
-        } else {
-          toast.error(result.data.message);
-        }
+          if (result.data.status == 1) {
+            toast.success(result.data.data);
+            handleClose();
+          } else {
+            toast.error(result.data.message);
+          }
+        }, 1000);
       } else {
         toast.error(
           "Password must contain atleast 8 characters and one uppercase and lowercase letter, one number and one symbol"
@@ -143,7 +149,14 @@ function ChangePassword({ open, handleClose, userId }: any) {
           <button
             type="submit"
             onClick={onSubmitPassword}
-            className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-[#ffa537] border border-transparent rounded-md shadow-sm hover:bg-[#d48019] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+            className="react-hook-form-btn react-hook-form-btn-submit">
+            {backdrop === true && (
+              <>
+                <div className="mr-3">
+                  <CircularProgressItem />
+                </div>
+              </>
+            )}
             Update Password
           </button>
         </DialogActions>

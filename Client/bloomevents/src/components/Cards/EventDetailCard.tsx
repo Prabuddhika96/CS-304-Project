@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { Link } from "react-router-dom";
 import { RouteName } from "constant/routeName";
@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import ProviderService from "Services/Provider/ProviderServices";
 import AddToEventService from "Services/AddToEvent/AddToEventService";
 import { ServiceProvider } from "types/ServiceProvider";
+import FileUpload from "Services/FileUpload/FileUpload";
 
 function EventDetailCard({ packageId, placed, func, addToEventId }: any) {
   //console.log(placed);
@@ -54,6 +55,19 @@ function EventDetailCard({ packageId, placed, func, addToEventId }: any) {
     }
   }, [packge]);
 
+  const [picture, setPicture] = useState("");
+  useEffect(() => {
+    FileUpload.getProfilePicture(1).then((res: any) => {
+      // console.log(res);
+      if (res.status == 200) {
+        setPicture(
+          `${process.env.REACT_APP_BACKEND_SERVER}/upload/ProviderLogos/${provider?.providerId}`
+        );
+        return;
+      }
+    });
+  }, [provider]);
+
   return (
     <div className="border-solid border-[2px] border-[#ffa537] rounded-xl hover:scale-105 ease-in-out duration-200">
       {packge && (
@@ -67,12 +81,14 @@ function EventDetailCard({ packageId, placed, func, addToEventId }: any) {
                 )}`,
               }}
               className="">
-              <figure className="rounded-xl">
+              <figure className="rounded-xl max-h-[250px] overflow-hidden">
                 <img
-                  src="https://placeimg.com/400/225/arch"
+                  src={picture}
                   alt="car!"
-                  width={"100%"}
-                  className={"rounded-t-xl p-1 !pb-0"}
+                  // width={"100%"}
+                  className={
+                    "rounded-t-xl p-1 !pb-0 mx-auto flex justify-center items-center"
+                  }
                 />
               </figure>
             </Link>

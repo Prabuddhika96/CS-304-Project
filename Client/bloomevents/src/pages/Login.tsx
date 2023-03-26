@@ -8,6 +8,7 @@ import LoginDetails from "types/LoginDetails";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import AuthService from "Services/Authencation/AuthService";
+import CircularProgressItem from "components/CircularProgress/CircularProgressItem";
 
 function Login(): JSX.Element {
   //navigate
@@ -47,6 +48,8 @@ function Login(): JSX.Element {
     });
   }, [email, password]);
 
+  // handle backdrop
+  const [backdrop, setBackdrop] = useState<boolean>(false);
   //handle form
   const {
     register,
@@ -55,42 +58,41 @@ function Login(): JSX.Element {
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    //e.preventDefault();
-    //console.log(data);
+    setBackdrop(true);
 
-    const result = await AuthService.loginRequest(data);
-    console.log(result);
-    console.log(result.data.status);
-    if (result.data.status == 1) {
-      //redirect to login page
-      localStorage.setItem(
-        "loggedUser",
-        JSON.stringify({
-          userId: result.data.data.user.userId,
-          firstName: result.data.data.user.firstName,
-          lastName: result.data.data.user.lastName,
-          mobile: result.data.data.user.mobile,
-          district: result.data.data.user.district,
-          lastLogin: result.data.data.user.lastLogin,
-          role: result.data.data.user.role,
-        })
-      );
-      let providermode = localStorage.getItem("ProviderMode");
-      if (providermode) {
-        if (JSON.parse(providermode)) {
-          navigate(RouteName.MyServices);
+    setTimeout(async () => {
+      const result = await AuthService.loginRequest(data);
+      if (result.data.status == 1) {
+        //redirect to login page
+        localStorage.setItem(
+          "loggedUser",
+          JSON.stringify({
+            userId: result.data.data.user.userId,
+            firstName: result.data.data.user.firstName,
+            lastName: result.data.data.user.lastName,
+            mobile: result.data.data.user.mobile,
+            district: result.data.data.user.district,
+            lastLogin: result.data.data.user.lastLogin,
+            role: result.data.data.user.role,
+          })
+        );
+        let providermode = localStorage.getItem("ProviderMode");
+        if (providermode) {
+          if (JSON.parse(providermode)) {
+            navigate(RouteName.MyServices);
+          } else {
+            navigate(RouteName.Services);
+          }
         } else {
           navigate(RouteName.Services);
         }
-      } else {
-        navigate(RouteName.Services);
-      }
 
-      // toast.success("Login Successfull");
-      return;
-    } else {
-      toast.error(result.data.message);
-    }
+        // toast.success("Login Successfull");
+        return;
+      } else {
+        toast.error(result.data.message);
+      }
+    }, 1000);
   };
 
   return (
@@ -174,7 +176,14 @@ function Login(): JSX.Element {
                 </p>
                 <button
                   type="submit"
-                  className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-[#ffa537] border border-transparent rounded-md shadow-sm hover:bg-[#d48019] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  className="react-hook-form-btn react-hook-form-btn-submit">
+                  {backdrop === true && (
+                    <>
+                      <div className="mr-3">
+                        <CircularProgressItem />
+                      </div>
+                    </>
+                  )}
                   Login
                 </button>
               </div>

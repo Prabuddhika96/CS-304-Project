@@ -1,3 +1,4 @@
+import SimpleBackdrop from "components/Backdrop/SimpleBackdrop";
 import MyServicesCard from "components/Cards/Provider/MyServicesCard";
 import { RouteName } from "constant/routeName";
 import React, { useEffect, useState } from "react";
@@ -31,15 +32,17 @@ function ProviderDashboard() {
   //get provider list
   const [services, setServices] = useState<any>();
   useEffect(() => {
-    ProviderService.getProvidersByUserId(userId).then((res: any) => {
-      if (res.data.status == 1) {
-        setServices(res.data.data);
-        // console.log(res.data.data);
-        return;
-      } else {
-        setServices(null);
-      }
-    });
+    setTimeout(() => {
+      ProviderService.getProvidersByUserId(userId).then((res: any) => {
+        if (res.data.status == 1) {
+          setServices(res.data.data);
+          // console.log(res.data.data);
+          return;
+        } else {
+          setServices(null);
+        }
+      });
+    }, 1000);
   }, []);
 
   return (
@@ -59,7 +62,9 @@ function ProviderDashboard() {
           </div>
         </>
       ) : (
-        <>service na</>
+        <>
+          <SimpleBackdrop />
+        </>
       )}
     </div>
   );

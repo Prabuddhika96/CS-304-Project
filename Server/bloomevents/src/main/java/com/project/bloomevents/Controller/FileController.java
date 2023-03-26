@@ -40,20 +40,15 @@ public class FileController {
     public ResponseEntity<Resource> LoadFile(String fileName,String fileDir,HttpServletRequest request){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         Resource resource = fileStorageService.loadFileAsResource(fileName,fileDir);
-
-
         String contentType = null;
-
         try {
             contentType = request.getServletContext().getMimeType(resource.getFile().getAbsolutePath());
         }catch(IOException ex) {
             System.out.println("Could not determine fileType");
         }
-
         if(contentType==null) {
             contentType = "application/octet-stream";
         }
-
         if(resource==null){
             System.out.print("null");
             return ResponseEntity.ok()

@@ -85,4 +85,56 @@ public class PackageController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
+
+    @PostMapping("/addpackage")
+    public ResponseEntity<?> addPackage(@RequestBody PackageDTO packageData){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        PackageDTO packge = packageService.addPackage(packageData);
+
+        if (packge!=null) {
+            map.put("status", 1);
+            map.put("data", packge);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Package not found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
+    @PutMapping("/updatepackage/{packageId}")
+    public ResponseEntity<?> updatePackage(@RequestBody PackageDTO packageData, @PathVariable int packageId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        PackageDTO packge = packageService.updatePackage(packageId,packageData);
+
+        if (packge!=null) {
+            map.put("status", 1);
+            map.put("data", packge);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Package not found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
+    @DeleteMapping("/deletepackage/{packageId}")
+    public ResponseEntity<?> deletePackage(@PathVariable int packageId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        boolean success = packageService.deletePackage(packageId);
+
+        if (success==true) {
+            map.put("status", 1);
+            map.put("data", success);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Package not deleted");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
 }

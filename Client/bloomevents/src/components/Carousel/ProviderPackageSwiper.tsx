@@ -13,7 +13,7 @@ import "styles/review.css";
 import { Navigation } from "swiper";
 import PackageDetailCard from "components/Cards/PackageDetailCard";
 
-function ProviderPackageSwiper({ packages }: any) {
+function ProviderPackageSwiper({ packages, image }: any) {
   // console.log(packages);
   return (
     <>
@@ -21,7 +21,7 @@ function ProviderPackageSwiper({ packages }: any) {
         {packages?.map((p: any, i: number) => (
           <div key={i}>
             <SwiperSlide className="!w-full bg-transparent">
-              <PackageDetailCard pckage={p} />
+              <PackageDetailCard pckage={p} image={image} />
             </SwiperSlide>
           </div>
         ))}

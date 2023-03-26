@@ -11,6 +11,7 @@ import { Event } from "types/Event";
 import { useNavigate } from "react-router-dom";
 import { RouteName } from "constant/routeName";
 import EventServices from "Services/Event/EventServices";
+import CircularProgressItem from "components/CircularProgress/CircularProgressItem";
 
 function AddEventForm(userid: any) {
   const [eventname, seteventname] = useState<string | "">("");
@@ -35,6 +36,9 @@ function AddEventForm(userid: any) {
   const [successAddEvent, setSuccessAddEvent] = useState<boolean>(false);
   const [emptyField, setEmptyFeild] = useState<boolean>(false);
 
+  // handle backdrop
+  const [backdrop, setBackdrop] = useState<boolean>(false);
+
   const [values, setValues] = useState<Event>({
     eventId: 0,
     eventDate: "",
@@ -57,7 +61,6 @@ function AddEventForm(userid: any) {
       placedDate: "",
       placedTime: "",
     });
-    // console.log(date);
   }, [eventname, date]);
 
   const [msg, setmsg] = useState<string>();
@@ -82,7 +85,7 @@ function AddEventForm(userid: any) {
       setmsg("Event Time is not valid !");
     } else {
       setEmptyFeild(false);
-      console.log(values);
+      setBackdrop(true);
 
       setTimeout(async () => {
         const result = await EventServices.addEvent(values);
@@ -99,10 +102,6 @@ function AddEventForm(userid: any) {
 
   return (
     <div className="items-center w-full pt-32 mb-20 ">
-      {/* <div className="items-center w-6/12 mx-auto my-3">
-        <img src={image} alt="" className="w-full" />
-      </div> */}
-
       <div className="w-full ">
         <div className="mt-10 sm:mt-0">
           <form action="#" method="POST">
@@ -145,15 +144,26 @@ function AddEventForm(userid: any) {
                 </div>
               </div>
 
-              <div className="px-4 py-3 text-right bg-gray-50 sm:px-6">
+              <div className="react-hook-form-btn-div !justify-center">
                 {user && (
                   <button
                     type="submit"
                     className="login-form-btn"
                     onClick={handleClck}>
-                    <span className="mr-2 text-white">
-                      <AddCircleOutlineIcon />
-                    </span>{" "}
+                    <span className="mr-2 text-white"></span>{" "}
+                    {backdrop === true ? (
+                      <>
+                        <div className="mr-3">
+                          <CircularProgressItem />
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <div className="mr-3">
+                          <AddCircleOutlineIcon />
+                        </div>
+                      </>
+                    )}
                     Add Event
                   </button>
                 )}

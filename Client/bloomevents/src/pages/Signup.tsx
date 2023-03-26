@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import UploadProPic from "components/UploadImages/UploadProPic";
 import axios from "axios";
 import FileUpload from "Services/FileUpload/FileUpload";
+import CircularProgressItem from "components/CircularProgress/CircularProgressItem";
 
 function Signup() {
   //navigate
@@ -49,6 +50,8 @@ function Signup() {
     FileUpload.uploadProfilePicture(userId, formData);
   };
 
+  // handle backdrop
+  const [backdrop, setBackdrop] = useState<boolean>(false);
   //handle form
   const {
     register,
@@ -57,7 +60,7 @@ function Signup() {
   } = useForm();
 
   const onSubmit = async (data: any) => {
-    console.log(data);
+    setBackdrop(true);
 
     setTimeout(async () => {
       const result = await AuthService.Register(data);
@@ -234,16 +237,8 @@ function Signup() {
                 </div>
 
                 {/* upload profile picture */}
-                <div className="w-full">
+                <div className="flex justify-center w-full mt-5">
                   <UploadProPic setPreview={setPreview} />
-                  {/* {preview && (
-                    <img
-                      src={preview}
-                      alt="Preview"
-                      width={"500px"}
-                      height={"500px"}
-                    />
-                  )} */}
                 </div>
               </div>
 
@@ -256,8 +251,14 @@ function Signup() {
                 </p>
                 <button
                   type="submit"
-                  // onClick={handlePropic}
-                  className="inline-flex justify-center px-4 py-2 text-sm font-medium text-white bg-[#ffa537] border border-transparent rounded-md shadow-sm hover:bg-[#d48019] focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                  className="react-hook-form-btn react-hook-form-btn-submit">
+                  {backdrop === true && (
+                    <>
+                      <div className="mr-3">
+                        <CircularProgressItem />
+                      </div>
+                    </>
+                  )}
                   Register
                 </button>
               </div>
