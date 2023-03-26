@@ -13,8 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -34,6 +33,25 @@ public class FileController {
 
         FileResponse fileResponse = new FileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
         return new ResponseEntity<FileResponse>(fileResponse, HttpStatus.OK);
+    }
+
+    // store multiple files
+    public ResponseEntity<List<FileResponse>> uploadMultipleFile(MultipartFile[] files,  String imgCategory, String uploadDir){
+        List<FileResponse> list = new ArrayList<>();
+        final int[] number = {1};
+        Arrays.asList(files).stream().forEach(file->{
+            String imgName= String.valueOf(number[0])+".jpg";
+            String fileName = fileStorageService.storeFile(file,imgName,uploadDir);
+            String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
+                    .path("/upload/"+imgCategory+"/")
+                    .path(fileName)
+                    .toUriString();
+
+            FileResponse fileResponse = new FileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
+            list.add(fileResponse);
+            number[0]++;
+        });
+        return new ResponseEntity<List<FileResponse>>(list, HttpStatus.OK);
     }
 
     // load function
@@ -59,7 +77,6 @@ public class FileController {
                 .contentType(MediaType.parseMediaType(contentType))
                 .body( resource);
     }
-
 
     // mappings
     //profile pics
@@ -89,6 +106,20 @@ public class FileController {
     public ResponseEntity<Resource> getProviderLogo(@PathVariable int providerId, HttpServletRequest request){
         String fileName=Integer.toString(providerId)+".jpg";
         String fileDir="ProviderLogos";
+        return LoadFile(fileName,fileDir,request);
+    }
+
+    //upload multiple files
+    @PostMapping("/uploadprivoderdetailpics/{providerId}")
+    public ResponseEntity<List<FileResponse>> uploadProviderDetailImages(@RequestParam("file") MultipartFile[] files,@PathVariable int providerId){
+        String uploadDir="ProviderImages/"+Integer.toString(providerId);
+        return uploadMultipleFile(files,uploadDir,uploadDir);
+    }
+
+    @GetMapping("/ProviderImages/{providerId}")
+    public ResponseEntity<Resource> downloadMuFile(@PathVariable int providerId, HttpServletRequest request){
+        String fileName=Integer.toString(1)+".jpg";
+        String fileDir="ProviderImages/"+Integer.toString(providerId);
         return LoadFile(fileName,fileDir,request);
     }
 }
