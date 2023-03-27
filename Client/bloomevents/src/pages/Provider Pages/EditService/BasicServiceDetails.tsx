@@ -4,8 +4,7 @@ import SignupDropDown from "components/Drop Downs/SignupDropdown";
 import { districts } from "docs/districts";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { FcAddImage } from "react-icons/fc";
-import { useNavigate } from "react-router-dom";
+import { RiImageAddLine } from "react-icons/ri";
 import { toast } from "react-toastify";
 import FileUpload from "Services/FileUpload/FileUpload";
 import ProviderService from "Services/Provider/ProviderServices";
@@ -109,8 +108,8 @@ function BasicServiceDetails({ providerId, provider }: any) {
                     className="absolute duration-300 ease-in-out cursor-pointer hover:opacity-25 logo-file-upload z-1"
                   />
 
-                  <div className="flex justify-center text-7xl items-center z-1 h-[300px] w-[310px] rounded-full bg-gray-200">
-                    <FcAddImage />
+                  <div className="flex justify-center text-7xl duration-300 items-center text-[#747474bd] z-1 h-[300px] w-[310px] rounded-full bg-gray-200">
+                    <RiImageAddLine />
                   </div>
                 </div>
               </div>

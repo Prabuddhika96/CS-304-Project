@@ -24,6 +24,7 @@ function ChangePackageDetails({ providerId }: any) {
       if (res.data.status === 1) {
         setPackages(res.data.data);
         // console.log(res.data.data);
+        setValue(res.data.data[0].packageId);
         return;
       }
     });
@@ -42,7 +43,10 @@ function ChangePackageDetails({ providerId }: any) {
               {packages?.map((p: any, i: number) => (
                 <Tab label={p.packageName} value={p.packageId} key={i} />
               ))}
-              <Tab label={"+ Add New Package"} value="0" />
+
+              {packages?.length < 5 && (
+                <Tab label={"+ Add New Package"} value="0" />
+              )}
             </TabList>
           </Box>
           {packages?.map((p: any, i: number) => (
@@ -50,9 +54,12 @@ function ChangePackageDetails({ providerId }: any) {
               <EditPackageDetails packge={p} providerId={providerId} />
             </TabPanel>
           ))}
-          <TabPanel value="0">
-            <EditPackageDetails packge={newPackage} providerId={providerId} />
-          </TabPanel>
+
+          {packages?.length < 5 && (
+            <TabPanel value="0">
+              <EditPackageDetails packge={newPackage} providerId={providerId} />
+            </TabPanel>
+          )}
         </TabContext>
       </Box>
     </div>

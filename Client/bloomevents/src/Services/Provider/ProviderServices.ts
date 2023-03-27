@@ -46,12 +46,24 @@ const updateProvider = async (data: any) => {
   return response;
 };
 
+//add provider
+const addProvider = async (data: any) => {
+  const response = await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/provider/addprovider`,
+    data: data,
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+  });
+  return response;
+};
+
 const ProviderService = {
   getAllServices,
   getProvider,
   getProviderByPackageId,
   getProvidersByUserId,
   updateProvider,
+  addProvider,
 };
 
 export default ProviderService;

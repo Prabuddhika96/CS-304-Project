@@ -32,7 +32,7 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
     let logged = localStorage.getItem("loggedUser");
     if (logged) {
       setUser(JSON.parse(logged));
-      if (JSON.parse(logged).role == Role.ADMIN) {
+      if (JSON.parse(logged).role === Role.ADMIN) {
         setAdmin(true);
       } else {
         setAdmin(false);
@@ -102,24 +102,15 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
                 aria-controls={open ? "account-menu" : undefined}
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}>
-                {
-                  propic != "" && user && (
-                    <>
-                      <img
-                        src={propic}
-                        className={"logged-nav-bar-propic"}
-                        alt=""
-                      />
-                    </>
-                  )
-                  //: (
-                  //   <>
-                  //     <Avatar sx={{ width: 32, height: 32 }}>
-                  //       {name.charAt(0)}
-                  //     </Avatar>
-                  //   </>
-                  // )
-                }
+                {propic != "" && user && (
+                  <>
+                    <img
+                      src={propic}
+                      className={"logged-nav-bar-propic"}
+                      alt=""
+                    />
+                  </>
+                )}
               </IconButton>
             </Tooltip>
           </Box>

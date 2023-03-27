@@ -47,7 +47,8 @@ function EditServiceDetail() {
   }
 
   return (
-    <div className="px-5 pt-28">
+    <div className="w-9/12 px-5 mx-auto pt-28">
+      {/* basic info */}
       <div className="w-full p-3 my-3 text-center bg-white">
         <h1 className="text-4xl font-bold">
           Business <span className="text-[#ffa537]">Infromation</span>
@@ -55,6 +56,15 @@ function EditServiceDetail() {
       </div>
       <BasicServiceDetails providerId={providerId} provider={provider} />
 
+      {/* provider image info */}
+      <div className="w-full p-3 my-3 text-center bg-white">
+        <h1 className="text-4xl font-bold">
+          Image <span className="text-[#ffa537]">Infromation</span>
+        </h1>
+      </div>
+      <ImageInformation providerId={providerId} />
+
+      {/* package info */}
       <div className="z-10 w-full p-3  my-3 !mt-6 text-center bg-white">
         <h1 className="text-4xl font-bold">
           Package <span className="text-[#ffa537]">Infromation</span>
@@ -63,13 +73,6 @@ function EditServiceDetail() {
       <div className="p-2 my-3 mt-8 bg-white rounded-md">
         <ChangePackageDetails providerId={providerId} />
       </div>
-
-      <div className="w-full p-3 my-3 text-center bg-white">
-        <h1 className="text-4xl font-bold">
-          Image <span className="text-[#ffa537]">Infromation</span>
-        </h1>
-      </div>
-      <ImageInformation providerId={providerId} />
     </div>
   );
 }

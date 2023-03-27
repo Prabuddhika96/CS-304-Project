@@ -18,6 +18,9 @@ function EditPackageDetails({ packge, providerId }: any) {
   const handleClickOpen = (e: any) => {
     e.preventDefault();
     setOpen(true);
+    if (backdropDelete === true) {
+      setBackdropDelete(false);
+    }
   };
 
   const handleClose = (e: any) => {
