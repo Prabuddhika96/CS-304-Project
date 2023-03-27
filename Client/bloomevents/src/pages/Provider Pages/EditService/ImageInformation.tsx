@@ -20,11 +20,14 @@ function ImageInformation({ providerId }: any) {
     }, 1000);
   }, [providerId]);
 
-  const [deleteName, setDeleteName] = useState();
+  const [deleteName, setDeleteName] = useState<any>(null);
 
   useEffect(() => {
     const filteredData = names?.filter((emp: any) => emp !== deleteName);
     setNames(filteredData);
+    if (limit < 5) {
+      setLimit(limit + 1);
+    }
   }, [deleteName]);
 
   return (

@@ -20,7 +20,7 @@ function ImageInfoCard({
     setTimeout(() => {
       setDeleteName(source);
       setBackdropDelete(false);
-      setLimit(limit + 1);
+      // setLimit(limit + 1);
       FileUpload.deleteServiceDetailImage(providerId, source).then(
         (res: any) => {
           if (res.status === 200) {
