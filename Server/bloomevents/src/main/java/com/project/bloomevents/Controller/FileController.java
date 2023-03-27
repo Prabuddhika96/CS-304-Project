@@ -8,12 +8,14 @@ import org.springframework.core.io.Resource;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.io.IOException;
 import java.util.*;
+
 
 @RestController
 @CrossOrigin("http://localhost:3000")
@@ -38,9 +40,9 @@ public class FileController {
     // store multiple files
     public ResponseEntity<List<FileResponse>> uploadMultipleFile(MultipartFile[] files,  String imgCategory, String uploadDir){
         List<FileResponse> list = new ArrayList<>();
-        final int[] number = {1};
+        //final int[] number = {1};
         Arrays.asList(files).stream().forEach(file->{
-            String imgName= String.valueOf(number[0])+".jpg";
+            String imgName= StringUtils.cleanPath(Objects.requireNonNull(file.getOriginalFilename()));
             String fileName = fileStorageService.storeFile(file,imgName,uploadDir);
             String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
                     .path("/upload/"+imgCategory+"/")
@@ -49,14 +51,13 @@ public class FileController {
 
             FileResponse fileResponse = new FileResponse(fileName, fileDownloadUri, file.getContentType(), file.getSize());
             list.add(fileResponse);
-            number[0]++;
+            //number[0]++;
         });
         return new ResponseEntity<List<FileResponse>>(list, HttpStatus.OK);
     }
 
     // load function
     public ResponseEntity<Resource> LoadFile(String fileName,String fileDir,HttpServletRequest request){
-        Map<String, Object> map = new LinkedHashMap<String, Object>();
         Resource resource = fileStorageService.loadFileAsResource(fileName,fileDir);
         String contentType = null;
         try {
@@ -77,6 +78,9 @@ public class FileController {
                 .contentType(MediaType.parseMediaType(contentType))
                 .body( resource);
     }
+
+    // load multiple files
+
 
     // mappings
     //profile pics
@@ -117,9 +121,21 @@ public class FileController {
     }
 
     @GetMapping("/ProviderImages/{providerId}")
-    public ResponseEntity<Resource> downloadMuFile(@PathVariable int providerId, HttpServletRequest request){
-        String fileName=Integer.toString(1)+".jpg";
+    public List<String> getProviderDetailImages(@PathVariable int providerId, HttpServletRequest request){
+        String fileDir="ProviderImages/"+Integer.toString(providerId);
+        return fileStorageService.getMultipleFiles(fileDir);
+    }
+
+    @GetMapping("/ProviderImages/{providerId}/{fileName}")
+    public ResponseEntity<Resource> getProviderLogo(@PathVariable int providerId,@PathVariable String fileName, HttpServletRequest request){
         String fileDir="ProviderImages/"+Integer.toString(providerId);
         return LoadFile(fileName,fileDir,request);
     }
+
+    @DeleteMapping("/deletedtailimage/{providerId}/{fileName}")
+    public boolean deleteDetailImage(@PathVariable int providerId,@PathVariable String fileName){
+        String fileDir="ProviderImages/"+Integer.toString(providerId)+"/"+fileName;
+        return fileStorageService.deleteDetailImage(fileDir);
+    }
+
 }

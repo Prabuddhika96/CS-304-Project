@@ -47,11 +47,40 @@ const uploadServiceLogo = async (providerId: any, formData: any) => {
   return response;
 };
 
+// get provider details image names
+const getImageNames = async (providerId: any) => {
+  return http.get<any>(
+    `${process.env.REACT_APP_BACKEND_SERVER}/upload/ProviderImages/${providerId}`
+  );
+};
+
+// upload service logo
+const uploadServiceDetailImages = async (providerId: any, formData: any) => {
+  //console.log(data);
+  const response = await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/upload/uploadprivoderdetailpics/${providerId}`,
+    data: formData,
+    headers: {},
+  });
+  return response;
+};
+
+// delete provider details image
+const deleteServiceDetailImage = async (providerId: any, fileName: any) => {
+  return http.delete<any>(
+    `${process.env.REACT_APP_BACKEND_SERVER}/upload/deletedtailimage/${providerId}/${fileName}`
+  );
+};
+
 const FileUpload = {
   getProfilePicture,
   convertBase64ToFile,
   uploadProfilePicture,
   uploadServiceLogo,
+  getImageNames,
+  uploadServiceDetailImages,
+  deleteServiceDetailImage,
 };
 
 export default FileUpload;

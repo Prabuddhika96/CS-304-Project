@@ -55,7 +55,8 @@ function ServiceCard({ provider }: any) {
         <img
           src={picture}
           alt={provider.businessName}
-          className="w-full bg-center bg-cover"
+          // className="w-full bg-center bg-cover"
+          style={{ width: "100%", height: "240px" }}
         />
       </div>
 

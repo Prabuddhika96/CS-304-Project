@@ -230,12 +230,12 @@ function ProviderDetails() {
           {/* <ServiceProviderSkeleton /> */}
           <div className="flex justify-around w-full pt-24">
             <div className="w-8/12 px-16">
-              <div className="flex items-center mb-5">
+              <div className="flex items-center">
                 <div className="mr-3 rounded-full">
                   <img
                     src={picture}
                     alt=""
-                    className="w-24 h-24 rounded-full"
+                    className="w-20 h-20 rounded-full"
                   />
                 </div>
                 <div>
@@ -247,7 +247,7 @@ function ProviderDetails() {
               </div>
 
               {/* <SwiperElemet width={"850px"} height={"500px"} thumbnails={true} time={4000} b_radius={"10px"}/> */}
-              <Carousel />
+              <Carousel providerId={provider?.providerId} />
             </div>
 
             <div className="w-4/12 px-8 mt-[80px]">

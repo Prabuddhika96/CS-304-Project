@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import ProviderService from "Services/Provider/ProviderServices";
 import BasicServiceDetails from "./EditService/BasicServiceDetails";
 import ChangePackageDetails from "./EditService/ChangePackageDetails";
+import ImageInformation from "./EditService/ImageInformation";
 
 function EditServiceDetail() {
   let { providerId } = useParams();
@@ -54,7 +55,7 @@ function EditServiceDetail() {
       </div>
       <BasicServiceDetails providerId={providerId} provider={provider} />
 
-      <div className="z-10 w-full p-3  my-3 !mt-8 text-center bg-white">
+      <div className="z-10 w-full p-3  my-3 !mt-6 text-center bg-white">
         <h1 className="text-4xl font-bold">
           Package <span className="text-[#ffa537]">Infromation</span>
         </h1>
@@ -62,6 +63,13 @@ function EditServiceDetail() {
       <div className="p-2 my-3 mt-8 bg-white rounded-md">
         <ChangePackageDetails providerId={providerId} />
       </div>
+
+      <div className="w-full p-3 my-3 text-center bg-white">
+        <h1 className="text-4xl font-bold">
+          Image <span className="text-[#ffa537]">Infromation</span>
+        </h1>
+      </div>
+      <ImageInformation providerId={providerId} />
     </div>
   );
 }

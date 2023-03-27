@@ -97,6 +97,10 @@
     @apply bg-[#ffa537] hover:bg-[#d48019];
   }
 
+  .image-info-delete-btn {
+    @apply absolute opacity-0 hover:opacity-100 duration-200 flex justify-center items-center h-[200px] w-full bg-[#ffffffa9] rounded-lg;
+  }
+
   .react-hook-form-btn-delete {
     @apply mr-3 bg-red-600 hover:bg-red-700;
   }

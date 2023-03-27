@@ -4,6 +4,7 @@ import SignupDropDown from "components/Drop Downs/SignupDropdown";
 import { districts } from "docs/districts";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { FcAddImage } from "react-icons/fc";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import FileUpload from "Services/FileUpload/FileUpload";
@@ -13,15 +14,9 @@ function BasicServiceDetails({ providerId, provider }: any) {
   // get service provider logo
   const [picture, setPicture] = useState("");
   useEffect(() => {
-    FileUpload.getProfilePicture(1).then((res: any) => {
-      // console.log(res);
-      if (res.status == 200) {
-        setPicture(
-          `${process.env.REACT_APP_BACKEND_SERVER}/upload/ProviderLogos/${provider?.providerId}`
-        );
-        return;
-      }
-    });
+    setPicture(
+      `${process.env.REACT_APP_BACKEND_SERVER}/upload/ProviderLogos/${provider?.providerId}`
+    );
   }, [provider]);
 
   const [changeImg, setChangeImg] = useState<boolean>(false);
@@ -111,11 +106,12 @@ function BasicServiceDetails({ providerId, provider }: any) {
                       backgroundSize: `cover`,
                     }}
                     onChange={handleFileUpload}
-                    className="cursor-pointer logo-file-upload z-1 "
+                    className="absolute duration-300 ease-in-out cursor-pointer hover:opacity-25 logo-file-upload z-1"
                   />
-                  {/* <div className="absolute text-center text-[#919191c6] text-8xl z-0">
-                  <RiImageAddLine className="top-0 bottom-0 left-0 right-0 my-auto mt-[100%]" />
-                </div> */}
+
+                  <div className="flex justify-center text-7xl items-center z-1 h-[300px] w-[310px] rounded-full bg-gray-200">
+                    <FcAddImage />
+                  </div>
                 </div>
               </div>
 

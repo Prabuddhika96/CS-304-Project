@@ -23,7 +23,7 @@ function ChangePackageDetails({ providerId }: any) {
     PackageServices.getPackagesByProviderId(providerId).then((res: any) => {
       if (res.data.status === 1) {
         setPackages(res.data.data);
-        console.log(res.data.data);
+        // console.log(res.data.data);
         return;
       }
     });

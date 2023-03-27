@@ -88,15 +88,6 @@ function MyEventCard({ event, func }: any) {
     });
   };
 
-  // console.log(
-  //   dayjs(
-  //     `${event.eventDate} ${event.eventTime}`,
-  //     "DD-MMM-YYYY hh:mm A"
-  //   ).isBefore(dayjs())
-  // );
-  // console.log(dayjs(event.eventDate, "DD-MMM-YYYY"));
-  // console.log(dayjs(event.eventTime, "hh:mm A"));
-
   return (
     <div>
       <div className="w-full">
