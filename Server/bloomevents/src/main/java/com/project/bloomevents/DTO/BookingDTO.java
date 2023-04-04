@@ -5,17 +5,14 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class BookingDTO {
     private int bookingId;
-    private Date bookingDate;
-    private Timestamp bookingTime;
+    private String bookingDate;
+    private String bookingTime;
     private int eventId;
     private int paymentId;
 }

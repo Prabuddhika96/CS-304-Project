@@ -10,7 +10,7 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
-import ProviderPlacedEventDetail from "components/Provider/Placed Events/ProviderPlacedEventDetail";
+import ProviderBookedEventDetails from "components/Provider/Booked Events/ProviderBookedEventDetails";
 
 interface Column {
   id:
@@ -19,10 +19,10 @@ interface Column {
     | "EventDate"
     | "EventTime"
     | "ClientName"
-    | "PlacedDate"
-    | "PlacedTime"
+    | "BookedDate"
+    | "BookedTime"
     | "Package"
-    | "Action";
+    | "PaymentId";
   label: string;
   minWidth?: number;
   align?: "center";
@@ -54,15 +54,15 @@ const columns: readonly Column[] = [
     format: (value: number) => value.toFixed(2),
   },
   {
-    id: "PlacedDate",
-    label: "Placed Date",
+    id: "BookedDate",
+    label: "Booked Date",
     minWidth: 100,
     align: "center",
     format: (value: number) => value.toFixed(2),
   },
   {
-    id: "PlacedTime",
-    label: "Placed Time",
+    id: "BookedTime",
+    label: "Booked Time",
     minWidth: 100,
     align: "center",
     format: (value: number) => value.toFixed(2),
@@ -75,19 +75,19 @@ const columns: readonly Column[] = [
     format: (value: number) => value.toFixed(2),
   },
   {
-    id: "Action",
-    label: "Action",
+    id: "PaymentId",
+    label: "Payment ID",
     minWidth: 100,
     align: "center",
     format: (value: number) => value.toFixed(2),
   },
 ];
 
-function PlacedEvents({ providerId }: any) {
+function BookedEvents({ providerId }: any) {
   const [events, setEvents] = useState<Array<AddToEvent>>();
 
   useEffect(() => {
-    AddToEventService.getPlacedPackagesByProviderId(providerId).then(
+    AddToEventService.getBookedPackagesByProviderId(providerId).then(
       (res: any) => {
         if (res.data.status === 1) {
           setEvents(res.data.data);
@@ -99,14 +99,6 @@ function PlacedEvents({ providerId }: any) {
       }
     );
   }, [providerId]);
-
-  const [actionId, setActionId] = useState<any>();
-  useEffect(() => {
-    const filteredData = events?.filter(
-      (event: any) => event.addToEventId !== actionId
-    );
-    setEvents(filteredData);
-  }, [actionId]);
 
   // table
   const [page, setPage] = useState(0);
@@ -148,10 +140,9 @@ function PlacedEvents({ providerId }: any) {
                     .map((event) => {
                       return (
                         <>
-                          <ProviderPlacedEventDetail
+                          <ProviderBookedEventDetails
                             addToEvent={event}
                             columns={columns}
-                            setActionId={setActionId}
                           />
                         </>
                       );
@@ -179,4 +170,4 @@ function PlacedEvents({ providerId }: any) {
   );
 }
 
-export default PlacedEvents;
+export default BookedEvents;

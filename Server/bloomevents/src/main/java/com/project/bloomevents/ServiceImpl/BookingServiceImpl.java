@@ -22,8 +22,27 @@ public class BookingServiceImpl implements BookingService {
     public List<BookingDTO> getAllBookings() {
         try{
             List<Booking> list = bookingRepo.findAll();
-            return modelMapper.map(list, new TypeToken<List<BookingDTO>>() {
-            }.getType());
+            if(list!=null){
+                return modelMapper.map(list, new TypeToken<List<BookingDTO>>() {
+                }.getType());
+            }
+            return null;
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public BookingDTO getBookingDetailsByEventId(int eventId) {
+        try{
+            Booking booking = bookingRepo.getBookingDetailsByEventId(eventId);
+            if(booking!=null){
+                return modelMapper.map(booking, new TypeToken<BookingDTO>() {
+                }.getType());
+            }
+            return null;
         }
         catch(Exception e){
             System.out.println(e.toString());

@@ -52,6 +52,20 @@ const approvePackage = async (addToEventId: any) => {
   return response;
 };
 
+// get approved but not booked events
+const getApprovedPackagesByProviderId = async (providerId: any) => {
+  return http.get<any>(
+    `/addtoevent/getapprovedpackagesbyproviderId/${providerId}`
+  );
+};
+
+// get booked events
+const getBookedPackagesByProviderId = async (providerId: any) => {
+  return http.get<any>(
+    `/addtoevent/getbookedpackagesbyproviderId/${providerId}`
+  );
+};
+
 const AddToEventService = {
   getAllAddToEvent,
   addPackageToEvent,
@@ -60,6 +74,8 @@ const AddToEventService = {
   deletePackage,
   getPlacedPackagesByProviderId,
   approvePackage,
+  getApprovedPackagesByProviderId,
+  getBookedPackagesByProviderId,
 };
 
 export default AddToEventService;

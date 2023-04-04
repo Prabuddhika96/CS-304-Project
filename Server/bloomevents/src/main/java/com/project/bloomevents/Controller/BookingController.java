@@ -5,10 +5,7 @@ import com.project.bloomevents.Service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -28,6 +25,22 @@ public class BookingController {
         if (!bookingsList.isEmpty()) {
             map.put("status", 1);
             map.put("data", bookingsList);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Booking list is not found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/getbookingdetailsbyeventid/{eventId}")
+    public ResponseEntity<?> getBookingDetailsByEventId(@PathVariable int eventId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        BookingDTO booking = bookingService.getBookingDetailsByEventId(eventId);
+        if (booking!=null) {
+            map.put("status", 1);
+            map.put("data", booking);
             return new ResponseEntity<>(map, HttpStatus.OK);
         } else {
             map.clear();

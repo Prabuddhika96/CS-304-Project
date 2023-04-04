@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface BookingService {
     List<BookingDTO> getAllBookings();
+
+    BookingDTO getBookingDetailsByEventId(int eventId);
 }

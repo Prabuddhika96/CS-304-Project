@@ -136,4 +136,34 @@ public class AddToEventServiceImpl implements AddToEventService {
             return false;
         }
     }
+
+    @Override
+    public List<AddToEventDTO> getApprovedPackagesByProviderId(int providerId) {
+        try{
+            List<AddToEvent> list=addToEventRepo.getApprovedPackagesByProviderId(providerId);
+            if(list!=null){
+                return modelMapper.map(list, new TypeToken<List<AddToEventDTO>>(){}.getType());
+            }
+            return null;
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public List<AddToEventDTO> getBookedPackagesByProviderId(int providerId) {
+        try{
+            List<AddToEvent> list=addToEventRepo.getBookedPackagesByProviderId(providerId);
+            if(list!=null){
+                return modelMapper.map(list, new TypeToken<List<AddToEventDTO>>(){}.getType());
+            }
+            return null;
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
 }

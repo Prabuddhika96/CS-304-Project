@@ -9,6 +9,8 @@ import ChangePackageDetails from "./EditService/ChangePackageDetails";
 import ProviderService from "Services/Provider/ProviderServices";
 import ProviderReviews from "./ProviderReviews";
 import PlacedEvents from "./PlacedEvents";
+import ApprovedEvents from "./ApprovedEvents";
+import BookedEvents from "./BookedEvents";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -107,11 +109,10 @@ function ServiceDetail() {
                   <PlacedEvents providerId={providerId} />
                 </TabPanel>
                 <TabPanel value={value} index={3}>
-                  3333
+                  <ApprovedEvents providerId={providerId} />
                 </TabPanel>
                 <TabPanel value={value} index={4}>
-                  rrrr
-                  {/* <ProviderReviews providerId={providerId} /> */}
+                  <BookedEvents providerId={providerId} />
                 </TabPanel>
                 <TabPanel value={value} index={5}>
                   <ProviderReviews providerId={providerId} />

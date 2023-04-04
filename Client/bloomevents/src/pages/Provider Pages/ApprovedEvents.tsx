@@ -11,6 +11,7 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import ProviderPlacedEventDetail from "components/Provider/Placed Events/ProviderPlacedEventDetail";
+import ProviderApprovedEventDetail from "components/Provider/Approved Events/ProviderApprovedEventDetail";
 
 interface Column {
   id:
@@ -21,8 +22,7 @@ interface Column {
     | "ClientName"
     | "PlacedDate"
     | "PlacedTime"
-    | "Package"
-    | "Action";
+    | "Package";
   label: string;
   minWidth?: number;
   align?: "center";
@@ -74,20 +74,13 @@ const columns: readonly Column[] = [
     align: "center",
     format: (value: number) => value.toFixed(2),
   },
-  {
-    id: "Action",
-    label: "Action",
-    minWidth: 100,
-    align: "center",
-    format: (value: number) => value.toFixed(2),
-  },
 ];
 
-function PlacedEvents({ providerId }: any) {
+function ApprovedEvents({ providerId }: any) {
   const [events, setEvents] = useState<Array<AddToEvent>>();
 
   useEffect(() => {
-    AddToEventService.getPlacedPackagesByProviderId(providerId).then(
+    AddToEventService.getApprovedPackagesByProviderId(providerId).then(
       (res: any) => {
         if (res.data.status === 1) {
           setEvents(res.data.data);
@@ -99,14 +92,6 @@ function PlacedEvents({ providerId }: any) {
       }
     );
   }, [providerId]);
-
-  const [actionId, setActionId] = useState<any>();
-  useEffect(() => {
-    const filteredData = events?.filter(
-      (event: any) => event.addToEventId !== actionId
-    );
-    setEvents(filteredData);
-  }, [actionId]);
 
   // table
   const [page, setPage] = useState(0);
@@ -148,10 +133,9 @@ function PlacedEvents({ providerId }: any) {
                     .map((event) => {
                       return (
                         <>
-                          <ProviderPlacedEventDetail
+                          <ProviderApprovedEventDetail
                             addToEvent={event}
                             columns={columns}
-                            setActionId={setActionId}
                           />
                         </>
                       );
@@ -169,6 +153,10 @@ function PlacedEvents({ providerId }: any) {
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
           </Paper>
+
+          {/* {events.map((event: any, key: number) => (
+            <ProviderPlacedEventDetail addToEvent={event} />
+          ))} */}
         </>
       ) : (
         <>
@@ -179,4 +167,4 @@ function PlacedEvents({ providerId }: any) {
   );
 }
 
-export default PlacedEvents;
+export default ApprovedEvents;

@@ -20,7 +20,6 @@ interface Data {
   PlacedDate: string;
   PlacedTime: string;
   Package: string;
-  Action: string;
 }
 
 function createData(
@@ -31,8 +30,7 @@ function createData(
   ClientName: string,
   PlacedDate: string,
   PlacedTime: string,
-  Package: string,
-  Action: string
+  Package: string
 ): Data {
   return {
     ID,
@@ -43,13 +41,10 @@ function createData(
     PlacedDate,
     PlacedTime,
     Package,
-    Action,
   };
 }
 
-function ProviderPlacedEventDetail({ addToEvent, columns, setActionId }: any) {
-  // console.log(columns);
-  // console.log(addToEvent);
+function ProviderApprovedEventDetail({ addToEvent, columns }: any) {
   const [event, setEvent] = useState<Event>();
   const [user, setUser] = useState<User1>();
   const [packge, setPackge] = useState<Package>();
@@ -96,48 +91,9 @@ function ProviderPlacedEventDetail({ addToEvent, columns, setActionId }: any) {
       user.firstName,
       event.placedDate,
       event.placedTime,
-      packge.packageName,
-      ""
+      packge.packageName
     );
   }
-
-  // backdrops
-  const [backdropApprove, setBackdropApprove] = useState<boolean>(false);
-  const [backdropDelete, setBackdropDelete] = useState<boolean>(false);
-
-  // approve function
-  const handleApprove = (e: any) => {
-    setBackdropApprove(true);
-    setTimeout(() => {
-      AddToEventService.approvePackage(addToEvent.addToEventId).then(
-        (res: any) => {
-          if (res.data.status === 1) {
-            setActionId(addToEvent.addToEventId);
-            setBackdropApprove(false);
-          } else {
-            toast.error(res.data.message);
-          }
-        }
-      );
-    }, 1500);
-  };
-
-  // delete function
-  const handleDelete = (e: any) => {
-    setBackdropDelete(true);
-    setTimeout(() => {
-      AddToEventService.deletePackage(addToEvent.addToEventId).then(
-        (res: any) => {
-          if (res.data.status === 1) {
-            setActionId(addToEvent.addToEventId);
-            setBackdropDelete(false);
-          } else {
-            toast.error(res.data.message);
-          }
-        }
-      );
-    }, 1500);
-  };
 
   return (
     <>
@@ -152,40 +108,9 @@ function ProviderPlacedEventDetail({ addToEvent, columns, setActionId }: any) {
               const value = row[column.id];
               return (
                 <TableCell key={column.id} align={column.align}>
-                  {column.id === "Action" ? (
-                    <>
-                      <div className="flex justify-between">
-                        <Button
-                          variant="contained"
-                          color="success"
-                          disabled={backdropDelete}
-                          onClick={handleApprove}>
-                          {backdropApprove ? (
-                            <CircularProgressItem />
-                          ) : (
-                            <MdOutlineDone />
-                          )}
-                        </Button>
-                        <Button
-                          variant="contained"
-                          color="error"
-                          disabled={backdropApprove}
-                          onClick={handleDelete}>
-                          {backdropDelete ? (
-                            <CircularProgressItem />
-                          ) : (
-                            <MdOutlineClose />
-                          )}
-                        </Button>
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      {column.format && typeof value === "number"
-                        ? column.format(value)
-                        : value}
-                    </>
-                  )}
+                  {column.format && typeof value === "number"
+                    ? column.format(value)
+                    : value}
                 </TableCell>
               );
             })}
@@ -196,4 +121,4 @@ function ProviderPlacedEventDetail({ addToEvent, columns, setActionId }: any) {
   );
 }
 
-export default ProviderPlacedEventDetail;
+export default ProviderApprovedEventDetail;

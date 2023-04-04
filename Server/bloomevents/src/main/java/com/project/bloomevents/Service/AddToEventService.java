@@ -20,4 +20,8 @@ public interface AddToEventService {
     List<AddToEventDTO> getPlacedPackagesByProviderId(int providerId);
 
     boolean approvePackage(int addToEventId);
+
+    List<AddToEventDTO> getApprovedPackagesByProviderId(int providerId);
+
+    List<AddToEventDTO> getBookedPackagesByProviderId(int providerId);
 }

@@ -6,9 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
-import java.sql.Timestamp;
-
 @Entity
 @Table(name = "booking")
 @Getter
@@ -21,9 +18,9 @@ public class Booking {
     @Column(name = "bookingId")
     private int bookingId;
     @Column(name = "bookingDate")
-    private Date bookingDate;
+    private String bookingDate;
     @Column(name = "bookingTime")
-    private Timestamp bookingTime;
+    private String bookingTime;
     @OneToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "eventId", referencedColumnName = "eventId")
     private Event event;

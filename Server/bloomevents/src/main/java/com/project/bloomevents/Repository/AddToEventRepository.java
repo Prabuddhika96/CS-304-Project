@@ -34,4 +34,14 @@ public interface AddToEventRepository extends JpaRepository<AddToEvent,Integer> 
     @Query(value = "SELECT * FROM bloomeventsdb.addtoevent WHERE is_approved=0 AND is_placed=1 AND package_id IN " +
             "(select package_id FROM bloomeventsdb.packages WHERE provider_id=?1) ORDER BY add_to_event_id DESC", nativeQuery = true)
     List<AddToEvent> getPlacedPackagesByProviderId(int providerId);
+
+    @Query(value = "SELECT * FROM bloomeventsdb.addtoevent WHERE is_approved=1 AND is_placed=1 AND package_id IN " +
+            "(select package_id FROM bloomeventsdb.packages WHERE provider_id=?1) AND event_id NOT IN " +
+            "(SELECT event_id FROM bloomeventsdb.booking)  ORDER BY add_to_event_id DESC", nativeQuery = true)
+    List<AddToEvent> getApprovedPackagesByProviderId(int providerId);
+
+    @Query(value = "SELECT * FROM bloomeventsdb.addtoevent WHERE is_approved=1 AND is_placed=1 AND package_id IN " +
+            "(select package_id FROM bloomeventsdb.packages WHERE provider_id=?1) AND event_id IN " +
+            "(SELECT event_id FROM bloomeventsdb.booking)  ORDER BY add_to_event_id DESC", nativeQuery = true)
+    List<AddToEvent> getBookedPackagesByProviderId(int providerId);
 }

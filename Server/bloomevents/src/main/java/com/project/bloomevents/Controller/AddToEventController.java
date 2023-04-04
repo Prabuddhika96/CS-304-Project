@@ -145,4 +145,36 @@ public class AddToEventController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
+
+    @GetMapping("/getapprovedpackagesbyproviderId/{providerId}")
+    public ResponseEntity<?> getApprovedPackagesByProviderId(@PathVariable int providerId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        List<AddToEventDTO> list = addToEventService.getApprovedPackagesByProviderId(providerId);
+        if (list != null) {
+            map.put("status", 1);
+            map.put("data", list);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "No Events");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/getbookedpackagesbyproviderId/{providerId}")
+    public ResponseEntity<?> getBookedPackagesByProviderId(@PathVariable int providerId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        List<AddToEventDTO> list = addToEventService.getBookedPackagesByProviderId(providerId);
+        if (list != null) {
+            map.put("status", 1);
+            map.put("data", list);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "No Events");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
 }
