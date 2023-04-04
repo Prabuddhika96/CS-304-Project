@@ -39,7 +39,7 @@ function AddNewServices() {
         navigate(RouteName.Login);
       }
     }, 1000);
-  }, [localStorage.getItem("loggedUser")]);
+  }, []);
 
   // get service provider logo
   const [picture, setPicture] = useState("");
@@ -68,7 +68,7 @@ function AddNewServices() {
   const [categories, setCategories] = useState<any>();
   useEffect(() => {
     CategoryService.getAllCategories().then((res: any) => {
-      if (res.data.status == 1) {
+      if (res.data.status === 1) {
         const arr: any = res.data.data.map((item: any) => ({
           id: item.categoryId,
           label: item.categoryName,
@@ -121,7 +121,7 @@ function AddNewServices() {
       setTimeout(async () => {
         const result = await ProviderService.addProvider(newService);
         console.log(result);
-        if (result.data.status == 1) {
+        if (result.data.status === 1) {
           if (changeImg) {
             const file = FileUpload.convertBase64ToFile(picture, "aa.png");
             let formData = new FormData();

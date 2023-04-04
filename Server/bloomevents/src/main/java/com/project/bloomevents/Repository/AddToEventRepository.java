@@ -14,6 +14,10 @@ import java.util.List;
 public interface AddToEventRepository extends JpaRepository<AddToEvent,Integer> {
     @Transactional
     @Modifying
+    @Query("update AddToEvent a set a.isApproved = true where a.addToEventId = ?1")
+    int approvePackage(int addToEventId);
+    @Transactional
+    @Modifying
     @Query("delete from AddToEvent a where a.addToEventId = ?1")
     int deletePackage(int addToEventId);
     @Transactional
@@ -26,4 +30,8 @@ public interface AddToEventRepository extends JpaRepository<AddToEvent,Integer> 
 
     @Query(value = "SELECT * FROM bloomeventsdb.addtoevent WHERE event_id=?1", nativeQuery = true)
     List<AddToEvent> getPackagesByEventId(int eventId);
+
+    @Query(value = "SELECT * FROM bloomeventsdb.addtoevent WHERE is_approved=0 AND is_placed=1 AND package_id IN " +
+            "(select package_id FROM bloomeventsdb.packages WHERE provider_id=?1) ORDER BY add_to_event_id DESC", nativeQuery = true)
+    List<AddToEvent> getPlacedPackagesByProviderId(int providerId);
 }

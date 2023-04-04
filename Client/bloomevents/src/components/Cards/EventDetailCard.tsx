@@ -9,7 +9,13 @@ import AddToEventService from "Services/AddToEvent/AddToEventService";
 import { ServiceProvider } from "types/ServiceProvider";
 import FileUpload from "Services/FileUpload/FileUpload";
 
-function EventDetailCard({ packageId, placed, func, addToEventId }: any) {
+function EventDetailCard({
+  packageId,
+  placed,
+  func,
+  addToEventId,
+  approved,
+}: any) {
   //console.log(placed);
   const handleDeleteEvent = () => {
     AddToEventService.deletePackage(addToEventId).then((res: any) => {
@@ -115,7 +121,7 @@ function EventDetailCard({ packageId, placed, func, addToEventId }: any) {
 
               {/* delete btn */}
               <div className="">
-                {placed == false && (
+                {approved == false && (
                   <div className="flex items-center justify-end px-4 my-3 text-center card-actions">
                     <button
                       type="button"

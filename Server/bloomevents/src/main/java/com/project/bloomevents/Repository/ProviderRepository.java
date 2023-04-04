@@ -24,4 +24,5 @@ public interface ProviderRepository extends JpaRepository<Provider,Integer> {
     Provider getProviderByPackageId(int packageId);
     @Query(value = "SELECT * FROM bloomeventsdb.provider WHERE user_id = ?1 ", nativeQuery = true)
     List<Provider> getProvidersByUserId(int userId);
+
 }

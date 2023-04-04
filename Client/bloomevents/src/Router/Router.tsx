@@ -10,8 +10,9 @@ import LandingPage from "pages/LandingPage";
 import MyEvents from "pages/Logged User/MyEvents";
 import Login from "pages/Login";
 import AddNewServices from "pages/Provider Pages/AddNewServices";
-import EditServiceDetail from "pages/Provider Pages/EditServiceDetail";
+import EditServiceDetail from "pages/Provider Pages/EditService/EditServiceDetail";
 import MyServices from "pages/Provider Pages/MyServices";
+import ServiceDetail from "pages/Provider Pages/ServiceDetail";
 import ProviderDetails from "pages/ProviderDetails";
 import Services from "pages/Services";
 import Signup from "pages/Signup";
@@ -98,7 +99,7 @@ function Router() {
             <Route
               path={RouteName.ServiceDetails}
               caseSensitive={false}
-              element={<EditServiceDetail />}
+              element={<ServiceDetail />}
             />
 
             {/* Admin */}

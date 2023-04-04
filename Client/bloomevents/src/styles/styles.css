@@ -104,6 +104,10 @@
   .react-hook-form-btn-delete {
     @apply mr-3 bg-red-600 hover:bg-red-700;
   }
+
+  /* .placed-event-row-btn {
+    @apply !p-3 rounded-full;
+  } */
 }
 
 .my-event-card-btns > button {
@@ -153,7 +157,7 @@
   color: #ffa537 !important;
 }
 .MuiTabs-vertical {
-  width: 100% !important;
+  width: 20% !important;
 }
 .MuiButtonBase-root {
   border-bottom: 1px solid red;

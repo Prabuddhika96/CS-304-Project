@@ -6,7 +6,7 @@ function ImageInformationSkeleton() {
   return (
     <div>
       <Stack spacing={1}>
-        <Skeleton variant="rectangular" width={285} height={200} />
+        <Skeleton variant="rectangular" width={200} height={200} />
       </Stack>
     </div>
   );

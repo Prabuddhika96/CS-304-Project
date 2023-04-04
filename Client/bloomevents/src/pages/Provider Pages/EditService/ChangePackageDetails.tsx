@@ -35,7 +35,13 @@ function ChangePackageDetails({ providerId }: any) {
   };
 
   return (
-    <div>
+    <div className="w-full mx-auto">
+      <div className="z-10 w-full p-3  my-3 !mt-6 text-center bg-white">
+        <h1 className="text-4xl font-bold">
+          Package <span className="text-[#ffa537]">Infromation</span>
+        </h1>
+      </div>
+
       <Box sx={{ width: "100%", typography: "body1" }}>
         <TabContext value={value}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>

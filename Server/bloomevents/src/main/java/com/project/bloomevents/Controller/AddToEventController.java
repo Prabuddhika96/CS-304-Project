@@ -113,4 +113,36 @@ public class AddToEventController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
+
+    @GetMapping("/getplacedpackagesbyproviderId/{providerId}")
+    public ResponseEntity<?> getPlacedPackagesByProviderId(@PathVariable int providerId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        List<AddToEventDTO> list = addToEventService.getPlacedPackagesByProviderId(providerId);
+        if (list != null) {
+            map.put("status", 1);
+            map.put("data", list);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "No Events");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
+    @PutMapping("/approvepackage/{addToEventId}")
+    public ResponseEntity<?> approvePackage(@PathVariable int addToEventId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        boolean approved = addToEventService.approvePackage(addToEventId);
+        if (approved == true) {
+            map.put("status", 1);
+            map.put("data", approved);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Not Approved");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
 }

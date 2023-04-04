@@ -16,4 +16,6 @@ public interface ProviderService {
     List<ProviderDTO> getProvidersByUserId(int userId);
 
     ProviderDTO updateProvider(ProviderDTO providerData);
+
+
 }

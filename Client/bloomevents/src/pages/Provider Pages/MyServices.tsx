@@ -3,9 +3,7 @@ import MyServicesCard from "components/Cards/Provider/MyServicesCard";
 import { RouteName } from "constant/routeName";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 import ProviderService from "Services/Provider/ProviderServices";
-import { ServiceProvider } from "types/ServiceProvider";
 
 function ProviderDashboard() {
   let { userId } = useParams();

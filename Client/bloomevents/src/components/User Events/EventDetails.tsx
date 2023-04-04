@@ -309,6 +309,7 @@ function EventDetails() {
                 placed={p.placed}
                 func={setDeleteId}
                 key={i}
+                approved={p.approved}
               />
             ))}
           </>

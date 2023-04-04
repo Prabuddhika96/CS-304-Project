@@ -35,12 +35,31 @@ const deletePackage = async (eventId: any) => {
   return http.delete<any>(`/addtoevent/deletepackagebyid/${eventId}`);
 };
 
+const getPlacedPackagesByProviderId = async (providerId: any) => {
+  return http.get<any>(
+    `/addtoevent/getplacedpackagesbyproviderId/${providerId}`
+  );
+};
+
+// approve package
+const approvePackage = async (addToEventId: any) => {
+  // return http.put<any>(`/addtoevent/approvepackage/${addToEventId}`);
+  const response = await axios({
+    method: "put",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/addtoevent/approvepackage/${addToEventId}`,
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+  });
+  return response;
+};
+
 const AddToEventService = {
   getAllAddToEvent,
   addPackageToEvent,
   getpackagecountbyeventid,
   getPackagesByEventId,
   deletePackage,
+  getPlacedPackagesByProviderId,
+  approvePackage,
 };
 
 export default AddToEventService;
