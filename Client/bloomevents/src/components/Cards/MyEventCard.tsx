@@ -1,4 +1,8 @@
-import { AiOutlineCalendar, AiOutlineClockCircle } from "react-icons/ai";
+import {
+  AiOutlineCalendar,
+  AiOutlineClockCircle,
+  AiOutlineDollarCircle,
+} from "react-icons/ai";
 import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
@@ -8,16 +12,13 @@ import React from "react";
 import AddToEventService from "Services/AddToEvent/AddToEventService";
 import { FiPackage } from "react-icons/fi";
 
-import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
-import DialogActions from "@mui/material/DialogActions";
-import DialogTitle from "@mui/material/DialogTitle";
 import EventServices from "Services/Event/EventServices";
 import { toast } from "react-toastify";
 import dayjs from "dayjs";
+import DialogBox from "components/Dialog Boxes/DialogBox";
+import PackageServices from "Services/Packages/PackageService";
 
 function MyEventCard({ event, func }: any) {
-  // eventname, date, time, id, func, placed
   // handle delete event
   const [openDelete, setOpenDelete] = React.useState(false);
 
@@ -46,7 +47,7 @@ function MyEventCard({ event, func }: any) {
   React.useEffect(() => {
     AddToEventService.getpackagecountbyeventid(event.eventId).then(
       (res: any) => {
-        if (res.data.status == 1) {
+        if (res.data.status === 1) {
           setPackageCount(res.data.data);
           return;
         }
@@ -70,8 +71,6 @@ function MyEventCard({ event, func }: any) {
   // place function
   const placeEvent = () => {
     const placedDate = dayjs();
-    // console.log(placedDate.format("DD-MMM-YYYY").toString());
-    // console.log(placedDate.format("hh:mm A").toString());
     const placedEvent = {
       eventId: Number(event.eventId),
       placedDate: placedDate.format("DD-MMM-YYYY").toString(),
@@ -87,6 +86,30 @@ function MyEventCard({ event, func }: any) {
       }
     });
   };
+
+  // get approved package count
+  const [approvedCount, setApprovedCount] = React.useState<number>(0);
+  React.useEffect(() => {
+    AddToEventService.getApprovedPackageCountByEventId(event.eventId).then(
+      (res: any) => {
+        if (res.data.status === 1) {
+          setApprovedCount(res.data.data);
+          return;
+        }
+      }
+    );
+  }, []);
+
+  // get total price
+  const [totalPrice, setTotalPrice] = React.useState(5);
+  React.useEffect(() => {
+    PackageServices.getTotalPriceByEventId(event.eventId).then((res: any) => {
+      if (res.data.status === 1) {
+        setTotalPrice(res.data.data);
+        return;
+      }
+    });
+  }, []);
 
   return (
     <div>
@@ -104,21 +127,30 @@ function MyEventCard({ event, func }: any) {
                 {event.eventName}
               </h5>
 
-              <div className="flex justify-between w-11/12">
-                <p className="flex items-center mb-2 text-base text-neutral-600 ">
-                  <AiOutlineCalendar className="mr-1 text-[#ffa537]" />
-                  Date : {event.eventDate}
-                </p>
+              <div className="grid w-full grid-cols-2">
+                <div>
+                  <p className="flex items-center mb-2 text-base text-neutral-600 ">
+                    <AiOutlineCalendar className="mr-1 text-[#ffa537]" />
+                    Date : {event.eventDate}
+                  </p>
 
-                <p className="flex items-center mb-2 text-base text-neutral-600 ">
-                  <AiOutlineClockCircle className="mr-1 text-[#ffa537]" />
-                  Time : {event.eventTime}
-                </p>
+                  <p className="flex items-center mb-2 text-base text-neutral-600 ">
+                    <AiOutlineClockCircle className="mr-1 text-[#ffa537]" />
+                    Time : {event.eventTime}
+                  </p>
+                </div>
 
-                <p className="flex items-center mb-2 text-base text-neutral-600 ">
-                  <FiPackage className="mr-1 text-[#ffa537]" />
-                  Packages : {packageCount}
-                </p>
+                <div className="pl-20">
+                  <p className="flex items-center mb-2 text-base text-neutral-600 ">
+                    <FiPackage className="mr-1 text-[#ffa537]" />
+                    Packages : {packageCount}
+                  </p>
+
+                  <p className="flex items-center mb-2 text-base text-neutral-600 ">
+                    <AiOutlineDollarCircle className="mr-1 text-[#ffa537]" />
+                    Total Price : Rs {totalPrice}
+                  </p>
+                </div>
               </div>
             </Link>
           </div>
@@ -160,46 +192,63 @@ function MyEventCard({ event, func }: any) {
             </div>
 
             {/* delete dialog */}
-            <Dialog
+            <DialogBox
               open={openDelete}
-              onClose={handleClickCloseDelete}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description">
-              <DialogTitle id="alert-dialog-title">
-                {/* {`Are you sure you want to delete ${eventname}?`} */}
-                Are you sure you want to{" "}
-                {dayjs(
+              close={handleClickCloseDelete}
+              actionFunc={deleteEvent}
+              actionBtnName={"Delete"}
+              color={"red-600"}
+              title={
+                dayjs(
                   `${event.eventDate} ${event.eventTime}`,
                   "DD-MMM-YYYY hh:mm A"
                 ).isBefore(dayjs())
-                  ? "remove"
-                  : "delete"}{" "}
-                {event.eventName} ?
-              </DialogTitle>
-
-              <DialogActions>
-                <Button onClick={handleClickCloseDelete}>Cancel</Button>
-                <button
-                  className="text-red-600 border-red-600 hover:bg-red-600 my-event-card-btn"
-                  onClick={deleteEvent}>
-                  Delete
-                </button>
-              </DialogActions>
-            </Dialog>
+                  ? `Are you sure you want to remove ${event.eventName} ?`
+                  : `Are you sure you want to delete ${event.eventName} ?`
+              }
+            />
 
             {/* place event */}
             {event.placed ? (
-              <button
-                type="button"
-                disabled
-                className={
-                  "border-green-600 bg-green-600 my-event-card-btn !text-white"
-                }>
-                <span className="mr-1">
-                  <DoneAllIcon />
-                </span>
-                Placed
-              </button>
+              <>
+                {packageCount !== approvedCount ? (
+                  <button
+                    type="button"
+                    disabled
+                    className={
+                      "border-green-600 bg-green-600 my-event-card-btn !text-white"
+                    }>
+                    <span className="mr-1">
+                      <DoneAllIcon />
+                    </span>
+                    Placed
+                  </button>
+                ) : (
+                  <>
+                    {packageCount !== 0 ? (
+                      <button
+                        type="button"
+                        className={
+                          "border-[#426eff] hover:bg-[#164dff] bg-[#426eff] my-event-card-btn !text-white"
+                        }>
+                        Make Payment
+                      </button>
+                    ) : (
+                      <>
+                        <button
+                          type="button"
+                          onClick={handleClickOpenDelete}
+                          className="text-red-600 border-red-600 hover:bg-red-600 my-event-card-btn">
+                          <span className="mr-1">
+                            <DeleteIcon />
+                          </span>
+                          Delete
+                        </button>
+                      </>
+                    )}
+                  </>
+                )}
+              </>
             ) : (
               <>
                 {dayjs(
@@ -226,26 +275,14 @@ function MyEventCard({ event, func }: any) {
             )}
 
             {/* place event dialog */}
-            <Dialog
+            <DialogBox
               open={openPlace}
-              onClose={handleClickClosePlace}
-              aria-labelledby="alert-dialog-title"
-              aria-describedby="alert-dialog-description"
-              className="p-5">
-              <DialogTitle id="alert-dialog-title">
-                {/* {`Are you sure you want to delete ${eventname}?`} */}
-                Are you sure you want to place {event.eventName} ?
-              </DialogTitle>
-
-              <DialogActions>
-                <Button onClick={handleClickClosePlace}>Cancel</Button>
-                <button
-                  className="text-green-600 border-green-600 hover:bg-green-600 my-event-card-btn"
-                  onClick={placeEvent}>
-                  Place Event
-                </button>
-              </DialogActions>
-            </Dialog>
+              close={handleClickClosePlace}
+              actionFunc={placeEvent}
+              actionBtnName={"Place Event"}
+              title={`Are you sure you want to place ${event.eventName} ?`}
+              color={"green-600"}
+            />
           </div>
         </div>
       </div>

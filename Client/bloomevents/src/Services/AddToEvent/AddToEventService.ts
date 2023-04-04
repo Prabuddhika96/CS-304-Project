@@ -66,6 +66,13 @@ const getBookedPackagesByProviderId = async (providerId: any) => {
   );
 };
 
+// get booked events
+const getApprovedPackageCountByEventId = async (eventId: any) => {
+  return http.get<any>(
+    `/addtoevent/getapprovedpackagecountbyeventid/${eventId}`
+  );
+};
+
 const AddToEventService = {
   getAllAddToEvent,
   addPackageToEvent,
@@ -76,6 +83,7 @@ const AddToEventService = {
   approvePackage,
   getApprovedPackagesByProviderId,
   getBookedPackagesByProviderId,
+  getApprovedPackageCountByEventId,
 };
 
 export default AddToEventService;

@@ -50,6 +50,11 @@ const deletePackage = async (packageId: any) => {
   return http.delete<any>(`/package/deletepackage/${packageId}`);
 };
 
+// get Total Price By EventId
+const getTotalPriceByEventId = async (id: any) => {
+  return http.get<any>(`/package/gettotalpricebyeventid/${id}`);
+};
+
 const PackageServices = {
   getAllpackages,
   getPackageCountByProviderId,
@@ -58,6 +63,7 @@ const PackageServices = {
   addPackage,
   updatePackage,
   deletePackage,
+  getTotalPriceByEventId,
 };
 
 export default PackageServices;

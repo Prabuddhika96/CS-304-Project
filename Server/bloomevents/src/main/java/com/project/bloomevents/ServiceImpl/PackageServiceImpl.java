@@ -125,4 +125,21 @@ public class PackageServiceImpl implements PackageService {
             return false;
         }
     }
+
+    @Override
+    public double getTotalPriceByEventId(int eventId) {
+        try{
+            double price=packageRepo.getTotalPriceByEventId(eventId);
+            if(price>=0){
+                return price;
+            }
+            else{
+                return -1;
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return -1;
+        }
+    }
 }

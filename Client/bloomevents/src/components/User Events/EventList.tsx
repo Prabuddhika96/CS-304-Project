@@ -119,15 +119,7 @@ function EventList(userid: any) {
             )}
             {filteredEvents.map((c: any, i: number) => (
               <div key={i}>
-                <MyEventCard
-                  // eventname={c.eventName}
-                  // date={c.eventDate}
-                  // time={c.eventTime}
-                  // id={c.eventId}
-                  func={setDeleteId}
-                  // placed={c.placed}
-                  event={c}
-                />
+                <MyEventCard func={setDeleteId} event={c} />
               </div>
             ))}
           </>

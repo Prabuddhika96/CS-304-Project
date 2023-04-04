@@ -166,4 +166,19 @@ public class AddToEventServiceImpl implements AddToEventService {
             return null;
         }
     }
+
+    @Override
+    public int getApprovedPackageCountByEventId(int eventId) {
+        try{
+            int count =addToEventRepo.getApprovedPackageCountByEventId(eventId);
+            if(count>=0){
+                return count;
+            }
+            return -1;
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return -1;
+        }
+    }
 }

@@ -18,4 +18,6 @@ public interface PackageService {
     PackageDTO updatePackage(int packageId, PackageDTO packageData);
 
     boolean deletePackage(int packageId);
+
+    double getTotalPriceByEventId(int eventId);
 }

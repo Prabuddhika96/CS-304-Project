@@ -137,4 +137,21 @@ public class PackageController {
         }
     }
 
+    @GetMapping("/gettotalpricebyeventid/{eventId}")
+    public ResponseEntity<?> getTotalPriceByEventId(@PathVariable int eventId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        double price = packageService.getTotalPriceByEventId(eventId);
+
+        if (price>=0) {
+            map.put("status", 1);
+            map.put("data", price);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Package not found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
 }

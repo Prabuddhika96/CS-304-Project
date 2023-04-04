@@ -6,16 +6,9 @@ import PackageServices from "Services/Packages/PackageService";
 import { toast } from "react-toastify";
 import ProviderService from "Services/Provider/ProviderServices";
 import AddToEventService from "Services/AddToEvent/AddToEventService";
-import { ServiceProvider } from "types/ServiceProvider";
 import FileUpload from "Services/FileUpload/FileUpload";
 
-function EventDetailCard({
-  packageId,
-  placed,
-  func,
-  addToEventId,
-  approved,
-}: any) {
+function EventDetailCard({ packageId, func, addToEventId, approved }: any) {
   //console.log(placed);
   const handleDeleteEvent = () => {
     AddToEventService.deletePackage(addToEventId).then((res: any) => {
@@ -26,7 +19,6 @@ function EventDetailCard({
       }
     });
     func(addToEventId);
-    alert(`${addToEventId} deleted.`);
   };
 
   const [packge, setPackge] = React.useState<any>();
@@ -35,8 +27,6 @@ function EventDetailCard({
     PackageServices.getPackageByPackageId(packageId).then((res: any) => {
       if (res.data.status == 1) {
         setPackge(res.data.data);
-        //console.log(res.data.data);
-        return;
       } else {
         toast.error(res.data.message);
       }
@@ -114,7 +104,9 @@ function EventDetailCard({
                     <h2 className=" text-[#ffa537]">
                       {provider?.businessName}
                     </h2>
-                    <p className="text-[#000]">{packge.packageName}</p>
+                    <p className="text-[#000]">
+                      {packge.packageName} - Rs. {packge.price}
+                    </p>
                   </div>
                 </Link>
               </div>

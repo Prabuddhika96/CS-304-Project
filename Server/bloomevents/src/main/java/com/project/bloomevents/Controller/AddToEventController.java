@@ -177,4 +177,20 @@ public class AddToEventController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
+
+    @GetMapping("/getapprovedpackagecountbyeventid/{eventId}")
+    public ResponseEntity<?> getApprovedPackageCountByEventId(@PathVariable int eventId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        int count = addToEventService.getApprovedPackageCountByEventId(eventId);
+        if (count>=0) {
+            map.put("status", 1);
+            map.put("data", count);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "No Events");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
 }
