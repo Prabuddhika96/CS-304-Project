@@ -101,7 +101,7 @@ function MyEventCard({ event, func }: any) {
   }, []);
 
   // get total price
-  const [totalPrice, setTotalPrice] = React.useState(5);
+  const [totalPrice, setTotalPrice] = React.useState(0);
   React.useEffect(() => {
     PackageServices.getTotalPriceByEventId(event.eventId).then((res: any) => {
       if (res.data.status === 1) {

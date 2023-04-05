@@ -120,7 +120,7 @@ function EventDetails() {
   }, []);
 
   // get total price
-  const [totalPrice, setTotalPrice] = React.useState(5);
+  const [totalPrice, setTotalPrice] = React.useState(0);
   React.useEffect(() => {
     PackageServices.getTotalPriceByEventId(index).then((res: any) => {
       if (res.data.status === 1) {
@@ -147,9 +147,11 @@ function EventDetails() {
   const [deleteId, setDeleteId] = React.useState<any>();
 
   useEffect(() => {
+    // console.log(deleteId);
     const filteredData = packages?.filter(
-      (emp: any) => emp.addToEventId !== deleteId
+      (p: any) => p.addToEventId !== deleteId
     );
+    // console.log(filteredData);
     setPackages(filteredData);
   }, [deleteId]);
 
@@ -164,29 +166,33 @@ function EventDetails() {
               <h2 className="card-title text-[#ffa537] text-3xl mb-3">
                 {event.eventName}
               </h2>
-              <div className="text-[#000] flex justify-between text-lg w-full pr-6">
-                <p className="flex items-center">
-                  <AiOutlineCalendar className="mr-1 text-[#ffa537]" />
-                  Event Date : {event.eventDate}
-                </p>
-                <p className="flex items-center">
-                  <AiOutlineClockCircle className="mr-1 text-[#ffa537]" />
-                  Event Time : {event.eventTime}
-                </p>
+              <div className="text-[#000] grid grid-cols-2 text-lg w-full pr-6">
+                <div>
+                  <p className="flex items-center">
+                    <AiOutlineCalendar className="mr-1 text-[#ffa537]" />
+                    Event Date : {event.eventDate}
+                  </p>
+                  <p className="flex items-center">
+                    <AiOutlineClockCircle className="mr-1 text-[#ffa537]" />
+                    Event Time : {event.eventTime}
+                  </p>
+                </div>
 
-                <p className="flex items-center">
-                  {event.placed ? (
-                    <DoneAllIcon className="mr-1 text-[#ffa537]" />
-                  ) : (
-                    <RemoveDoneIcon className="mr-1 text-[#ffa537]" />
-                  )}
-                  Status : {event.placed ? "Placed" : "Not Placed"}
-                </p>
+                <div>
+                  <p className="flex items-center">
+                    {event.placed ? (
+                      <DoneAllIcon className="mr-1 text-[#ffa537]" />
+                    ) : (
+                      <RemoveDoneIcon className="mr-1 text-[#ffa537]" />
+                    )}
+                    Status : {event.placed ? "Placed" : "Not Placed"}
+                  </p>
 
-                <p className="flex items-center">
-                  <AiOutlineDollarCircle className="mr-1 text-[#ffa537]" />
-                  Total Price : Rs {totalPrice}
-                </p>
+                  <p className="flex items-center">
+                    <AiOutlineDollarCircle className="mr-1 text-[#ffa537]" />
+                    Total Price : Rs {totalPrice}
+                  </p>
+                </div>
               </div>
             </div>
           </div>
@@ -338,12 +344,11 @@ function EventDetails() {
           <>
             {packages.map((p: any, i: number) => (
               <EventDetailCard
-                addToEventId={p.addToEventId}
-                packageId={p.packagesPackageId}
-                placed={p.placed}
-                func={setDeleteId}
+                addToEvent={p}
+                setDeleteId={setDeleteId}
                 key={i}
-                approved={p.approved}
+                setTotalPrice={setTotalPrice}
+                totalPrice={totalPrice}
               />
             ))}
           </>

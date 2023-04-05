@@ -8,37 +8,46 @@ import ProviderService from "Services/Provider/ProviderServices";
 import AddToEventService from "Services/AddToEvent/AddToEventService";
 import FileUpload from "Services/FileUpload/FileUpload";
 
-function EventDetailCard({ packageId, func, addToEventId, approved }: any) {
-  //console.log(placed);
+function EventDetailCard({
+  addToEvent,
+  setTotalPrice,
+  totalPrice,
+  setDeleteId,
+}: any) {
   const handleDeleteEvent = () => {
-    AddToEventService.deletePackage(addToEventId).then((res: any) => {
-      if (res.data.data == 1) {
-        toast.success("Successfully Deleted");
-      } else {
-        toast.error(res.data.message);
+    setTotalPrice(totalPrice - Number(packge?.price));
+    AddToEventService.deletePackage(addToEvent.addToEventId).then(
+      (res: any) => {
+        if (res.data.data === 1) {
+          toast.success("Successfully Deleted");
+        } else {
+          toast.error(res.data.message);
+        }
       }
-    });
-    func(addToEventId);
+    );
+    setDeleteId(addToEvent.addToEventId);
   };
 
   const [packge, setPackge] = React.useState<any>();
 
   React.useEffect(() => {
-    PackageServices.getPackageByPackageId(packageId).then((res: any) => {
-      if (res.data.status == 1) {
-        setPackge(res.data.data);
-      } else {
-        toast.error(res.data.message);
+    PackageServices.getPackageByPackageId(addToEvent.packagesPackageId).then(
+      (res: any) => {
+        if (res.data.status === 1) {
+          setPackge(res.data.data);
+        } else {
+          toast.error(res.data.message);
+        }
       }
-    });
+    );
   }, []);
 
   const [provider, setProvider] = React.useState<any>();
   React.useEffect(() => {
     if (packge) {
-      ProviderService.getProviderByPackageId(packge.packageId).then(
+      ProviderService.getProviderByPackageId(addToEvent.packagesPackageId).then(
         (res: any) => {
-          if (res.data.status == 1) {
+          if (res.data.status === 1) {
             setProvider(res.data.data);
             //console.log(res.data.data);
             return;
@@ -55,7 +64,7 @@ function EventDetailCard({ packageId, func, addToEventId, approved }: any) {
   useEffect(() => {
     FileUpload.getProfilePicture(1).then((res: any) => {
       // console.log(res);
-      if (res.status == 200) {
+      if (res.status === 200) {
         setPicture(
           `${process.env.REACT_APP_BACKEND_SERVER}/upload/ProviderLogos/${provider?.providerId}`
         );
@@ -113,7 +122,7 @@ function EventDetailCard({ packageId, func, addToEventId, approved }: any) {
 
               {/* delete btn */}
               <div className="">
-                {approved == false && (
+                {addToEvent.approved === false && (
                   <div className="flex items-center justify-end px-4 my-3 text-center card-actions">
                     <button
                       type="button"
