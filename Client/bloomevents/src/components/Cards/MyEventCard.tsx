@@ -7,8 +7,8 @@ import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
 import { RouteName } from "constant/routeName";
-import { Link } from "react-router-dom";
-import React from "react";
+import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import AddToEventService from "Services/AddToEvent/AddToEventService";
 import { FiPackage } from "react-icons/fi";
 
@@ -17,8 +17,27 @@ import { toast } from "react-toastify";
 import dayjs from "dayjs";
 import DialogBox from "components/Dialog Boxes/DialogBox";
 import PackageServices from "Services/Packages/PackageService";
+import { Dialog, DialogTitle } from "@mui/material";
+import PaypalComponent from "components/Provider/Paypal/PaypalComponent";
+import BookingService from "Services/Booking/BookingService";
+import PaymentService from "Services/Payment/PaymentService";
 
 function MyEventCard({ event, func }: any) {
+  const navigate = useNavigate();
+  const [user, setuser] = React.useState<any>("");
+
+  useEffect(() => {
+    setTimeout(() => {
+      let logged = localStorage.getItem("loggedUser");
+      if (logged) {
+        setuser(JSON.parse(logged));
+      } else {
+        setuser(null);
+        navigate(RouteName.Login);
+      }
+    }, 1000);
+  }, [localStorage.getItem("loggedUser")]);
+
   // handle delete event
   const [openDelete, setOpenDelete] = React.useState(false);
 
@@ -110,6 +129,26 @@ function MyEventCard({ event, func }: any) {
       }
     });
   }, []);
+
+  // handle payment
+  const [openPayment, setOpenPayment] = React.useState(false);
+
+  const handleClickOpenPayment = () => {
+    setOpenPayment(true);
+  };
+  const handleClickClosePayment = () => {
+    setOpenPayment(false);
+  };
+
+  // paymnt function
+  const [booking, setBooking] = useState<Boolean>();
+
+  useEffect(() => {
+    if (booking === true) {
+      BookingService.makeBooking(user, event, totalPrice);
+    }
+    handleClickClosePayment();
+  }, [booking]);
 
   return (
     <div>
@@ -226,13 +265,39 @@ function MyEventCard({ event, func }: any) {
                 ) : (
                   <>
                     {packageCount !== 0 ? (
-                      <button
-                        type="button"
-                        className={
-                          "border-[#426eff] hover:bg-[#164dff] bg-[#426eff] my-event-card-btn !text-white"
-                        }>
-                        Make Payment
-                      </button>
+                      <>
+                        {dayjs(
+                          `${event.eventDate} ${event.eventTime}`,
+                          "DD-MMM-YYYY hh:mm A"
+                        ).isAfter(dayjs()) && (
+                          <button
+                            type="button"
+                            disabled={event.booked === true ? true : false}
+                            onClick={handleClickOpenPayment}
+                            className={` ${
+                              event.booked === true
+                                ? "border-orange-600 bg-orange-600"
+                                : "border-blue-600 hover:bg-[#164dff] bg-blue-600"
+                            }  my-event-card-btn !text-white`}>
+                            {event.booked === true ? "Booked" : "Make Payment"}
+                          </button>
+                        )}
+
+                        <Dialog
+                          open={openPayment}
+                          onClose={handleClickClosePayment}
+                          aria-labelledby="alert-dialog-title"
+                          aria-describedby="alert-dialog-description"
+                          className="p-5">
+                          <DialogTitle id="alert-dialog-title">
+                            <PaypalComponent
+                              totalPrice={Number(totalPrice)}
+                              eventName={event.eventName}
+                              setBooking={setBooking}
+                            />
+                          </DialogTitle>
+                        </Dialog>
+                      </>
                     ) : (
                       <>
                         <button
@@ -258,17 +323,19 @@ function MyEventCard({ event, func }: any) {
                   <></>
                 ) : (
                   <>
-                    <button
-                      type="button"
-                      onClick={handleClickOpenPlace}
-                      className={
-                        "text-green-600 border-green-600 hover:bg-green-600 my-event-card-btn"
-                      }>
-                      <span className="mr-1">
-                        <CheckIcon />
-                      </span>
-                      Place Event
-                    </button>
+                    {packageCount !== 0 && (
+                      <button
+                        type="button"
+                        onClick={handleClickOpenPlace}
+                        className={
+                          "text-green-600 border-green-600 hover:bg-green-600 my-event-card-btn"
+                        }>
+                        <span className="mr-1">
+                          <CheckIcon />
+                        </span>
+                        Place Event
+                      </button>
+                    )}
                   </>
                 )}
               </>

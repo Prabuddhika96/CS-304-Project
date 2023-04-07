@@ -15,4 +15,8 @@ public interface EventService {
     EventDTO getEventById(int eventId);
 
     EventDTO placeEvent(EventDTO eventData);
+
+    boolean bookEvent(int eventId);
+
+    List<String> getBookingDatesByProviderId(int providerId);
 }

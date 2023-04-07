@@ -35,10 +35,10 @@ public class ReviewController {
         }
     }
 
-    @PostMapping("/addreview")
-    public ResponseEntity<?> addReview(@RequestBody ReviewDTO reviewdata){
+    @PostMapping("/addreview/{addToEventId}")
+    public ResponseEntity<?> addReview(@RequestBody ReviewDTO reviewdata, @PathVariable int addToEventId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
-        ReviewDTO review=reviewService.addReview(reviewdata);
+        ReviewDTO review=reviewService.addReview(reviewdata,addToEventId);
         if (review != null) {
             map.put("status", 1);
             map.put("data", review);

@@ -10,7 +10,7 @@ import RemoveDoneIcon from "@mui/icons-material/RemoveDone";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import CheckIcon from "@mui/icons-material/Check";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import React from "react";
 import EventServices from "Services/Event/EventServices";
 import { toast } from "react-toastify";
@@ -20,6 +20,10 @@ import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import dayjs from "dayjs";
 import DialogBox from "components/Dialog Boxes/DialogBox";
 import PackageServices from "Services/Packages/PackageService";
+import { Dialog, DialogTitle } from "@mui/material";
+import BookingService from "Services/Booking/BookingService";
+import PaypalComponent from "components/Provider/Paypal/PaypalComponent";
+import { Booking } from "types/Booking";
 
 function EventDetails() {
   let { eventId } = useParams();
@@ -42,11 +46,18 @@ function EventDetails() {
 
   // get event details
   const [event, setEvent] = React.useState<Event>();
+  const [booked, setBooked] = React.useState<Booking>();
   React.useEffect(() => {
     EventServices.getEventById(index).then((res: any) => {
       if (res.data.status === 1) {
         setEvent(res.data.data);
-        return;
+        if (res.data.data.booked === true) {
+          BookingService.getBookingDetailsByEventId(index).then((res: any) => {
+            if (res.data.status === 1) {
+              setBooked(res.data.data);
+            }
+          });
+        }
       }
     });
   }, []);
@@ -147,13 +158,31 @@ function EventDetails() {
   const [deleteId, setDeleteId] = React.useState<any>();
 
   useEffect(() => {
-    // console.log(deleteId);
     const filteredData = packages?.filter(
       (p: any) => p.addToEventId !== deleteId
     );
-    // console.log(filteredData);
     setPackages(filteredData);
   }, [deleteId]);
+
+  // handle payment
+  const [openPayment, setOpenPayment] = React.useState(false);
+
+  const handleClickOpenPayment = () => {
+    setOpenPayment(true);
+  };
+  const handleClickClosePayment = () => {
+    setOpenPayment(false);
+  };
+
+  // paymnt function
+  const [booking, setBooking] = useState<Boolean>();
+
+  useEffect(() => {
+    if (booking === true) {
+      BookingService.makeBooking(user, event, totalPrice);
+    }
+    handleClickClosePayment();
+  }, [booking]);
 
   return (
     <div className="w-full pt-24">
@@ -185,7 +214,12 @@ function EventDetails() {
                     ) : (
                       <RemoveDoneIcon className="mr-1 text-[#ffa537]" />
                     )}
-                    Status : {event.placed ? "Placed" : "Not Placed"}
+                    Status :{" "}
+                    {event.placed ? (
+                      <>{event.booked ? "Booked" : "Placed"}</>
+                    ) : (
+                      "Not Placed"
+                    )}
                   </p>
 
                   <p className="flex items-center">
@@ -202,43 +236,55 @@ function EventDetails() {
 
         {/* btns */}
         <div className="flex items-center justify-around w-4/12">
-          {event && !event.placed ? (
-            <>
-              <button
-                type="button"
-                onClick={handleClickOpenDelete}
-                className="text-red-600 border-red-600 hover:bg-red-600 my-event-card-btn">
-                <span className="mr-1">
-                  <DeleteIcon />
-                </span>
-                Delete
-              </button>
+          <div className="my-event-card-btns">
+            {!event?.placed ? (
+              <>
+                <button
+                  type="button"
+                  onClick={handleClickOpenDelete}
+                  className={`text-red-600 border-red-600 hover:bg-red-600 my-event-card-btn `}>
+                  <span className="mr-1">
+                    <DeleteIcon />
+                  </span>
+                  Delete
+                </button>
+              </>
+            ) : (
+              <>
+                {dayjs(
+                  `${event.eventDate} ${event.eventTime}`,
+                  "DD-MMM-YYYY hh:mm A"
+                ).isBefore(dayjs()) && (
+                  <button
+                    type="button"
+                    onClick={deleteEvent}
+                    className={`text-fuchsia-600 border-fuchsia-600 hover:bg-fuchsia-600 my-event-card-btn `}>
+                    <span className="mr-1">
+                      <DeleteIcon />
+                    </span>
+                    Remove
+                  </button>
+                )}
+              </>
+            )}
+          </div>
+          <DialogBox
+            open={openDelete}
+            close={handleClickCloseDelete}
+            actionFunc={deleteEvent}
+            actionBtnName={"Delete"}
+            color={"red-600"}
+            title={
+              dayjs(
+                `${event?.eventDate} ${event?.eventTime}`,
+                "DD-MMM-YYYY hh:mm A"
+              ).isBefore(dayjs())
+                ? `Are you sure you want to remove ${event?.eventName} ?`
+                : `Are you sure you want to delete ${event?.eventName} ?`
+            }
+          />
 
-              {/* delete dialog */}
-              <DialogBox
-                open={openDelete}
-                close={handleClickCloseDelete}
-                actionFunc={deleteEvent}
-                actionBtnName={"Delete"}
-                title={`Are you sure you want to delete ${event.eventName} ?`}
-                color={"red-600"}
-              />
-            </>
-          ) : (
-            <>
-              <div className="block">
-                <p className="flex items-center">
-                  <AiOutlineCalendar className="mr-1 text-[#ffa537]" />
-                  Placed Date : {event?.placedDate}
-                </p>
-                <p className="flex items-center">
-                  <AiOutlineClockCircle className="mr-1 text-[#ffa537]" />
-                  Placed Time : {event?.placedTime}
-                </p>
-              </div>
-            </>
-          )}
-
+          {/* place event */}
           {/* place event */}
           {event?.placed ? (
             <>
@@ -257,13 +303,39 @@ function EventDetails() {
               ) : (
                 <>
                   {packages?.length !== 0 ? (
-                    <button
-                      type="button"
-                      className={
-                        "border-[#426eff] hover:bg-[#164dff] bg-[#426eff] my-event-card-btn !text-white"
-                      }>
-                      Make Payment
-                    </button>
+                    <>
+                      {dayjs(
+                        `${event.eventDate} ${event.eventTime}`,
+                        "DD-MMM-YYYY hh:mm A"
+                      ).isAfter(dayjs()) && (
+                        <button
+                          type="button"
+                          disabled={event.booked === true ? true : false}
+                          onClick={handleClickOpenPayment}
+                          className={` ${
+                            event.booked === true
+                              ? "border-orange-600 bg-orange-600"
+                              : "border-blue-600 hover:bg-[#164dff] bg-blue-600"
+                          }  my-event-card-btn !text-white`}>
+                          {event.booked === true ? "Booked" : "Make Payment"}
+                        </button>
+                      )}
+
+                      <Dialog
+                        open={openPayment}
+                        onClose={handleClickClosePayment}
+                        aria-labelledby="alert-dialog-title"
+                        aria-describedby="alert-dialog-description"
+                        className="p-5">
+                        <DialogTitle id="alert-dialog-title">
+                          <PaypalComponent
+                            totalPrice={Number(totalPrice)}
+                            eventName={event.eventName}
+                            setBooking={setBooking}
+                          />
+                        </DialogTitle>
+                      </Dialog>
+                    </>
                   ) : (
                     <>
                       <button
@@ -289,17 +361,19 @@ function EventDetails() {
                 <></>
               ) : (
                 <>
-                  <button
-                    type="button"
-                    onClick={handleClickOpenPlace}
-                    className={
-                      "text-green-600 border-green-600 hover:bg-green-600 my-event-card-btn"
-                    }>
-                    <span className="mr-1">
-                      <CheckIcon />
-                    </span>
-                    Place Event
-                  </button>
+                  {packages?.length !== 0 && (
+                    <button
+                      type="button"
+                      onClick={handleClickOpenPlace}
+                      className={
+                        "text-green-600 border-green-600 hover:bg-green-600 my-event-card-btn"
+                      }>
+                      <span className="mr-1">
+                        <CheckIcon />
+                      </span>
+                      Place Event
+                    </button>
+                  )}
                 </>
               )}
             </>
@@ -332,7 +406,7 @@ function EventDetails() {
         </div>
       </div>
 
-      {packages?.length == 0 ? (
+      {packages?.length === 0 ? (
         <p className="my-5 text-center">No Packages</p>
       ) : (
         <></>
@@ -340,7 +414,7 @@ function EventDetails() {
 
       {/* packages that add to event */}
       <div className="grid w-11/12 grid-cols-4 gap-5 mx-auto">
-        {packages ? (
+        {packages && user ? (
           <>
             {packages.map((p: any, i: number) => (
               <EventDetailCard
@@ -349,6 +423,10 @@ function EventDetails() {
                 key={i}
                 setTotalPrice={setTotalPrice}
                 totalPrice={totalPrice}
+                booked={event?.booked}
+                eventDate={event?.eventDate}
+                eventTime={event?.eventTime}
+                userId={user?.userId}
               />
             ))}
           </>

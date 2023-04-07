@@ -13,6 +13,7 @@ public class AddToEventDTO {
     private int addToEventId;
     private int packagesPackageId;
     private boolean isApproved;
+    private boolean reviewed;
     private boolean isPlaced;
     private int eventId;
 

@@ -60,4 +60,7 @@ public class Provider {
 
     @OneToMany(mappedBy = "provider", cascade = CascadeType.REMOVE)
     private List<Packages> packages;
+
+    @OneToMany(mappedBy = "provider", cascade = CascadeType.REMOVE)
+    private List<PrivateBooking> privateBookings;
 }

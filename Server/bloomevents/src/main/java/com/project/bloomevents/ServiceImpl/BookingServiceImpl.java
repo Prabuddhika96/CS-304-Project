@@ -49,4 +49,21 @@ public class BookingServiceImpl implements BookingService {
             return null;
         }
     }
+
+    @Override
+    public BookingDTO addBooking(BookingDTO data) {
+        try{
+            Booking newBooking = modelMapper.map(data, Booking.class);
+            Booking booking=bookingRepo.save(newBooking);
+            if(booking!=null){
+                return modelMapper.map(booking, new TypeToken<BookingDTO>() {
+                }.getType());
+            }
+            return null;
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
 }

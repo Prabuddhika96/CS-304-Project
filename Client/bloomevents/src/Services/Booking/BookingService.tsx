@@ -1,4 +1,8 @@
+import EventServices from "Services/Event/EventServices";
+import PaymentService from "Services/Payment/PaymentService";
 import axios from "axios";
+import dayjs from "dayjs";
+import { toast } from "react-toastify";
 import { Package } from "types/Packages";
 import http from "utils/http-common";
 
@@ -8,6 +12,55 @@ const getBookingDetailsByEventId = async (id: any) => {
   return http.get<any>(`/bookings/getbookingdetailsbyeventid/${id}`);
 };
 
-const BookingService = { getBookingDetailsByEventId };
+// add Booking
+const addBooking = async (data: any) => {
+  //console.log(data);
+  const response = await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/bookings/addbooking`,
+    data: data,
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+  });
+  return response;
+};
+
+// make booking front end function
+const makeBooking = async (user: any, event: any, totalPrice: number) => {
+  const bookingDate = dayjs();
+  const newPayment = {
+    userId: user?.userId,
+    paymentDate: bookingDate.format("DD-MMM-YYYY").toString(),
+    paymentTime: bookingDate.format("hh:mm A").toString(),
+    amount: totalPrice,
+  };
+  const result = await PaymentService.addPayment(newPayment);
+  if (result.data.status === 1) {
+    const newBooking = {
+      eventId: Number(event.eventId),
+      bookingDate: bookingDate.format("DD-MMM-YYYY").toString(),
+      bookingTime: bookingDate.format("hh:mm A").toString(),
+      paymentId: result?.data.data?.paymentId,
+    };
+    const result1 = await BookingService.addBooking(newBooking);
+    if (result1.data.status === 1) {
+      EventServices.bookedEvent(event.eventId).then((res: any) => {
+        if (res.data.status === 1) {
+          toast.success("Payment Successfull");
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
+        } else {
+          toast.error("Payment Failed");
+        }
+      });
+    } else {
+      toast.error("Payment Failed");
+    }
+  } else {
+    toast.error("Payment Failed");
+  }
+};
+
+const BookingService = { getBookingDetailsByEventId, addBooking, makeBooking };
 
 export default BookingService;

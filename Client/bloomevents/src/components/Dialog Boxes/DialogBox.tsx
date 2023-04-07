@@ -18,7 +18,7 @@ function DialogBox({
       <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
 
       <DialogActions>
-        <Button onClick={close}>Cancel</Button>
+        {/* <Button onClick={close}>Cancel</Button> */}
         <button
           className={`text-${color} border-${color} hover:bg-${color} my-event-card-btn`}
           onClick={actionFunc}>

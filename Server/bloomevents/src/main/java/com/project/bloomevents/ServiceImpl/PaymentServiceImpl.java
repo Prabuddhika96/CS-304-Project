@@ -22,8 +22,28 @@ public class PaymentServiceImpl implements PaymentService {
     public List<PaymentDTO> getAllPayments() {
         try{
             List<Payment> list = paymentRepo.findAll();
-            return modelMapper.map(list, new TypeToken<List<PaymentDTO>>() {
-            }.getType());
+            if(list!=null){
+                return modelMapper.map(list, new TypeToken<List<PaymentDTO>>() {
+                }.getType());
+            }
+            return null;
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
+
+    @Override
+    public PaymentDTO addPayment(PaymentDTO payment) {
+        try{
+            Payment newPayment=modelMapper.map(payment, Payment.class);
+            Payment pay=paymentRepo.save(newPayment);
+            if(pay!=null){
+                return modelMapper.map(pay, new TypeToken<PaymentDTO>() {
+                }.getType());
+            }
+           return null;
         }
         catch(Exception e){
             System.out.println(e.toString());

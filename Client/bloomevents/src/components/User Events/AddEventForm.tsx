@@ -46,6 +46,7 @@ function AddEventForm(userid: any) {
     eventName: "",
     userId: userid.userid,
     placed: false,
+    booked: false,
     placedDate: "",
     placedTime: "",
   });
@@ -58,6 +59,7 @@ function AddEventForm(userid: any) {
       eventTime: dayjs(time).format("hh:mm A").toString(),
       userId: userid.userid,
       placed: false,
+      booked: false,
       placedDate: "",
       placedTime: "",
     });
@@ -89,7 +91,7 @@ function AddEventForm(userid: any) {
 
       setTimeout(async () => {
         const result = await EventServices.addEvent(values);
-        console.log(result);
+        console.log(result.data.status === 1);
         if (result) {
           setSuccessAddEvent(true);
           window.location.reload();

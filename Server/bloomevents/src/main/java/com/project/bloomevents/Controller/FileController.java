@@ -79,8 +79,6 @@ public class FileController {
                 .body( resource);
     }
 
-    // load multiple files
-
 
     // mappings
     //profile pics

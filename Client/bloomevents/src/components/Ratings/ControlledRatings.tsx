@@ -2,20 +2,15 @@ import Rating from "@mui/material/Rating";
 import Stack from "@mui/material/Stack";
 import { useEffect, useState } from "react";
 
-function ControlledRatings() {
-  const [value, setValue] = useState<number | null>(2);
-
-  useEffect(() => {
-    console.log(value);
-  }, [value]);
-
+function ControlledRatings({ ratings, setRatings }: any) {
   return (
     <Stack spacing={1}>
       <Rating
-        name="simple-controlled"
-        value={value}
+        name="half-rating"
+        precision={0.5}
+        value={ratings}
         onChange={(event, newValue) => {
-          setValue(newValue);
+          setRatings(newValue);
         }}
       />
     </Stack>

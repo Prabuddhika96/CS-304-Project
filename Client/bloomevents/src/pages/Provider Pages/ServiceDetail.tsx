@@ -11,6 +11,7 @@ import ProviderReviews from "./ProviderReviews";
 import PlacedEvents from "./PlacedEvents";
 import ApprovedEvents from "./ApprovedEvents";
 import BookedEvents from "./BookedEvents";
+import PrivateBookings from "./PrivateBookings";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -95,7 +96,8 @@ function ServiceDetail() {
                 <Tab label="Placed Events" {...a11yProps(2)} />
                 <Tab label="Approved Events" {...a11yProps(3)} />
                 <Tab label="Booked Events" {...a11yProps(4)} />
-                <Tab label="Reviews" {...a11yProps(5)} />
+                <Tab label="Add Private Bookings" {...a11yProps(4)} />
+                <Tab label="Reviews" {...a11yProps(6)} />
               </Tabs>
 
               <div className="w-full">
@@ -115,6 +117,9 @@ function ServiceDetail() {
                   <BookedEvents providerId={providerId} />
                 </TabPanel>
                 <TabPanel value={value} index={5}>
+                  <PrivateBookings providerId={providerId} />
+                </TabPanel>
+                <TabPanel value={value} index={6}>
                   <ProviderReviews providerId={providerId} />
                 </TabPanel>
               </div>

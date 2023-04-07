@@ -45,6 +45,15 @@ const placeEvent = async (data: any) => {
   return response;
 };
 
+const bookedEvent = async (id: any) => {
+  return http.put<any>(`/event/bookevent/${id}`);
+};
+
+// get booking dates by provider Id
+const getBookingDatesByProviderId = async (id: any) => {
+  return http.get<any>(`/event/getbookingdatesbyproviderid/${id}`);
+};
+
 const EventServices = {
   getAllEvents,
   addEvent,
@@ -52,6 +61,8 @@ const EventServices = {
   deleteEvent,
   getEventById,
   placeEvent,
+  bookedEvent,
+  getBookingDatesByProviderId,
 };
 
 export default EventServices;

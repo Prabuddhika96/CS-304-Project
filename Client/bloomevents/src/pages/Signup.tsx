@@ -64,8 +64,8 @@ function Signup() {
 
     setTimeout(async () => {
       const result = await AuthService.Register(data);
-      console.log(result);
-      if (result.data.status == 1) {
+      // console.log(result);
+      if (result.data.status === 1) {
         //redirect to login page
         localStorage.setItem(
           "loggedUser",

@@ -8,5 +8,15 @@ const getReviewsByProviderId = async (providerId: any) => {
   return http.get<any>(`/review/getreviewsbyproviderid/${providerId}`);
 };
 
-const ReviewService = { getReviewsByProviderId };
+const addReview = async (data: any, addToEventId: any) => {
+  const response = await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/review/addreview/${addToEventId}`,
+    data: data,
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+  });
+  return response;
+};
+
+const ReviewService = { getReviewsByProviderId, addReview };
 export default ReviewService;

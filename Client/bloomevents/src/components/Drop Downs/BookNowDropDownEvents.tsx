@@ -1,8 +1,8 @@
 import { FormControl, InputLabel, Select, MenuItem } from "@mui/material";
-import React from "react";
+import dayjs from "dayjs";
+import { useState } from "react";
 
 function BookNowDropDownEvents({ val, array, func, title }: any) {
-  //console.log(array);
   return (
     <FormControl variant="standard" fullWidth sx={{ m: 1, minWidth: 120 }}>
       <InputLabel id="demo-simple-select-standard-label">{title}</InputLabel>
@@ -16,7 +16,17 @@ function BookNowDropDownEvents({ val, array, func, title }: any) {
           <em>None</em>
         </MenuItem>
 
-        {array.map((e: any, i: number) => (
+        {array?.map((e: any, i: number) => (
+          // <>
+          //   {dayjs(
+          //     `${e?.eventDate} ${e?.eventTime}`,
+          //     "DD-MMM-YYYY hh:mm A"
+          //   ).isAfter(dayjs()) && (
+          //     <MenuItem value={e.eventId.toString()} key={i + 1}>
+          //       {e.eventName}
+          //     </MenuItem>
+          //   )}
+          // </>
           <MenuItem value={e.eventId.toString()} key={i + 1}>
             {e.eventName}
           </MenuItem>

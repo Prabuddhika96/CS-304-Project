@@ -31,7 +31,7 @@ const Review = ({ review }: any) => {
   useEffect(() => {
     UserServices.getUserByUserId(review?.userId).then((res: any) => {
       // console.log(res);
-      if (res.data.status == 1) {
+      if (res.data.status === 1) {
         setUser(res.data.data);
         return;
       }

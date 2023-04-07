@@ -16,6 +16,7 @@ public class EventDTO {
     private String eventTime;
     private int userId;
     private boolean isPlaced;
+    private boolean isBooked;
     private String placedDate;
     private String placedTime;
 }

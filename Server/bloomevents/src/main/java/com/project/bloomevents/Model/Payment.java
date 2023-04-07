@@ -7,9 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
-import java.sql.Time;
-
 @Entity
 @Table(name="payment")
 @Getter
@@ -24,9 +21,9 @@ public class Payment {
     @Column(name = "amount")
     private double amount;
     @Column(name = "paymentDate")
-    private Date paymentDate;
+    private String paymentDate;
     @Column(name = "paymentTime")
-    private Time paymentTime;
+    private String paymentTime;
     @OneToOne(mappedBy = "payment")
     private Booking booking;
     @JsonIgnore

@@ -1,4 +1,3 @@
-import { ToggleButtonGroup, ToggleButton, Box, Tab, Tabs } from "@mui/material";
 import "styles/myEventsRadioBtns.css";
 import MyEventCard from "components/Cards/MyEventCard";
 import { RouteName } from "constant/routeName";
@@ -16,9 +15,7 @@ function EventList(userid: any) {
       let logged = localStorage.getItem("loggedUser");
       if (logged) {
         setuser(JSON.parse(logged));
-        if (JSON.parse(logged).userId != userid) {
-          // localStorage.removeItem("loggedUser");
-          // navigate(RouteName.Home);
+        if (JSON.parse(logged).userId !== userid) {
         }
       } else {
         setuser(null);
@@ -34,7 +31,7 @@ function EventList(userid: any) {
 
   React.useEffect(() => {
     EventServices.getEventsByUserId(userid.userid).then((res: any) => {
-      if (res.data.status == 1) {
+      if (res.data.status === 1) {
         setListFound(true);
         setEvents(res.data.data);
         setFilteredEvents(res.data.data);
@@ -61,17 +58,24 @@ function EventList(userid: any) {
   }, [deleteId]);
 
   // rdio btn function
-  const [filterEvents, setFilterEvents] = React.useState<any>(true);
+  const [filterEvents, setFilterEvents] = React.useState<any>();
   const handleFilterEvents = (e: any) => {
     setFilterEvents(e.target.value);
   };
 
   useEffect(() => {
-    if (filterEvents == "true") {
-      const filteredData = events?.filter((emp: any) => emp.placed == true);
+    if (filterEvents === "1") {
+      const filteredData = events?.filter(
+        (emp: any) => emp.placed === true && emp.booked === false
+      );
       setFilteredEvents(filteredData);
-    } else if (filterEvents == "false") {
-      const filteredData = events?.filter((emp: any) => emp.placed == false);
+    } else if (filterEvents === "2") {
+      const filteredData = events?.filter((emp: any) => emp.placed === false);
+      setFilteredEvents(filteredData);
+    } else if (filterEvents === "3") {
+      const filteredData = events?.filter(
+        (emp: any) => emp.placed === true && emp.booked === true
+      );
       setFilteredEvents(filteredData);
     } else {
       setFilteredEvents(events);
@@ -86,7 +90,7 @@ function EventList(userid: any) {
           type="radio"
           id="align-left"
           name="alignment"
-          value=""
+          value="0"
           defaultChecked
           onChange={handleFilterEvents}
         />
@@ -96,19 +100,28 @@ function EventList(userid: any) {
           type="radio"
           id="align-center"
           name="alignment"
-          value="true"
+          value="1"
           onChange={handleFilterEvents}
         />
         <label htmlFor="align-center">Placed</label>
 
         <input
           type="radio"
-          id="align-right"
+          id="align-center2"
           name="alignment"
-          value="false"
+          value="2"
           onChange={handleFilterEvents}
         />
-        <label htmlFor="align-right">Not Placed</label>
+        <label htmlFor="align-center2">Not Placed</label>
+
+        <input
+          type="radio"
+          id="align-right"
+          name="alignment"
+          value="3"
+          onChange={handleFilterEvents}
+        />
+        <label htmlFor="align-right">Booked</label>
       </div>
 
       <div>

@@ -4,4 +4,5 @@ export type AddToEvent = {
   packagesPackageId: number;
   isApproved: boolean;
   isPlaced: boolean;
+  reviewed: boolean;
 };

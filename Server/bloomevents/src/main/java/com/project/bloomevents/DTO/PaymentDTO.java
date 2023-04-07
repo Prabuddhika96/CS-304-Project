@@ -5,9 +5,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.sql.Date;
-import java.sql.Time;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -15,7 +12,7 @@ import java.sql.Time;
 public class PaymentDTO {
     private int paymentId;
     private double amount;
-    private Date paymentDate;
-    private Time paymentTime;
+    private String paymentDate;
+    private String paymentTime;
     private int userId;
 }

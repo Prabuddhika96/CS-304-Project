@@ -34,6 +34,7 @@ import { Review } from "types/Review";
 import ReviewService from "Services/ReviewService/ReviewService";
 import ProviderPackageSwiper from "components/Carousel/ProviderPackageSwiper";
 import FileUpload from "Services/FileUpload/FileUpload";
+import dayjs from "dayjs";
 
 function ProviderDetails() {
   let { providerId } = useParams();
@@ -82,10 +83,9 @@ function ProviderDetails() {
 
   React.useEffect(() => {
     PackageServices.getPackagesByProviderId(providerId).then((res: any) => {
-      if (res.data.status == 1) {
+      if (res.data.status === 1) {
         setPackages(res.data.data);
         return;
-      } else {
       }
     });
   }, []);
@@ -95,9 +95,14 @@ function ProviderDetails() {
   React.useEffect(() => {
     setTimeout(() => {
       EventServices.getEventsByUserId(iid).then((res: any) => {
-        if (res.data.status == 1) {
+        if (res.data.status === 1) {
           const filteredData = res.data.data?.filter(
-            (emp: any) => emp.placed == false
+            (emp: any) =>
+              emp.placed === false &&
+              dayjs(
+                `${emp?.eventDate} ${emp?.eventTime}`,
+                "DD-MMM-YYYY hh:mm A"
+              ).isAfter(dayjs())
           );
           setEvents(filteredData);
           return;
@@ -150,6 +155,7 @@ function ProviderDetails() {
     packagesPackageId: 0,
     isApproved: false,
     isPlaced: false,
+    reviewed: false,
   });
 
   useEffect(() => {
@@ -159,6 +165,7 @@ function ProviderDetails() {
       packagesPackageId: packageId,
       isApproved: false,
       isPlaced: false,
+      reviewed: false,
     });
     setSuccessAddEvent(successAddEvent);
   }, [eventId, packageId, userId, successAddEvent]);
@@ -253,7 +260,9 @@ function ProviderDetails() {
             <div className="w-4/12 px-8 mt-[80px]">
               <h1 className="text-lg text-[#000] uppercase">Avalble Slots</h1>
               <div className="bottom-0 mt-5">
-                <CalenderElement />
+                <CalenderElement providerId={providerId} />
+                {/* <Calender /> */}
+                {/* <CalenderNew /> */}
               </div>
 
               <div>

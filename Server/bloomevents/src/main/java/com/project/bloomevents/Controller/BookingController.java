@@ -49,4 +49,21 @@ public class BookingController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
+
+    @PostMapping("/addbooking")
+    public ResponseEntity<?> addBooking(@RequestBody BookingDTO data){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        BookingDTO booking = bookingService.addBooking(data);
+        if (booking!=null) {
+            map.put("status", 1);
+            map.put("data", booking);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Booking list is not found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
 }

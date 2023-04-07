@@ -7,12 +7,19 @@ import { toast } from "react-toastify";
 import ProviderService from "Services/Provider/ProviderServices";
 import AddToEventService from "Services/AddToEvent/AddToEventService";
 import FileUpload from "Services/FileUpload/FileUpload";
+import dayjs from "dayjs";
+import AddReviewDialog from "components/Dialog Boxes/AddReviewDialog";
+import { ServiceProvider } from "types/ServiceProvider";
 
 function EventDetailCard({
   addToEvent,
   setTotalPrice,
   totalPrice,
   setDeleteId,
+  booked,
+  eventDate,
+  eventTime,
+  userId,
 }: any) {
   const handleDeleteEvent = () => {
     setTotalPrice(totalPrice - Number(packge?.price));
@@ -42,17 +49,16 @@ function EventDetailCard({
     );
   }, []);
 
-  const [provider, setProvider] = React.useState<any>();
+  const [provider, setProvider] = React.useState<ServiceProvider>();
   React.useEffect(() => {
     if (packge) {
       ProviderService.getProviderByPackageId(addToEvent.packagesPackageId).then(
         (res: any) => {
           if (res.data.status === 1) {
             setProvider(res.data.data);
-            //console.log(res.data.data);
+            // console.log(res.data.data);
             return;
           } else {
-            setProvider(0);
             toast.error(res.data.message);
           }
         }
@@ -72,6 +78,18 @@ function EventDetailCard({
       }
     });
   }, [provider]);
+
+  // review
+  // handle payment
+
+  const [openReview, setOpenReview] = React.useState(false);
+
+  const handleClickOpenReview = () => {
+    setOpenReview(true);
+  };
+  const handleClickCloseReview = () => {
+    setOpenReview(false);
+  };
 
   return (
     <div className="border-solid border-[2px] border-[#ffa537] rounded-xl hover:scale-105 ease-in-out duration-200">
@@ -122,7 +140,7 @@ function EventDetailCard({
 
               {/* delete btn */}
               <div className="">
-                {addToEvent.approved === false && (
+                {addToEvent.approved === false ? (
                   <div className="flex items-center justify-end px-4 my-3 text-center card-actions">
                     <button
                       type="button"
@@ -133,6 +151,40 @@ function EventDetailCard({
                       </span>
                     </button>
                   </div>
+                ) : (
+                  <>
+                    {booked === true &&
+                      dayjs(
+                        `${eventDate} ${eventTime}`,
+                        "DD-MMM-YYYY hh:mm A"
+                      ).isBefore(dayjs()) && (
+                        <>
+                          {userId !== provider?.userId &&
+                            addToEvent.reviewed === false && (
+                              <div className="flex items-center justify-end px-4 my-3 text-center card-actions">
+                                <button
+                                  type="button"
+                                  onClick={handleClickOpenReview}
+                                  className={
+                                    "border-green-600 bg-green-600 my-event-card-btn !text-sm !text-white"
+                                  }>
+                                  Add Review
+                                </button>
+
+                                <AddReviewDialog
+                                  openReview={openReview}
+                                  handleClickCloseReview={
+                                    handleClickCloseReview
+                                  }
+                                  addToEventId={addToEvent.addToEventId}
+                                  providerId={packge.providerId}
+                                  userId={userId}
+                                />
+                              </div>
+                            )}
+                        </>
+                      )}
+                  </>
                 )}
               </div>
             </div>

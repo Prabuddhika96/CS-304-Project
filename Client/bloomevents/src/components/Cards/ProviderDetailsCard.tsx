@@ -74,7 +74,7 @@ function ProviderDetailsCard({ providerDetails }: any) {
         {providerDetails.instagram && (
           <a
             href={providerDetails.instagram}
-            target="_blank"
+            target="blank"
             className="provider-detail-dialog-box-icon"
             rel="noreferrer">
             <AiOutlineInstagram />
@@ -84,7 +84,7 @@ function ProviderDetailsCard({ providerDetails }: any) {
         {providerDetails.facebook && (
           <a
             href={providerDetails.facebook}
-            target="_blank"
+            target="blank"
             className="provider-detail-dialog-box-icon"
             rel="noreferrer">
             <AiOutlineFacebook />
@@ -94,7 +94,7 @@ function ProviderDetailsCard({ providerDetails }: any) {
         {providerDetails.web && (
           <a
             href={providerDetails.web}
-            target="_blank"
+            target="blank"
             className="provider-detail-dialog-box-icon"
             rel="noreferrer">
             <BiWorld />

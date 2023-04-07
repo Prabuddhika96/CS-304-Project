@@ -23,6 +23,8 @@ public class ReviewServiceImpl implements ReviewService {
     private UserServiceImpl userServiceImpl;
     @Autowired
     private ProviderServiceImpl providerServiceImpl;
+    @Autowired
+    private AddToEventServiceImpl addToEventServiceImpl;
 
     public ReviewDTO getReviewById(int reviewId){
         try{
@@ -53,7 +55,7 @@ public class ReviewServiceImpl implements ReviewService {
     }
 
     @Override
-    public ReviewDTO addReview(ReviewDTO review) {
+    public ReviewDTO addReview(ReviewDTO review, int addToEventId) {
         try{
             UserDTO user=userServiceImpl.getUserById(review.getUserId());
             ProviderDTO provider=providerServiceImpl.getProviderById(review.getProviderId());
@@ -61,13 +63,15 @@ public class ReviewServiceImpl implements ReviewService {
             if(user != null && provider !=null && user.getUserId() != provider.getUserId()){
                 Review r = modelMapper.map(review, Review.class);
                 Review r1 = reviewRepo.save(r);
-
-                return modelMapper.map(r1, new TypeToken<ReviewDTO>() {
-                }.getType());
+                if(r1!=null){
+                    boolean updateAddtoevent=addToEventServiceImpl.updateReviewed(addToEventId);
+                    if(updateAddtoevent==true){
+                        return modelMapper.map(r1, new TypeToken<ReviewDTO>() {
+                        }.getType());
+                    }
+                }
             }
-            else {
-                return null;
-            }
+            return null;
         }
         catch(Exception e){
             System.out.println(e.toString());

@@ -22,7 +22,7 @@ interface Data {
   BookedDate: string;
   BookedTime: string;
   Package: string;
-  PaymentId: string;
+  PaymentId: number;
 }
 
 function createData(
@@ -34,7 +34,7 @@ function createData(
   BookedDate: string,
   BookedTime: string,
   Package: string,
-  PaymentId: string
+  PaymentId: number
 ): Data {
   return {
     ID,
@@ -110,7 +110,7 @@ function ProviderBookedEventDetails({ addToEvent, columns }: any) {
       booking.bookingDate,
       booking.bookingTime,
       packge.packageName,
-      ""
+      booking.paymentId
     );
   }
 

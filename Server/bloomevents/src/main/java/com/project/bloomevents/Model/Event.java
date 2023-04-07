@@ -33,13 +33,16 @@ public class Event {
     @Column(name = "isPlaced", columnDefinition = "boolean default false")
     private boolean isPlaced;
 
+    @Column(name = "isBooked", columnDefinition = "boolean default false")
+    private boolean isBooked;
+
     @Column(name = "placedDate")
     private String placedDate;
 
     @Column(name = "placedTime")
     private String placedTime;
 
-    @OneToOne(mappedBy = "event")
+    @OneToOne(mappedBy = "event",cascade = CascadeType.REMOVE)
     private Booking booking;
 
     @JsonIgnore

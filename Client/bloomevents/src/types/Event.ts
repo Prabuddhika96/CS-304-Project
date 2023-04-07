@@ -7,6 +7,7 @@ export type Event = {
   eventTime: string;
   userId: number;
   placed: boolean;
+  booked: boolean;
   placedDate: string;
   placedTime: string;
 };

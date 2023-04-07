@@ -66,6 +66,12 @@ function ChangePackageDetails({ providerId }: any) {
               <EditPackageDetails packge={newPackage} providerId={providerId} />
             </TabPanel>
           )}
+
+          {!packages && (
+            <TabPanel value="0">
+              <EditPackageDetails packge={newPackage} providerId={providerId} />
+            </TabPanel>
+          )}
         </TabContext>
       </Box>
     </div>

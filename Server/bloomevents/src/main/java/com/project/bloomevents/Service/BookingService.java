@@ -8,4 +8,6 @@ public interface BookingService {
     List<BookingDTO> getAllBookings();
 
     BookingDTO getBookingDetailsByEventId(int eventId);
+
+    BookingDTO addBooking(BookingDTO data);
 }

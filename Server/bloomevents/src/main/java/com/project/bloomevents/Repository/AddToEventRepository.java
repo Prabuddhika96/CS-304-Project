@@ -14,6 +14,10 @@ import java.util.List;
 public interface AddToEventRepository extends JpaRepository<AddToEvent,Integer> {
     @Transactional
     @Modifying
+    @Query("update AddToEvent a set a.reviewed = ?1 where a.addToEventId = ?2")
+    int updateReviewed(boolean reviewed, int addToEventId);
+    @Transactional
+    @Modifying
     @Query("update AddToEvent a set a.isApproved = true where a.addToEventId = ?1")
     int approvePackage(int addToEventId);
     @Transactional

@@ -114,4 +114,35 @@ public class EventController {
         }
     }
 
+    @PutMapping("/bookevent/{eventId}")
+    public ResponseEntity<?> bookEvent(@PathVariable int eventId){
+        Map<String,Object> map=new LinkedHashMap<String,Object>();
+        boolean booked = eventService.bookEvent(eventId);
+        if (booked == true) {
+            map.put("status", 1);
+            map.put("data", booked);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Event not found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/getbookingdatesbyproviderid/{providerId}")
+    public ResponseEntity<?> getBookingDatesByProviderId(@PathVariable int providerId){
+        Map<String,Object> map=new LinkedHashMap<String,Object>();
+        List<String> list= eventService.getBookingDatesByProviderId(providerId);
+        if (list!=null) {
+            map.put("status", 1);
+            map.put("data", list);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "No booking dates");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
 }

@@ -110,4 +110,34 @@ public class EventServiceImpl implements EventService {
             return null;
         }
     }
+
+    @Override
+    public boolean bookEvent(int eventId) {
+        try{
+            int count=eventRepo.bookEvent(true,eventId);
+            if(count==1){
+                return true;
+            }
+            return false;
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return false;
+        }
+    }
+
+    @Override
+    public List<String> getBookingDatesByProviderId(int providerId) {
+        try{
+            List<String> list = eventRepo.getBookingDatesByProviderId(providerId);
+            if(list!=null) {
+                return list;
+            }
+            return null;
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return null;
+        }
+    }
 }

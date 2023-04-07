@@ -181,4 +181,18 @@ public class AddToEventServiceImpl implements AddToEventService {
             return -1;
         }
     }
+
+    public boolean updateReviewed(int addToEventId){
+        try{
+            int count =addToEventRepo.updateReviewed(true,addToEventId);
+            if(count==1){
+                return true;
+            }
+            return false;
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return false;
+        }
+    }
 }
