@@ -96,7 +96,7 @@ function MyEventCard({ event, func }: any) {
       placedTime: placedDate.format("hh:mm A").toString(),
     };
     EventServices.placeEvent(placedEvent).then((res: any) => {
-      if (res.data.status == 1) {
+      if (res.data.status === 1) {
         toast.success("Successfully Placed");
         handleClickClosePlace();
         window.location.reload();

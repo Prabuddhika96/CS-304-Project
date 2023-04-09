@@ -13,6 +13,10 @@ import java.util.List;
 public interface ProviderRepository extends JpaRepository<Provider,Integer> {
     @Transactional
     @Modifying
+    @Query("delete from Provider p where p.providerId = ?1")
+    int deleteProvider(int providerId);
+    @Transactional
+    @Modifying
     @Query("""
             update Provider p set p.businessName = ?1, p.district = ?2, p.description = ?3, p.mobile = ?4, p.facebook = ?5, p.instagram = ?6, p.web = ?7
             where p.providerId = ?8""")

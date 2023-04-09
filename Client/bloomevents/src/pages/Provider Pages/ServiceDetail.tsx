@@ -96,7 +96,7 @@ function ServiceDetail() {
                 <Tab label="Placed Events" {...a11yProps(2)} />
                 <Tab label="Approved Events" {...a11yProps(3)} />
                 <Tab label="Booked Events" {...a11yProps(4)} />
-                <Tab label="Add Private Bookings" {...a11yProps(4)} />
+                <Tab label="Add Private Bookings" {...a11yProps(5)} />
                 <Tab label="Reviews" {...a11yProps(6)} />
               </Tabs>
 

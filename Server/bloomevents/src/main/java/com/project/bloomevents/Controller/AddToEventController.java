@@ -193,4 +193,20 @@ public class AddToEventController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
+
+    @GetMapping("/getallbookedpackages")
+    public ResponseEntity<?> getAllBookedPackages(){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        List<AddToEventDTO> list = addToEventService.getAllBookedPackages();
+        if (list != null) {
+            map.put("status", 1);
+            map.put("data", list);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "No Events");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
 }

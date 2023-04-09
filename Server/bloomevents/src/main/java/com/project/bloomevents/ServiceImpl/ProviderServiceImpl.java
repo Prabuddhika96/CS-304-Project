@@ -4,6 +4,7 @@ import com.project.bloomevents.DTO.ProviderDTO;
 import com.project.bloomevents.DTO.UserDTO;
 import com.project.bloomevents.Model.Provider;
 import com.project.bloomevents.Repository.ProviderRepository;
+import com.project.bloomevents.Repository.UserRepository;
 import com.project.bloomevents.Service.ProviderService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -20,6 +21,8 @@ public class ProviderServiceImpl implements ProviderService {
     private ModelMapper modelMapper;
     @Autowired
     private UserServiceImpl userServiceimpl;
+    @Autowired
+    private UserRepository userRepository;
 
     @Override
     public List<ProviderDTO> getAllProviders() {
@@ -119,6 +122,21 @@ public class ProviderServiceImpl implements ProviderService {
         catch(Exception e){
             System.out.println(e.toString());
             return null;
+        }
+    }
+
+    @Override
+    public boolean deleteProvider(int providerId) {
+        try{
+            int count=providerRepo.deleteProvider(providerId);
+            if(count==1){
+                return true;
+            }
+            return false;
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return false;
         }
     }
 

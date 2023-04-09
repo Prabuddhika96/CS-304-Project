@@ -167,3 +167,7 @@
 .Mui-focused > label {
   color: #ffa537 !important;
 }
+
+.MuiButton-textPrimary {
+  color: #ffa537 !important;
+}

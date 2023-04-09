@@ -120,4 +120,21 @@ public class ProviderController {
         }
     }
 
+    @DeleteMapping("/deleteprovider/{providerId}")
+    public ResponseEntity<?> deleteProvider(@PathVariable int providerId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        boolean delete = providerService.deleteProvider(providerId);
+
+        if (delete==true) {
+            map.put("status", 1);
+            map.put("data", true);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Provider not deleted");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
 }

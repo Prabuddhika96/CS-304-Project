@@ -20,9 +20,27 @@ const getUserByUserId = async (userId: any) => {
   return await http.get<any>(`/user/getuserbyid/${userId}`);
 };
 
+// get all users
+const getAllUsers = async () => {
+  return await http.get<any>(`/user/getallusers`);
+};
+
+//delete user by id
+const deleteUserByUserId = async (userId: any) => {
+  return await http.delete<any>(`/user/deleteuser/${userId}`);
+};
+
+//change role
+const changeRole = async (userId: any) => {
+  return await http.put<any>(`/user/changerole/${userId}`);
+};
+
 const UserServices = {
   updateUser,
   getUserByUserId,
+  getAllUsers,
+  deleteUserByUserId,
+  changeRole,
 };
 
 export default UserServices;

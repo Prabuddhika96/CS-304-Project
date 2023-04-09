@@ -17,7 +17,10 @@ function Header() {
   useEffect(() => {
     let logged = localStorage.getItem("loggedUser");
     if (logged) {
-      setuser(JSON.parse(logged));
+      const a = JSON.parse(logged);
+      // a.lastLogin = new Date().getTime();
+      setuser(a);
+      // localStorage.setItem("loggedUser", JSON.stringify(a));
     } else {
       setuser(null);
     }

@@ -1,3 +1,4 @@
+import UserServices from "Services/User/UserServices";
 import AddEventForm from "components/User Events/AddEventForm";
 import EventList from "components/User Events/EventList";
 import { RouteName } from "constant/routeName";
@@ -20,6 +21,18 @@ function MyEvents() {
         if (JSON.parse(logged).userId != userId) {
           localStorage.removeItem("loggedUser");
           navigate(RouteName.Home);
+        } else {
+          UserServices.getUserByUserId(JSON.parse(logged).userId).then(
+            (res: any) => {
+              if (res.data.status === 1) {
+                setuser(res.data.data);
+                localStorage.setItem(
+                  "loggedUser",
+                  JSON.stringify(res.data.data)
+                );
+              }
+            }
+          );
         }
       } else {
         setuser(null);

@@ -13,5 +13,7 @@ public interface UserService {
     UserDTO updateUser(UserFullDTO userdata);
     boolean deleteUser(int userId);
 
+    int changeRole(int userId);
+
     //String addUser(UserFullDTO userdata);
 }

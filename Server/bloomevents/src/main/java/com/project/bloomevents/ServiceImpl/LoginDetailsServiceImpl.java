@@ -64,6 +64,30 @@ public class LoginDetailsServiceImpl implements LoginDetailsService {
         }
     }
 
+    @Override
+    public int setDefaultPassword(int userId) {
+        try{
+            LoginDetails logindetails=loginrepo.getEmailByUserId(userId);
+
+            if(logindetails == null){
+                return 0;
+            }
+            String hashedNewPW= passwordEncoder.encode("BloomEvents123@");
+
+            int update=loginrepo.updatePassword(hashedNewPW,logindetails.getLoginId());
+            if(update==1){
+                return 1;
+            }
+            else{
+                return -2;
+            }
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+        }
+        return -1;
+    }
+
     public LoginDetailsDTO getLoginDetailById(int loginId){
         try{
             LoginDetails logindetails=loginrepo.getLoginDetailsById(loginId);
@@ -82,9 +106,6 @@ public class LoginDetailsServiceImpl implements LoginDetailsService {
     @Override
     public LoginDetailsDTO addLoginDetails(UserFullDTO userdata, User user) throws NoSuchAlgorithmException {
         try{
-            //LoginDetailsDTO ldto = new LoginDetailsDTO(userdata.getEmail(), userdata.getPassword());
-            //String hashedPW = common.encryptPassword(userdata.getPassword());
-
             String hashedPW= passwordEncoder.encode(userdata.getPassword());
             LoginDetails ld=new LoginDetails();
             ld.setEmail(userdata.getEmail());

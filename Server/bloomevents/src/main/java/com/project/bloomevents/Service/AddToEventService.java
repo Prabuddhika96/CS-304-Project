@@ -26,4 +26,6 @@ public interface AddToEventService {
     List<AddToEventDTO> getBookedPackagesByProviderId(int providerId);
 
     int getApprovedPackageCountByEventId(int eventId);
+
+    List<AddToEventDTO> getAllBookedPackages();
 }

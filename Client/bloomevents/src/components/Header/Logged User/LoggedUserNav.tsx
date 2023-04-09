@@ -148,7 +148,7 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
             }}
             transformOrigin={{ horizontal: "right", vertical: "top" }}
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}>
-            {promode != true && (
+            {promode !== true && (
               <>
                 <Link
                   to={{
@@ -158,7 +158,7 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
                     )}`,
                   }}>
                   <MenuItem>
-                    {propic != "" && user ? (
+                    {propic !== "" && user ? (
                       <>
                         <img
                           src={propic}
@@ -178,7 +178,7 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
               </>
             )}
 
-            {admin ? (
+            {admin && promode !== true && (
               <>
                 <Link
                   to={{
@@ -194,8 +194,6 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
                 </Link>
                 <Divider />
               </>
-            ) : (
-              <></>
             )}
 
             {/* check Pro mode to visible my events */}

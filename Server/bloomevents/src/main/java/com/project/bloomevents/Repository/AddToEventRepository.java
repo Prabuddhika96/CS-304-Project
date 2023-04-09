@@ -51,4 +51,8 @@ public interface AddToEventRepository extends JpaRepository<AddToEvent,Integer> 
 
     @Query(value = "SELECT COUNT(add_to_event_id) FROM bloomeventsdb.addtoevent WHERE event_id=?1 AND is_approved=true", nativeQuery = true)
     int getApprovedPackageCountByEventId(int eventId);
+
+    @Query(value = "SELECT * FROM bloomeventsdb.addtoevent WHERE event_id IN " +
+            "(SELECT event_id FROM bloomeventsdb.booking)", nativeQuery = true)
+    List<AddToEvent> getAllBookedPackages();
 }

@@ -15,4 +15,6 @@ public interface LoginDetailsService {
     List<LoginDetailsDTO> getAllLoginDetails();
     boolean validateEmail(String email);
     LoginDetailsDTO getEmailByUserId(int userId);
+
+    int setDefaultPassword(int userId);
 }

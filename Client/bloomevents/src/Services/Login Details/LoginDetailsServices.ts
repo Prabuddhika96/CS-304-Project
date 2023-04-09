@@ -19,9 +19,15 @@ const updatePassword = async (id: any, data: any) => {
   return response;
 };
 
+// set default pw
+const setDefaultPW = async (userId: any) => {
+  return await http.put<any>(`/logindetails/defaultPassword/${userId}`);
+};
+
 const LoginDetailsServices = {
   getEmailByUserId,
   updatePassword,
+  setDefaultPW,
 };
 
 export default LoginDetailsServices;

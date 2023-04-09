@@ -91,7 +91,7 @@ function PlacedEvents({ providerId }: any) {
       (res: any) => {
         if (res.data.status === 1) {
           setEvents(res.data.data);
-          console.log(res.data.data);
+          // console.log(res.data.data);
           return;
         } else {
           //toast.error(res.data.message);

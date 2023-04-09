@@ -83,4 +83,21 @@ public class ReviewController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
+
+    @GetMapping("/getreviewcountbyproviderid/{providerId}")
+    public ResponseEntity<?> getReviewCountByProviderId(@PathVariable int providerId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        int count = reviewService.getReviewCountByProviderId(providerId);
+
+        if (count>=0) {
+            map.put("status", 1);
+            map.put("data", count);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "No Reviews");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
 }

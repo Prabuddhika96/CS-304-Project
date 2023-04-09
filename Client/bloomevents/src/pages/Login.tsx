@@ -62,7 +62,9 @@ function Login(): JSX.Element {
 
     setTimeout(async () => {
       const result = await AuthService.loginRequest(data);
-      if (result.data.status == 1) {
+      if (result.data.status === 1) {
+        // update last login
+
         //redirect to login page
         localStorage.setItem(
           "loggedUser",
@@ -72,7 +74,7 @@ function Login(): JSX.Element {
             lastName: result.data.data.user.lastName,
             mobile: result.data.data.user.mobile,
             district: result.data.data.user.district,
-            lastLogin: result.data.data.user.lastLogin,
+            lastLogin: new Date().getTime(),
             role: result.data.data.user.role,
           })
         );
@@ -91,6 +93,7 @@ function Login(): JSX.Element {
         return;
       } else {
         toast.error(result.data.message);
+        setBackdrop(false);
       }
     }, 1000);
   };

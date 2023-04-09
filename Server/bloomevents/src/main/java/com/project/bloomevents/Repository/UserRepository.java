@@ -1,5 +1,6 @@
 package com.project.bloomevents.Repository;
 
+import com.project.bloomevents.Enums.Role;
 import com.project.bloomevents.Model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -12,6 +13,10 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
+    @Transactional
+    @Modifying
+    @Query("update User u set u.role = ?1 where u.userId = ?2")
+    int changeRole(Role role, int userId);
     @Transactional
     @Modifying
     @Query("update User u set u.firstName = ?1, u.lastName = ?2, u.mobile = ?3, u.district = ?4 where u.userId = ?5")

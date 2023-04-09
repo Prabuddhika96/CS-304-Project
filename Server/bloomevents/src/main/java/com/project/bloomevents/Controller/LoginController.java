@@ -84,6 +84,24 @@ public class LoginController {
         }
     }
 
+    @PutMapping("/defaultPassword/{userId}")
+    public ResponseEntity<?> setDefaultPassword(@PathVariable int userId) throws NoSuchAlgorithmException{
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        int result = loginservice.setDefaultPassword(userId);
+
+        if (result == 1) {
+            map.put("status", 1);
+            map.put("data", "Password updated");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+        else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Update password is failed");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
     @PostMapping("/validateemail")
     public ResponseEntity<?> validateEmail(@RequestBody String email){
         Map<String, Object> map = new LinkedHashMap<String, Object>();

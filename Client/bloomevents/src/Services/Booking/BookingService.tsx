@@ -8,6 +8,10 @@ import http from "utils/http-common";
 
 axios.defaults.baseURL = process.env.REACT_APP_BACKEND_SERVER;
 
+const getallBookings = async () => {
+  return http.get<any>(`/bookings/getallbookings`);
+};
+
 const getBookingDetailsByEventId = async (id: any) => {
   return http.get<any>(`/bookings/getbookingdetailsbyeventid/${id}`);
 };
@@ -61,6 +65,11 @@ const makeBooking = async (user: any, event: any, totalPrice: number) => {
   }
 };
 
-const BookingService = { getBookingDetailsByEventId, addBooking, makeBooking };
+const BookingService = {
+  getBookingDetailsByEventId,
+  addBooking,
+  makeBooking,
+  getallBookings,
+};
 
 export default BookingService;

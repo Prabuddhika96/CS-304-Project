@@ -10,4 +10,6 @@ public interface ReviewService {
     boolean deleteReview(int reviewId);
 
     List<ReviewDTO> getReviewsByProviderId(int providerId);
+
+    int getReviewCountByProviderId(int providerId);
 }

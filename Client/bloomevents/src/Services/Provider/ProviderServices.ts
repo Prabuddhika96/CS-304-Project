@@ -57,6 +57,11 @@ const addProvider = async (data: any) => {
   return response;
 };
 
+//get provider by package id
+const deleteProvider = async (providerId: any) => {
+  return http.delete<any>(`/provider/deleteprovider/${providerId}`);
+};
+
 const ProviderService = {
   getAllServices,
   getProvider,
@@ -64,6 +69,7 @@ const ProviderService = {
   getProvidersByUserId,
   updateProvider,
   addProvider,
+  deleteProvider,
 };
 
 export default ProviderService;

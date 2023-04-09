@@ -18,4 +18,5 @@ public interface ProviderService {
     ProviderDTO updateProvider(ProviderDTO providerData);
 
 
+    boolean deleteProvider(int providerId);
 }

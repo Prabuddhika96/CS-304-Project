@@ -113,4 +113,21 @@ public class ReviewServiceImpl implements ReviewService {
             return null;
         }
     }
+
+    @Override
+    public int getReviewCountByProviderId(int providerId) {
+        try{
+            int count = reviewRepo.getReviewCountByProviderId(providerId);
+
+            if(count>=0){
+                return count;
+            }
+            return -1;
+
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return -1;
+        }
+    }
 }
