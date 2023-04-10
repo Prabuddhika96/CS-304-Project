@@ -105,16 +105,18 @@ function AdminViewBookedPackages() {
 
   return (
     <div className="relative">
-      <Box sx={{ width: "1500px", height: "700px" }}>
-        <DataGrid
-          checkboxSelection={true}
-          components={{ Toolbar: GridToolbar }}
-          rowHeight={60}
-          columns={columns}
-          rows={packages}
-          getRowId={(row) => row?.addToEventId}
-        />
-      </Box>
+      {packages && (
+        <Box sx={{ width: "100%", height: "700px" }}>
+          <DataGrid
+            checkboxSelection={true}
+            components={{ Toolbar: GridToolbar }}
+            rowHeight={60}
+            columns={columns}
+            rows={packages}
+            getRowId={(row) => row?.addToEventId}
+          />
+        </Box>
+      )}
     </div>
   );
 }

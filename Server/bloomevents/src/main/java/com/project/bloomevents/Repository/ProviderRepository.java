@@ -29,4 +29,6 @@ public interface ProviderRepository extends JpaRepository<Provider,Integer> {
     @Query(value = "SELECT * FROM bloomeventsdb.provider WHERE user_id = ?1 ", nativeQuery = true)
     List<Provider> getProvidersByUserId(int userId);
 
+    @Query(value = "SELECT COUNT(provider_id) FROM bloomeventsdb.provider WHERE category_id = ?1 ", nativeQuery = true)
+    int getProviderCountByCategoryId(int categoryId);
 }

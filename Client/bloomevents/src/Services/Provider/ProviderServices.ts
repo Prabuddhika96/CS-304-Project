@@ -62,6 +62,11 @@ const deleteProvider = async (providerId: any) => {
   return http.delete<any>(`/provider/deleteprovider/${providerId}`);
 };
 
+// get provider count by category id
+const getProviderCountByCategoryId = async (categoryId: any) => {
+  return http.get<any>(`/provider/getprovidercountbycategoryid/${categoryId}`);
+};
+
 const ProviderService = {
   getAllServices,
   getProvider,
@@ -70,6 +75,7 @@ const ProviderService = {
   updateProvider,
   addProvider,
   deleteProvider,
+  getProviderCountByCategoryId,
 };
 
 export default ProviderService;

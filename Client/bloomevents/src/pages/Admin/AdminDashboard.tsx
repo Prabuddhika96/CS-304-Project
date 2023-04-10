@@ -8,6 +8,7 @@ import { RouteName } from "constant/routeName";
 import { Role } from "Enums/Role";
 import UserServices from "Services/User/UserServices";
 import AdminViewBookedPackages from "./Services/AdminViewBookedPackages";
+import AdminAddCategory from "./Services/AdminAddCategory";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -58,7 +59,9 @@ function AdminDashboard() {
               setuser(res.data.data);
               localStorage.setItem("loggedUser", JSON.stringify(res.data.data));
               if (res.data.data.role !== Role.ADMIN) {
-                navigate(RouteName.Services);
+                localStorage.removeItem("loggedUser");
+                localStorage.removeItem("ProviderMode");
+                navigate(RouteName.Home);
               }
             }
           }
@@ -92,23 +95,29 @@ function AdminDashboard() {
             bgcolor: "background.paper",
             display: "flex",
             // height: 600,
-            minHeight: 600,
+            minHeight: 500,
           }}>
-          <Tabs
-            orientation="vertical"
-            //   variant="scrollable"
-            value={value}
-            onChange={handleChange}
-            aria-label="Vertical tabs example"
-            sx={{ borderRight: 1, borderColor: "divider", width: "100%" }}>
-            <Tab label="User Details" {...a11yProps(0)} />
-            <Tab label="Provider Details" {...a11yProps(1)} />
-            <Tab label="Add Category" {...a11yProps(2)} />
-            <Tab label="Booking Details" {...a11yProps(3)} />
-            <Tab label="Booked Packages" {...a11yProps(4)} />
-          </Tabs>
+          <div className="w-2/12">
+            <Tabs
+              orientation="vertical"
+              //   variant="scrollable"
+              value={value}
+              onChange={handleChange}
+              aria-label="Vertical tabs example"
+              sx={{
+                borderRight: 1,
+                borderColor: "divider",
+                width: "100% !important",
+              }}>
+              <Tab label="User Details" {...a11yProps(0)} />
+              <Tab label="Provider Details" {...a11yProps(1)} />
+              <Tab label="Manage Categories" {...a11yProps(2)} />
+              <Tab label="Booking Details" {...a11yProps(3)} />
+              <Tab label="Booked Packages" {...a11yProps(4)} />
+            </Tabs>
+          </div>
 
-          <div className="w-full">
+          <div className="w-10/12">
             <TabPanel value={value} index={0}>
               <AdminViewAllUsers loggedUserId={id} />
             </TabPanel>
@@ -116,7 +125,7 @@ function AdminDashboard() {
               <AdminViewAllProviders />
             </TabPanel>
             <TabPanel value={value} index={2}>
-              {/* <PlacedEvents providerId={providerId} /> */}
+              <AdminAddCategory />
             </TabPanel>
             <TabPanel value={value} index={3}>
               <AdminViewBookedEvents />

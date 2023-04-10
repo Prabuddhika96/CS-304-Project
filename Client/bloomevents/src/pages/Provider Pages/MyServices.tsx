@@ -3,6 +3,7 @@ import MyServicesCard from "components/Cards/Provider/MyServicesCard";
 import { RouteName } from "constant/routeName";
 import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import ProviderService from "Services/Provider/ProviderServices";
 
 function ProviderDashboard() {
@@ -18,6 +19,7 @@ function ProviderDashboard() {
         setuser(JSON.parse(logged));
         if (JSON.parse(logged).userId != userId) {
           localStorage.removeItem("loggedUser");
+          localStorage.removeItem("ProviderMode");
           navigate(RouteName.Home);
         }
       } else {
@@ -32,12 +34,16 @@ function ProviderDashboard() {
   useEffect(() => {
     setTimeout(() => {
       ProviderService.getProvidersByUserId(userId).then((res: any) => {
-        if (res.data.status == 1) {
+        if (res.data.status === 1) {
           setServices(res.data.data);
-          // console.log(res.data.data);
-          return;
+          console.log(res.data);
         } else {
           setServices(null);
+          toast.error("No Services Found");
+          if (userId) {
+            navigate(RouteName.AddNewService.replace(":userId", userId));
+          }
+          return;
         }
       });
     }, 1000);

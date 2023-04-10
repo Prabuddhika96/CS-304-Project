@@ -137,4 +137,20 @@ public class ProviderController {
         }
     }
 
+    @GetMapping("/getprovidercountbycategoryid/{categoryId}")
+    public ResponseEntity<?> getProviderCountByCategoryId(@PathVariable int categoryId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        int count = providerService.getProviderCountByCategoryId(categoryId);
+
+        if (count>=0) {
+            map.put("status", 1);
+            map.put("data", count);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Provider not found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
 }

@@ -8,8 +8,20 @@ const getAllCategories = async () => {
   return http.get<any>("/category/getallcategories");
 };
 
+const addCategory = async (data: any) => {
+  // return http.put<any>(`/event/placeevent/${id}`);
+  const response = await axios({
+    method: "post",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/category/addcategory`,
+    data: data,
+    headers: { "Content-Type": "application/json; charset=utf-8" },
+  });
+  return response;
+};
+
 const CategoryService = {
   getAllCategories,
+  addCategory,
 };
 
 export default CategoryService;

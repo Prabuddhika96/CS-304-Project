@@ -55,6 +55,10 @@ const getTotalPriceByEventId = async (id: any) => {
   return http.get<any>(`/package/gettotalpricebyeventid/${id}`);
 };
 
+const getPackageCountByCategoryId = async (id: any) => {
+  return http.get<any>(`/package/getpackagecountbycategoryid/${id}`);
+};
+
 const PackageServices = {
   getAllpackages,
   getPackageCountByProviderId,
@@ -64,6 +68,7 @@ const PackageServices = {
   updatePackage,
   deletePackage,
   getTotalPriceByEventId,
+  getPackageCountByCategoryId,
 };
 
 export default PackageServices;

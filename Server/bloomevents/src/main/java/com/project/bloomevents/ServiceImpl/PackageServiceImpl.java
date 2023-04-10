@@ -142,4 +142,19 @@ public class PackageServiceImpl implements PackageService {
             return -1;
         }
     }
+
+    @Override
+    public int getPackageCountByCategoryId(int categoryId) {
+        try{
+            int count = packageRepo.getPackageCountByCategoryId(categoryId);
+            if (count>=0){
+                return count;
+            }
+            return -1;
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return -1;
+        }
+    }
 }

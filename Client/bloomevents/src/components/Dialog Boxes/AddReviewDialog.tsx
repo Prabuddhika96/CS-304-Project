@@ -46,10 +46,10 @@ function AddReviewDialog({
   const addReview = (e: any) => {
     e.preventDefault();
     setBackdrop(true);
-    console.log(newReview);
+    // console.log(newReview);
 
     setTimeout(() => {
-      console.log(newReview);
+      // console.log(newReview);
       ReviewService.addReview(newReview, addToEventId).then((res: any) => {
         console.log(res);
         if (res.data.data === 1) {

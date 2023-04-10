@@ -30,16 +30,17 @@ function AdminViewBookedEvents() {
 
   return (
     <div>
-      {bookedEvents?.map((event: any, i: number) => (
-        <Accordion
-          sx={{ marginBottom: "5px" }}
-          key={i}
-          expanded={expanded === `panel${i}`}
-          onChange={handleChange(`panel${i}`)}>
-          <AccordianSummeryComponent i={i} event={event} />
-          <AccordianDetailComponent eventId={event.eventId} />
-        </Accordion>
-      ))}
+      {bookedEvents &&
+        bookedEvents?.map((event: any, i: number) => (
+          <Accordion
+            sx={{ marginBottom: "5px" }}
+            key={i}
+            expanded={expanded === `panel${i}`}
+            onChange={handleChange(`panel${i}`)}>
+            <AccordianSummeryComponent i={i} event={event} />
+            <AccordianDetailComponent eventId={event.eventId} />
+          </Accordion>
+        ))}
     </div>
   );
 }

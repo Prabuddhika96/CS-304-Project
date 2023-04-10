@@ -140,5 +140,20 @@ public class ProviderServiceImpl implements ProviderService {
         }
     }
 
+    @Override
+    public int getProviderCountByCategoryId(int categoryId) {
+        try{
+            int count=providerRepo.getProviderCountByCategoryId(categoryId);
+            if(count>=0){
+                return count;
+            }
+            return -1;
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return -1;
+        }
+    }
+
 
 }

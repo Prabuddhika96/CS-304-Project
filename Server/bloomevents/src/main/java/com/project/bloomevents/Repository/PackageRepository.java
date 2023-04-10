@@ -28,4 +28,8 @@ public interface PackageRepository extends JpaRepository<Packages, Integer> {
     @Query(value = "SELECT SUM(price) FROM bloomeventsdb.packages WHERE package_id IN " +
             "(SELECT package_id FROM bloomeventsdb.addtoevent WHERE event_id=?1)", nativeQuery = true)
     double getTotalPriceByEventId(int eventId);
+
+    @Query(value = "SELECT COUNT(package_id) FROM bloomeventsdb.packages WHERE provider_id IN " +
+            "(SELECT provider_id FROM bloomeventsdb.provider WHERE category_id = ?1)", nativeQuery = true)
+    int getPackageCountByCategoryId(int categoryId);
 }

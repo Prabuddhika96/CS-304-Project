@@ -154,4 +154,21 @@ public class PackageController {
         }
     }
 
+    @GetMapping("/getpackagecountbycategoryid/{categoryId}")
+    public ResponseEntity<?> getPackageCountByCategoryId(@PathVariable int categoryId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        int count = packageService.getPackageCountByCategoryId(categoryId);
+
+        if (count >= 0 ) {
+            map.put("status", 1);
+            map.put("data", count);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Packages list is not found");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
 }

@@ -12,7 +12,7 @@ const Carousel = ({ providerId }: any) => {
       }
     });
   }, [providerId]);
-  const server = `http://localhost:8080/upload/ProviderImages/1`;
+  const server = `http://localhost:8080/upload/ProviderImages/${providerId}`;
 
   return (
     <div>

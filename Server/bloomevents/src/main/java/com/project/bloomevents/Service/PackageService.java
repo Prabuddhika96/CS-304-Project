@@ -20,4 +20,6 @@ public interface PackageService {
     boolean deletePackage(int packageId);
 
     double getTotalPriceByEventId(int eventId);
+
+    int getPackageCountByCategoryId(int categoryId);
 }

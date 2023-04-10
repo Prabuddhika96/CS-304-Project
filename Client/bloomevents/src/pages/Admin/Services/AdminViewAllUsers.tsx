@@ -42,23 +42,23 @@ function AdminViewAllUsers({ loggedUserId }: any) {
 
   const columns = useMemo(
     () => [
-      { field: "userId", headerName: "User ID", width: 100 },
+      { field: "userId", headerName: "User ID", width: 80 },
       {
         field: "firstName",
         headerName: "First Name",
-        width: 150,
+        width: 130,
         editable: true,
       },
       {
         field: "lastName",
         headerName: "Last Name",
-        width: 150,
+        width: 130,
         editable: true,
       },
       {
         field: "district",
         headerName: "District",
-        width: 150,
+        width: 100,
         editable: true,
       },
       {
@@ -70,7 +70,7 @@ function AdminViewAllUsers({ loggedUserId }: any) {
       {
         field: "email",
         headerName: "Email",
-        width: 200,
+        width: 180,
         type: "actions",
         renderCell: (params: any) => (
           <AdminUserActionComponent {...{ params }} />
@@ -78,8 +78,8 @@ function AdminViewAllUsers({ loggedUserId }: any) {
       },
       {
         field: "changePassword",
-        headerName: "ChangePassword",
-        width: 150,
+        headerName: "Change Password",
+        width: 120,
         type: "actions",
         renderCell: (params: any) => {
           const setDefaultPw = (e: any) => {
@@ -119,7 +119,7 @@ function AdminViewAllUsers({ loggedUserId }: any) {
       {
         field: "changeRole",
         headerName: "Change Role",
-        width: 150,
+        width: 110,
         type: "actions",
         renderCell: (params: any) => {
           const { userId } = params.row;
@@ -156,7 +156,7 @@ function AdminViewAllUsers({ loggedUserId }: any) {
       {
         field: "deleteUser",
         headerName: "Delete User",
-        width: 150,
+        width: 110,
         type: "actions",
         renderCell: (params: any) => {
           const { userId } = params.row;
@@ -197,16 +197,18 @@ function AdminViewAllUsers({ loggedUserId }: any) {
 
   return (
     <div className="relative">
-      <Box sx={{ width: "1500px", height: "700px" }}>
-        <DataGrid
-          checkboxSelection={true}
-          components={{ Toolbar: GridToolbar }}
-          rowHeight={60}
-          columns={columns}
-          rows={users}
-          getRowId={(row) => row?.userId}
-        />
-      </Box>
+      {users && (
+        <Box sx={{ width: "100%", height: "700px" }}>
+          <DataGrid
+            checkboxSelection={true}
+            components={{ Toolbar: GridToolbar }}
+            rowHeight={60}
+            columns={columns}
+            rows={users}
+            getRowId={(row) => row?.userId}
+          />
+        </Box>
+      )}
     </div>
   );
 }

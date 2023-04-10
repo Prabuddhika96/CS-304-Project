@@ -22,8 +22,8 @@ function AccordianDetailComponent({ eventId }: any) {
       <AccordionDetails>
         {packages?.map((p: any, i: number) => (
           <>
-            <Typography>
-              <AccordianPackgeDetail addToEvent={p} key={i} />
+            <Typography key={i}>
+              <AccordianPackgeDetail addToEvent={p} />
             </Typography>
           </>
         ))}

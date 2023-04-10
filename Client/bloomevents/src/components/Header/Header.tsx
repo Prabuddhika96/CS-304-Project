@@ -7,6 +7,7 @@ import { RouteName } from "constant/routeName";
 import LoggedUserNav from "./Logged User/LoggedUserNav";
 import UserMode from "./Nav Options/UserMode";
 import ProviderMode from "./Nav Options/ProviderMode";
+import UserServices from "Services/User/UserServices";
 
 function Header() {
   const navigate = useNavigate();
@@ -17,10 +18,15 @@ function Header() {
   useEffect(() => {
     let logged = localStorage.getItem("loggedUser");
     if (logged) {
-      const a = JSON.parse(logged);
-      // a.lastLogin = new Date().getTime();
-      setuser(a);
-      // localStorage.setItem("loggedUser", JSON.stringify(a));
+      setuser(JSON.parse(logged));
+      UserServices.getUserByUserId(JSON.parse(logged).userId).then(
+        (res: any) => {
+          if (res.data.status === 1) {
+            setuser(res.data.data);
+            localStorage.setItem("loggedUser", JSON.stringify(res.data.data));
+          }
+        }
+      );
     } else {
       setuser(null);
     }

@@ -19,4 +19,6 @@ public interface ProviderService {
 
 
     boolean deleteProvider(int providerId);
+
+    int getProviderCountByCategoryId(int categoryId);
 }
