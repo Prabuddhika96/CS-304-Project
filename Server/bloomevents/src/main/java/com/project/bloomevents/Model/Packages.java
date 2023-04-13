@@ -32,7 +32,7 @@ public class Packages {
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "providerId", referencedColumnName = "providerId")
+    @JoinColumn(name = "providerId", referencedColumnName = "providerId", nullable = false)
     private Provider provider;
 
     @OneToMany(mappedBy = "packages", cascade = CascadeType.REMOVE)

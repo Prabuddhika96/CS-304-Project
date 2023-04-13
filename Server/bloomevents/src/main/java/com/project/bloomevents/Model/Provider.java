@@ -47,12 +47,12 @@ public class Provider {
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
     private User user;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "categoryId", referencedColumnName = "categoryId")
+    @JoinColumn(name = "categoryId", referencedColumnName = "categoryId", nullable = false)
     private Category category;
 
     @OneToMany(mappedBy = "provider", cascade = CascadeType.REMOVE)

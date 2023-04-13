@@ -13,7 +13,7 @@ import CategoryService from "Services/Category/CategoryService";
 import ServiceCardSkeleton from "skeleton/ServiceCardSkeleton/ServiceCardSkeleton";
 import AutoComplete from "components/AutoComplete/AutoComplete";
 import { districts } from "docs/districts";
-import { TextField } from "@mui/material";
+import { Box, MenuItem, Pagination, Select, TextField } from "@mui/material";
 
 interface Option {
   value: string;
@@ -143,6 +143,57 @@ function Services() {
     }
   }, [selectCategory, selectDistrict, searchName]);
 
+  // sorting
+  const [sortVal, setSortVal] = useState(1);
+  useEffect(() => {
+    if (filteredServices) {
+      // console.log(n);
+      if (sortVal == 1) {
+        const sortedServices = [...filteredServices].sort(
+          (a, b) => b.providerId - a.providerId
+        );
+        setFilteredServices(sortedServices);
+        // console.log(sortedServices);
+      }
+      if (sortVal == 2) {
+        const sortedServices = [...filteredServices].sort(
+          (a, b) => a.providerId - b.providerId
+        );
+        setFilteredServices(sortedServices);
+        // console.log(sortedServices);
+      }
+      if (sortVal == 3) {
+        const sortedServices = [...filteredServices].sort(
+          (a, b) => b.rating - a.rating
+        );
+        setFilteredServices(sortedServices);
+        // console.log(sortedServices);
+      }
+      if (sortVal == 4) {
+        const sortedServices = [...filteredServices].sort(
+          (a, b) => a.rating - b.rating
+        );
+        setFilteredServices(sortedServices);
+        // console.log(sortedServices);
+      }
+    }
+  }, [sortVal]);
+
+  // add pagination
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(10);
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPage(value);
+  };
+
+  const startIndex = (page - 1) * perPage;
+  const endIndex = startIndex + perPage;
+  const itemsForCurrentPage = filteredServices?.slice(startIndex, endIndex);
+
   return (
     <div className="w-full pt-24">
       {/* search section */}
@@ -152,6 +203,7 @@ function Services() {
             array={autoCategories}
             label={"Category"}
             selectedOption={setSelectCategory}
+            color={true}
           />
         </div>
 
@@ -160,6 +212,7 @@ function Services() {
             array={autoDistricts}
             label={"District"}
             selectedOption={setSelectDistrict}
+            color={true}
           />
         </div>
 
@@ -178,32 +231,86 @@ function Services() {
         </div>
       </div>
 
-      {/* service cards */}
-      <div className="service-card-area">
-        {filteredServices ? (
-          <>
-            {filteredServices.map((c: any, i: number) => (
-              <div>
-                <Link
-                  to={{
-                    pathname: `${RouteName.ProviderDetails.replace(
-                      ":providerId",
-                      c.providerId.toString()
-                    )}`,
-                  }}
-                  key={i}>
-                  <ServiceCard provider={c} />
-                </Link>
+      <div className={`flex justify-around`}>
+        {/* filer options */}
+        <div className="w-3/12 p-5">
+          <div className="bg-white min-h-[600px] px-6 py-4 min-w-[20px] rounded-lg shadow-2xl">
+            <div className="my-5">
+              <p className="mb-3">Sort results by</p>
+              <Select
+                labelId="demo-simple-select-helper-label"
+                id="demo-simple-select-helper"
+                fullWidth
+                defaultValue={1}
+                label=""
+                onChange={(e: any) => {
+                  setSortVal(e.target.value);
+                }}>
+                <MenuItem value={1} selected>
+                  Date: Newest on top
+                </MenuItem>
+                <MenuItem value={2}>Date: Oldest on top</MenuItem>
+                <MenuItem value={3}>Ratings: High to low</MenuItem>
+                <MenuItem value={4}>Ratings: Low to high</MenuItem>
+              </Select>
+            </div>
+
+            <div className="my-5">
+              <AutoComplete
+                array={autoCategories}
+                label={"Category"}
+                selectedOption={setSelectCategory}
+                color={false}
+              />
+            </div>
+
+            <div className="my-5">
+              <AutoComplete
+                array={autoDistricts}
+                label={"District"}
+                selectedOption={setSelectDistrict}
+                color={false}
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* service cards */}
+        <div className="w-9/12 px-5 py-3 mx-3 mt-5 bg-white rounded-lg shadow-2xl service-card-area">
+          {filteredServices ? (
+            <>
+              {itemsForCurrentPage?.map((c: any, i: number) => (
+                <div key={i}>
+                  <Link
+                    to={{
+                      pathname: `${RouteName.ProviderDetails.replace(
+                        ":providerId",
+                        c.providerId.toString()
+                      )}`,
+                    }}>
+                    <ServiceCard provider={c} />
+                  </Link>
+                </div>
+              ))}
+              {/* <ServiceCardSkeleton /> */}
+              <div className="flex justify-center w-full mt-16">
+                <Pagination
+                  count={Math.ceil(filteredServices?.length / perPage)}
+                  page={page}
+                  onChange={handlePageChange}
+                  variant="outlined"
+                  shape="rounded"
+                />
               </div>
-            ))}
-          </>
-        ) : (
-          <>
-            <ServiceCardSkeleton />
-            <ServiceCardSkeleton />
-            <ServiceCardSkeleton />
-          </>
-        )}
+            </>
+          ) : (
+            <>
+              <ServiceCardSkeleton />
+              <ServiceCardSkeleton />
+              <ServiceCardSkeleton />
+            </>
+          )}
+        </div>
       </div>
     </div>
   );

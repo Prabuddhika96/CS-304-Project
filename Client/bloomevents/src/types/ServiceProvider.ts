@@ -1,4 +1,5 @@
 export type ServiceProvider = {
+  value: any;
   providerId: number;
   businessName: string;
   mobile: string;

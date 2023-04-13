@@ -27,6 +27,6 @@ public class PrivateBooking {
     private String eventTime;
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "providerId", referencedColumnName = "providerId")
+    @JoinColumn(name = "providerId", referencedColumnName = "providerId", nullable = false)
     private Provider provider;
 }

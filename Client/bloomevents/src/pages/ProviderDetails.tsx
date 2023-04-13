@@ -1,4 +1,4 @@
-import { Box, Button, Tab } from "@mui/material";
+import { Box, Button, Pagination, Tab } from "@mui/material";
 import CalenderElement from "components/Elements/CalenderElement";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -230,6 +230,21 @@ function ProviderDetails() {
     });
   }, [provider]);
 
+  // add pagination for review
+  const [page, setPage] = useState(1);
+  const [perPage, setPerPage] = useState(5);
+
+  const handlePageChange = (
+    event: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPage(value);
+  };
+
+  const startIndex = (page - 1) * perPage;
+  const endIndex = startIndex + perPage;
+  const itemsForCurrentPage = reviews?.slice(startIndex, endIndex);
+
   return (
     <div>
       {provider ? (
@@ -257,16 +272,18 @@ function ProviderDetails() {
               <Carousel providerId={provider?.providerId} />
             </div>
 
-            <div className="w-4/12 px-8 mt-[80px]">
-              <h1 className="text-lg text-[#000] uppercase">Avalble Slots</h1>
-              <div className="bottom-0 mt-5">
-                <CalenderElement providerId={providerId} />
-                {/* <Calender /> */}
-                {/* <CalenderNew /> */}
+            <div className="w-4/12 block items-center px-8 mt-[160px]">
+              <div>
+                <h1 className="text-xl text-center text-[#000] uppercase">
+                  Avalble Slots
+                </h1>
+                <div className="bottom-0 mt-5 flex justify-center w-full">
+                  <CalenderElement providerId={providerId} />
+                </div>
               </div>
 
-              <div>
-                <div className="flex justify-around w-10/12 mt-5">
+              <div className="">
+                <div className="flex justify-around w-8/12 mt-5 mx-auto">
                   <Button
                     variant="contained"
                     color="success"
@@ -389,9 +406,18 @@ function ProviderDetails() {
                 <TabPanel value="2">
                   {reviews ? (
                     <>
-                      {reviews.map((review: any, i: number) => (
+                      {itemsForCurrentPage?.map((review: any, i: number) => (
                         <Reviews review={review} key={i} />
                       ))}
+                      <div className="flex justify-center w-full">
+                        <Pagination
+                          count={Math.ceil(reviews?.length / perPage)}
+                          page={page}
+                          onChange={handlePageChange}
+                          variant="outlined"
+                          shape="rounded"
+                        />
+                      </div>
                     </>
                   ) : (
                     <></>

@@ -24,4 +24,7 @@ public interface ReviewRepository extends JpaRepository<Review,Integer> {
 
     @Query(value = "SELECT COUNT(review_id) FROM bloomeventsdb.review WHERE provider_id = ?1", nativeQuery = true)
     int getReviewCountByProviderId(int providerId);
+
+    @Query(value = "SELECT SUM(rate) FROM bloomeventsdb.review WHERE provider_id = ?1", nativeQuery = true)
+    double getReviewSumByProviderId(int providerId);
 }

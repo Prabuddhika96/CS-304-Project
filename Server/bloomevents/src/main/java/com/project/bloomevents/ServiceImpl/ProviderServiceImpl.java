@@ -23,6 +23,8 @@ public class ProviderServiceImpl implements ProviderService {
     private UserServiceImpl userServiceimpl;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private ReviewServiceImpl reviewService;
 
     @Override
     public List<ProviderDTO> getAllProviders() {
@@ -155,5 +157,10 @@ public class ProviderServiceImpl implements ProviderService {
         }
     }
 
-
+    public void updateRatings(int providerId){
+        double ratings=reviewService.getReviewSumByProviderId(providerId);
+        int count=reviewService.getReviewCountByProviderId(providerId);
+        double rate=ratings/count;
+        providerRepo.UpdateRatings(rate, providerId);
+    }
 }

@@ -39,7 +39,7 @@ function ProviderDashboard() {
           console.log(res.data);
         } else {
           setServices(null);
-          toast.error("No Services Found");
+          // toast.error("No Services Found");
           if (userId) {
             navigate(RouteName.AddNewService.replace(":userId", userId));
           }

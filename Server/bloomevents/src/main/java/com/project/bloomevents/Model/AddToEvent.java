@@ -30,11 +30,11 @@ public class AddToEvent {
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "eventId", referencedColumnName = "eventId")
+    @JoinColumn(name = "eventId", referencedColumnName = "eventId", nullable = false)
     private Event event;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "packageId", referencedColumnName = "packageId")
+    @JoinColumn(name = "packageId", referencedColumnName = "packageId", nullable = false)
     private Packages packages;
 }

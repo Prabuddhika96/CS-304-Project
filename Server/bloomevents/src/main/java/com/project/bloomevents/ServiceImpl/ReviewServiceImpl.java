@@ -66,6 +66,7 @@ public class ReviewServiceImpl implements ReviewService {
                 if(r1!=null){
                     boolean updateAddtoevent=addToEventServiceImpl.updateReviewed(addToEventId);
                     if(updateAddtoevent==true){
+                        providerServiceImpl.updateRatings(review.getProviderId());
                         return modelMapper.map(r1, new TypeToken<ReviewDTO>() {
                         }.getType());
                     }
@@ -118,6 +119,22 @@ public class ReviewServiceImpl implements ReviewService {
     public int getReviewCountByProviderId(int providerId) {
         try{
             int count = reviewRepo.getReviewCountByProviderId(providerId);
+
+            if(count>=0){
+                return count;
+            }
+            return -1;
+
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return -1;
+        }
+    }
+
+    public double getReviewSumByProviderId(int providerId) {
+        try{
+            double count = reviewRepo.getReviewSumByProviderId(providerId);
 
             if(count>=0){
                 return count;

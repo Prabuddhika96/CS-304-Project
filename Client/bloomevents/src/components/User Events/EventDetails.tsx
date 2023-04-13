@@ -279,8 +279,8 @@ function EventDetails() {
                 `${event?.eventDate} ${event?.eventTime}`,
                 "DD-MMM-YYYY hh:mm A"
               ).isBefore(dayjs())
-                ? `Are you sure you want to remove ${event?.eventName} ?`
-                : `Are you sure you want to delete ${event?.eventName} ?`
+                ? `Do you want to remove ${event?.eventName} ?`
+                : `Do you want to delete ${event?.eventName} ?`
             }
           />
 
@@ -315,8 +315,8 @@ function EventDetails() {
                           className={` ${
                             event.booked === true
                               ? "border-orange-600 bg-orange-600"
-                              : "border-blue-600 hover:bg-[#164dff] bg-blue-600"
-                          }  my-event-card-btn !text-white`}>
+                              : "text-blue-600 border-blue-600 hover:bg-blue-600"
+                          }  my-event-card-btn `}>
                           {event.booked === true ? "Booked" : "Make Payment"}
                         </button>
                       )}
@@ -385,7 +385,7 @@ function EventDetails() {
             close={handleClickClosePlace}
             actionFunc={placeEvent}
             actionBtnName={"Place Event"}
-            title={`Are you sure you want to place ${event?.eventName} ?`}
+            title={`Do you want to place ${event?.eventName} ?`}
             color={"green-600"}
           />
 

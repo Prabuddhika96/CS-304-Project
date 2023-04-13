@@ -22,28 +22,23 @@ public class User {
     @Column(name="userId")
     private int userId;
 
-    @Column(name="firstName")
+    @Column(name="firstName", nullable = false)
     private String firstName;
 
-    @Column(name="lastName")
+    @Column(name="lastName", nullable = false)
     private String lastName;
 
-    @Column(name="mobile")
+    @Column(name="mobile", nullable = false)
     private int mobile;
 
-    @Column(name="district")
+    @Column(name="district", nullable = false)
     private String district;
-
-//    @JsonIgnore
-//    @ManyToOne(cascade = CascadeType.MERGE)
-//    @JoinColumn(name = "districtId", referencedColumnName = "districtId")
-//    private District district;
 
     @Column(name="lastLogin")
     private Timestamp lastLogin;
 
     @Enumerated(EnumType.STRING)
-    @Column(name="role")
+    @Column(name="role", nullable = false)
     private Role role;
 
     @OneToOne(mappedBy = "user",cascade = CascadeType.REMOVE)

@@ -24,14 +24,14 @@ public class LoginDetails implements UserDetails {
     @Column(name="loginId")
     private int loginId;
 
-    @Column(name="email")
+    @Column(name="email", nullable = false)
     private String email;
 
-    @Column(name="password")
+    @Column(name="password", nullable = false)
     private String password;
 
     @OneToOne
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
     private User user;
 
     @Override

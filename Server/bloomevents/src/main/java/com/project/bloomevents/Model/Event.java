@@ -47,7 +47,7 @@ public class Event {
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
     private User user;
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.REMOVE)

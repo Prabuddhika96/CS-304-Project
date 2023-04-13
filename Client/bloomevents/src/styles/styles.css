@@ -4,7 +4,7 @@
 
 @layer components {
   .footer-social-media {
-    @apply inline px-2 mt-2 text-2xl text-[#ffc277] hover:scale-[1.2] hover:duration-300;
+    @apply inline px-2 mt-2 text-2xl text-[#ffa537] hover:scale-[1.2] hover:duration-300;
   }
   .footer-links {
     @apply text-base hover:text-[#ffc277] hover:duration-200;
@@ -23,7 +23,7 @@
   }
 
   .service-card-area {
-    @apply my-10;
+    @apply my-0;
   }
 
   .service-card-icon {
@@ -170,4 +170,8 @@
 
 .MuiButton-textPrimary {
   color: #ffa537 !important;
+}
+
+.MuiInputBase {
+  border-color: #ffa537 !important;
 }

@@ -22,9 +22,9 @@ public class Booking {
     @Column(name = "bookingTime")
     private String bookingTime;
     @OneToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "eventId", referencedColumnName = "eventId")
+    @JoinColumn(name = "eventId", referencedColumnName = "eventId", nullable = false)
     private Event event;
     @OneToOne(cascade = CascadeType.REMOVE)
-    @JoinColumn(name = "paymentId", referencedColumnName = "paymentId")
+    @JoinColumn(name = "paymentId", referencedColumnName = "paymentId", nullable = false)
     private Payment payment;
 }

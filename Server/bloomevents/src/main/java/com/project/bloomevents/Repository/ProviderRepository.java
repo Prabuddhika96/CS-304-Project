@@ -13,6 +13,11 @@ import java.util.List;
 public interface ProviderRepository extends JpaRepository<Provider,Integer> {
     @Transactional
     @Modifying
+    @Query("update Provider p set p.rating = ?1 where p.providerId = ?2")
+    int UpdateRatings(double rating, int providerId);
+
+    @Transactional
+    @Modifying
     @Query("delete from Provider p where p.providerId = ?1")
     int deleteProvider(int providerId);
     @Transactional
@@ -31,4 +36,5 @@ public interface ProviderRepository extends JpaRepository<Provider,Integer> {
 
     @Query(value = "SELECT COUNT(provider_id) FROM bloomeventsdb.provider WHERE category_id = ?1 ", nativeQuery = true)
     int getProviderCountByCategoryId(int categoryId);
+
 }

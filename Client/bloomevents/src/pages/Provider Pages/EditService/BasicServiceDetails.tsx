@@ -87,13 +87,6 @@ function BasicServiceDetails({ providerId, provider }: any) {
           <div className="overflow-hidden drop-shadow-xl sm:rounded-md">
             <div className="px-4 py-5 bg-white sm:p-6">
               <div>
-                {/* <h1 className="mb-3 text-3xl text-center">
-                  Update{" "}
-                  <span className="text-[#ffa537]">
-                    {provider.businessName}
-                  </span>
-                </h1> */}
-
                 {/* service logo */}
                 <div className="flex justify-center mx-auto my-3 mb-5">
                   <input

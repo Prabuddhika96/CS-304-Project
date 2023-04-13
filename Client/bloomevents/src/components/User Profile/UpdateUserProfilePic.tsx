@@ -1,6 +1,7 @@
 import CircularProgressItem from "components/CircularProgress/CircularProgressItem";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Avatar from "react-avatar-edit";
+import { RiImageAddLine } from "react-icons/ri";
 import FileUpload from "Services/FileUpload/FileUpload";
 
 function UpdateUserProfilePic({ user }: any) {
@@ -34,28 +35,47 @@ function UpdateUserProfilePic({ user }: any) {
       window.location.reload();
     }, 1000);
   };
+
+  // image
+  const [picture, setPicture] = useState("");
+  useEffect(() => {
+    setPicture(
+      `${process.env.REACT_APP_BACKEND_SERVER}/upload/profilePic/${user?.userId}`
+    );
+  }, [user]);
+
   return (
     <div>
       <div className="flex justify-center w-full text-center">
-        <Avatar
-          width={470}
-          height={470}
-          onCrop={onCrop}
-          onClose={onClose}
-          onBeforeFileLoad={onBeforeFileLoad}
-          src={src}
-          exportQuality={1}
-          shadingOpacity={0.6}
-          exportAsSquare
-          exportSize={2000}
-        />
+        <div className="flex justify-center mx-auto my-3 mb-5">
+          <img
+            src={picture}
+            alt=""
+            className="absolute duration-300 ease-in-out cursor-pointer hover:opacity-25 rounded-full w-[472px] h-[472px] z-1"
+          />
+
+          <div className="flex justify-center file:text-transparent opacity-0 hover:opacity-100 duration-300 items-center z-0 hover:z-10 rounded-full hover:bg-[#ffffff70]">
+            <Avatar
+              width={470}
+              height={470}
+              onCrop={onCrop}
+              onClose={onClose}
+              onBeforeFileLoad={onBeforeFileLoad}
+              src={src}
+              exportQuality={1}
+              shadingOpacity={0.6}
+              exportAsSquare
+              exportSize={2000}
+            />
+          </div>
+        </div>
       </div>
 
-      <div className="react-hook-form-btn-div">
+      <div className="text-center">
         <button
           type="submit"
           onClick={handlePropic}
-          className="react-hook-form-btn react-hook-form-btn-submit">
+          className="react-hook-form-btn react-hook-form-btn-submit mt-5">
           {backdrop === true && (
             <>
               <div className="mr-3">

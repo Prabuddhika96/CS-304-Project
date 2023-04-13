@@ -242,15 +242,17 @@ function MyEventCard({ event, func }: any) {
                   `${event.eventDate} ${event.eventTime}`,
                   "DD-MMM-YYYY hh:mm A"
                 ).isBefore(dayjs())
-                  ? `Are you sure you want to remove ${event.eventName} ?`
-                  : `Are you sure you want to delete ${event.eventName} ?`
+                  ? `Do you want to remove ${event.eventName} ?`
+                  : `Do you want to delete ${event.eventName} ?`
               }
             />
 
             {/* place event */}
             {event.placed ? (
               <>
-                {packageCount !== approvedCount ? (
+                {packageCount &&
+                packageCount !== approvedCount &&
+                approvedCount ? (
                   <button
                     type="button"
                     disabled
@@ -269,19 +271,27 @@ function MyEventCard({ event, func }: any) {
                         {dayjs(
                           `${event.eventDate} ${event.eventTime}`,
                           "DD-MMM-YYYY hh:mm A"
-                        ).isAfter(dayjs()) && (
-                          <button
-                            type="button"
-                            disabled={event.booked === true ? true : false}
-                            onClick={handleClickOpenPayment}
-                            className={` ${
-                              event.booked === true
-                                ? "border-orange-600 bg-orange-600"
-                                : "border-blue-600 hover:bg-[#164dff] bg-blue-600"
-                            }  my-event-card-btn !text-white`}>
-                            {event.booked === true ? "Booked" : "Make Payment"}
-                          </button>
-                        )}
+                        ).isAfter(dayjs()) &&
+                          (event.booked === true ? (
+                            <>
+                              <button
+                                type="button"
+                                disabled
+                                onClick={handleClickOpenPayment}
+                                className={`border-orange-600 bg-orange-600  my-event-card-btn !text-white`}>
+                                Booked
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <button
+                                type="button"
+                                onClick={handleClickOpenPayment}
+                                className="text-blue-600 border-blue-600 hover:bg-blue-600 my-event-card-btn">
+                                Make Payment
+                              </button>
+                            </>
+                          ))}
 
                         <Dialog
                           open={openPayment}
@@ -347,7 +357,7 @@ function MyEventCard({ event, func }: any) {
               close={handleClickClosePlace}
               actionFunc={placeEvent}
               actionBtnName={"Place Event"}
-              title={`Are you sure you want to place ${event.eventName} ?`}
+              title={`Do you want to place ${event.eventName} ?`}
               color={"green-600"}
             />
           </div>

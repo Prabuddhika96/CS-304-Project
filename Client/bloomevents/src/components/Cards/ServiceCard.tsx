@@ -43,7 +43,7 @@ function ServiceCard({ provider }: any) {
   }, [provider]);
 
   return (
-    <div className="w-11/12 h-56 service-card duration-200 ease-in-out hover:scale-[1.01]">
+    <div className="w-full h-56 service-card duration-200 ease-in-out hover:scale-[1.01]">
       <div
         id="back-img"
         className="w-3/12 h-56 bg-center"

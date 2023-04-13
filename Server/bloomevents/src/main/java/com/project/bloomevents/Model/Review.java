@@ -30,11 +30,11 @@ public class Review {
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "userId", referencedColumnName = "userId")
+    @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
     private User user;
 
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "providerId", referencedColumnName = "providerId")
+    @JoinColumn(name = "providerId", referencedColumnName = "providerId", nullable = false)
     private Provider provider;
 }

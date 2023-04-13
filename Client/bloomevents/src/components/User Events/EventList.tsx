@@ -73,9 +73,7 @@ function EventList(userid: any) {
       const filteredData = events?.filter((emp: any) => emp.placed === false);
       setFilteredEvents(filteredData);
     } else if (filterEvents === "3") {
-      const filteredData = events?.filter(
-        (emp: any) => emp.placed === true && emp.booked === true
-      );
+      const filteredData = events?.filter((emp: any) => emp.booked === true);
       setFilteredEvents(filteredData);
     } else {
       setFilteredEvents(events);

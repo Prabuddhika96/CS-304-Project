@@ -15,8 +15,8 @@ const Carousel = ({ providerId }: any) => {
   const server = `http://localhost:8080/upload/ProviderImages/${providerId}`;
 
   return (
-    <div>
-      <div id="slider">
+    <div className="w-full">
+      <div id="slider" className="mx-auto">
         {names ? (
           <>
             {names?.map((c: any, i: number) => (
@@ -43,7 +43,7 @@ const Carousel = ({ providerId }: any) => {
                   <img
                     src={`${server}/${c}`}
                     alt="artwork"
-                    style={{ width: "600px", height: "400px" }}
+                    style={{ width: "700px", height: "500px" }}
                     className="sliderImg"
                   />
                 </label>
