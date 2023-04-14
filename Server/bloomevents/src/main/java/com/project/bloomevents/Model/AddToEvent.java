@@ -28,6 +28,9 @@ public class AddToEvent {
     @Column(name = "reviewed", columnDefinition = "boolean default false")
     private boolean reviewed;
 
+    @Column(name = "quantity", columnDefinition = "integer default 1")
+    private double quantity;
+
     @JsonIgnore
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "eventId", referencedColumnName = "eventId", nullable = false)
