@@ -121,7 +121,7 @@ function UserProfile() {
     <div className="flex w-11/12 pt-24 mb-20">
       {user && userEmail && (
         <>
-          <div className="w-6/12 mx-auto mt-7">
+          <div className="w-6/12 mx-auto mt-5">
             <UpdateUserProfilePic user={user} />
           </div>
 

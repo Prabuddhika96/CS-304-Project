@@ -177,13 +177,13 @@ function BasicServiceDetails({ providerId, provider }: any) {
                   className="form-textfield-double"
                   {...register("description", {
                     required: true,
-                    maxLength: 300,
+                    maxLength: 350,
                   })}
                   variant="outlined"
                 />
                 {errors.description && (
                   <p className="text-xs text-red-600">
-                    Description is required
+                    Description is required and Maximum 350 characters
                   </p>
                 )}
               </div>

@@ -16,20 +16,27 @@ function Header() {
   const [proMode, setproMode] = useState<boolean>(false);
 
   useEffect(() => {
-    let logged = localStorage.getItem("loggedUser");
-    if (logged) {
-      setuser(JSON.parse(logged));
-      UserServices.getUserByUserId(JSON.parse(logged).userId).then(
-        (res: any) => {
-          if (res.data.status === 1) {
-            setuser(res.data.data);
-            localStorage.setItem("loggedUser", JSON.stringify(res.data.data));
+    setTimeout(() => {
+      let logged = localStorage.getItem("loggedUser");
+      if (logged) {
+        setuser(JSON.parse(logged));
+        UserServices.getUserByUserId(JSON.parse(logged).userId).then(
+          (res: any) => {
+            if (res.data.status === 1) {
+              setuser(res.data.data);
+              localStorage.setItem("loggedUser", JSON.stringify(res.data.data));
+            } else {
+              localStorage.removeItem("loggedUser");
+              localStorage.removeItem("ProviderMode");
+              navigate(RouteName.Home);
+            }
           }
-        }
-      );
-    } else {
-      setuser(null);
-    }
+        );
+      } else {
+        setuser(null);
+        navigate(RouteName.Login);
+      }
+    }, 1000);
   }, [localStorage.getItem("loggedUser")]);
 
   useEffect(() => {
@@ -59,7 +66,11 @@ function Header() {
         className={`py-[13px] text-center text-[#fff] bg-[#f3cd9ec4] w-full flex justify-between z-50 top-0  ease-in-out duration-200 fixed`}>
         <div className="w-2/12 pl-20 text-left">
           <Link to={RouteName.Home}>
-            <img src={logo} alt="" className="w-20 hover:shadow-lg" />
+            <img
+              src={logo}
+              alt=""
+              className="w-28 hover:scale-[1.1] ease-in-out duration-200"
+            />
           </Link>
         </div>
 

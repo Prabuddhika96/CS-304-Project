@@ -31,6 +31,8 @@ function UploadProPic({ setPreview }: any) {
         shadingOpacity={0.6}
         exportAsSquare
         exportSize={2000}
+        label="Upload profile picture"
+        // borderStyle={{ borderStyle: "none" }}
       />
       {/* {preview && (
         <img src={preview} alt="Preview" width={"500px"} height={"500px"} />

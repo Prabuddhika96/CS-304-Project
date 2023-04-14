@@ -160,13 +160,13 @@ function EditPackageDetails({ packge, providerId }: any) {
                   className="form-textfield-double"
                   {...register("description", {
                     required: true,
-                    maxLength: 300,
+                    maxLength: 5000,
                   })}
                   variant="outlined"
                 />
                 {errors.description && (
                   <p className="text-xs text-red-600">
-                    Description is required
+                    Description is required and maximum character count is 5000
                   </p>
                 )}
               </div>

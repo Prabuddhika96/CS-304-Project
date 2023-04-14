@@ -54,7 +54,10 @@ function UpdateUserProfilePic({ user }: any) {
             className="absolute duration-300 ease-in-out cursor-pointer hover:opacity-25 rounded-full w-[472px] h-[472px] z-1"
           />
 
-          <div className="flex justify-center file:text-transparent opacity-0 hover:opacity-100 duration-300 items-center z-0 hover:z-10 rounded-full hover:bg-[#ffffff70]">
+          <div
+            className={`flex justify-center file:text-transparent ${
+              !preview && "opacity-0"
+            }  hover:opacity-100 duration-300 items-center z-0 hover:z-10 rounded-full hover:bg-[#ffffff70]`}>
             <Avatar
               width={470}
               height={470}
@@ -66,6 +69,8 @@ function UpdateUserProfilePic({ user }: any) {
               shadingOpacity={0.6}
               exportAsSquare
               exportSize={2000}
+              label="Choose profile picture"
+              borderStyle={{ borderStyle: "none" }}
             />
           </div>
         </div>

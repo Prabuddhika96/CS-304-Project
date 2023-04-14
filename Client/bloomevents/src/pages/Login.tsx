@@ -107,7 +107,7 @@ function Login(): JSX.Element {
       <div className="w-6/12 ">
         <div className="mt-10 sm:mt-0">
           <form action="#" method="POST" onSubmit={handleSubmit(onSubmit)}>
-            <div className="overflow-hidden drop-shadow-2xl sm:rounded-md">
+            <div className="overflow-hidden bg-white drop-shadow-2xl sm:rounded-md">
               <div className="px-4 py-5 bg-white sm:p-6">
                 <h1 className="mb-3 text-3xl text-left">
                   Log <span className="text-[#ffa537]">In</span>
@@ -190,6 +190,28 @@ function Login(): JSX.Element {
                   Login
                 </button>
               </div>
+
+              {/* <hr className="my-2" />
+              <div className="px-4 py-1 pb-8">
+                <p className="text-center my-1">OR</p>
+                <button className="bg-transparent hover:bg-gray-200 text-black font-bold py-2 mt-1 mb-5 px-4 rounded-lg flex items-center justify-center border-[1px] border-black w-8/12 mx-auto">
+                  <img
+                    className="h-6 w-6 mr-2"
+                    src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                    alt="Google logo"
+                  />
+                  <span>Login with Google</span>
+                </button>
+
+                <button className="bg-transparent hover:bg-gray-200 text-black font-bold py-2 mt-1 mb-5 px-4 rounded-lg flex items-center justify-center border-[1px] border-black w-8/12 mx-auto">
+                  <img
+                    className="h-6 w-6 mr-2"
+                    src=" https://www.facebook.com/images/fb_icon_325x325.png"
+                    alt="fb logo"
+                  />
+                  <span>Login with Facebook</span>
+                </button>
+              </div> */}
             </div>
           </form>
         </div>

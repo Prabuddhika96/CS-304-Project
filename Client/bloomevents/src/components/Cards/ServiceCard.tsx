@@ -43,10 +43,10 @@ function ServiceCard({ provider }: any) {
   }, [provider]);
 
   return (
-    <div className="w-full h-56 service-card duration-200 ease-in-out hover:scale-[1.01]">
+    <div className="w-full min-h-56 service-card duration-200 ease-in-out hover:scale-[1.01]">
       <div
         id="back-img"
-        className="w-3/12 h-56 bg-center"
+        className="w-[20%] h-56 bg-center"
         // style={{
         //   background: `url(${picture}) no-repeat center`,
         //   backgroundSize: "cover",
@@ -56,11 +56,11 @@ function ServiceCard({ provider }: any) {
           src={picture}
           alt={provider.businessName}
           // className="w-full bg-center bg-cover"
-          style={{ width: "100%", height: "240px" }}
+          style={{ width: "250px", height: "250px" }}
         />
       </div>
 
-      <div className="w-9/12 px-6 pt-2 text-left">
+      <div className="w-[80%] px-6 py-2 text-left">
         <h2 className="mb-2 text-xl text-[#c26d06]">{provider.businessName}</h2>
         <h3 className="flex items-center mr-6 text-[#464646]">
           {/* <AiOutlineStar className="service-card-icon" /> {provider.rating}{" "} */}

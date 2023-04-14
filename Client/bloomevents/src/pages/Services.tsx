@@ -37,7 +37,7 @@ function Services() {
         setCategories(categories);
         setAutoCategories(autoCategories);
       } else {
-        toast.error(res.data.message);
+        // toast.error(res.data.message);
       }
     });
   }, []);
@@ -70,7 +70,7 @@ function Services() {
         // console.log(res.data.data);
         return;
       } else {
-        toast.error(res.data.message);
+        // toast.error(res.data.message);
       }
     });
   }, []);

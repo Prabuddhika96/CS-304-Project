@@ -250,7 +250,7 @@ function ProviderDetails() {
       {provider ? (
         <div>
           {/* <ServiceProviderSkeleton /> */}
-          <div className="flex justify-around w-full pt-24">
+          <div className="flex justify-around w-full pt-24 h-[800px]">
             <div className="w-8/12 px-16">
               <div className="flex items-center">
                 <div className="mr-3 rounded-full">
@@ -277,13 +277,13 @@ function ProviderDetails() {
                 <h1 className="text-xl text-center text-[#000] uppercase">
                   Avalble Slots
                 </h1>
-                <div className="bottom-0 mt-5 flex justify-center w-full">
+                <div className="bottom-0 flex justify-center w-full mt-5">
                   <CalenderElement providerId={providerId} />
                 </div>
               </div>
 
               <div className="">
-                <div className="flex justify-around w-8/12 mt-5 mx-auto">
+                <div className="flex justify-around w-8/12 mx-auto mt-5">
                   <Button
                     variant="contained"
                     color="success"
@@ -379,7 +379,7 @@ function ProviderDetails() {
           {/* package Details */}
           <div>
             <Box
-              sx={{ width: "80%", margin: "50px auto", typography: "body1" }}>
+              sx={{ width: "80%", margin: "10px auto", typography: "body1" }}>
               <TabContext value={value}>
                 <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
                   <TabList
