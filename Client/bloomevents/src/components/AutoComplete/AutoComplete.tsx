@@ -18,6 +18,7 @@ function AutoComplete({ array, label, selectedOption, color }: any) {
       disablePortal
       onChange={selectOption}
       id="combo-box-demo"
+      color="warning"
       options={array}
       getOptionLabel={(option: Option) => option.label}
       // sx={{

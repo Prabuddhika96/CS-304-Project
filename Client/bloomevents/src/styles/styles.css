@@ -175,3 +175,6 @@
 .MuiInputBase {
   border-color: #ffa537 !important;
 }
+#demo-simple-select-standard-label {
+  color: #ffa537;
+}

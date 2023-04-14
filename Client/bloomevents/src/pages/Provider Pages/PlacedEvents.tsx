@@ -1,89 +1,19 @@
+import { Box } from "@mui/material";
+import { green, red } from "@mui/material/colors";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import AddToEventService from "Services/AddToEvent/AddToEventService";
-import { useEffect, useState } from "react";
+import EventServices from "Services/Event/EventServices";
+import ActionBtn from "components/Admin/Action btn/ActionBtn";
+import AdminBookedPackagesAction from "components/Admin/Booked Packages/AdminBookedPackagesAction";
+import React, { useEffect, useMemo, useState } from "react";
+import { BiTrash } from "react-icons/bi";
+import { MdOutlineDone } from "react-icons/md";
 import { AddToEvent } from "types/AddToEvent";
 
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
-import ProviderPlacedEventDetail from "components/Provider/Placed Events/ProviderPlacedEventDetail";
-
-interface Column {
-  id:
-    | "ID"
-    | "EventName"
-    | "EventDate"
-    | "EventTime"
-    | "ClientName"
-    | "PlacedDate"
-    | "PlacedTime"
-    | "Package"
-    | "Action";
-  label: string;
-  minWidth?: number;
-  align?: "center";
-  format?: (value: number) => string;
-}
-
-const columns: readonly Column[] = [
-  { id: "ID", label: "ID", minWidth: 80 },
-  { id: "EventName", label: "Event Name", minWidth: 100 },
-  {
-    id: "EventDate",
-    label: "Event Date",
-    minWidth: 100,
-    align: "center",
-    format: (value: number) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "EventTime",
-    label: "Event Time",
-    minWidth: 100,
-    align: "center",
-    format: (value: number) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "ClientName",
-    label: "Client Name",
-    minWidth: 100,
-    align: "center",
-    format: (value: number) => value.toFixed(2),
-  },
-  {
-    id: "PlacedDate",
-    label: "Placed Date",
-    minWidth: 100,
-    align: "center",
-    format: (value: number) => value.toFixed(2),
-  },
-  {
-    id: "PlacedTime",
-    label: "Placed Time",
-    minWidth: 100,
-    align: "center",
-    format: (value: number) => value.toFixed(2),
-  },
-  {
-    id: "Package",
-    label: "Package",
-    minWidth: 100,
-    align: "center",
-    format: (value: number) => value.toFixed(2),
-  },
-  {
-    id: "Action",
-    label: "Action",
-    minWidth: 100,
-    align: "center",
-    format: (value: number) => value.toFixed(2),
-  },
-];
-
 function PlacedEvents({ providerId }: any) {
+  const [approveLoading, setApproveLoading] = useState<boolean>(false);
+  const [backdropDelete, setBackdropDelete] = useState<boolean>(false);
+
   const [events, setEvents] = useState<Array<AddToEvent>>();
 
   useEffect(() => {
@@ -100,80 +30,170 @@ function PlacedEvents({ providerId }: any) {
     );
   }, [providerId]);
 
-  const [actionId, setActionId] = useState<any>();
+  const [deleteId, setDeleteId] = useState<any>();
   useEffect(() => {
     const filteredData = events?.filter(
-      (event: any) => event.addToEventId !== actionId
+      (event: any) => event.addToEventId !== deleteId
     );
     setEvents(filteredData);
-  }, [actionId]);
+  }, [deleteId]);
 
-  // table
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const columns = useMemo(
+    () => [
+      { field: "addToEventId", headerName: "ID", width: 80 },
+      {
+        field: "eventName",
+        headerName: "Event Name",
+        type: "actions",
+        renderCell: (params: any) => (
+          <AdminBookedPackagesAction {...{ params }} col={"eventName"} />
+        ),
+        width: 120,
+      },
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
+      {
+        field: "eventDate",
+        headerName: "Event Date",
+        width: 150,
+        renderCell: (params: any) => (
+          <AdminBookedPackagesAction {...{ params }} col={"eventDate"} />
+        ),
+      },
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+      {
+        field: "eventTime",
+        headerName: "Event Time",
+        width: 100,
+        renderCell: (params: any) => (
+          <AdminBookedPackagesAction {...{ params }} col={"eventTime"} />
+        ),
+      },
+      {
+        field: "userName",
+        headerName: "User Name",
+        width: 200,
+        renderCell: (params: any) => (
+          <AdminBookedPackagesAction {...{ params }} col={"userName"} />
+        ),
+      },
 
+      {
+        field: "placedDate",
+        headerName: "Placed Date",
+        width: 120,
+        type: "actions",
+        renderCell: (params: any) => (
+          <AdminBookedPackagesAction {...{ params }} col={"placedDate"} />
+        ),
+      },
+      {
+        field: "placedTime",
+        headerName: "Placed Time",
+        width: 120,
+        type: "actions",
+        renderCell: (params: any) => (
+          <AdminBookedPackagesAction {...{ params }} col={"placedTime"} />
+        ),
+      },
+      {
+        field: "packageName",
+        headerName: "Package Name",
+        width: 120,
+        type: "actions",
+        renderCell: (params: any) => (
+          <AdminBookedPackagesAction {...{ params }} col={"packageName"} />
+        ),
+      },
+      {
+        field: "quantity",
+        headerName: "Quantity",
+        width: 80,
+      },
+      {
+        field: "approve",
+        headerName: "Approve",
+        width: 110,
+        type: "actions",
+        renderCell: (params: any) => {
+          const { addToEventId } = params.row;
+          const ApproveEvent = async () => {
+            setApproveLoading(true);
+            setTimeout(() => {
+              AddToEventService.approvePackage(addToEventId).then(
+                (res: any) => {
+                  if (res.data.status === 1) {
+                    setDeleteId(addToEventId);
+                    setApproveLoading(false);
+                  }
+                }
+              );
+            }, 1500);
+          };
+          return (
+            <>
+              <ActionBtn
+                loading={approveLoading}
+                func={ApproveEvent}
+                bgColor={green[500]}
+                hoverBgColor={green[700]}
+                icon={
+                  <MdOutlineDone className="text-xl text-white row-commit-icon" />
+                }
+              />
+            </>
+          );
+        },
+      },
+
+      {
+        field: "reject",
+        headerName: "Reject",
+        width: 110,
+        type: "actions",
+        renderCell: (params: any) => {
+          const { addToEventId } = params.row;
+          const RejectEvent = async () => {
+            setBackdropDelete(true);
+            setTimeout(() => {
+              AddToEventService.deletePackage(addToEventId).then((res: any) => {
+                if (res.data.status === 1) {
+                  setDeleteId(addToEventId);
+                  setBackdropDelete(false);
+                }
+              });
+            }, 1500);
+          };
+          return (
+            <>
+              <ActionBtn
+                loading={backdropDelete}
+                func={RejectEvent}
+                bgColor={red[500]}
+                hoverBgColor={red[700]}
+                icon={
+                  <BiTrash className="text-xl text-white row-commit-icon" />
+                }
+              />
+            </>
+          );
+        },
+      },
+    ],
+    []
+  );
   return (
-    <div>
-      {events ? (
-        <>
-          <Paper sx={{ width: "100%", overflow: "hidden" }}>
-            <TableContainer sx={{ maxHeight: 440 }}>
-              <Table stickyHeader aria-label="sticky table">
-                <TableHead sx={{ backgroundColor: "red" }}>
-                  <TableRow>
-                    {columns.map((column) => (
-                      <TableCell
-                        key={column.id}
-                        align={column.align}
-                        style={{ minWidth: column.minWidth }}>
-                        {column.label}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {events
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((event) => {
-                      return (
-                        <>
-                          <ProviderPlacedEventDetail
-                            addToEvent={event}
-                            columns={columns}
-                            setActionId={setActionId}
-                          />
-                        </>
-                      );
-                    })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[10, 25, 100]}
-              component="div"
-              count={columns.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          </Paper>
-        </>
-      ) : (
-        <>
-          <h1>No Events</h1>
-        </>
+    <div className="relative">
+      {events && (
+        <Box sx={{ width: "100%", height: "700px" }}>
+          <DataGrid
+            checkboxSelection={true}
+            components={{ Toolbar: GridToolbar }}
+            rowHeight={60}
+            columns={columns}
+            rows={events}
+            getRowId={(row) => row?.addToEventId}
+          />
+        </Box>
       )}
     </div>
   );

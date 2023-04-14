@@ -185,7 +185,7 @@ function EventDetails() {
   }, [booking]);
 
   return (
-    <div className="w-full pt-24">
+    <div className="w-full pt-28">
       <div className="flex w-full px-5">
         {/* title and date */}
         {/* event details */}
@@ -314,7 +314,7 @@ function EventDetails() {
                           onClick={handleClickOpenPayment}
                           className={` ${
                             event.booked === true
-                              ? "border-orange-600 bg-orange-600"
+                              ? "border-orange-600 bg-orange-600 !text-white"
                               : "text-blue-600 border-blue-600 hover:bg-blue-600"
                           }  my-event-card-btn `}>
                           {event.booked === true ? "Booked" : "Make Payment"}

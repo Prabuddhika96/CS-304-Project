@@ -6,17 +6,18 @@ import Select from "@mui/material/Select";
 function BookNowDropdownPackages({ val, array, func, title }: any) {
   //console.log(array);
   return (
-    <FormControl variant="standard" fullWidth sx={{ m: 1, minWidth: 120 }}>
+    <FormControl fullWidth sx={{ m: 1, minWidth: 120 }}>
       <InputLabel id="demo-simple-select-standard-label">{title}</InputLabel>
       <Select
-        labelId="demo-simple-select-standard-label"
-        id="demo-simple-select-standard"
-        value={val}
+        labelId="demo-simple-select-helper-label"
+        id="demo-simple-select-helper"
+        color="warning"
+        value={val != 0 ? val : null}
         onChange={(e) => func(e.target.value)}
         label={title}>
-        <MenuItem value="" disabled>
+        {/* <MenuItem value="" disabled>
           <em>None</em>
-        </MenuItem>
+        </MenuItem> */}
 
         {array.map((e: any, i: number) => (
           <MenuItem value={e.packageId.toString()} key={i + 1}>

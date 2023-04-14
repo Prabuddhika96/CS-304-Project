@@ -51,4 +51,21 @@ public class PrivateBookingController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
+
+    @DeleteMapping("/deleteprivatebookingbyid/{bookingId}")
+    public ResponseEntity<?> deletePrivateBookingById(@PathVariable int bookingId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        boolean deleted = privateBookingService.deletePrivateBookingById(bookingId);
+
+        if (deleted==true) {
+            map.put("status", 1);
+            map.put("data", true);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "Delete Failed");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
 }

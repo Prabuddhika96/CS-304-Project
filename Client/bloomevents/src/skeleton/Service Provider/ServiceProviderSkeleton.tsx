@@ -5,7 +5,7 @@ function ServiceProviderSkeleton() {
   return (
     <div className="mx-auto">
       {/* courosal */}
-      <div className="flex justify-center w-full px-10 pt-24">
+      <div className="flex justify-center w-full px-10 pt-28">
         <div className="w-8/12">
           <Stack spacing={1}>
             <div className="flex justify-start">

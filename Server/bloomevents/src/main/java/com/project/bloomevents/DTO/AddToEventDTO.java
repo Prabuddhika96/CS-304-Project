@@ -16,5 +16,6 @@ public class AddToEventDTO {
     private boolean reviewed;
     private boolean isPlaced;
     private int eventId;
+    private double quantity;
 
 }

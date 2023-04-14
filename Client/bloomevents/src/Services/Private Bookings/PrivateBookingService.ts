@@ -20,8 +20,15 @@ const addPrivateBooking = async (data: any) => {
   return response;
 };
 
+const deletePrivateBookingById = async (bookingId: any) => {
+  return http.delete<any>(
+    `/privatebooking/deleteprivatebookingbyid/${bookingId}`
+  );
+};
+
 const PrivateBookingService = {
   getPrivateBookingsByProviderId,
   addPrivateBooking,
+  deletePrivateBookingById,
 };
 export default PrivateBookingService;

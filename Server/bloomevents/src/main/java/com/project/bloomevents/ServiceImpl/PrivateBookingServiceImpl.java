@@ -52,4 +52,20 @@ public class PrivateBookingServiceImpl implements PrivateBookingService {
             return null;
         }
     }
+
+    @Override
+    public boolean deletePrivateBookingById(int bookingId) {
+        try{
+            int count=privateBookingRepo.deleteByPrivateBookingIdEquals(bookingId);
+
+            if(count==1){
+                return true;
+            }
+            return false;
+        }
+        catch(Exception e){
+            System.out.println(e.toString());
+            return false;
+        }
+    }
 }

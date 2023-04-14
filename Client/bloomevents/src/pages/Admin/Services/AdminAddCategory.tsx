@@ -2,7 +2,6 @@ import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import CategoryService from "Services/Category/CategoryService";
 import AdminAddCategoryDetails from "components/Admin/Add Category/AdminAddCategoryDetails";
-import CircularProgressItem from "components/CircularProgress/CircularProgressItem";
 import { useEffect, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
@@ -64,14 +63,6 @@ function AdminAddCategory() {
     setOpenDialog(false);
   };
 
-  const handleAddCategory = (e: any) => {
-    e.preventDefault();
-    // setBackdrop(true);
-    // setTimeout(() => {
-    //   setBackdrop(false);
-    // }, 1000);
-  };
-
   return (
     <div className="relative">
       <div className="flex justify-start mb-3">
@@ -82,13 +73,6 @@ function AdminAddCategory() {
           <div className="mr-3">
             <AddCircleOutlineIcon />
           </div>
-          {/* {backdrop === true && (
-            <>
-              <div className="mr-3">
-                <CircularProgressItem />
-              </div>
-            </>
-          ) } */}
           Add Category
         </button>
 

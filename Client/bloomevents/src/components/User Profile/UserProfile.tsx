@@ -118,7 +118,7 @@ function UserProfile() {
   }, [user]);
 
   return (
-    <div className="flex w-11/12 pt-24 mb-20">
+    <div className="flex w-11/12 mb-20 pt-28">
       {user && userEmail && (
         <>
           <div className="w-6/12 mx-auto mt-5">

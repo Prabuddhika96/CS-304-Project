@@ -45,7 +45,7 @@ function MyEvents() {
 
   return (
     <div className="flex justify-around w-full mx-auto">
-      <div className="top-0 items-center w-8/12 px-8 pt-24 mx-auto">
+      <div className="top-0 items-center w-8/12 px-8 mx-auto pt-28">
         <EventList userid={userId} />
       </div>
 

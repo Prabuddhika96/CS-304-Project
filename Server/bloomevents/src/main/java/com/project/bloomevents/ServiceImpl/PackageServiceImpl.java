@@ -1,6 +1,8 @@
 package com.project.bloomevents.ServiceImpl;
 
+import com.project.bloomevents.DTO.AddToEventDTO;
 import com.project.bloomevents.DTO.PackageDTO;
+import com.project.bloomevents.Model.AddToEvent;
 import com.project.bloomevents.Model.Packages;
 import com.project.bloomevents.Repository.PackageRepository;
 import com.project.bloomevents.Service.PackageService;
@@ -17,6 +19,9 @@ public class PackageServiceImpl implements PackageService {
     private PackageRepository packageRepo;
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private AddToEventServiceImpl addToEventService;
 
     @Override
     public List<PackageDTO> getAllpackages() {
@@ -129,13 +134,25 @@ public class PackageServiceImpl implements PackageService {
     @Override
     public double getTotalPriceByEventId(int eventId) {
         try{
-            double price=packageRepo.getTotalPriceByEventId(eventId);
-            if(price>=0){
-                return price;
+            List<AddToEventDTO> pckgeList=addToEventService.getPackagesByEventId(eventId);
+            if(pckgeList!=null){
+                double sum=0;
+                for(AddToEventDTO a:pckgeList){
+                    double quantity=a.getQuantity();
+                    double pckgePrice=getPackageByPackageId(a.getPackagesPackageId()).getPrice();
+
+                    sum=sum+(quantity*pckgePrice);
+                }
+                return sum;
             }
-            else{
-                return -1;
-            }
+            return -1;
+//            double price=packageRepo.getTotalPriceByEventId(eventId);
+//            if(price>=0){
+//                return price;
+//            }
+//            else{
+//                return -1;
+//            }
         }
         catch(Exception e){
             System.out.println(e.toString());

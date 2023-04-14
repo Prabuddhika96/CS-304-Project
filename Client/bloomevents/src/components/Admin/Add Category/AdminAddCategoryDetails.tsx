@@ -20,25 +20,33 @@ function AdminAddCategoryDetails({ params, col }: any) {
   });
   return (
     <div>
-      {providerCount && col === "providers" && (
-        <Box
-          sx={{
-            m: 1,
-            position: "relative",
-          }}>
-          {providerCount}
-        </Box>
-      )}
+      {providerCount &&
+        col == "providers" &&
+        (providerCount > 0 ? (
+          <Box
+            sx={{
+              m: 1,
+              position: "relative",
+            }}>
+            {providerCount}
+          </Box>
+        ) : (
+          0
+        ))}
 
-      {packageCount && col === "package" && (
-        <Box
-          sx={{
-            m: 1,
-            position: "relative",
-          }}>
-          {packageCount}
-        </Box>
-      )}
+      {packageCount &&
+        col == "package" &&
+        (packageCount > 0 ? (
+          <Box
+            sx={{
+              m: 1,
+              position: "relative",
+            }}>
+            {packageCount}
+          </Box>
+        ) : (
+          0
+        ))}
     </div>
   );
 }

@@ -8,19 +8,23 @@ import { useEffect, useState } from "react";
 function AdminBookedPackagesAction({ params, col }: any) {
   const [event, setEvent] = useState<any>();
   const { eventId } = params.row;
-  EventServices.getEventById(eventId).then((res: any) => {
-    if (res.data.status === 1) {
-      setEvent(res.data.data);
-    }
-  });
+  useEffect(() => {
+    EventServices.getEventById(eventId).then((res: any) => {
+      if (res.data.status === 1) {
+        setEvent(res.data.data);
+      }
+    });
+  }, []);
 
   const [user, setUser] = useState<any>();
   useEffect(() => {
-    UserServices.getUserByUserId(event?.userId).then((res: any) => {
-      if (res.data.status === 1) {
-        setUser(res.data.data);
-      }
-    });
+    if (event) {
+      UserServices.getUserByUserId(event?.userId).then((res: any) => {
+        if (res.data.status === 1) {
+          setUser(res.data.data);
+        }
+      });
+    }
   }, [event]);
 
   const [provider, setProvider] = useState<any>();
@@ -65,7 +69,37 @@ function AdminBookedPackagesAction({ params, col }: any) {
             m: 1,
             position: "relative",
           }}>
-          {event.eventDate} {event.eventTime}
+          {event.eventTime}
+        </Box>
+      )}
+
+      {event && col === "eventDate" && (
+        <Box
+          sx={{
+            m: 1,
+            position: "relative",
+          }}>
+          {event.eventDate}
+        </Box>
+      )}
+
+      {event && col === "placedDate" && (
+        <Box
+          sx={{
+            m: 1,
+            position: "relative",
+          }}>
+          {event.placedDate}
+        </Box>
+      )}
+
+      {event && col === "placedTime" && (
+        <Box
+          sx={{
+            m: 1,
+            position: "relative",
+          }}>
+          {event.placedTime}
         </Box>
       )}
 

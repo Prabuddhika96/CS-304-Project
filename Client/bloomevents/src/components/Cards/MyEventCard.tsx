@@ -248,11 +248,9 @@ function MyEventCard({ event, func }: any) {
             />
 
             {/* place event */}
-            {event.placed ? (
+            {event?.placed ? (
               <>
-                {packageCount &&
-                packageCount !== approvedCount &&
-                approvedCount ? (
+                {packageCount !== approvedCount ? (
                   <button
                     type="button"
                     disabled
@@ -271,27 +269,19 @@ function MyEventCard({ event, func }: any) {
                         {dayjs(
                           `${event.eventDate} ${event.eventTime}`,
                           "DD-MMM-YYYY hh:mm A"
-                        ).isAfter(dayjs()) &&
-                          (event.booked === true ? (
-                            <>
-                              <button
-                                type="button"
-                                disabled
-                                onClick={handleClickOpenPayment}
-                                className={`border-orange-600 bg-orange-600  my-event-card-btn !text-white`}>
-                                Booked
-                              </button>
-                            </>
-                          ) : (
-                            <>
-                              <button
-                                type="button"
-                                onClick={handleClickOpenPayment}
-                                className="text-blue-600 border-blue-600 hover:bg-blue-600 my-event-card-btn">
-                                Make Payment
-                              </button>
-                            </>
-                          ))}
+                        ).isAfter(dayjs()) && (
+                          <button
+                            type="button"
+                            disabled={event.booked === true ? true : false}
+                            onClick={handleClickOpenPayment}
+                            className={` ${
+                              event.booked === true
+                                ? "border-orange-600 bg-orange-600 !text-white"
+                                : "text-blue-600 border-blue-600 hover:bg-blue-600"
+                            }  my-event-card-btn `}>
+                            {event.booked === true ? "Booked" : "Make Payment"}
+                          </button>
+                        )}
 
                         <Dialog
                           open={openPayment}
@@ -327,7 +317,7 @@ function MyEventCard({ event, func }: any) {
             ) : (
               <>
                 {dayjs(
-                  `${event.eventDate} ${event.eventTime}`,
+                  `${event?.eventDate} ${event?.eventTime}`,
                   "DD-MMM-YYYY hh:mm A"
                 ).isBefore(dayjs()) ? (
                   <></>

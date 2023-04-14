@@ -134,6 +134,10 @@ function EventDetailCard({
                     <p className="text-[#000]">
                       {packge.packageName} - Rs. {packge.price}
                     </p>
+
+                    <p className="text-[#000]">
+                      Quantity - {addToEvent.quantity}
+                    </p>
                   </div>
                 </Link>
               </div>

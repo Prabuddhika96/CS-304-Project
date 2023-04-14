@@ -94,7 +94,7 @@ function Signup() {
   };
 
   return (
-    <div className="flex items-center w-11/12 pt-24 mb-20">
+    <div className="flex items-center w-11/12 mb-20 pt-28">
       <div className="w-6/12">
         <img src={image} alt="" className="w-full" />
       </div>

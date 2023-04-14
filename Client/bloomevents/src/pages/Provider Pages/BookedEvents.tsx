@@ -1,87 +1,11 @@
 import AddToEventService from "Services/AddToEvent/AddToEventService";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { AddToEvent } from "types/AddToEvent";
 
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
+import { Box } from "@mui/material";
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
+import AdminBookedPackagesAction from "components/Admin/Booked Packages/AdminBookedPackagesAction";
 import ProviderBookedEventDetails from "components/Provider/Booked Events/ProviderBookedEventDetails";
-
-interface Column {
-  id:
-    | "ID"
-    | "EventName"
-    | "EventDate"
-    | "EventTime"
-    | "ClientName"
-    | "BookedDate"
-    | "BookedTime"
-    | "Package"
-    | "PaymentId";
-  label: string;
-  minWidth?: number;
-  align?: "center";
-  format?: (value: number) => string;
-}
-
-const columns: readonly Column[] = [
-  { id: "ID", label: "ID", minWidth: 80 },
-  { id: "EventName", label: "Event Name", minWidth: 100 },
-  {
-    id: "EventDate",
-    label: "Event Date",
-    minWidth: 100,
-    align: "center",
-    format: (value: number) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "EventTime",
-    label: "Event Time",
-    minWidth: 100,
-    align: "center",
-    format: (value: number) => value.toLocaleString("en-US"),
-  },
-  {
-    id: "ClientName",
-    label: "Client Name",
-    minWidth: 100,
-    align: "center",
-    format: (value: number) => value.toFixed(2),
-  },
-  {
-    id: "BookedDate",
-    label: "Booked Date",
-    minWidth: 100,
-    align: "center",
-    format: (value: number) => value.toFixed(2),
-  },
-  {
-    id: "BookedTime",
-    label: "Booked Time",
-    minWidth: 100,
-    align: "center",
-    format: (value: number) => value.toFixed(2),
-  },
-  {
-    id: "Package",
-    label: "Package",
-    minWidth: 100,
-    align: "center",
-    format: (value: number) => value.toFixed(2),
-  },
-  {
-    id: "PaymentId",
-    label: "Payment ID",
-    minWidth: 100,
-    align: "center",
-    format: (value: number) => value.toFixed(2),
-  },
-];
 
 function BookedEvents({ providerId }: any) {
   const [events, setEvents] = useState<Array<AddToEvent>>();
@@ -100,71 +24,107 @@ function BookedEvents({ providerId }: any) {
     );
   }, [providerId]);
 
-  // table
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const columns = useMemo(
+    () => [
+      { field: "addToEventId", headerName: "ID", width: 50 },
+      {
+        field: "eventName",
+        headerName: "Event Name",
+        type: "actions",
+        renderCell: (params: any) => (
+          <AdminBookedPackagesAction {...{ params }} col={"eventName"} />
+        ),
+        width: 150,
+      },
 
-  const handleChangePage = (event: unknown, newPage: number) => {
-    setPage(newPage);
-  };
+      {
+        field: "eventDate",
+        headerName: "Event Date",
+        width: 150,
+        renderCell: (params: any) => (
+          <AdminBookedPackagesAction {...{ params }} col={"eventDate"} />
+        ),
+      },
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setRowsPerPage(+event.target.value);
-    setPage(0);
-  };
+      {
+        field: "eventTime",
+        headerName: "Event Time",
+        width: 120,
+        renderCell: (params: any) => (
+          <AdminBookedPackagesAction {...{ params }} col={"eventTime"} />
+        ),
+      },
+      {
+        field: "userName",
+        headerName: "Client Name",
+        width: 230,
+        renderCell: (params: any) => (
+          <AdminBookedPackagesAction {...{ params }} col={"userName"} />
+        ),
+      },
+      {
+        field: "packageName",
+        headerName: "Package",
+        width: 150,
+        renderCell: (params: any) => (
+          <AdminBookedPackagesAction {...{ params }} col={"packageName"} />
+        ),
+      },
+      {
+        field: "bookingDate",
+        headerName: "Booked Date",
+        width: 120,
+        renderCell: (params: any) => (
+          <ProviderBookedEventDetails {...{ params }} col={"bookingDate"} />
+        ),
+      },
+      {
+        field: "bookingTime",
+        headerName: "Booked Time",
+        width: 120,
+        renderCell: (params: any) => (
+          <ProviderBookedEventDetails {...{ params }} col={"bookingTime"} />
+        ),
+      },
+      {
+        field: "packageName",
+        headerName: "Package Name",
+        width: 120,
+        type: "actions",
+        renderCell: (params: any) => (
+          <AdminBookedPackagesAction {...{ params }} col={"packageName"} />
+        ),
+      },
+      {
+        field: "quantity",
+        headerName: "Quantity",
+        width: 100,
+      },
+      {
+        field: "paymentId",
+        headerName: "Payment ID",
+        width: 100,
+        renderCell: (params: any) => (
+          <ProviderBookedEventDetails {...{ params }} col={"paymentId"} />
+        ),
+      },
+    ],
+    []
+  );
 
   return (
-    <div>
-      {events ? (
-        <>
-          <Paper sx={{ width: "100%", overflow: "hidden" }}>
-            <TableContainer sx={{ maxHeight: 440 }}>
-              <Table stickyHeader aria-label="sticky table">
-                <TableHead sx={{ backgroundColor: "red" }}>
-                  <TableRow>
-                    {columns.map((column) => (
-                      <TableCell
-                        key={column.id}
-                        align={column.align}
-                        style={{ minWidth: column.minWidth }}>
-                        {column.label}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {events
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((event) => {
-                      return (
-                        <>
-                          <ProviderBookedEventDetails
-                            addToEvent={event}
-                            columns={columns}
-                          />
-                        </>
-                      );
-                    })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-            <TablePagination
-              rowsPerPageOptions={[10, 25, 100]}
-              component="div"
-              count={columns.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          </Paper>
-        </>
-      ) : (
-        <>
-          <h1>No Events</h1>
-        </>
+    <div className="relative">
+      {events && (
+        <Box sx={{ width: "100%", height: "700px" }}>
+          <DataGrid
+            checkboxSelection={true}
+            components={{ Toolbar: GridToolbar }}
+            rowHeight={60}
+            columns={columns}
+            rows={events}
+            getRowId={(row) => row?.addToEventId}
+          />
+        </Box>
       )}
     </div>
   );

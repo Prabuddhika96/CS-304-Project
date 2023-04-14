@@ -23,7 +23,7 @@ function Router() {
     <div>
       <BrowserRouter>
         <Header />
-        <div className="min-h-[650px]">
+        <div className="min-h-[600px]">
           <Routes>
             {/* Nav bar */}
             <Route

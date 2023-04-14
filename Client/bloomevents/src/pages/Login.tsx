@@ -99,7 +99,7 @@ function Login(): JSX.Element {
   };
 
   return (
-    <div className="flex items-center w-11/12 pt-24 mb-20">
+    <div className="flex items-center w-11/12 mb-2 pt-28">
       <div className="w-6/12">
         <img src={image} alt="" className="w-full" />
       </div>
@@ -193,10 +193,10 @@ function Login(): JSX.Element {
 
               {/* <hr className="my-2" />
               <div className="px-4 py-1 pb-8">
-                <p className="text-center my-1">OR</p>
+                <p className="my-1 text-center">OR</p>
                 <button className="bg-transparent hover:bg-gray-200 text-black font-bold py-2 mt-1 mb-5 px-4 rounded-lg flex items-center justify-center border-[1px] border-black w-8/12 mx-auto">
                   <img
-                    className="h-6 w-6 mr-2"
+                    className="w-6 h-6 mr-2"
                     src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
                     alt="Google logo"
                   />
@@ -205,7 +205,7 @@ function Login(): JSX.Element {
 
                 <button className="bg-transparent hover:bg-gray-200 text-black font-bold py-2 mt-1 mb-5 px-4 rounded-lg flex items-center justify-center border-[1px] border-black w-8/12 mx-auto">
                   <img
-                    className="h-6 w-6 mr-2"
+                    className="w-6 h-6 mr-2"
                     src=" https://www.facebook.com/images/fb_icon_325x325.png"
                     alt="fb logo"
                   />

@@ -181,7 +181,7 @@ function Services() {
 
   // add pagination
   const [page, setPage] = useState(1);
-  const [perPage, setPerPage] = useState(10);
+  const [perPage, setPerPage] = useState(5);
 
   const handlePageChange = (
     event: React.ChangeEvent<unknown>,
@@ -195,7 +195,7 @@ function Services() {
   const itemsForCurrentPage = filteredServices?.slice(startIndex, endIndex);
 
   return (
-    <div className="w-full pt-24">
+    <div className="w-full pt-28">
       {/* search section */}
       <div className="flex justify-around w-11/12 py-2 mx-auto bg-[#ffd8a9a9] border-2 border-[#ffa537] border-solid rounded-lg">
         <div className="w-3/12">

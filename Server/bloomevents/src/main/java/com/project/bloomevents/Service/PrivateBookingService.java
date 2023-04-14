@@ -8,4 +8,6 @@ public interface PrivateBookingService {
     List<PrivateBookingDTO> getPrivateBookingsByProviderId(int providerId);
 
     PrivateBookingDTO addPrivateBooking(PrivateBookingDTO privateBookingdadta);
+
+    boolean deletePrivateBookingById(int bookingId);
 }

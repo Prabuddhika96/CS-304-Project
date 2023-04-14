@@ -1,4 +1,4 @@
-import { Box, Button, Pagination, Tab } from "@mui/material";
+import { Box, Button, Pagination, Tab, TextField } from "@mui/material";
 import CalenderElement from "components/Elements/CalenderElement";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
@@ -145,6 +145,7 @@ function ProviderDetails() {
   const [emptyField, setEmptyFeild] = useState<boolean>(false);
 
   const [eventId, setEventId] = useState<any | 0>(0);
+  const [quantity, setQuantity] = useState<any | 1>(1);
   const [packageId, setPackageId] = useState<any | 0>(0);
   const [userId, setUserId] = useState<any | 0>(0);
   const [timestamp, setTimestamp] = useState<any | null>(null);
@@ -156,6 +157,7 @@ function ProviderDetails() {
     isApproved: false,
     isPlaced: false,
     reviewed: false,
+    quantity: 1,
   });
 
   useEffect(() => {
@@ -166,9 +168,10 @@ function ProviderDetails() {
       isApproved: false,
       isPlaced: false,
       reviewed: false,
+      quantity: quantity,
     });
     setSuccessAddEvent(successAddEvent);
-  }, [eventId, packageId, userId, successAddEvent]);
+  }, [eventId, packageId, userId, successAddEvent, quantity]);
 
   const handleAddToEvent = (e: { preventDefault: () => void }) => {
     e.preventDefault();
@@ -250,7 +253,7 @@ function ProviderDetails() {
       {provider ? (
         <div>
           {/* <ServiceProviderSkeleton /> */}
-          <div className="flex justify-around w-full pt-24 h-[800px]">
+          <div className="flex justify-around w-full pt-28 h-[800px]">
             <div className="w-8/12 px-16">
               <div className="flex items-center">
                 <div className="mr-3 rounded-full">
@@ -359,6 +362,18 @@ function ProviderDetails() {
                             val={values.packagesPackageId}
                           />
                         )}
+
+                        <TextField
+                          color="warning"
+                          id="outlined"
+                          type={"text"}
+                          label="Package Quantity"
+                          variant="outlined"
+                          className="form-textfield-double"
+                          onChange={(e) => {
+                            setQuantity(e.target.value);
+                          }}
+                        />
                       </div>
                     </DialogContent>
 
