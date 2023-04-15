@@ -24,25 +24,29 @@ const convertBase64ToFile = (base64String: any, filename: any) => {
 };
 
 // upload profile picture
-const uploadProfilePicture = async (userId: any, formData: any) => {
+const uploadProfilePicture = async (userId: any, formData: any, token: any) => {
   //console.log(data);
   const response = await axios({
     method: "post",
     url: `${process.env.REACT_APP_BACKEND_SERVER}/upload/uploadprofilepic/${userId}`,
     data: formData,
-    headers: {},
+    headers: { Authorization: `Bearer ${token}` },
   });
   return response;
 };
 
 // upload service logo
-const uploadServiceLogo = async (providerId: any, formData: any) => {
+const uploadServiceLogo = async (
+  providerId: any,
+  formData: any,
+  token: any
+) => {
   //console.log(data);
   const response = await axios({
     method: "post",
     url: `${process.env.REACT_APP_BACKEND_SERVER}/upload/provideruploadimage/${providerId}`,
     data: formData,
-    headers: {},
+    headers: { Authorization: `Bearer ${token}` },
   });
   return response;
 };
@@ -55,13 +59,17 @@ const getImageNames = async (providerId: any) => {
 };
 
 // upload service logo
-const uploadServiceDetailImages = async (providerId: any, formData: any) => {
+const uploadServiceDetailImages = async (
+  providerId: any,
+  formData: any,
+  token: any
+) => {
   //console.log(data);
   const response = await axios({
     method: "post",
     url: `${process.env.REACT_APP_BACKEND_SERVER}/upload/uploadprivoderdetailpics/${providerId}`,
     data: formData,
-    headers: {},
+    headers: { Authorization: `Bearer ${token}` },
   });
   return response;
 };

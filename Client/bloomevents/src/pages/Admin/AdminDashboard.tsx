@@ -60,6 +60,7 @@ function AdminDashboard() {
               localStorage.setItem("loggedUser", JSON.stringify(res.data.data));
               if (res.data.data.role !== Role.ADMIN) {
                 localStorage.removeItem("loggedUser");
+                localStorage.removeItem("token");
                 localStorage.removeItem("ProviderMode");
                 navigate(RouteName.Home);
               }

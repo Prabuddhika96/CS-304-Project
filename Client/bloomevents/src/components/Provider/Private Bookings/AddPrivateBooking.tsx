@@ -47,6 +47,16 @@ const columns: readonly Column[] = [
 ];
 
 function AddPrivateBooking({ providerId }: any) {
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const [eventname, seteventname] = useState<string | "">("");
   const [date, setdate] = useState<any>(dayjs());
   const [time, settime] = useState<any>(dayjs());
@@ -82,7 +92,10 @@ function AddPrivateBooking({ providerId }: any) {
     setBackdropApprove(true);
 
     setTimeout(async () => {
-      const result = await PrivateBookingService.addPrivateBooking(values);
+      const result = await PrivateBookingService.addPrivateBooking(
+        values,
+        token
+      );
       console.log(result);
       if (result.data.status === 1) {
         window.location.reload();

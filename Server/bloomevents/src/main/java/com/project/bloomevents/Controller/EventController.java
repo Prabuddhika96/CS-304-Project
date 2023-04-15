@@ -18,7 +18,7 @@ public class EventController {
     @Autowired
     private EventService eventService;
 
-    @GetMapping("/getallevents")
+    @GetMapping("/get/allevents")
     public ResponseEntity<?> getAllEvents() {
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<EventDTO> eventList = eventService.getAllEvents();
@@ -66,7 +66,7 @@ public class EventController {
         }
     }
 
-    @GetMapping("/geteventsbyuserid/{userId}")
+    @GetMapping("/get/eventsbyuserid/{userId}")
     public ResponseEntity<?> getEventsByUserId(@PathVariable int userId){
         Map<String,Object> map=new LinkedHashMap<String,Object>();
         List<EventDTO> eventList = eventService.getEventsByUserId(userId);
@@ -82,7 +82,7 @@ public class EventController {
         }
     }
 
-    @GetMapping("/geteventbyid/{eventId}")
+    @GetMapping("/get/eventbyid/{eventId}")
     public ResponseEntity<?> getEventById(@PathVariable int eventId){
         Map<String,Object> map=new LinkedHashMap<String,Object>();
         EventDTO event = eventService.getEventById(eventId);
@@ -130,7 +130,7 @@ public class EventController {
         }
     }
 
-    @GetMapping("/getbookingdatesbyproviderid/{providerId}")
+    @GetMapping("/get/bookingdatesbyproviderid/{providerId}")
     public ResponseEntity<?> getBookingDatesByProviderId(@PathVariable int providerId){
         Map<String,Object> map=new LinkedHashMap<String,Object>();
         List<String> list= eventService.getBookingDatesByProviderId(providerId);

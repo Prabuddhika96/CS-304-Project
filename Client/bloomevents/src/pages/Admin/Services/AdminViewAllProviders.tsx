@@ -9,6 +9,16 @@ import { BiTrash } from "react-icons/bi";
 import { red } from "@mui/material/colors";
 
 function AdminViewAllProviders() {
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const [providers, setProviders] = useState<Array<ServiceProvider>>([]);
   const [deleteId, setDeleteId] = useState();
   const [deleteLoading, setDeleteLoadng] = useState(false);
@@ -102,7 +112,10 @@ function AdminViewAllProviders() {
             setDeleteLoadng(true);
             setTimeout(async () => {
               const { providerId } = params.row;
-              const result = await ProviderService.deleteProvider(providerId);
+              const result = await ProviderService.deleteProvider(
+                providerId,
+                token
+              );
               if (result.data.status === 1) {
                 toast.success(`Provider ${providerId} is deleted`);
                 setDeleteId(providerId);

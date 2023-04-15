@@ -45,6 +45,8 @@ function UserProfile() {
         JSON.parse(logged).role != Role.ADMIN
       ) {
         localStorage.removeItem("loggedUser");
+        localStorage.removeItem("token");
+        localStorage.removeItem("ProviderMode");
         navigate(RouteName.Home);
       }
     } else {
@@ -52,6 +54,16 @@ function UserProfile() {
       navigate(RouteName.Login);
     }
   }, [localStorage.getItem("loggedUser")]);
+
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
   // console.log(user);
 
   // set district
@@ -78,7 +90,7 @@ function UserProfile() {
     };
 
     setTimeout(async () => {
-      const result = await UserServices.updateUser(updatedUser);
+      const result = await UserServices.updateUser(updatedUser, token);
       if (result.data.status == 1) {
         const newUser = await UserServices.getUserByUserId(user.userId);
         if (newUser) {

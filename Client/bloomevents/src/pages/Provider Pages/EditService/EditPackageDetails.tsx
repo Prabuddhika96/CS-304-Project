@@ -6,12 +6,21 @@ import {
   TextField,
 } from "@mui/material";
 import CircularProgressItem from "components/CircularProgress/CircularProgressItem";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import PackageServices from "Services/Packages/PackageService";
 
 function EditPackageDetails({ packge, providerId }: any) {
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
   // handle delete dialog
   const [open, setOpen] = React.useState(false);
 
@@ -51,13 +60,14 @@ function EditPackageDetails({ packge, providerId }: any) {
       if (packge.packageId) {
         const result = await PackageServices.updatePackage(
           updatedPackage,
-          packge.packageId
+          packge.packageId,
+          token
         );
         if (result.data.status == 1) {
           window.location.reload();
         }
       } else {
-        const result = await PackageServices.addPackage(updatedPackage);
+        const result = await PackageServices.addPackage(updatedPackage, token);
         if (result.data.status == 1) {
           window.location.reload();
         }
@@ -72,13 +82,15 @@ function EditPackageDetails({ packge, providerId }: any) {
     setBackdropDelete(true);
 
     setTimeout(() => {
-      PackageServices.deletePackage(packge.packageId).then((res: any) => {
-        if (res.data.status == 1) {
-          window.location.reload();
-        } else {
-          toast.error(res.data.message);
+      PackageServices.deletePackage(packge.packageId, token).then(
+        (res: any) => {
+          if (res.data.status == 1) {
+            window.location.reload();
+          } else {
+            toast.error(res.data.message);
+          }
         }
-      });
+      );
     }, 1000);
   };
   return (

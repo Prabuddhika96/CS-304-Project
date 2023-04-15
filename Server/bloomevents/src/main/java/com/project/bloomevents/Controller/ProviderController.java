@@ -18,7 +18,7 @@ public class ProviderController {
     @Autowired
     private ProviderService providerService;
 
-    @GetMapping("/getallproviders")
+    @GetMapping("/get/allproviders")
     public ResponseEntity<?> getAllProviders(){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<ProviderDTO> providerList = providerService.getAllProviders();
@@ -35,7 +35,7 @@ public class ProviderController {
         }
     }
 
-    @GetMapping("/getproviderbyid/{providerId}")
+    @GetMapping("/get/providerbyid/{providerId}")
     public ResponseEntity<?> getProviderById(@PathVariable int providerId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         ProviderDTO provider = providerService.getProviderById(providerId);
@@ -69,7 +69,7 @@ public class ProviderController {
         }
     }
 
-    @GetMapping("/getproviderbypackageid/{packageId}")
+    @GetMapping("/get/providerbypackageid/{packageId}")
     public ResponseEntity<?> getProviderByPackageId(@PathVariable int packageId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         ProviderDTO provider = providerService.getProviderByPackageId(packageId);
@@ -86,7 +86,7 @@ public class ProviderController {
         }
     }
 
-    @GetMapping("/getprovidersbyuserid/{userId}")
+    @GetMapping("/get/providersbyuserid/{userId}")
     public ResponseEntity<?> getProvidersByUserId(@PathVariable int userId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<ProviderDTO> providerList = providerService.getProvidersByUserId(userId);
@@ -137,7 +137,7 @@ public class ProviderController {
         }
     }
 
-    @GetMapping("/getprovidercountbycategoryid/{categoryId}")
+    @GetMapping("/get/providercountbycategoryid/{categoryId}")
     public ResponseEntity<?> getProviderCountByCategoryId(@PathVariable int categoryId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         int count = providerService.getProviderCountByCategoryId(categoryId);

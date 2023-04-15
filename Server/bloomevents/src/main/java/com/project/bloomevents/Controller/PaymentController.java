@@ -18,7 +18,7 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @GetMapping("/getallpayments")
+    @GetMapping("/get/allpayments")
     public ResponseEntity<?> getAllPayments(){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<PaymentDTO> paymentList = paymentService.getAllPayments();

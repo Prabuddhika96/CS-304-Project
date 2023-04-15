@@ -43,6 +43,16 @@ function AddReviewDialog({
     });
   }, [value, ratings]);
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const addReview = (e: any) => {
     e.preventDefault();
     setBackdrop(true);
@@ -50,17 +60,19 @@ function AddReviewDialog({
 
     setTimeout(() => {
       // console.log(newReview);
-      ReviewService.addReview(newReview, addToEventId).then((res: any) => {
-        console.log(res);
-        if (res.data.data === 1) {
-          setBackdrop(false);
-          handleClickCloseReview();
-          toast.success("Successfully Deleted");
-          window.location.reload();
-        } else {
-          toast.error(res.data.message);
+      ReviewService.addReview(newReview, addToEventId, token).then(
+        (res: any) => {
+          console.log(res);
+          if (res.data.data === 1) {
+            setBackdrop(false);
+            handleClickCloseReview();
+            toast.success("Successfully Deleted");
+            window.location.reload();
+          } else {
+            toast.error(res.data.message);
+          }
         }
-      });
+      );
     }, 1000);
   };
   return (

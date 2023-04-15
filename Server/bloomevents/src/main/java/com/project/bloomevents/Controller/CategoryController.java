@@ -18,7 +18,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    @GetMapping("/getallcategories")
+    @GetMapping("/get/allcategories")
     public ResponseEntity<?> getAllcategories(){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<CategoryDTO> categoryList = categoryService.getAllcategories();

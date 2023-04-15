@@ -30,6 +30,16 @@ function PlacedEvents({ providerId }: any) {
     );
   }, [providerId]);
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const [deleteId, setDeleteId] = useState<any>();
   useEffect(() => {
     const filteredData = events?.filter(
@@ -119,7 +129,7 @@ function PlacedEvents({ providerId }: any) {
           const ApproveEvent = async () => {
             setApproveLoading(true);
             setTimeout(() => {
-              AddToEventService.approvePackage(addToEventId).then(
+              AddToEventService.approvePackage(addToEventId, token).then(
                 (res: any) => {
                   if (res.data.status === 1) {
                     setDeleteId(addToEventId);
@@ -155,12 +165,14 @@ function PlacedEvents({ providerId }: any) {
           const RejectEvent = async () => {
             setBackdropDelete(true);
             setTimeout(() => {
-              AddToEventService.deletePackage(addToEventId).then((res: any) => {
-                if (res.data.status === 1) {
-                  setDeleteId(addToEventId);
-                  setBackdropDelete(false);
+              AddToEventService.deletePackage(addToEventId, token).then(
+                (res: any) => {
+                  if (res.data.status === 1) {
+                    setDeleteId(addToEventId);
+                    setBackdropDelete(false);
+                  }
                 }
-              });
+              );
             }, 1500);
           };
           return (

@@ -21,9 +21,19 @@ function EventDetailCard({
   eventTime,
   userId,
 }: any) {
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const handleDeleteEvent = () => {
     setTotalPrice(totalPrice - Number(packge?.price));
-    AddToEventService.deletePackage(addToEvent.addToEventId).then(
+    AddToEventService.deletePackage(addToEvent.addToEventId, token).then(
       (res: any) => {
         if (res.data.data === 1) {
           toast.success("Successfully Deleted");

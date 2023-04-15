@@ -23,7 +23,7 @@ public class LoginController {
     @Autowired
     private LoginDetailsService loginservice;
 
-    @GetMapping("/getAllLoginDetails")
+    @GetMapping("/get/AllLoginDetails")
     public ResponseEntity<?> getAllLoginDetails(){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<LoginDetailsDTO> loginList=loginservice.getAllLoginDetails();

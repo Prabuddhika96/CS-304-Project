@@ -65,18 +65,22 @@ function Login(): JSX.Element {
       if (result.data.status === 1) {
         // update last login
 
+        localStorage.setItem("token", JSON.stringify(result.data.data.token));
         //redirect to login page
         localStorage.setItem(
           "loggedUser",
-          JSON.stringify({
-            userId: result.data.data.user.userId,
-            firstName: result.data.data.user.firstName,
-            lastName: result.data.data.user.lastName,
-            mobile: result.data.data.user.mobile,
-            district: result.data.data.user.district,
-            lastLogin: new Date().getTime(),
-            role: result.data.data.user.role,
-          })
+          JSON.stringify(
+            // result.data.data
+            {
+              userId: result.data.data.user.userId,
+              firstName: result.data.data.user.firstName,
+              lastName: result.data.data.user.lastName,
+              mobile: result.data.data.user.mobile,
+              district: result.data.data.user.district,
+              lastLogin: new Date().getTime(),
+              role: result.data.data.user.role,
+            }
+          )
         );
         let providermode = localStorage.getItem("ProviderMode");
         if (providermode) {

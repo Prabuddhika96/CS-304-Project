@@ -7,11 +7,21 @@ import {
 } from "@mui/material";
 import CategoryService from "Services/Category/CategoryService";
 import CircularProgressItem from "components/CircularProgress/CircularProgressItem";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 function AddCategoryDialog({ openDialog, handleClickCloseDialog }: any) {
   const [value, setValue] = useState<string | "">("");
+
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
 
   const [backdrop, setBackdrop] = useState<boolean>(false);
   const addCategory = (e: any) => {
@@ -26,7 +36,7 @@ function AddCategoryDialog({ openDialog, handleClickCloseDialog }: any) {
         categoryName: value,
       };
       setTimeout(() => {
-        CategoryService.addCategory(newCategory)
+        CategoryService.addCategory(newCategory, token && token)
           .then((res: any) => {
             if (res.data.status === 1) {
               handleClickCloseDialog();

@@ -12,6 +12,16 @@ import { toast } from "react-toastify";
 import { User1 } from "types/User";
 
 function AdminViewAllUsers({ loggedUserId }: any) {
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   // back drops
   const [deleteLoading, setDeleteLoadng] = useState<boolean>(false);
   const [backdropPW, setBackdropPW] = useState<boolean>(false);
@@ -86,14 +96,16 @@ function AdminViewAllUsers({ loggedUserId }: any) {
             setBackdropPW(true);
             setTimeout(() => {
               const { userId } = params.row;
-              LoginDetailsServices.setDefaultPW(userId).then((res: any) => {
-                if (res.data.status === 1) {
-                  setBackdropPW(false);
-                  toast.success("Password changed to default PW");
-                } else {
-                  toast.error(res.data.message);
+              LoginDetailsServices.setDefaultPW(userId, token).then(
+                (res: any) => {
+                  if (res.data.status === 1) {
+                    setBackdropPW(false);
+                    toast.success("Password changed to default PW");
+                  } else {
+                    toast.error(res.data.message);
+                  }
                 }
-              });
+              );
               setBackdropPW(false);
             }, 1500);
           };
@@ -126,7 +138,7 @@ function AdminViewAllUsers({ loggedUserId }: any) {
           const handleDeleteUser = async () => {
             setBackdropRole(true);
             setTimeout(() => {
-              UserServices.changeRole(userId).then((res: any) => {
+              UserServices.changeRole(userId, token).then((res: any) => {
                 if (res.data.status === 1) {
                   window.location.reload();
                 } else {
@@ -164,7 +176,10 @@ function AdminViewAllUsers({ loggedUserId }: any) {
           const handleDeleteUser = async () => {
             setDeleteLoadng(true);
             setTimeout(async () => {
-              const result = await UserServices.deleteUserByUserId(userId);
+              const result = await UserServices.deleteUserByUserId(
+                userId,
+                token
+              );
               if (result.data.status === 1) {
                 toast.success(`Provider ${userId} is deleted`);
                 setDeleteId(userId);

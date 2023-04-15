@@ -18,7 +18,7 @@ public class BookingController {
     @Autowired
     private BookingService bookingService;
 
-    @GetMapping("/getallbookings")
+    @GetMapping("/get/allbookings")
     public ResponseEntity<?> getAllBookings(){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<BookingDTO> bookingsList = bookingService.getAllBookings();
@@ -34,7 +34,7 @@ public class BookingController {
         }
     }
 
-    @GetMapping("/getbookingdetailsbyeventid/{eventId}")
+    @GetMapping("/get/bookingdetailsbyeventid/{eventId}")
     public ResponseEntity<?> getBookingDetailsByEventId(@PathVariable int eventId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         BookingDTO booking = bookingService.getBookingDetailsByEventId(eventId);

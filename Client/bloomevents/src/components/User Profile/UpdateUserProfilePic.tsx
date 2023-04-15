@@ -5,6 +5,16 @@ import { RiImageAddLine } from "react-icons/ri";
 import FileUpload from "Services/FileUpload/FileUpload";
 
 function UpdateUserProfilePic({ user }: any) {
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   //update propic
   const [src, setSrc] = useState<any>();
   const [preview, setPreview] = useState(null);
@@ -31,7 +41,7 @@ function UpdateUserProfilePic({ user }: any) {
       let formData = new FormData();
       formData.append("file", file);
 
-      FileUpload.uploadProfilePicture(user?.userId, formData);
+      FileUpload.uploadProfilePicture(user?.userId, formData, token);
       window.location.reload();
     }, 1000);
   };
@@ -80,7 +90,7 @@ function UpdateUserProfilePic({ user }: any) {
         <button
           type="submit"
           onClick={handlePropic}
-          className="react-hook-form-btn react-hook-form-btn-submit mt-5">
+          className="mt-5 react-hook-form-btn react-hook-form-btn-submit">
           {backdrop === true && (
             <>
               <div className="mr-3">

@@ -1,18 +1,25 @@
 import { TableContainer, Table, TableHead, Box } from "@mui/material";
-import { green, red } from "@mui/material/colors";
+import { red } from "@mui/material/colors";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
-import AddToEventService from "Services/AddToEvent/AddToEventService";
 import PrivateBookingService from "Services/Private Bookings/PrivateBookingService";
 import ActionBtn from "components/Admin/Action btn/ActionBtn";
-import AdminBookedPackagesAction from "components/Admin/Booked Packages/AdminBookedPackagesAction";
 import AddPrivateBooking from "components/Provider/Private Bookings/AddPrivateBooking";
 import events from "events";
 import { useEffect, useMemo, useState } from "react";
 import { BiTrash } from "react-icons/bi";
-import { MdOutlineDone } from "react-icons/md";
 import { PrivateBooking } from "types/PrivateBooking";
 
 function PrivateBookings({ providerId }: any) {
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const [backdropDelete, setBackdropDelete] = useState<boolean>(false);
   const [bookings, setBookings] = useState<Array<PrivateBooking>>();
 
@@ -71,7 +78,8 @@ function PrivateBookings({ providerId }: any) {
             setBackdropDelete(true);
             setTimeout(() => {
               PrivateBookingService.deletePrivateBookingById(
-                privateBookingId
+                privateBookingId,
+                token
               ).then((res: any) => {
                 if (res.data.status === 1) {
                   setDeleteId(privateBookingId);

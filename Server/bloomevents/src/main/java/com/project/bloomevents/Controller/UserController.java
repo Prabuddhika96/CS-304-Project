@@ -21,7 +21,7 @@ public class UserController {
     private UserService userService;
 
 
-    @GetMapping("/getallusers")
+    @GetMapping("/get/allusers")
     public ResponseEntity<?> getAllUsers(){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<UserDTO> userList= userService.getAllUsers();
@@ -54,7 +54,7 @@ public class UserController {
         }
     }
 
-    @GetMapping("/getuserbyid/{userid}")
+    @GetMapping("/get/userbyid/{userid}")
     public ResponseEntity<?>  getUserById(@PathVariable int userid) {
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         UserDTO user = userService.getUserById(userid);

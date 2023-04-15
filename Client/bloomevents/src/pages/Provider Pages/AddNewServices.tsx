@@ -22,6 +22,16 @@ import ProviderService from "Services/Provider/ProviderServices";
 function AddNewServices() {
   let { userId } = useParams();
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const navigate = useNavigate();
   const [user, setuser] = React.useState<any>("");
 
@@ -119,7 +129,7 @@ function AddNewServices() {
       console.log(newService);
 
       setTimeout(async () => {
-        const result = await ProviderService.addProvider(newService);
+        const result = await ProviderService.addProvider(newService, token);
         console.log(result);
         if (result.data.status === 1) {
           if (changeImg) {
@@ -129,7 +139,8 @@ function AddNewServices() {
 
             FileUpload.uploadServiceLogo(
               result.data.data?.providerId,
-              formData
+              formData,
+              token
             );
           }
           toast.success("Service Details Updated");

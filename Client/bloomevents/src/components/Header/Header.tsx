@@ -28,6 +28,7 @@ function Header() {
             } else {
               localStorage.removeItem("loggedUser");
               localStorage.removeItem("ProviderMode");
+              localStorage.removeItem("token");
               navigate(RouteName.Home);
             }
           }

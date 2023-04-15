@@ -1,11 +1,21 @@
 import CircularProgressItem from "components/CircularProgress/CircularProgressItem";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import FileUpload from "Services/FileUpload/FileUpload";
 import AddNewImageCard from "./AddNewImageCard";
 import { AiFillCloseCircle } from "react-icons/ai";
 
 function AddNewDetailImage({ limit, setLimit, providerId }: any) {
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const [files, setFiles] = useState<File[]>([]);
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (limit > 0) {
@@ -38,7 +48,7 @@ function AddNewDetailImage({ limit, setLimit, providerId }: any) {
     });
 
     setTimeout(() => {
-      FileUpload.uploadServiceDetailImages(providerId, formData).then(
+      FileUpload.uploadServiceDetailImages(providerId, formData, token).then(
         (res: any) => {
           if (res.status === 200) {
             toast.success("Successfully Uploaded");

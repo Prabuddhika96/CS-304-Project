@@ -38,6 +38,16 @@ function MyEventCard({ event, func }: any) {
     }, 1000);
   }, [localStorage.getItem("loggedUser")]);
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   // handle delete event
   const [openDelete, setOpenDelete] = React.useState(false);
 
@@ -76,7 +86,7 @@ function MyEventCard({ event, func }: any) {
 
   //delete function
   const deleteEvent = () => {
-    EventServices.deleteEvent(event.eventId).then((res: any) => {
+    EventServices.deleteEvent(event.eventId, token).then((res: any) => {
       if (res.data.status == 1) {
         func(event.eventId);
         toast.success("Successfully Deleted");
@@ -95,7 +105,7 @@ function MyEventCard({ event, func }: any) {
       placedDate: placedDate.format("DD-MMM-YYYY").toString(),
       placedTime: placedDate.format("hh:mm A").toString(),
     };
-    EventServices.placeEvent(placedEvent).then((res: any) => {
+    EventServices.placeEvent(placedEvent, token && token).then((res: any) => {
       if (res.data.status === 1) {
         toast.success("Successfully Placed");
         handleClickClosePlace();
@@ -145,7 +155,7 @@ function MyEventCard({ event, func }: any) {
 
   useEffect(() => {
     if (booking === true) {
-      BookingService.makeBooking(user, event, totalPrice);
+      BookingService.makeBooking(user, event, totalPrice, token && token);
     }
     handleClickClosePayment();
   }, [booking]);

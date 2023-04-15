@@ -18,7 +18,7 @@ public class ReviewController {
     @Autowired
     private ReviewService reviewService;
 
-    @GetMapping("/getallreviews")
+    @GetMapping("/get/allreviews")
     public ResponseEntity<?> getAllReviews(){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<ReviewDTO> providerList = reviewService.getAllReviews();
@@ -67,7 +67,7 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/getreviewsbyproviderid/{providerId}")
+    @GetMapping("/get/reviewsbyproviderid/{providerId}")
     public ResponseEntity<?> getReviewsByProviderId(@PathVariable int providerId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<ReviewDTO> reviewList = reviewService.getReviewsByProviderId(providerId);
@@ -84,7 +84,7 @@ public class ReviewController {
         }
     }
 
-    @GetMapping("/getreviewcountbyproviderid/{providerId}")
+    @GetMapping("/get/reviewcountbyproviderid/{providerId}")
     public ResponseEntity<?> getReviewCountByProviderId(@PathVariable int providerId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         int count = reviewService.getReviewCountByProviderId(providerId);

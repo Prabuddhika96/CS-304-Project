@@ -44,6 +44,16 @@ function EventDetails() {
     }, 1000);
   }, []);
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   // get event details
   const [event, setEvent] = React.useState<Event>();
   const [booked, setBooked] = React.useState<Booking>();
@@ -87,7 +97,7 @@ function EventDetails() {
 
   //delete function
   const deleteEvent = () => {
-    EventServices.deleteEvent(index).then((res: any) => {
+    EventServices.deleteEvent(index, token).then((res: any) => {
       if (res.data.status === 1) {
         toast.success("Successfully Deleted");
         handleClickCloseDelete();
@@ -106,7 +116,7 @@ function EventDetails() {
       placedDate: placedDate.format("DD-MMM-YYYY").toString(),
       placedTime: placedDate.format("hh:mm A").toString(),
     };
-    EventServices.placeEvent(placedEvent).then((res: any) => {
+    EventServices.placeEvent(placedEvent, token).then((res: any) => {
       if (res.data.status === 1) {
         toast.success("Successfully Placed");
         handleClickClosePlace();
@@ -179,7 +189,7 @@ function EventDetails() {
 
   useEffect(() => {
     if (booking === true) {
-      BookingService.makeBooking(user, event, totalPrice);
+      BookingService.makeBooking(user, event, totalPrice, token);
     }
     handleClickClosePayment();
   }, [booking]);

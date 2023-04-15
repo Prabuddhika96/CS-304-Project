@@ -66,7 +66,16 @@ function ProviderDetails() {
     localStorage.getItem("loggedUser"),
     localStorage.getItem("ProviderMode"),
   ]);
-  // console.log(user);
+
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
 
   React.useEffect(() => {
     ProviderService.getProvider(providerId).then((res: any) => {
@@ -184,7 +193,7 @@ function ProviderDetails() {
         return;
       }
       setTimeout(async () => {
-        const result = await AddToEventService.addPackageToEvent(values);
+        const result = await AddToEventService.addPackageToEvent(values, token);
         //console.log(result);
         if (result.data.status == 1) {
           setOpenbook(false);

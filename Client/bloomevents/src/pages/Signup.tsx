@@ -41,13 +41,13 @@ function Signup() {
 
   // profile picture
   const [preview, setPreview] = useState<any>();
-  const handlePropic = (userId: any) => {
+  const handlePropic = (userId: any, token: any) => {
     const file = FileUpload.convertBase64ToFile(preview, "aa.png");
 
     let formData = new FormData();
     formData.append("file", file);
 
-    FileUpload.uploadProfilePicture(userId, formData);
+    FileUpload.uploadProfilePicture(userId, formData, token);
   };
 
   // handle backdrop
@@ -81,9 +81,10 @@ function Signup() {
         );
         if (preview) {
           setTimeout(() => {
-            handlePropic(result.data.data.user.userId);
+            handlePropic(result.data.data.user.userId, result.data.token);
           }, 1000);
         }
+        localStorage.setItem("token", JSON.stringify(result.data.data.token));
         navigate(RouteName.Services);
         toast.success("Registration Successfull");
         return;

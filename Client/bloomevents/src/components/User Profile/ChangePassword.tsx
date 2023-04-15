@@ -12,6 +12,15 @@ import { toast } from "react-toastify";
 import LoginDetailsServices from "Services/Login Details/LoginDetailsServices";
 
 function ChangePassword({ open, handleClose, userId }: any) {
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
   // show password - old
   const [oldShowPw, setOldShowPw] = useState<boolean>(false);
   const showOldPassword = () => {
@@ -66,7 +75,8 @@ function ChangePassword({ open, handleClose, userId }: any) {
         setTimeout(async () => {
           const result = await LoginDetailsServices.updatePassword(
             userId,
-            updatePwRequest
+            updatePwRequest,
+            token
           );
 
           if (result.data.status == 1) {

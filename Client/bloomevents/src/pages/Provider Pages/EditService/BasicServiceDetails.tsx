@@ -18,6 +18,16 @@ function BasicServiceDetails({ providerId, provider }: any) {
     );
   }, [provider]);
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const [changeImg, setChangeImg] = useState<boolean>(false);
   function handleFileUpload(event: any) {
     setChangeImg(true);
@@ -57,7 +67,10 @@ function BasicServiceDetails({ providerId, provider }: any) {
     };
     // console.log(updatedService);
     setTimeout(async () => {
-      const result = await ProviderService.updateProvider(updatedService);
+      const result = await ProviderService.updateProvider(
+        updatedService,
+        token
+      );
       // console.log(result);
       if (result.data.status == 1) {
         if (changeImg) {
@@ -78,7 +91,7 @@ function BasicServiceDetails({ providerId, provider }: any) {
     let formData = new FormData();
     formData.append("file", file);
 
-    FileUpload.uploadServiceLogo(provider?.providerId, formData);
+    FileUpload.uploadServiceLogo(provider?.providerId, formData, token);
   };
   return (
     <div>

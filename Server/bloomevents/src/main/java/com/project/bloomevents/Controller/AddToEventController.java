@@ -18,7 +18,7 @@ public class AddToEventController {
     @Autowired
     private AddToEventService addToEventService;
 
-    @GetMapping("/getalladdtoevent")
+    @GetMapping("/get/alladdtoevent")
     public ResponseEntity<?> getAllAddToEvent(){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<AddToEventDTO> list = addToEventService.getAllAddToEvent();
@@ -50,7 +50,7 @@ public class AddToEventController {
         }
     }
 
-    @GetMapping("/getpackagecountbyeventid/{eventId}")
+    @GetMapping("/get/packagecountbyeventid/{eventId}")
     public ResponseEntity<?> getPackageCountByEventId(@PathVariable int eventId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         int count = addToEventService.getPackageCountByEventId(eventId);
@@ -82,7 +82,7 @@ public class AddToEventController {
         }
     }
 
-    @GetMapping("/getpackagesbyeventid/{eventId}")
+    @GetMapping("/get/packagesbyeventid/{eventId}")
     public ResponseEntity<?> getPackagesByEventId(@PathVariable int eventId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<AddToEventDTO> list = addToEventService.getPackagesByEventId(eventId);
@@ -114,7 +114,7 @@ public class AddToEventController {
         }
     }
 
-    @GetMapping("/getplacedpackagesbyproviderId/{providerId}")
+    @GetMapping("/get/placedpackagesbyproviderId/{providerId}")
     public ResponseEntity<?> getPlacedPackagesByProviderId(@PathVariable int providerId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<AddToEventDTO> list = addToEventService.getPlacedPackagesByProviderId(providerId);
@@ -146,7 +146,7 @@ public class AddToEventController {
         }
     }
 
-    @GetMapping("/getapprovedpackagesbyproviderId/{providerId}")
+    @GetMapping("/get/approvedpackagesbyproviderId/{providerId}")
     public ResponseEntity<?> getApprovedPackagesByProviderId(@PathVariable int providerId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<AddToEventDTO> list = addToEventService.getApprovedPackagesByProviderId(providerId);
@@ -162,7 +162,7 @@ public class AddToEventController {
         }
     }
 
-    @GetMapping("/getbookedpackagesbyproviderId/{providerId}")
+    @GetMapping("/get/bookedpackagesbyproviderId/{providerId}")
     public ResponseEntity<?> getBookedPackagesByProviderId(@PathVariable int providerId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<AddToEventDTO> list = addToEventService.getBookedPackagesByProviderId(providerId);
@@ -178,7 +178,7 @@ public class AddToEventController {
         }
     }
 
-    @GetMapping("/getapprovedpackagecountbyeventid/{eventId}")
+    @GetMapping("/get/approvedpackagecountbyeventid/{eventId}")
     public ResponseEntity<?> getApprovedPackageCountByEventId(@PathVariable int eventId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         int count = addToEventService.getApprovedPackageCountByEventId(eventId);
@@ -194,7 +194,7 @@ public class AddToEventController {
         }
     }
 
-    @GetMapping("/getallbookedpackages")
+    @GetMapping("/get/allbookedpackages")
     public ResponseEntity<?> getAllBookedPackages(){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<AddToEventDTO> list = addToEventService.getAllBookedPackages();

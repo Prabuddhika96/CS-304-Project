@@ -20,6 +20,8 @@ function MyEvents() {
         setuser(JSON.parse(logged));
         if (JSON.parse(logged).userId != userId) {
           localStorage.removeItem("loggedUser");
+          localStorage.removeItem("token");
+          localStorage.removeItem("ProviderMode");
           navigate(RouteName.Home);
         } else {
           UserServices.getUserByUserId(JSON.parse(logged).userId).then(

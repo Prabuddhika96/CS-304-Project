@@ -18,7 +18,7 @@ public class PackageController {
     @Autowired
     private PackageService packageService;
 
-    @GetMapping("/getallpackages")
+    @GetMapping("/get/allpackages")
     public ResponseEntity<?> getAllpackages(){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<PackageDTO> packageList = packageService.getAllpackages();
@@ -35,7 +35,7 @@ public class PackageController {
         }
     }
 
-    @GetMapping("/getpackagesbyproviderid/{providerId}")
+    @GetMapping("/get/packagesbyproviderid/{providerId}")
     public ResponseEntity<?> getPackagesbyProviderId(@PathVariable int providerId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<PackageDTO> packageList = packageService.getPackagesByProviderId(providerId);
@@ -52,7 +52,7 @@ public class PackageController {
         }
     }
 
-    @GetMapping("/getpackagecountbyproviderid/{providerId}")
+    @GetMapping("/get/packagecountbyproviderid/{providerId}")
     public ResponseEntity<?> getPackageCountByProviderId(@PathVariable int providerId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         int count = packageService.getPackageCount(providerId);
@@ -69,7 +69,7 @@ public class PackageController {
         }
     }
 
-    @GetMapping("/getpackagebypackageid/{packageId}")
+    @GetMapping("/get/packagebypackageid/{packageId}")
     public ResponseEntity<?> getPackageByPackageId(@PathVariable int packageId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         PackageDTO packge = packageService.getPackageByPackageId(packageId);
@@ -137,7 +137,7 @@ public class PackageController {
         }
     }
 
-    @GetMapping("/gettotalpricebyeventid/{eventId}")
+    @GetMapping("/get/totalpricebyeventid/{eventId}")
     public ResponseEntity<?> getTotalPriceByEventId(@PathVariable int eventId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         double price = packageService.getTotalPriceByEventId(eventId);
@@ -154,7 +154,7 @@ public class PackageController {
         }
     }
 
-    @GetMapping("/getpackagecountbycategoryid/{categoryId}")
+    @GetMapping("/get/packagecountbycategoryid/{categoryId}")
     public ResponseEntity<?> getPackageCountByCategoryId(@PathVariable int categoryId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         int count = packageService.getPackageCountByCategoryId(categoryId);

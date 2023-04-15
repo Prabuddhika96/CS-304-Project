@@ -22,6 +22,7 @@ function EditServiceDetail({ provider }: any) {
 
   const handleLogout = () => {
     localStorage.removeItem("loggedUser");
+    localStorage.removeItem("token");
     localStorage.removeItem("ProviderMode");
     navigate(RouteName.Home);
   };

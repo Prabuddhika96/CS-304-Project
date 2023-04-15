@@ -22,11 +22,28 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+        http.cors().and()
             .csrf()
             .disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/**")
+                .requestMatchers(
+//                        "/**",
+                        "/user/auth/**",
+                        "/addtoevent/get/**",
+                        "/bookings/get/**",
+                        "/category/get/**",
+                        "/event/get/**",
+                        "/upload/profilePic/**",
+                        "/upload/ProviderLogos/**",
+                        "/upload/ProviderImages/**",
+                        "/logindetails/get/**",
+                        "/package/get/**",
+                        "/payment/get/**",
+                        "/privatebooking/get/**",
+                        "/provider/get/**",
+                        "/review/get/**",
+                        "/user/get/**"
+                        )
                 .permitAll()
                 .anyRequest()
                 .authenticated()

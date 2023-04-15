@@ -18,7 +18,7 @@ public class PrivateBookingController {
     @Autowired
     private PrivateBookingService privateBookingService;
 
-    @GetMapping("/getprivatebookingsbyproviderid/{providerId}")
+    @GetMapping("/get/privatebookingsbyproviderid/{providerId}")
     public ResponseEntity<?> getPrivateBookingsByProviderId(@PathVariable int providerId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         List<PrivateBookingDTO> bookingList = privateBookingService.getPrivateBookingsByProviderId(providerId);

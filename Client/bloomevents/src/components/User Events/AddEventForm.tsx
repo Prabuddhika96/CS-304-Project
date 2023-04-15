@@ -19,6 +19,15 @@ function AddEventForm(userid: any) {
   const [time, settime] = useState<Dayjs>(dayjs());
 
   const [user, setuser] = useState<any>();
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
 
   const navigate = useNavigate();
 
@@ -90,7 +99,7 @@ function AddEventForm(userid: any) {
       setBackdrop(true);
 
       setTimeout(async () => {
-        const result = await EventServices.addEvent(values);
+        const result = await EventServices.addEvent(values, token);
         console.log(result.data.status === 1);
         if (result) {
           setSuccessAddEvent(true);
