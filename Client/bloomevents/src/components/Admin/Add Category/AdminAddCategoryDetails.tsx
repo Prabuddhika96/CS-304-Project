@@ -21,7 +21,7 @@ function AdminAddCategoryDetails({ params, col }: any) {
   return (
     <div>
       {providerCount &&
-        col == "providers" &&
+        col === "providers" &&
         (providerCount > 0 ? (
           <Box
             sx={{
@@ -31,11 +31,11 @@ function AdminAddCategoryDetails({ params, col }: any) {
             {providerCount}
           </Box>
         ) : (
-          0
+          <></>
         ))}
 
       {packageCount &&
-        col == "package" &&
+        col === "package" &&
         (packageCount > 0 ? (
           <Box
             sx={{
@@ -45,7 +45,7 @@ function AdminAddCategoryDetails({ params, col }: any) {
             {packageCount}
           </Box>
         ) : (
-          0
+          <></>
         ))}
     </div>
   );

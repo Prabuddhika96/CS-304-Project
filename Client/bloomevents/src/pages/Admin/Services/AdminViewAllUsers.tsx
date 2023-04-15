@@ -79,7 +79,7 @@ function AdminViewAllUsers({ loggedUserId }: any) {
       {
         field: "changePassword",
         headerName: "Change Password",
-        width: 120,
+        width: 180,
         type: "actions",
         renderCell: (params: any) => {
           const setDefaultPw = (e: any) => {
