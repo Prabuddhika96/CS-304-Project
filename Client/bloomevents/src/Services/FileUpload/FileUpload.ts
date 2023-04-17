@@ -75,10 +75,24 @@ const uploadServiceDetailImages = async (
 };
 
 // delete provider details image
-const deleteServiceDetailImage = async (providerId: any, fileName: any) => {
-  return http.delete<any>(
-    `${process.env.REACT_APP_BACKEND_SERVER}/upload/deletedtailimage/${providerId}/${fileName}`
-  );
+const deleteServiceDetailImage = async (
+  providerId: any,
+  fileName: any,
+  token: any
+) => {
+  // return http.delete<any>(
+  //   `${process.env.REACT_APP_BACKEND_SERVER}/upload/deletedtailimage/${providerId}/${fileName}`
+  // );
+
+  const response = await axios({
+    method: "delete",
+    url: `${process.env.REACT_APP_BACKEND_SERVER}/upload/deletedtailimage/${providerId}/${fileName}`,
+    headers: {
+      "Content-type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return response;
 };
 
 const FileUpload = {

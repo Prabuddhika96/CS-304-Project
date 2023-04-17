@@ -75,6 +75,7 @@ function ImageInformation({ providerId }: any) {
               limit={limit}
               setLimit={setLimit}
               providerId={providerId}
+              setNames={setNames}
             />
           </div>
         </>

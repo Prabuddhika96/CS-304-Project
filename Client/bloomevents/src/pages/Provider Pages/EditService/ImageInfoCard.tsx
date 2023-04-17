@@ -1,5 +1,5 @@
 import CircularProgressItem from "components/CircularProgress/CircularProgressItem";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FileUpload from "Services/FileUpload/FileUpload";
 import { toast } from "react-toastify";
@@ -13,6 +13,16 @@ function ImageInfoCard({
 }: any) {
   const server = `http://localhost:8080/upload/ProviderImages/${providerId}`;
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const [backdropDelete, setBackdropDelete] = useState<boolean>(false);
   const handleDeleteImage = (e: any) => {
     e.preventDefault();
@@ -21,7 +31,7 @@ function ImageInfoCard({
       setDeleteName(source);
       setBackdropDelete(false);
       // setLimit(limit + 1);
-      FileUpload.deleteServiceDetailImage(providerId, source).then(
+      FileUpload.deleteServiceDetailImage(providerId, source, token).then(
         (res: any) => {
           if (res.status === 200) {
             toast.success("Successfully Deleted");

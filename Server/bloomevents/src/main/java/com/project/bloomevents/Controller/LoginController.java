@@ -119,7 +119,7 @@ public class LoginController {
         }
     }
 
-    @GetMapping("/getemailbyuserid/{userId}")
+    @GetMapping("/get/emailbyuserid/{userId}")
     public ResponseEntity<?> getEmailByUserId(@PathVariable int userId){
         Map<String, Object> map = new LinkedHashMap<String, Object>();
         LoginDetailsDTO user = loginservice.getEmailByUserId(userId);

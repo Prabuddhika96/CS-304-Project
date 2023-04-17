@@ -8,9 +8,24 @@ import LoggedUserNav from "./Logged User/LoggedUserNav";
 import UserMode from "./Nav Options/UserMode";
 import ProviderMode from "./Nav Options/ProviderMode";
 import UserServices from "Services/User/UserServices";
+import jwtDecode from "jwt-decode";
 
 function Header() {
   const navigate = useNavigate();
+
+  // jwt
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+      var decoded = jwtDecode(JSON.parse(token));
+
+      console.log(decoded);
+    } else {
+      setToken(null);
+    }
+  }, []);
 
   const [user, setuser] = useState<any>();
   const [proMode, setproMode] = useState<boolean>(false);
@@ -24,6 +39,7 @@ function Header() {
           (res: any) => {
             if (res.data.status === 1) {
               setuser(res.data.data);
+
               localStorage.setItem("loggedUser", JSON.stringify(res.data.data));
             } else {
               localStorage.removeItem("loggedUser");

@@ -43,6 +43,7 @@ public class SecurityConfiguration {
                         "/provider/get/**",
                         "/review/get/**",
                         "/user/get/**"
+//                        "/**"
                         )
                 .permitAll()
                 .anyRequest()

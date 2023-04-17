@@ -5,7 +5,7 @@ import FileUpload from "Services/FileUpload/FileUpload";
 import AddNewImageCard from "./AddNewImageCard";
 import { AiFillCloseCircle } from "react-icons/ai";
 
-function AddNewDetailImage({ limit, setLimit, providerId }: any) {
+function AddNewDetailImage({ limit, setLimit, providerId, setNames }: any) {
   const [token, setToken] = useState<any>();
   useEffect(() => {
     let token = localStorage.getItem("token");
