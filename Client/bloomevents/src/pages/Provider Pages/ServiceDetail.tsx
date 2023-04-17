@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
@@ -48,6 +48,16 @@ function a11yProps(index: number) {
 function ServiceDetail() {
   let { providerId } = useParams();
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   const [provider, setProvider] = useState<any>();
   React.useEffect(() => {
     ProviderService.getProvider(providerId).then((res: any) => {
@@ -68,7 +78,7 @@ function ServiceDetail() {
 
   return (
     <div className="px-5 pt-28">
-      {provider && (
+      {provider && token && (
         <>
           <div className="w-full p-3 my-3 text-center bg-white">
             <h1 className="text-4xl font-bold">
@@ -90,7 +100,11 @@ function ServiceDetail() {
                 value={value}
                 onChange={handleChange}
                 aria-label="Vertical tabs example"
-                sx={{ borderRight: 1, borderColor: "divider", width: "100%" }}>
+                sx={{
+                  borderRight: 1,
+                  borderColor: "divider",
+                  width: "100%",
+                }}>
                 <Tab label="Provider Details" {...a11yProps(0)} />
                 <Tab label="Package Information" {...a11yProps(1)} />
                 <Tab label="Placed Events" {...a11yProps(2)} />
@@ -102,25 +116,25 @@ function ServiceDetail() {
 
               <div className="w-full">
                 <TabPanel value={value} index={0}>
-                  <EditServiceDetail provider={provider} />
+                  <EditServiceDetail provider={provider} token={token} />
                 </TabPanel>
                 <TabPanel value={value} index={1}>
-                  <ChangePackageDetails providerId={providerId} />
+                  <ChangePackageDetails providerId={providerId} token={token} />
                 </TabPanel>
                 <TabPanel value={value} index={2}>
-                  <PlacedEvents providerId={providerId} />
+                  <PlacedEvents providerId={providerId} token={token} />
                 </TabPanel>
                 <TabPanel value={value} index={3}>
-                  <ApprovedEvents providerId={providerId} />
+                  <ApprovedEvents providerId={providerId} token={token} />
                 </TabPanel>
                 <TabPanel value={value} index={4}>
-                  <BookedEvents providerId={providerId} />
+                  <BookedEvents providerId={providerId} token={token} />
                 </TabPanel>
                 <TabPanel value={value} index={5}>
-                  <PrivateBookings providerId={providerId} />
+                  <PrivateBookings providerId={providerId} token={token} />
                 </TabPanel>
                 <TabPanel value={value} index={6}>
-                  <ProviderReviews providerId={providerId} />
+                  <ProviderReviews providerId={providerId} token={token} />
                 </TabPanel>
               </div>
             </Box>

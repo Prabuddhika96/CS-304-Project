@@ -11,17 +11,7 @@ import { FiSettings, FiUser } from "react-icons/fi";
 import { toast } from "react-toastify";
 import { User1 } from "types/User";
 
-function AdminViewAllUsers({ loggedUserId }: any) {
-  const [token, setToken] = useState<any>();
-  useEffect(() => {
-    let token = localStorage.getItem("token");
-    if (token) {
-      setToken(JSON.parse(token));
-    } else {
-      setToken(null);
-    }
-  }, []);
-
+function AdminViewAllUsers({ loggedUserId, token }: any) {
   // back drops
   const [deleteLoading, setDeleteLoadng] = useState<boolean>(false);
   const [backdropPW, setBackdropPW] = useState<boolean>(false);

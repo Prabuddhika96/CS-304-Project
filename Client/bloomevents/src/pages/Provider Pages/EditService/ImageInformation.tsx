@@ -5,7 +5,7 @@ import ImageInformationSkeleton from "skeleton/Service Details/ImageInformationS
 import AddNewDetailImage from "./AddNewDetailImage";
 import ImageInfoCard from "./ImageInfoCard";
 
-function ImageInformation({ providerId }: any) {
+function ImageInformation({ providerId, token }: any) {
   const [limit, setLimit] = useState<any>(5);
   const [names, setNames] = useState<any>(null);
   useEffect(() => {

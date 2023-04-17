@@ -5,8 +5,12 @@ import { AddToEvent } from "types/AddToEvent";
 import { Box } from "@mui/material";
 import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import AdminBookedPackagesAction from "components/Admin/Booked Packages/AdminBookedPackagesAction";
+import ActionBtn from "components/Admin/Action btn/ActionBtn";
+import { green, red } from "@mui/material/colors";
+import { MdOutlineDone } from "react-icons/md";
+import { BiTrash } from "react-icons/bi";
 
-function ApprovedEvents({ providerId }: any) {
+function ApprovedEvents({ providerId, token }: any) {
   const [events, setEvents] = useState<Array<AddToEvent>>();
 
   useEffect(() => {
@@ -22,6 +26,15 @@ function ApprovedEvents({ providerId }: any) {
       }
     );
   }, [providerId]);
+
+  const [backdropDelete, setBackdropDelete] = useState<boolean>(false);
+  const [deleteId, setDeleteId] = useState<any>();
+  useEffect(() => {
+    const filteredData = events?.filter(
+      (event: any) => event.addToEventId !== deleteId
+    );
+    setEvents(filteredData);
+  }, [deleteId]);
 
   const columns = useMemo(
     () => [
@@ -92,6 +105,41 @@ function ApprovedEvents({ providerId }: any) {
         field: "quantity",
         headerName: "Quantity",
         width: 100,
+      },
+      {
+        field: "reject",
+        headerName: "Reject",
+        width: 110,
+        type: "actions",
+        renderCell: (params: any) => {
+          const { addToEventId } = params.row;
+          const RejectEvent = async () => {
+            setBackdropDelete(true);
+            setTimeout(() => {
+              AddToEventService.deletePackage(addToEventId, token).then(
+                (res: any) => {
+                  if (res.data.status === 1) {
+                    setDeleteId(addToEventId);
+                    setBackdropDelete(false);
+                  }
+                }
+              );
+            }, 1500);
+          };
+          return (
+            <>
+              <ActionBtn
+                loading={backdropDelete}
+                func={RejectEvent}
+                bgColor={red[500]}
+                hoverBgColor={red[700]}
+                icon={
+                  <BiTrash className="text-xl text-white row-commit-icon" />
+                }
+              />
+            </>
+          );
+        },
       },
     ],
     []

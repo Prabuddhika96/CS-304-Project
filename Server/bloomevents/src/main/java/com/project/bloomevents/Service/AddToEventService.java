@@ -28,4 +28,8 @@ public interface AddToEventService {
     int getApprovedPackageCountByEventId(int eventId);
 
     List<AddToEventDTO> getAllBookedPackages();
+
+    int getRequestCountByUserId(int userId);
+
+    int getRequestCountByProviderId(int providerId);
 }

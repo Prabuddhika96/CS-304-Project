@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import ImageInformation from "./ImageInformation";
 import BasicServiceDetails from "./BasicServiceDetails";
 
-function EditServiceDetail({ provider }: any) {
+function EditServiceDetail({ provider, token }: any) {
   const navigate = useNavigate();
   const [user, setuser] = React.useState<any>();
 
@@ -46,6 +46,7 @@ function EditServiceDetail({ provider }: any) {
           <BasicServiceDetails
             providerId={provider.providerId}
             provider={provider}
+            token={token}
           />
 
           {/* provider image info */}
@@ -54,7 +55,7 @@ function EditServiceDetail({ provider }: any) {
               Image <span className="text-[#ffa537]">Infromation</span>
             </h1>
           </div>
-          <ImageInformation providerId={provider.providerId} />
+          <ImageInformation providerId={provider.providerId} token={token} />
         </>
       )}
     </div>

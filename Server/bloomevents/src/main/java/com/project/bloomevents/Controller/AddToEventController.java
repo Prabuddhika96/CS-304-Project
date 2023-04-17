@@ -209,4 +209,36 @@ public class AddToEventController {
             return new ResponseEntity<>(map, HttpStatus.OK);
         }
     }
+
+    @GetMapping("/get/requestcountbyuserid/{userId}")
+    public ResponseEntity<?> getRequestCountByUserId(@PathVariable int userId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        int count = addToEventService.getRequestCountByUserId(userId);
+        if (count>=0) {
+            map.put("status", 1);
+            map.put("data", count);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "No Events");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
+
+    @GetMapping("/get/requestcountbyproviderid/{providerId}")
+    public ResponseEntity<?> getRequestCountByProviderId(@PathVariable int providerId){
+        Map<String, Object> map = new LinkedHashMap<String, Object>();
+        int count = addToEventService.getRequestCountByProviderId(providerId);
+        if (count>=0) {
+            map.put("status", 1);
+            map.put("data", count);
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        } else {
+            map.clear();
+            map.put("status", 0);
+            map.put("message", "No Events");
+            return new ResponseEntity<>(map, HttpStatus.OK);
+        }
+    }
 }

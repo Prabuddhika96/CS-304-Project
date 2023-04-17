@@ -8,17 +8,7 @@ import ActionBtn from "components/Admin/Action btn/ActionBtn";
 import { BiTrash } from "react-icons/bi";
 import { red } from "@mui/material/colors";
 
-function AdminViewAllProviders() {
-  const [token, setToken] = useState<any>();
-  useEffect(() => {
-    let token = localStorage.getItem("token");
-    if (token) {
-      setToken(JSON.parse(token));
-    } else {
-      setToken(null);
-    }
-  }, []);
-
+function AdminViewAllProviders({ token }: any) {
   const [providers, setProviders] = useState<Array<ServiceProvider>>([]);
   const [deleteId, setDeleteId] = useState();
   const [deleteLoading, setDeleteLoadng] = useState(false);

@@ -1,8 +1,10 @@
+import { Badge } from "@mui/material";
 import Ratings from "components/Ratings/Ratings";
 import { RouteName } from "constant/routeName";
 import image1 from "img/new/image8.jpg";
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import AddToEventService from "Services/AddToEvent/AddToEventService";
 import FileUpload from "Services/FileUpload/FileUpload";
 
 function MyServicesCard({ provider }: any) {
@@ -20,6 +22,20 @@ function MyServicesCard({ provider }: any) {
       }
     });
   }, [provider]);
+
+  const [reqCount, serReqCount] = useState<any>();
+  useEffect(() => {
+    AddToEventService.getRequestCountByProviderId(provider?.providerId).then(
+      (res: any) => {
+        if (res.data.status === 1) {
+          serReqCount(res.data.data);
+          console.log(res.data.data);
+        } else {
+          serReqCount(null);
+        }
+      }
+    );
+  }, []);
   return (
     <Link
       to={{
@@ -38,6 +54,12 @@ function MyServicesCard({ provider }: any) {
         <div className="px-6 py-4">
           <div className="mb-2 text-2xl font-bold text-[#ffa63a]">
             {provider.businessName}
+            <Badge
+              badgeContent={reqCount}
+              color="error"
+              sx={{
+                marginLeft: "25px",
+              }}></Badge>
           </div>
           <div className="mb-2 text-lg">{provider.categoryName}</div>
           <Ratings rating={provider.rating} />

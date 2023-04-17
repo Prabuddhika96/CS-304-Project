@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import FileUpload from "Services/FileUpload/FileUpload";
 import ProviderService from "Services/Provider/ProviderServices";
 
-function BasicServiceDetails({ providerId, provider }: any) {
+function BasicServiceDetails({ providerId, provider, token }: any) {
   // get service provider logo
   const [picture, setPicture] = useState("");
   useEffect(() => {
@@ -17,16 +17,6 @@ function BasicServiceDetails({ providerId, provider }: any) {
       `${process.env.REACT_APP_BACKEND_SERVER}/upload/ProviderLogos/${provider?.providerId}`
     );
   }, [provider]);
-
-  const [token, setToken] = useState<any>();
-  useEffect(() => {
-    let token = localStorage.getItem("token");
-    if (token) {
-      setToken(JSON.parse(token));
-    } else {
-      setToken(null);
-    }
-  }, []);
 
   const [changeImg, setChangeImg] = useState<boolean>(false);
   function handleFileUpload(event: any) {

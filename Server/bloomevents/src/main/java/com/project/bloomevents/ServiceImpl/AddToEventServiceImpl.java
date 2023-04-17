@@ -197,6 +197,36 @@ public class AddToEventServiceImpl implements AddToEventService {
         }
     }
 
+    @Override
+    public int getRequestCountByUserId(int userId) {
+        try{
+            int count =addToEventRepo.getRequestCountByUserId(userId);
+            if(count>=0){
+                return count;
+            }
+            return -2;
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return -1;
+        }
+    }
+
+    @Override
+    public int getRequestCountByProviderId(int providerId) {
+        try{
+            int count =addToEventRepo.getRequestCountByProviderId(providerId);
+            if(count>=0){
+                return count;
+            }
+            return -2;
+        }
+        catch (Exception e){
+            System.out.println(e.toString());
+            return -1;
+        }
+    }
+
     public boolean updateReviewed(int addToEventId){
         try{
             int count =addToEventRepo.updateReviewed(true,addToEventId);

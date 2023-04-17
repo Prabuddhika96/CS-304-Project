@@ -66,28 +66,21 @@ function Signup() {
       const result = await AuthService.Register(data);
       // console.log(result);
       if (result.data.status === 1) {
-        //redirect to login page
         localStorage.setItem(
           "loggedUser",
-          JSON.stringify({
-            userId: result.data.data.user.userId,
-            firstName: result.data.data.user.firstName,
-            lastName: result.data.data.user.lastName,
-            mobile: result.data.data.user.mobile,
-            district: result.data.data.user.district,
-            lastLogin: result.data.data.user.lastLogin,
-            role: result.data.data.user.role,
-          })
+          JSON.stringify(result.data.data.user)
         );
-        if (preview) {
-          setTimeout(() => {
-            handlePropic(result.data.data.user.userId, result.data.token);
-          }, 1000);
-        }
         localStorage.setItem("token", JSON.stringify(result.data.data.token));
-        navigate(RouteName.Services);
-        toast.success("Registration Successfull");
-        return;
+        if (preview) {
+          handlePropic(result.data.data.user.userId, result.data.data.token);
+          setTimeout(() => {
+            navigate(RouteName.Services);
+            toast.success("Registration Successfull");
+          }, 1000);
+        } else {
+          navigate(RouteName.Services);
+          toast.success("Registration Successfull");
+        }
       } else {
         toast.error("Registration Failed");
       }

@@ -35,9 +35,8 @@ const getPackagesByEventId = async (eventId: any) => {
 };
 
 const deletePackage = async (eventId: any, token: any) => {
-  // return http.delete<any>(`/addtoevent/deletepackagebyid/${eventId}`);
   const response = await axios({
-    method: "post",
+    method: "delete",
     url: `${process.env.REACT_APP_BACKEND_SERVER}/addtoevent/deletepackagebyid/${eventId}`,
     headers: {
       "Content-type": "application/json",
@@ -55,12 +54,11 @@ const getPlacedPackagesByProviderId = async (providerId: any) => {
 
 // approve package
 const approvePackage = async (addToEventId: any, token: any) => {
-  // return http.put<any>(`/addtoevent/approvepackage/${addToEventId}`);
   const response = await axios({
     method: "put",
+    maxBodyLength: Infinity,
     url: `${process.env.REACT_APP_BACKEND_SERVER}/addtoevent/approvepackage/${addToEventId}`,
     headers: {
-      "Content-Type": "application/json; charset=utf-8",
       Authorization: `Bearer ${token}`,
     },
   });
@@ -93,6 +91,16 @@ const getAllBookedPackages = async () => {
   return http.get<any>(`/addtoevent/get/allbookedpackages`);
 };
 
+const getRequestCountByUserId = async (userId: any) => {
+  return http.get<any>(`/addtoevent/get/requestcountbyuserid/${userId}`);
+};
+
+const getRequestCountByProviderId = async (providerId: any) => {
+  return http.get<any>(
+    `/addtoevent/get/requestcountbyproviderid/${providerId}`
+  );
+};
+
 const AddToEventService = {
   getAllAddToEvent,
   addPackageToEvent,
@@ -105,6 +113,8 @@ const AddToEventService = {
   getBookedPackagesByProviderId,
   getApprovedPackageCountByEventId,
   getAllBookedPackages,
+  getRequestCountByUserId,
+  getRequestCountByProviderId,
 };
 
 export default AddToEventService;

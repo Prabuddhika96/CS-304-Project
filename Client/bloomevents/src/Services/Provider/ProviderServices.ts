@@ -41,7 +41,6 @@ const updateProvider = async (data: any, token: any) => {
     method: "put",
     url: `${process.env.REACT_APP_BACKEND_SERVER}/provider/updateprovider`,
     data: data,
-
     headers: {
       "Content-Type": "application/json; charset=utf-8",
       Authorization: `Bearer ${token}`,

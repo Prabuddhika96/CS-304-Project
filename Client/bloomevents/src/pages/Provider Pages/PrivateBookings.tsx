@@ -9,17 +9,7 @@ import { useEffect, useMemo, useState } from "react";
 import { BiTrash } from "react-icons/bi";
 import { PrivateBooking } from "types/PrivateBooking";
 
-function PrivateBookings({ providerId }: any) {
-  const [token, setToken] = useState<any>();
-  useEffect(() => {
-    let token = localStorage.getItem("token");
-    if (token) {
-      setToken(JSON.parse(token));
-    } else {
-      setToken(null);
-    }
-  }, []);
-
+function PrivateBookings({ providerId, token }: any) {
   const [backdropDelete, setBackdropDelete] = useState<boolean>(false);
   const [bookings, setBookings] = useState<Array<PrivateBooking>>();
 

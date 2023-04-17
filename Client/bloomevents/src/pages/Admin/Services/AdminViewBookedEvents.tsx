@@ -9,7 +9,7 @@ import AccordianDetailComponent from "components/Admin/Bookings/Accordian/Accord
 import AccordianSummeryComponent from "components/Admin/Bookings/Accordian/AccordianSummeryComponent";
 import React, { useEffect, useState } from "react";
 
-function AdminViewBookedEvents() {
+function AdminViewBookedEvents({ token }: any) {
   // accordian
   const [expanded, setExpanded] = React.useState<string | false>(false);
 

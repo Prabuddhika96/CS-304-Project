@@ -6,7 +6,7 @@ import React, { useState } from "react";
 import PackageServices from "Services/Packages/PackageService";
 import EditPackageDetails from "./EditPackageDetails";
 
-function ChangePackageDetails({ providerId }: any) {
+function ChangePackageDetails({ providerId, token }: any) {
   let newPackage = {
     packageId: "",
     packageName: "",
@@ -57,13 +57,21 @@ function ChangePackageDetails({ providerId }: any) {
           </Box>
           {packages?.map((p: any, i: number) => (
             <TabPanel value={p.packageId} key={i}>
-              <EditPackageDetails packge={p} providerId={providerId} />
+              <EditPackageDetails
+                packge={p}
+                providerId={providerId}
+                token={token}
+              />
             </TabPanel>
           ))}
 
           {packages?.length < 5 && (
             <TabPanel value="0">
-              <EditPackageDetails packge={newPackage} providerId={providerId} />
+              <EditPackageDetails
+                packge={newPackage}
+                providerId={providerId}
+                token={token}
+              />
             </TabPanel>
           )}
 

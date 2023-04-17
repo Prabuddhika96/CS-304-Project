@@ -20,6 +20,9 @@ import { RouteName } from "constant/routeName";
 import { useEffect, useState } from "react";
 import { Role } from "Enums/Role";
 import FileUpload from "Services/FileUpload/FileUpload";
+import { Badge } from "@mui/material";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import AddToEventService from "Services/AddToEvent/AddToEventService";
 
 function LoggedUserNav({ func, promode, name, func1 }: any) {
   const [admin, setAdmin] = useState<boolean>(false);
@@ -80,6 +83,32 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
     });
   }, [user]);
 
+  // notification
+  function notificationsLabel(count: number) {
+    if (count === 0) {
+      return "no notifications";
+    }
+    if (count > 10) {
+      return "more than 10 notifications";
+    }
+    return `${count} notifications`;
+  }
+
+  const [reqCount, serReqCount] = useState<any>();
+  useEffect(() => {
+    if (user) {
+      AddToEventService.getRequestCountByUserId(user.userId).then(
+        (res: any) => {
+          if (res.data.status === 1) {
+            serReqCount(res.data.data);
+          } else {
+            serReqCount(0);
+          }
+        }
+      );
+    }
+  }, [user]);
+
   return (
     <div>
       {user && (
@@ -87,6 +116,17 @@ function LoggedUserNav({ func, promode, name, func1 }: any) {
           <Box
             sx={{ display: "flex", alignItems: "center", textAlign: "center" }}>
             <Typography sx={{ minWidth: 100 }} className="items-center">
+              {reqCount > 0 && (
+                <IconButton
+                  aria-label={notificationsLabel(reqCount)}
+                  sx={{
+                    marginRight: "10px",
+                  }}>
+                  <Badge badgeContent={reqCount} color="error">
+                    <NotificationsActiveIcon />
+                  </Badge>
+                </IconButton>
+              )}
               Switch to Provider Mode
               <Switch
                 {...label}

@@ -63,10 +63,10 @@ function AddReviewDialog({
       ReviewService.addReview(newReview, addToEventId, token).then(
         (res: any) => {
           console.log(res);
-          if (res.data.data === 1) {
+          if (res.data.status === 1) {
             setBackdrop(false);
             handleClickCloseReview();
-            toast.success("Successfully Deleted");
+            // toast.success("Successfully Deleted");
             window.location.reload();
           } else {
             toast.error(res.data.message);

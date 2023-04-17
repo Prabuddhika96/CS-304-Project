@@ -80,64 +80,78 @@ function AdminDashboard() {
     setValue(newValue);
   };
 
+  const [token, setToken] = useState<any>();
+  useEffect(() => {
+    let token = localStorage.getItem("token");
+    if (token) {
+      setToken(JSON.parse(token));
+    } else {
+      setToken(null);
+    }
+  }, []);
+
   return (
-    <div className="px-5 pt-28">
-      <div className="w-full p-3 my-3 text-center bg-white">
-        <h1 className="text-4xl font-bold">
-          Admin
-          <span className="text-[#ffa537]"> Dashboard</span>
-        </h1>
-      </div>
+    <>
+      {token && (
+        <div className="px-5 pt-28">
+          <div className="w-full p-3 my-3 text-center bg-white">
+            <h1 className="text-4xl font-bold">
+              Admin
+              <span className="text-[#ffa537]"> Dashboard</span>
+            </h1>
+          </div>
 
-      <div>
-        <Box
-          sx={{
-            flexGrow: 1,
-            bgcolor: "background.paper",
-            display: "flex",
-            // height: 600,
-            minHeight: 500,
-          }}>
-          <div className="w-2/12">
-            <Tabs
-              orientation="vertical"
-              //   variant="scrollable"
-              value={value}
-              onChange={handleChange}
-              aria-label="Vertical tabs example"
+          <div>
+            <Box
               sx={{
-                borderRight: 1,
-                borderColor: "divider",
-                width: "100% !important",
+                flexGrow: 1,
+                bgcolor: "background.paper",
+                display: "flex",
+                // height: 600,
+                minHeight: 500,
               }}>
-              <Tab label="User Details" {...a11yProps(0)} />
-              <Tab label="Provider Details" {...a11yProps(1)} />
-              <Tab label="Manage Categories" {...a11yProps(2)} />
-              <Tab label="Booking Details" {...a11yProps(3)} />
-              <Tab label="Booked Packages" {...a11yProps(4)} />
-            </Tabs>
-          </div>
+              <div className="w-2/12">
+                <Tabs
+                  orientation="vertical"
+                  //   variant="scrollable"
+                  value={value}
+                  onChange={handleChange}
+                  aria-label="Vertical tabs example"
+                  sx={{
+                    borderRight: 1,
+                    borderColor: "divider",
+                    width: "100% !important",
+                  }}>
+                  <Tab label="User Details" {...a11yProps(0)} />
+                  <Tab label="Provider Details" {...a11yProps(1)} />
+                  <Tab label="Manage Categories" {...a11yProps(2)} />
+                  <Tab label="Booking Details" {...a11yProps(3)} />
+                  <Tab label="Booked Packages" {...a11yProps(4)} />
+                </Tabs>
+              </div>
 
-          <div className="w-10/12">
-            <TabPanel value={value} index={0}>
-              <AdminViewAllUsers loggedUserId={id} />
-            </TabPanel>
-            <TabPanel value={value} index={1}>
-              <AdminViewAllProviders />
-            </TabPanel>
-            <TabPanel value={value} index={2}>
-              <AdminAddCategory />
-            </TabPanel>
-            <TabPanel value={value} index={3}>
-              <AdminViewBookedEvents />
-            </TabPanel>
-            <TabPanel value={value} index={4}>
-              <AdminViewBookedPackages />
-            </TabPanel>
+              <div className="w-10/12">
+                <TabPanel value={value} index={0}>
+                  <AdminViewAllUsers loggedUserId={id} token={token} />
+                </TabPanel>
+                <TabPanel value={value} index={1}>
+                  <AdminViewAllProviders token={token} />
+                </TabPanel>
+                <TabPanel value={value} index={2}>
+                  <AdminAddCategory token={token} />
+                </TabPanel>
+                <TabPanel value={value} index={3}>
+                  <AdminViewBookedEvents token={token} />
+                </TabPanel>
+                <TabPanel value={value} index={4}>
+                  <AdminViewBookedPackages />
+                </TabPanel>
+              </div>
+            </Box>
           </div>
-        </Box>
-      </div>
-    </div>
+        </div>
+      )}
+    </>
   );
 }
 

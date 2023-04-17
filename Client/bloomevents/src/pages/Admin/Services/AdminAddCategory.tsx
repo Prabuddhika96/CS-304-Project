@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import AddCategoryDialog from "components/Admin/Add Category/AddCategoryDialog";
 
-function AdminAddCategory() {
+function AdminAddCategory({ token }: any) {
   const [category, setCategory] = useState<any>();
   useEffect(() => {
     CategoryService.getAllCategories()
@@ -80,6 +80,7 @@ function AdminAddCategory() {
         <AddCategoryDialog
           openDialog={openDialog}
           handleClickCloseDialog={handleClickCloseDialog}
+          token={token}
         />
       </div>
       {category && (

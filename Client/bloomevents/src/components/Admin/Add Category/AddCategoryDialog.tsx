@@ -10,18 +10,8 @@ import CircularProgressItem from "components/CircularProgress/CircularProgressIt
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
-function AddCategoryDialog({ openDialog, handleClickCloseDialog }: any) {
+function AddCategoryDialog({ openDialog, handleClickCloseDialog, token }: any) {
   const [value, setValue] = useState<string | "">("");
-
-  const [token, setToken] = useState<any>();
-  useEffect(() => {
-    let token = localStorage.getItem("token");
-    if (token) {
-      setToken(JSON.parse(token));
-    } else {
-      setToken(null);
-    }
-  }, []);
 
   const [backdrop, setBackdrop] = useState<boolean>(false);
   const addCategory = (e: any) => {

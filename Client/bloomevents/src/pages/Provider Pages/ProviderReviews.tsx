@@ -3,7 +3,7 @@ import Reviews from "components/Cards/Reviews";
 import React, { useEffect, useState } from "react";
 import { Review } from "types/Review";
 
-function ProviderReviews({ providerId }: any) {
+function ProviderReviews({ providerId, token }: any) {
   // get reviews
   const [reviews, setReviews] = useState<Array<Review>>();
 

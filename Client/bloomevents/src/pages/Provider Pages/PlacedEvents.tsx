@@ -10,7 +10,7 @@ import { BiTrash } from "react-icons/bi";
 import { MdOutlineDone } from "react-icons/md";
 import { AddToEvent } from "types/AddToEvent";
 
-function PlacedEvents({ providerId }: any) {
+function PlacedEvents({ providerId, token }: any) {
   const [approveLoading, setApproveLoading] = useState<boolean>(false);
   const [backdropDelete, setBackdropDelete] = useState<boolean>(false);
 
@@ -29,16 +29,6 @@ function PlacedEvents({ providerId }: any) {
       }
     );
   }, [providerId]);
-
-  const [token, setToken] = useState<any>();
-  useEffect(() => {
-    let token = localStorage.getItem("token");
-    if (token) {
-      setToken(JSON.parse(token));
-    } else {
-      setToken(null);
-    }
-  }, []);
 
   const [deleteId, setDeleteId] = useState<any>();
   useEffect(() => {
@@ -127,6 +117,7 @@ function PlacedEvents({ providerId }: any) {
         renderCell: (params: any) => {
           const { addToEventId } = params.row;
           const ApproveEvent = async () => {
+            console.log(token);
             setApproveLoading(true);
             setTimeout(() => {
               AddToEventService.approvePackage(addToEventId, token).then(
@@ -195,7 +186,7 @@ function PlacedEvents({ providerId }: any) {
   );
   return (
     <div className="relative">
-      {events && (
+      {events && token && (
         <Box sx={{ width: "100%", height: "700px" }}>
           <DataGrid
             checkboxSelection={true}
