@@ -58,9 +58,26 @@ function EditPackageDetails({ packge, providerId, token }: any) {
           window.location.reload();
         }
       } else {
-        const result = await PackageServices.addPackage(updatedPackage, token);
-        if (result.data.status == 1) {
-          window.location.reload();
+        if (token) {
+          const result = await PackageServices.addPackage(
+            updatedPackage,
+            token
+          );
+          if (result.data.status == 1) {
+            window.location.reload();
+          }
+        } else {
+          let token1 = localStorage.getItem("token");
+          if (token1) {
+            token1 = JSON.parse(token1);
+            const result = await PackageServices.addPackage(
+              updatedPackage,
+              token1
+            );
+            if (result.data.status == 1) {
+              window.location.reload();
+            }
+          }
         }
       }
     }, 1000);
@@ -181,7 +198,8 @@ function EditPackageDetails({ packge, providerId, token }: any) {
                   <button
                     type="submit"
                     onClick={handleClickOpen}
-                    className="react-hook-form-btn react-hook-form-btn-delete">
+                    className="react-hook-form-btn react-hook-form-btn-delete"
+                  >
                     Delete Package
                   </button>
                   {/*  delete dialog */}
@@ -189,7 +207,8 @@ function EditPackageDetails({ packge, providerId, token }: any) {
                     open={open}
                     onClose={handleClose}
                     aria-labelledby="alert-dialog-title"
-                    aria-describedby="alert-dialog-description">
+                    aria-describedby="alert-dialog-description"
+                  >
                     <DialogTitle id="alert-dialog-title">
                       {`Do you want to delete ${packge.packageName} package ?`}
                     </DialogTitle>
@@ -199,7 +218,8 @@ function EditPackageDetails({ packge, providerId, token }: any) {
                       <button
                         type="submit"
                         onClick={handleDeletePackage}
-                        className="react-hook-form-btn react-hook-form-btn-delete">
+                        className="react-hook-form-btn react-hook-form-btn-delete"
+                      >
                         {backdropDelete === true && (
                           <>
                             <div className="mr-3">
@@ -217,7 +237,8 @@ function EditPackageDetails({ packge, providerId, token }: any) {
               <button
                 type="submit"
                 onClick={handleSubmit(onSubmit)}
-                className="react-hook-form-btn react-hook-form-btn-submit">
+                className="react-hook-form-btn react-hook-form-btn-submit"
+              >
                 {backdrop === true && (
                   <>
                     <div className="mr-3">
